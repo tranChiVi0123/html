@@ -1,0 +1,1809 @@
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?Y9u6amPL9K" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+		<title>
+			売上照会（日別）
+		</title>
+		<script type="text/javascript">
+			// 検索
+			function Search() {
+				$$("_processType").value = "2";
+				$$("_Form").action = "SL080SalesDailyList.html"
+				$$("_Form").submit();
+				btnDisabled();
+			}
+			
+			// CSV出力
+			function DownLoad() {
+				$$("_processType").value = 7;
+				$$("_Form").action = "SL080SalesDailyList.html"
+				$$("_Form").submit();
+				$$("_btnDownload").disabled = true;
+				setTimeout('enableDownLoad()', '3000');
+			}
+			
+			function enableDownLoad(){
+				$$("_btnDownload").disabled = false;
+			}
+		</script>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_uriage.gif' alt='' align='middle' border='0'>
+		<div class=pt>売上照会（日別）</div><br>
+		<b style="color:red"></b><br>
+		<form id="_Form" method="post">
+			<input type="hidden" name="processType" id="_processType" value="2">
+			<input type="hidden" name="fewDate" id="_fewDate" value="8">
+			<table class="nb">
+				<tr>
+					<td>
+						<table class="sf" style="width:320px;">
+							<col width="100"/>
+							<col width="220"/>
+							<tr>
+								<th class="must">売上年月日</th>
+								<td>
+									<input type='text' name='searchDateFrom' style='width:82px;'  maxlength=10 value='2019/01/04' class='ymd' onkeypress='_chkInp();' id='_searchDateFrom' onblur='_formateDate(this,"売上年月日は日付を入力して下さい。");' /><a href='#' id='_searchDateFrom_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchDateFrom',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchDateFrom_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='searchDateTo' style='width:82px;'  maxlength=10 value='2019/01/11' class='ymd' onkeypress='_chkInp();' id='_searchDateTo' onblur='_formateDate(this,"売上年月日は日付を入力して下さい。");' /><a href='#' id='_searchDateTo_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchDateTo',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchDateTo_calendar_link_id',singleClick : true,step:1});</script>
+								</td>
+							</tr>
+							<tr>
+								<th>並び順</th>
+								<td>
+									<SELECT name='orderBy' id='_orderBy' style='width:200' tabindex=null > <OPTION VALUE='0' SELECTED>売れてる順</OPTION><OPTION VALUE='1' >売れない順</OPTION> </SELECT>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<span style="margin-left:15px;"><b>1月11日現在</b></span>
+						<br><br>&nbsp;&nbsp;&nbsp;<input type="button" onClick="Search();" value="検索" />
+					</td>
+				</tr>
+			</table>
+		</form>
+		
+		<br/>
+		
+		
+		
+		
+			
+			
+			
+				<table class="nb">
+					<tr>
+						<td valign="top">
+							<table class="lt" style="width:480px; margin-left:32px;">
+								<tr class="head">
+									<th rowspan="2" style="width:180px;">
+										&nbsp;
+									</th>
+									<th colspan="5" style="width:300px;">
+										累計
+									</th>
+								</tr>
+								<tr class="head">
+									<th style="width:60px;">
+										件数
+									</th>
+									<th style="width:60px;">
+										数量
+									</th>
+									<th style="width:60px;">
+										商品代金
+									</th>
+									<th style="width:60px;">
+										その他
+									</th>
+									<th style="width:60px;">
+										合計金額
+									</th>
+								</tr>
+								<tr>
+									<td>全体合計</td>
+									<td title="1" style="text-align:right;">
+										<a href="SL100SalesItemList.html?siteCd=&syoriFlg=1&fromDate=2019/01/04&toDate=2019/01/11">
+											1</a></td>
+									<td title="2" style="text-align:right;">2</td>
+									<td title="1944" style="text-align:right;">1,944</td>
+									<td title="974" style="text-align:right;">974</td>
+									<td title="2918" style="text-align:right;">2,918</td>
+								</tr>
+							</table>
+						</td>
+						<td valign="top">
+							<div style="width:620px;overflow-x:auto;padding-bottom:17px">
+								<table class="lt" style="width:2100px; border-left:0 solid;">
+									<tr class="head">
+										
+											<th colspan="5" style="width:300px;">
+												1/4
+											</th>
+										
+											<th colspan="5" style="width:300px;">
+												1/5
+											</th>
+										
+											<th colspan="5" style="width:300px;">
+												1/6
+											</th>
+										
+											<th colspan="5" style="width:300px;">
+												1/7
+											</th>
+										
+											<th colspan="5" style="width:300px;">
+												1/8
+											</th>
+										
+											<th colspan="5" style="width:300px;">
+												1/9
+											</th>
+										
+											<th colspan="5" style="width:300px;">
+												1/10
+											</th>
+										
+									</tr>
+									<tr class="head">
+										
+											<th style="width:60px;">
+												件数
+											</th>
+											<th style="width:60px;">
+												数量
+											</th>
+											<th style="width:60px;">
+												商品代金
+											</th>
+											<th style="width:60px;">
+												その他
+											</th>
+											<th style="width:60px;">
+												合計金額
+											</th>
+										
+											<th style="width:60px;">
+												件数
+											</th>
+											<th style="width:60px;">
+												数量
+											</th>
+											<th style="width:60px;">
+												商品代金
+											</th>
+											<th style="width:60px;">
+												その他
+											</th>
+											<th style="width:60px;">
+												合計金額
+											</th>
+										
+											<th style="width:60px;">
+												件数
+											</th>
+											<th style="width:60px;">
+												数量
+											</th>
+											<th style="width:60px;">
+												商品代金
+											</th>
+											<th style="width:60px;">
+												その他
+											</th>
+											<th style="width:60px;">
+												合計金額
+											</th>
+										
+											<th style="width:60px;">
+												件数
+											</th>
+											<th style="width:60px;">
+												数量
+											</th>
+											<th style="width:60px;">
+												商品代金
+											</th>
+											<th style="width:60px;">
+												その他
+											</th>
+											<th style="width:60px;">
+												合計金額
+											</th>
+										
+											<th style="width:60px;">
+												件数
+											</th>
+											<th style="width:60px;">
+												数量
+											</th>
+											<th style="width:60px;">
+												商品代金
+											</th>
+											<th style="width:60px;">
+												その他
+											</th>
+											<th style="width:60px;">
+												合計金額
+											</th>
+										
+											<th style="width:60px;">
+												件数
+											</th>
+											<th style="width:60px;">
+												数量
+											</th>
+											<th style="width:60px;">
+												商品代金
+											</th>
+											<th style="width:60px;">
+												その他
+											</th>
+											<th style="width:60px;">
+												合計金額
+											</th>
+										
+											<th style="width:60px;">
+												件数
+											</th>
+											<th style="width:60px;">
+												数量
+											</th>
+											<th style="width:60px;">
+												商品代金
+											</th>
+											<th style="width:60px;">
+												その他
+											</th>
+											<th style="width:60px;">
+												合計金額
+											</th>
+										
+									</tr>
+									<tr>
+										
+											<td title="0" style="text-align:right;">
+												<a href="SL100SalesItemList.html?siteCd=&syoriFlg=1&fromDate=2019/01/04&toDate=2019/01/04">
+													0</a></td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+										
+											<td title="0" style="text-align:right;">
+												<a href="SL100SalesItemList.html?siteCd=&syoriFlg=1&fromDate=2019/01/05&toDate=2019/01/05">
+													0</a></td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+										
+											<td title="0" style="text-align:right;">
+												<a href="SL100SalesItemList.html?siteCd=&syoriFlg=1&fromDate=2019/01/06&toDate=2019/01/06">
+													0</a></td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+										
+											<td title="0" style="text-align:right;">
+												<a href="SL100SalesItemList.html?siteCd=&syoriFlg=1&fromDate=2019/01/07&toDate=2019/01/07">
+													0</a></td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+										
+											<td title="1" style="text-align:right;">
+												<a href="SL100SalesItemList.html?siteCd=&syoriFlg=1&fromDate=2019/01/08&toDate=2019/01/08">
+													1</a></td>
+											<td title="2" style="text-align:right;">
+												2
+											</td>
+											<td title="1944" style="text-align:right;">
+												1,944
+											</td>
+											<td title="974" style="text-align:right;">
+												974
+											</td>
+											<td title="2918" style="text-align:right;">
+												2,918
+											</td>
+										
+											<td title="0" style="text-align:right;">
+												<a href="SL100SalesItemList.html?siteCd=&syoriFlg=1&fromDate=2019/01/09&toDate=2019/01/09">
+													0</a></td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+										
+											<td title="0" style="text-align:right;">
+												<a href="SL100SalesItemList.html?siteCd=&syoriFlg=1&fromDate=2019/01/10&toDate=2019/01/10">
+													0</a></td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+											<td title="0" style="text-align:right;">
+												0
+											</td>
+										
+									</tr>
+								</table>
+								
+							</div>
+						</td>
+					</tr>
+				</table>
+				<br/>
+			
+			
+			
+			
+			
+			
+			
+				<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>6件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1</SELECT>/1</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='SL080SalesDailyList.html' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="1"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="6"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value=""><input type='hidden' name='orderBy' value="0"><input type='hidden' name='coNo' value="2535"><input type='hidden' name='searchDateFrom' value="2019/01/04"><input type='hidden' name='searchDateTo' value="2019/01/11"><input type='hidden' name='fewDate' value="8"></form>
+				<table class="nb">
+					<tr>
+						<td style="width:260px;text-align:center;" bgcolor="#ffff66">
+							<input type="button" id="_btnDownload" onClick="DownLoad();" value="CSV出力">
+						</td>
+					</tr>
+				</table>
+				<table class="nb">
+					<tr>
+						<td valign="top">
+							<table class="lt" style="width:510px;">
+								<tr class="head">
+									<th rowspan="2" style="width:30px;">
+										No
+									</th>
+									<th rowspan="2" style="width:180px;">
+										サイト名
+									</th>
+									<th colspan="5" style="width:300px;">
+										累計
+									</th>
+								</tr>
+								<tr class="head">
+									<th style="width:60px;">
+										件数
+									</th>
+									<th style="width:60px;">
+										数量
+									</th>
+									<th style="width:60px;">
+										商品代金
+									</th>
+									<th style="width:60px;">
+										その他
+									</th>
+									<th style="width:60px;">
+										合計金額
+									</th>
+								</tr>
+								
+								
+									<tr>
+										<td style="text-align:center;">
+											1
+										</td>
+										<td title="アクアペットサービス">
+											アクアペットサービス
+										</td>
+										<td title="1" style="text-align:right;">
+											<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1&fromDate=2019/01/04&toDate=2019/01/11">
+												1</a></td>
+										<td title="2" style="text-align:right;">
+											2
+										</td>
+										<td title="1944" style="text-align:right;">
+											1,944
+										</td>
+										<td title="974" style="text-align:right;">
+											974
+										</td>
+										<td title="2918" style="text-align:right;">
+											2,918
+										</td>
+									</tr>
+								
+									<tr>
+										<td style="text-align:center;">
+											2
+										</td>
+										<td title="アクアペットサービス 楽天市場店">
+											アクアペットサービス 楽天市場店
+										</td>
+										<td title="0" style="text-align:right;">
+											<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1001&fromDate=2019/01/04&toDate=2019/01/11">
+												0</a></td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+									</tr>
+								
+									<tr>
+										<td style="text-align:center;">
+											3
+										</td>
+										<td title="楽天ペイテスト">
+											楽天ペイテスト
+										</td>
+										<td title="0" style="text-align:right;">
+											<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=8888&fromDate=2019/01/04&toDate=2019/01/11">
+												0</a></td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+									</tr>
+								
+									<tr>
+										<td style="text-align:center;">
+											4
+										</td>
+										<td title="ペットプラザ">
+											ペットプラザ
+										</td>
+										<td title="0" style="text-align:right;">
+											<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1004&fromDate=2019/01/04&toDate=2019/01/11">
+												0</a></td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+									</tr>
+								
+									<tr>
+										<td style="text-align:center;">
+											5
+										</td>
+										<td title="アクアペットサービス Amazon店">
+											アクアペットサービス Amazon店
+										</td>
+										<td title="0" style="text-align:right;">
+											<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1003&fromDate=2019/01/04&toDate=2019/01/11">
+												0</a></td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+									</tr>
+								
+									<tr>
+										<td style="text-align:center;">
+											6
+										</td>
+										<td title="アクアペットサービス ヤフー店">
+											アクアペットサービス ヤフー店
+										</td>
+										<td title="0" style="text-align:right;">
+											<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1002&fromDate=2019/01/04&toDate=2019/01/11">
+												0</a></td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+										<td title="0" style="text-align:right;">
+											0
+										</td>
+									</tr>
+								
+							</table>
+						</td>
+						<td valign="top">
+							<div style="width:620px;overflow-x:auto;padding-bottom:17px">
+								<table class="lt" style="width:2100px; border-left:0 solid;">
+									<tr class="head">
+										
+											
+												<th colspan="5" style="width:300px;">
+													1/4
+												</th>
+											
+										
+											
+												<th colspan="5" style="width:300px;">
+													1/5
+												</th>
+											
+										
+											
+												<th colspan="5" style="width:300px;">
+													1/6
+												</th>
+											
+										
+											
+												<th colspan="5" style="width:300px;">
+													1/7
+												</th>
+											
+										
+											
+												<th colspan="5" style="width:300px;">
+													1/8
+												</th>
+											
+										
+											
+												<th colspan="5" style="width:300px;">
+													1/9
+												</th>
+											
+										
+											
+												<th colspan="5" style="width:300px;">
+													1/10
+												</th>
+											
+										
+											
+												<th colspan="5" style="width:300px;">
+													1/11
+												</th>
+											
+										
+									</tr>
+									<tr class="head">
+										
+											
+												<th style="width:60px;">
+													件数
+												</th>
+												<th style="width:60px;">
+													数量
+												</th>
+												<th style="width:60px;">
+													商品代金
+												</th>
+												<th style="width:60px;">
+													その他
+												</th>
+												<th style="width:60px;">
+													合計金額
+												</th>
+											
+										
+											
+												<th style="width:60px;">
+													件数
+												</th>
+												<th style="width:60px;">
+													数量
+												</th>
+												<th style="width:60px;">
+													商品代金
+												</th>
+												<th style="width:60px;">
+													その他
+												</th>
+												<th style="width:60px;">
+													合計金額
+												</th>
+											
+										
+											
+												<th style="width:60px;">
+													件数
+												</th>
+												<th style="width:60px;">
+													数量
+												</th>
+												<th style="width:60px;">
+													商品代金
+												</th>
+												<th style="width:60px;">
+													その他
+												</th>
+												<th style="width:60px;">
+													合計金額
+												</th>
+											
+										
+											
+												<th style="width:60px;">
+													件数
+												</th>
+												<th style="width:60px;">
+													数量
+												</th>
+												<th style="width:60px;">
+													商品代金
+												</th>
+												<th style="width:60px;">
+													その他
+												</th>
+												<th style="width:60px;">
+													合計金額
+												</th>
+											
+										
+											
+												<th style="width:60px;">
+													件数
+												</th>
+												<th style="width:60px;">
+													数量
+												</th>
+												<th style="width:60px;">
+													商品代金
+												</th>
+												<th style="width:60px;">
+													その他
+												</th>
+												<th style="width:60px;">
+													合計金額
+												</th>
+											
+										
+											
+												<th style="width:60px;">
+													件数
+												</th>
+												<th style="width:60px;">
+													数量
+												</th>
+												<th style="width:60px;">
+													商品代金
+												</th>
+												<th style="width:60px;">
+													その他
+												</th>
+												<th style="width:60px;">
+													合計金額
+												</th>
+											
+										
+											
+												<th style="width:60px;">
+													件数
+												</th>
+												<th style="width:60px;">
+													数量
+												</th>
+												<th style="width:60px;">
+													商品代金
+												</th>
+												<th style="width:60px;">
+													その他
+												</th>
+												<th style="width:60px;">
+													合計金額
+												</th>
+											
+										
+											
+												<th style="width:60px;">
+													件数
+												</th>
+												<th style="width:60px;">
+													数量
+												</th>
+												<th style="width:60px;">
+													商品代金
+												</th>
+												<th style="width:60px;">
+													その他
+												</th>
+												<th style="width:60px;">
+													合計金額
+												</th>
+											
+										
+									</tr>
+									
+										<tr>
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1&fromDate=2019/01/04&toDate=2019/01/04">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1&fromDate=2019/01/05&toDate=2019/01/05">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1&fromDate=2019/01/06&toDate=2019/01/06">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1&fromDate=2019/01/07&toDate=2019/01/07">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="1" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1&fromDate=2019/01/08&toDate=2019/01/08">
+														1</a>
+													</td>
+													<td title="2" style="text-align:right;">
+														2
+													</td>
+													<td title="1944" style="text-align:right;">
+														1,944
+													</td>
+													<td title="974" style="text-align:right;">
+														974
+													</td>
+													<td title="2918" style="text-align:right;">
+														2,918
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1&fromDate=2019/01/09&toDate=2019/01/09">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1&fromDate=2019/01/10&toDate=2019/01/10">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1&fromDate=2019/01/11&toDate=2019/01/11">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+										</tr>
+									
+										<tr>
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1002&fromDate=2019/01/04&toDate=2019/01/04">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1002&fromDate=2019/01/05&toDate=2019/01/05">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1002&fromDate=2019/01/06&toDate=2019/01/06">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1002&fromDate=2019/01/07&toDate=2019/01/07">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1002&fromDate=2019/01/08&toDate=2019/01/08">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1002&fromDate=2019/01/09&toDate=2019/01/09">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1002&fromDate=2019/01/10&toDate=2019/01/10">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1002&fromDate=2019/01/11&toDate=2019/01/11">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+										</tr>
+									
+										<tr>
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=8888&fromDate=2019/01/04&toDate=2019/01/04">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=8888&fromDate=2019/01/05&toDate=2019/01/05">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=8888&fromDate=2019/01/06&toDate=2019/01/06">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=8888&fromDate=2019/01/07&toDate=2019/01/07">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=8888&fromDate=2019/01/08&toDate=2019/01/08">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=8888&fromDate=2019/01/09&toDate=2019/01/09">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=8888&fromDate=2019/01/10&toDate=2019/01/10">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=8888&fromDate=2019/01/11&toDate=2019/01/11">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+										</tr>
+									
+										<tr>
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1003&fromDate=2019/01/04&toDate=2019/01/04">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1003&fromDate=2019/01/05&toDate=2019/01/05">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1003&fromDate=2019/01/06&toDate=2019/01/06">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1003&fromDate=2019/01/07&toDate=2019/01/07">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1003&fromDate=2019/01/08&toDate=2019/01/08">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1003&fromDate=2019/01/09&toDate=2019/01/09">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1003&fromDate=2019/01/10&toDate=2019/01/10">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1003&fromDate=2019/01/11&toDate=2019/01/11">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+										</tr>
+									
+										<tr>
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1001&fromDate=2019/01/04&toDate=2019/01/04">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1001&fromDate=2019/01/05&toDate=2019/01/05">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1001&fromDate=2019/01/06&toDate=2019/01/06">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1001&fromDate=2019/01/07&toDate=2019/01/07">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1001&fromDate=2019/01/08&toDate=2019/01/08">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1001&fromDate=2019/01/09&toDate=2019/01/09">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1001&fromDate=2019/01/10&toDate=2019/01/10">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1001&fromDate=2019/01/11&toDate=2019/01/11">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+										</tr>
+									
+										<tr>
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1004&fromDate=2019/01/04&toDate=2019/01/04">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1004&fromDate=2019/01/05&toDate=2019/01/05">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1004&fromDate=2019/01/06&toDate=2019/01/06">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1004&fromDate=2019/01/07&toDate=2019/01/07">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1004&fromDate=2019/01/08&toDate=2019/01/08">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1004&fromDate=2019/01/09&toDate=2019/01/09">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1004&fromDate=2019/01/10&toDate=2019/01/10">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+												
+													<td title="0" style="text-align:right;">
+														<a href="SL100SalesItemList.html?syoriFlg=1&siteCd=1004&fromDate=2019/01/11&toDate=2019/01/11">
+														0</a>
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+													<td title="0" style="text-align:right;">
+														0
+													</td>
+												
+											
+										</tr>
+									
+								</table>
+								
+							</div>
+						</td>
+					</tr>
+				</table>
+			
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

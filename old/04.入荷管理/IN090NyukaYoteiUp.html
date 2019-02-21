@@ -1,0 +1,169 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" Content="text/html;charset=windows-31j" />
+		<title>入荷予定CSV登録</title>
+		
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+		
+		
+		<script type="text/javascript">
+			function uploadCsv(){
+				if (confirm("登録を開始します。\n念のため、登録するデータと、パターン選択の指定が、一致していることを確認してください。")) {
+					$$("processType").value = "11";
+					$$("mainForm").submit();
+					btnDisabled();	
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_nyuuka.gif' alt='' align='middle' border='0'>
+		<div class=pt>入荷予定CSV登録</div>
+		
+		<div id="errMsg" style="text-weight:bold;color:red"><b></b><br /></div>
+		<form name="mainForm" id="mainForm" action="/easpro2/e_asproNyuka/IN090NyukaYoteiUp" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="secToken" id="secToken" value="23B59D61DA1DACB599F29BDDF7DEA1C0"/>
+			<input type="hidden" name="processType" id="processType"/>
+			<table class="nb" style="width:400">
+				<tr >
+					<td>
+						<table class="sf" style="width:400">
+						<colgroup>
+							<col width="100" />
+							<col width="300" />
+						</colgroup>
+							<tr>
+								<th width="100" class="must">パターン選択</th>
+								<td>
+									<SELECT name='patternNo' id='patternNo'  tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='2' >発注</OPTION><OPTION VALUE='3' >全データ</OPTION><OPTION VALUE='4' >発注２</OPTION> </SELECT>
+								</td>
+							</tr>
+							<tr>
+								<th class="must">ファイル</th>
+								<td><input type="file" name="touRokuFile" size="30"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr bgcolor="#ffcccc">
+					<td align="center">
+						<input id="btnUpload" type="button" onClick="uploadCsv();" value="登録する"
+						 
+						/>
+					</td>
+				</tr>
+			</table>
+			<hr align="left" width="400">
+			 
+				<table class="lt" style="width:230px" id="tourokuTable">
+					<colgroup>
+						<col width="30">
+						<col width="120">
+						<col width="80">
+					</colgroup>
+					<tr class="head">
+						<th>No.</th>
+						<th>登録日時</th>
+						<th>登録件数</th>
+					</tr>
+					
+					
+						<tr>
+							
+							<td align="right">
+								1</td>	
+							
+							<td align="center">
+								2019/01/23 16:10</td>	
+							
+							<td align="right">
+								1</td>	
+						</tr>
+					
+				</table>
+			
+			
+		</form>
+		<br>
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

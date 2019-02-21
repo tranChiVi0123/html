@@ -1,0 +1,763 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" Content="text/html;charset=shift_jis" />
+		<title>入荷入力</title>
+		
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?rx79AZ4iTx" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+		
+		<style type="text/css">
+		a.action{text-decoration:none;}
+		td span{text-overflow: ellipsis;}
+		img.absmiddle{ vertical-align: middle; }
+		</style>
+		<script type="text/javascript">
+			
+			// 仕入先コード検索ウィンドウ
+			function showSiireSearchWindows(){
+				var url= "/CC034SearchSiire.html?callsSrciptFuncName=setSiireInfo";
+				_searchWin = window.open(url,"CC034","width=750,height=500,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+				_searchWin.focus();
+			}
+
+			// 仕入先コード検索ウィンドウ戻り
+			function setSiireInfo(siireCd,siireNm1,siireNm2,siireZip,siireAddr1,siireAddr2,siireAddr3,siireTel,siireFax,siireTanto,syanaiTanto,index){
+				//仕入先名1～2、仕入先郵便番号、仕入先住所1～3、仕入先電話番号、仕入先FAX番号
+				$("input[name=siireCd]").val(siireCd);7
+				$("#siireNm").html(siireNm1+siireNm2);
+				$("#siireNm").attr("title",siireNm1+siireNm2);
+				$("#siireNm1").val(siireNm1);
+				$("#siireNm2").val(siireNm2);
+
+				$("input[name=siireCd]").select();
+			}
+
+			// 4.仕入先コード値変更時(Ajaxではなく、サーバー側処理で行う事)
+			function siireCdChange(){
+				$("#processType").val(2);
+				$("#searchKbn").val("getSiireInfo");
+				$("#mainForm").submit();
+			}
+
+			// 在庫商品検索ウィンドウを表示する
+			function showZaikoItemWindow(){
+				var idx = $(this).parent().attr('data-idx'); //<td data-idx="XX">
+				var siireCd = $("input[name=siireCd]").val();
+				var whCd = $("#whCd").val();
+				var url= "CC031SearchZaiko.html?callsSrciptFuncName=setZailoItemInfo&index="+idx+"&whCdSearch="+whCd+"&shiireCdSearch="+siireCd;
+				_searchWin = window.open(url,"CC031","width=700,height=500,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+				_searchWin.focus();
+			}
+
+			// CC031SearchZaikoを使って在庫データを取得2014/09/22 chg motoyama 
+			// 在庫商品CD、在庫商品カラーCD、在庫商品サイズCD、在庫商品名の取得
+			function setZailoItemInfo(zaikoItemNo,zaikoColorCd,zaikoSizeCd,zaikoItemNm1,searchIdx){
+				$("#zaikoItemNm_disp_"+searchIdx).html(zaikoItemNm1);
+				$("#zaikoItemNm_disp_"+searchIdx).parent().attr("title",zaikoItemNm1);
+				$("#zaikoItemNm1_"+searchIdx).val(zaikoItemNm1);
+				$("#zaikoItemNo_"+searchIdx).val(zaikoItemNo);
+				$("#zaikoColorCd_"+searchIdx).val(zaikoColorCd);
+				$("#zaikoSizeCd_"+searchIdx).val(zaikoSizeCd);
+
+				
+				var url = "IN030NyukaEntry.html";
+				var params = "processType="+6;
+					params += "&searchKbn=getZaikoItemInfo";
+					params += "&searchIdx=" +searchIdx;
+					params += "&zaikoItemNo=" + $("#zaikoItemNo_" +searchIdx).val();
+					params += "&zaikoColorCd=" + $("#zaikoColorCd_" +searchIdx).val();
+					params += "&zaikoSizeCd=" + $("#zaikoSizeCd_" +searchIdx).val();			
+					_SendByAjax(url,params,'',true);
+			}
+			
+			// 上記functionで取得できなかった分をsetItemInfoを使って取得する2014/09/22 chg motoyama 
+			// 入数、単位の取得
+			function setItemInfo(searchIdx,zaikoItemNm1,zaikoItemNm2,irisuu,taniKbn,taniKbnNm){
+				$("#irisuu_disp_"+searchIdx).html(toComma(irisuu));
+				$("#irisuu_"+searchIdx).val(irisuu);
+				$("#zaikoItemNm_disp_"+searchIdx).html(zaikoItemNm1);
+				$("#zaikoItemNm_disp_"+searchIdx).parent().attr("title",zaikoItemNm1);
+				$("#zaikoItemNm1_"+searchIdx).val(zaikoItemNm1);
+				
+				$("#taniKbn_disp_"+searchIdx).html(taniKbnNm);
+				$("#itemTaniKbn_"+searchIdx).val(taniKbn);
+				$("#itemTaniKbnNm_"+searchIdx).val(taniKbnNm);
+			}
+
+			//手入力での在庫商品変更
+			function chgZailoItemInfo(obj){
+				var idx = $(obj).parent().attr('data-idx');
+				var url = "IN080NyukaYoteiEntry.html";
+				var params = "processType="+6;
+					params += "&searchKbn=getZaikoItemInfo";
+					params += "&searchIdx=" +idx;
+					params += "&zaikoItemNo=" + $("#zaikoItemNo_" +idx).val();
+					params += "&zaikoColorCd=" + $("#zaikoColorCd_" +idx).val();
+					params += "&zaikoSizeCd=" + $("#zaikoSizeCd_" +idx).val();
+					_SendByAjax(url,params,'',true);
+			}
+
+			// 9.5行追加する
+			function addRow(){
+				$("#btnAddRow").attr("disabled",true);
+				for(var i=0;i<5;i++){
+					var lastRow = $("#tblZaikoItem tbody tr:last");
+					var newIdx = parseInt(lastRow.attr("data-idx"),10) + 1;
+					var newRow = $("#templete").clone(true);
+					//行番号
+					newRow.attr("data-idx",newIdx);
+					newRow.css("background-color","");
+					newRow.show();
+
+					newRow.find("td.data-idx").each(function(){
+						$(this).attr("data-idx",newIdx);
+					});
+					//入力
+					newRow.find("input").each(function(){
+						$(this).attr("id",$(this).attr("name")+"_"+newIdx);
+						$(this).attr("data-idx",newIdx);
+						$(this).val("");
+						$(this).removeAttr("tabIndex");
+					});
+					//検索ボタン
+					newRow.find("a.action").attr("data-idx",newIdx);
+					//画面表示( 名 )
+					newRow.find("span.display").each(function(){
+						$(this).attr("id",$(this).attr("data-id-prefix")+"_"+newIdx);
+						$(this).html("");
+					});
+					
+					//賞味期限
+					var syokigen = newRow.find("input[name=syokigen]");
+					syokigen.attr("id","syokigen_" + newIdx);
+					var syokigen_link = syokigen.next();
+					syokigen_link.attr("id",syokigen.attr("id") + "_calendar_link_id");
+					
+					syokigen_link.next().remove();
+					
+					newRow.insertAfter(lastRow);
+					
+					Calendar.setup({inputField:'syokigen_' + newIdx,ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syokigen_' + newIdx + '_calendar_link_id',singleClick : true,step:1});
+
+				}			
+				_PageInit(1,1,1,1,1);
+				var colorful = new ColorfulInput;
+				colorful.set();
+				setTimeout(function(){
+					$("#btnAddRow").removeAttr("disabled");
+				},500);
+			}
+
+			// 「登録」ボタン押下時処理
+			function doInsert(){
+				if(confirm("登録します。よろしいですか？")){
+					$("#processType").val("3");
+					$("#mainForm").submit();
+				}
+			}
+			
+			// 「更新する」ボタン押下時処理
+			function doUpdate(){
+				if(confirm("更新します。よろしいですか？")){
+					$("#processType").val("4");
+					$("#mainForm").submit();
+				}
+			}
+			
+			$(function(){
+				$("#mainForm").bind("submit",function(){
+					//ボタンをdisableにする。
+					$("#templete").remove();
+					btnDisabled();
+				});
+				//3.仕入先コード検索ボタン押下
+				$("a#btnShowSiireSearchWindows").click(showSiireSearchWindows);
+				//4.仕入先コード値変更時(Ajaxではなく、サーバー側処理で行う事)
+				$("input[name=siireCd]").change(siireCdChange);
+				//5.商品コード検索ボタン押下
+				$("a.showZaikoItemWindow").click(showZaikoItemWindow);
+				//6.商品コード、商品カラーコード、商品サイズコード値変更時(Ajaxではなく、サーバー側処理で行う事)
+				//$("input[name=zaikoItemNo],input[name=zaikoColorCd],input[name=zaikoSizeCd]").change(itemCdChange);
+			});
+	
+		</script>
+
+	</head>
+
+	<body bgcolor="#ffffff" link="#000066" vlink="#000066">
+		<img src='../ecsdocs2/img/head_nyuuka.gif' alt='' align='middle' border='0'>
+		<div class=pt>入荷入力
+			
+		</div>
+		
+		<div>
+			<b style="color: red" id="js_errMsg"></b>
+			<br>
+		</div>
+
+		<form id="mainForm" method="post" action="IN030NyukaEntry.html">
+			<input type="hidden" name="secToken" id="secToken" value="2B582A818F6890EF7A6667B77F1AF3EF"/>
+			
+			<input type="hidden" name="processType" id="processType" />
+			<input type="hidden" name="searchKbn" id="searchKbn" />
+			<input type="hidden" name="searchIdx" id="searchIdx" value="-1" />
+			<input type="hidden" name="exclCnt" id="exclCnt" value=""/>
+			<input type="hidden" name="processMode" value="1" />
+			
+			<table>
+				<tr>
+					<td>
+						<table class="lt" style="width: 1020px">
+							<colgroup>
+								<col width="130" />
+								<col width="120" />
+								<col width="190" />
+								<col width="300" />
+								<col width="120" />
+								<col width="160" />
+							</colgroup>
+							<tr class="head">
+								<th>入荷番号</TH>
+								<th class="must">入荷日</th>
+								<th class="must">倉庫名</th>
+								<th class="must">仕入先名</th>
+								<th>発注日</th>
+								<th>発注番号</th>
+							</tr>
+							<tr>
+								
+								<td title="">
+									
+									<input type="hidden" name="nyukaCd" id="nyukaCd" value="" />
+								</td>
+								
+							
+								
+								<td align="center" title="">
+									<input type='text' name='inYmd' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='inYmd' onblur='_formateDate(this,"入荷日は日付を入力して下さい。");' /><a href='#' id='inYmd_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'inYmd',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'inYmd_calendar_link_id',singleClick : true,step:1});</script>
+								</td>
+								
+								<td title="">
+									
+										<input type="hidden" id="whNm1" name="whNm1" value="" />
+										<select name="whCd" id="whCd" style="width:170px">
+											
+												<option value="036410501"  >
+												アクアペット倉庫
+												</option>
+											
+												<option value=""  >
+												
+												</option>
+											
+										</select>
+									
+								</td>
+								
+								<td title="">
+									
+									
+									<input type="hidden" id="siireNm1" name="siireNm1" value="" />
+									<input type="hidden" id="siireNm2" name="siireNm2" value="" />
+									<input type='text' name='siireCd' id='siireCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:148.64px;'> </input>
+									<a id="btnShowSiireSearchWindows" class="action" href="javascript:;" tabindex="-1">
+										<img src="../ecsdocs2/img/hatena2.gif" alt="" class="absmiddle" border="0" />
+									</a>
+									<span id="siireNm"  title="">
+										
+									</span>
+								</td>
+								
+								<td align="center">
+									<input type='text' name='hatyuDate' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='hatyuDate' onblur='_formateDate(this,"発注日は日付を入力して下さい。");' /><a href='#' id='hatyuDate_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'hatyuDate',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'hatyuDate_calendar_link_id',singleClick : true,step:1});</script>
+								</td>
+								
+								<td>
+									<input type='text' name='hatyuCd' id='hatyuCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:148.64px;'> </input>
+								</td>
+							
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<hr align="left" width="1020">
+			
+			<table>
+				<tr>
+					<td>
+						<table id="tblZaikoItem" class="lt" style="width:960px;">
+							<colgroup>
+								<col width="260">
+								<col width="200">
+								<col width="80">
+								<col width="60">
+								<col width="120">
+								<col width="100">
+								<col width="120">
+							</colgroup>
+							<thead>
+		 						<tr class="head">
+		 							<th class="must">商品コード</th>
+		 							<th>在庫商品名</th>
+		 							<th>入数</th>
+		 							<th>単位</th>
+		 							<th>賞味期限</th>
+		 							<th class="must">実績数</th>
+		 							<th class="must">在庫状態</th>
+								</tr>
+								<tr id="templete" style="display:none;">
+									
+									<td class="data-idx">
+										<input type="hidden" name="zaikoLineNo" value="" />
+										<input type='text' name='zaikoItemNo' id='zaikoItemNo_templete' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='30' style='width:93.04px;' tabindex=-1 onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoColorCd' id='zaikoColorCd_templete' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' tabindex=-1 onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoSizeCd' id='zaikoSizeCd_templete' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' tabindex=-1 onchange=chgZailoItemInfo(this);> </input>
+										<a class="action showZaikoItemWindow" href="javascript:;" tabindex="-1" >
+											<img class="absmiddle" src="../ecsdocs2/img/hatena.gif" />
+										</a>
+									</td>
+									
+									<td>
+										<span data-id-prefix="zaikoItemNm_disp" class="display"></span>
+										<input type="hidden" name="zaikoItemNm1" value=""/>
+										<input type="hidden" name="zaikoItemNm2" value=""/>
+									</td>
+									
+									<td align="right">
+										<span data-id-prefix="irisuu_disp" class="display"></span>
+										<input type="hidden" name="irisuu" value="" />
+									</td>
+									
+									<td>
+										<span data-id-prefix="taniKbn_disp" class="display"></span>
+										<input type="hidden" name="itemTaniKbn" value=""/>
+										<input type="hidden" name="itemTaniKbnNm" value="" />
+									</td>
+									
+									<td align="center">
+										<input type='text' name='syokigen' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='syokigen_templete' onblur='_formateDate(this,"賞味期限は日付を入力して下さい。");' /><a href='#' id='syokigen_templete_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'syokigen_templete',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syokigen_templete_calendar_link_id',singleClick : true,step:1});</script>
+									
+									<td class="data-idx" align="right">
+										<input type='text' name='qty' id='qty_templete' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='7' style='width:76.36px;' tabindex=-1> </input>
+									</td>
+									
+									<td class="data-idx" align="left">
+										<SELECT name='zaikoJoutaiKbn' id='zaikoJoutaiKbn_templete' style='width:100px' tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='100' SELECTED>通常品</OPTION><OPTION VALUE='200' >アウトレット品</OPTION><OPTION VALUE='300' >中古品</OPTION><OPTION VALUE='500' >保留品</OPTION><OPTION VALUE='900' >不良品</OPTION><OPTION VALUE='400' >通常品400</OPTION> </SELECT>
+										<input type="hidden" name="zaikoJoutaiKbnNm" value="" />
+									</td>
+								</tr>
+							</thead>
+							<tbody>
+							
+								<tr data-idx="0">
+									<td data-idx="0">
+									<input type="hidden" name="zaikoLineNo" value="" />
+									
+										<input type='text' name='zaikoItemNo' id='zaikoItemNo_0' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='30' style='width:93.04px;' onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoColorCd' id='zaikoColorCd_0' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoSizeCd' id='zaikoSizeCd_0' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' onchange=chgZailoItemInfo(this);> </input>
+										<a class="action showZaikoItemWindow" href="javascript:;" tabindex="-1" >
+											<img src="../ecsdocs2/img/hatena.gif" />
+										</a>
+											
+									
+									</td>
+									
+									<td>
+										<span id="zaikoItemNm_disp_0"
+											data-id-prefix="zaikoItemNm_disp" 
+											class="display" 
+											title=""
+											></span>
+									
+										<input type="hidden" name="zaikoItemNm1" id="zaikoItemNm1_0" value="" />
+										<input type="hidden" name="zaikoItemNm2" id="zaikoItemNm2_0" value="" />
+									</td>
+									
+									<td align="right">
+										<span id="irisuu_disp_0" data-id-prefix="irisuu_disp" class="display" title="">
+										
+										</span>
+										<input type="hidden" name="irisuu" id="irisuu_0" value="" />
+									</td>
+									
+									<td>
+										<span id="taniKbn_disp_0" data-id-prefix="irisuu_disp" class="display" title="">
+											
+										</span>
+										<input type="hidden" name="itemTaniKbn" id="itemTaniKbn_0" value=""/>
+										<input type="hidden" name="itemTaniKbnNm" id="itemTaniKbnNm_0" value="" />
+									</td>
+									
+										
+										<td align="center">
+											<input type='text' name='syokigen' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='syokigen_0' onblur='_formateDate(this,"賞味期限は日付を入力して下さい。");' /><a href='#' id='syokigen_0_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'syokigen_0',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syokigen_0_calendar_link_id',singleClick : true,step:1});</script>
+										</td>
+										
+									
+									<td class="data-idx" align="right">
+										<input type='text' name='qty' id='qty_0' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='7' style='width:76.36px;'> </input>
+									</td>
+									
+										
+										<td class="data-idx" align="left">
+											
+											<SELECT name='zaikoJoutaiKbn' id='zaikoJoutaiKbn_0'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='100' SELECTED>通常品</OPTION><OPTION VALUE='200' >アウトレット品</OPTION><OPTION VALUE='300' >中古品</OPTION><OPTION VALUE='500' >保留品</OPTION><OPTION VALUE='900' >不良品</OPTION><OPTION VALUE='400' >通常品400</OPTION> </SELECT>
+											<input type="hidden" name="zaikoJoutaiKbnNm" id="_zaikoJoutaiKbnNm_0" value=""/>	
+										</td>
+									
+								</tr>
+							
+								<tr data-idx="1">
+									<td data-idx="1">
+									<input type="hidden" name="zaikoLineNo" value="" />
+									
+										<input type='text' name='zaikoItemNo' id='zaikoItemNo_1' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='30' style='width:93.04px;' onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoColorCd' id='zaikoColorCd_1' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoSizeCd' id='zaikoSizeCd_1' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' onchange=chgZailoItemInfo(this);> </input>
+										<a class="action showZaikoItemWindow" href="javascript:;" tabindex="-1" >
+											<img src="../ecsdocs2/img/hatena.gif" />
+										</a>
+											
+									
+									</td>
+									
+									<td>
+										<span id="zaikoItemNm_disp_1"
+											data-id-prefix="zaikoItemNm_disp" 
+											class="display" 
+											title=""
+											></span>
+									
+										<input type="hidden" name="zaikoItemNm1" id="zaikoItemNm1_1" value="" />
+										<input type="hidden" name="zaikoItemNm2" id="zaikoItemNm2_1" value="" />
+									</td>
+									
+									<td align="right">
+										<span id="irisuu_disp_1" data-id-prefix="irisuu_disp" class="display" title="">
+										
+										</span>
+										<input type="hidden" name="irisuu" id="irisuu_1" value="" />
+									</td>
+									
+									<td>
+										<span id="taniKbn_disp_1" data-id-prefix="irisuu_disp" class="display" title="">
+											
+										</span>
+										<input type="hidden" name="itemTaniKbn" id="itemTaniKbn_1" value=""/>
+										<input type="hidden" name="itemTaniKbnNm" id="itemTaniKbnNm_1" value="" />
+									</td>
+									
+										
+										<td align="center">
+											<input type='text' name='syokigen' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='syokigen_1' onblur='_formateDate(this,"賞味期限は日付を入力して下さい。");' /><a href='#' id='syokigen_1_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'syokigen_1',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syokigen_1_calendar_link_id',singleClick : true,step:1});</script>
+										</td>
+										
+									
+									<td class="data-idx" align="right">
+										<input type='text' name='qty' id='qty_1' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='7' style='width:76.36px;'> </input>
+									</td>
+									
+										
+										<td class="data-idx" align="left">
+											
+											<SELECT name='zaikoJoutaiKbn' id='zaikoJoutaiKbn_1'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='100' SELECTED>通常品</OPTION><OPTION VALUE='200' >アウトレット品</OPTION><OPTION VALUE='300' >中古品</OPTION><OPTION VALUE='500' >保留品</OPTION><OPTION VALUE='900' >不良品</OPTION><OPTION VALUE='400' >通常品400</OPTION> </SELECT>
+											<input type="hidden" name="zaikoJoutaiKbnNm" id="_zaikoJoutaiKbnNm_1" value=""/>	
+										</td>
+									
+								</tr>
+							
+								<tr data-idx="2">
+									<td data-idx="2">
+									<input type="hidden" name="zaikoLineNo" value="" />
+									
+										<input type='text' name='zaikoItemNo' id='zaikoItemNo_2' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='30' style='width:93.04px;' onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoColorCd' id='zaikoColorCd_2' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoSizeCd' id='zaikoSizeCd_2' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' onchange=chgZailoItemInfo(this);> </input>
+										<a class="action showZaikoItemWindow" href="javascript:;" tabindex="-1" >
+											<img src="../ecsdocs2/img/hatena.gif" />
+										</a>
+											
+									
+									</td>
+									
+									<td>
+										<span id="zaikoItemNm_disp_2"
+											data-id-prefix="zaikoItemNm_disp" 
+											class="display" 
+											title=""
+											></span>
+									
+										<input type="hidden" name="zaikoItemNm1" id="zaikoItemNm1_2" value="" />
+										<input type="hidden" name="zaikoItemNm2" id="zaikoItemNm2_2" value="" />
+									</td>
+									
+									<td align="right">
+										<span id="irisuu_disp_2" data-id-prefix="irisuu_disp" class="display" title="">
+										
+										</span>
+										<input type="hidden" name="irisuu" id="irisuu_2" value="" />
+									</td>
+									
+									<td>
+										<span id="taniKbn_disp_2" data-id-prefix="irisuu_disp" class="display" title="">
+											
+										</span>
+										<input type="hidden" name="itemTaniKbn" id="itemTaniKbn_2" value=""/>
+										<input type="hidden" name="itemTaniKbnNm" id="itemTaniKbnNm_2" value="" />
+									</td>
+									
+										
+										<td align="center">
+											<input type='text' name='syokigen' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='syokigen_2' onblur='_formateDate(this,"賞味期限は日付を入力して下さい。");' /><a href='#' id='syokigen_2_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'syokigen_2',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syokigen_2_calendar_link_id',singleClick : true,step:1});</script>
+										</td>
+										
+									
+									<td class="data-idx" align="right">
+										<input type='text' name='qty' id='qty_2' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='7' style='width:76.36px;'> </input>
+									</td>
+									
+										
+										<td class="data-idx" align="left">
+											
+											<SELECT name='zaikoJoutaiKbn' id='zaikoJoutaiKbn_2'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='100' SELECTED>通常品</OPTION><OPTION VALUE='200' >アウトレット品</OPTION><OPTION VALUE='300' >中古品</OPTION><OPTION VALUE='500' >保留品</OPTION><OPTION VALUE='900' >不良品</OPTION><OPTION VALUE='400' >通常品400</OPTION> </SELECT>
+											<input type="hidden" name="zaikoJoutaiKbnNm" id="_zaikoJoutaiKbnNm_2" value=""/>	
+										</td>
+									
+								</tr>
+							
+								<tr data-idx="3">
+									<td data-idx="3">
+									<input type="hidden" name="zaikoLineNo" value="" />
+									
+										<input type='text' name='zaikoItemNo' id='zaikoItemNo_3' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='30' style='width:93.04px;' onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoColorCd' id='zaikoColorCd_3' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoSizeCd' id='zaikoSizeCd_3' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' onchange=chgZailoItemInfo(this);> </input>
+										<a class="action showZaikoItemWindow" href="javascript:;" tabindex="-1" >
+											<img src="../ecsdocs2/img/hatena.gif" />
+										</a>
+											
+									
+									</td>
+									
+									<td>
+										<span id="zaikoItemNm_disp_3"
+											data-id-prefix="zaikoItemNm_disp" 
+											class="display" 
+											title=""
+											></span>
+									
+										<input type="hidden" name="zaikoItemNm1" id="zaikoItemNm1_3" value="" />
+										<input type="hidden" name="zaikoItemNm2" id="zaikoItemNm2_3" value="" />
+									</td>
+									
+									<td align="right">
+										<span id="irisuu_disp_3" data-id-prefix="irisuu_disp" class="display" title="">
+										
+										</span>
+										<input type="hidden" name="irisuu" id="irisuu_3" value="" />
+									</td>
+									
+									<td>
+										<span id="taniKbn_disp_3" data-id-prefix="irisuu_disp" class="display" title="">
+											
+										</span>
+										<input type="hidden" name="itemTaniKbn" id="itemTaniKbn_3" value=""/>
+										<input type="hidden" name="itemTaniKbnNm" id="itemTaniKbnNm_3" value="" />
+									</td>
+									
+										
+										<td align="center">
+											<input type='text' name='syokigen' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='syokigen_3' onblur='_formateDate(this,"賞味期限は日付を入力して下さい。");' /><a href='#' id='syokigen_3_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'syokigen_3',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syokigen_3_calendar_link_id',singleClick : true,step:1});</script>
+										</td>
+										
+									
+									<td class="data-idx" align="right">
+										<input type='text' name='qty' id='qty_3' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='7' style='width:76.36px;'> </input>
+									</td>
+									
+										
+										<td class="data-idx" align="left">
+											
+											<SELECT name='zaikoJoutaiKbn' id='zaikoJoutaiKbn_3'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='100' SELECTED>通常品</OPTION><OPTION VALUE='200' >アウトレット品</OPTION><OPTION VALUE='300' >中古品</OPTION><OPTION VALUE='500' >保留品</OPTION><OPTION VALUE='900' >不良品</OPTION><OPTION VALUE='400' >通常品400</OPTION> </SELECT>
+											<input type="hidden" name="zaikoJoutaiKbnNm" id="_zaikoJoutaiKbnNm_3" value=""/>	
+										</td>
+									
+								</tr>
+							
+								<tr data-idx="4">
+									<td data-idx="4">
+									<input type="hidden" name="zaikoLineNo" value="" />
+									
+										<input type='text' name='zaikoItemNo' id='zaikoItemNo_4' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='30' style='width:93.04px;' onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoColorCd' id='zaikoColorCd_4' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' onchange=chgZailoItemInfo(this);> </input>
+										<input type='text' name='zaikoSizeCd' id='zaikoSizeCd_4' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='20' style='width:54.12px;' onchange=chgZailoItemInfo(this);> </input>
+										<a class="action showZaikoItemWindow" href="javascript:;" tabindex="-1" >
+											<img src="../ecsdocs2/img/hatena.gif" />
+										</a>
+											
+									
+									</td>
+									
+									<td>
+										<span id="zaikoItemNm_disp_4"
+											data-id-prefix="zaikoItemNm_disp" 
+											class="display" 
+											title=""
+											></span>
+									
+										<input type="hidden" name="zaikoItemNm1" id="zaikoItemNm1_4" value="" />
+										<input type="hidden" name="zaikoItemNm2" id="zaikoItemNm2_4" value="" />
+									</td>
+									
+									<td align="right">
+										<span id="irisuu_disp_4" data-id-prefix="irisuu_disp" class="display" title="">
+										
+										</span>
+										<input type="hidden" name="irisuu" id="irisuu_4" value="" />
+									</td>
+									
+									<td>
+										<span id="taniKbn_disp_4" data-id-prefix="irisuu_disp" class="display" title="">
+											
+										</span>
+										<input type="hidden" name="itemTaniKbn" id="itemTaniKbn_4" value=""/>
+										<input type="hidden" name="itemTaniKbnNm" id="itemTaniKbnNm_4" value="" />
+									</td>
+									
+										
+										<td align="center">
+											<input type='text' name='syokigen' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='syokigen_4' onblur='_formateDate(this,"賞味期限は日付を入力して下さい。");' /><a href='#' id='syokigen_4_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'syokigen_4',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syokigen_4_calendar_link_id',singleClick : true,step:1});</script>
+										</td>
+										
+									
+									<td class="data-idx" align="right">
+										<input type='text' name='qty' id='qty_4' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='7' style='width:76.36px;'> </input>
+									</td>
+									
+										
+										<td class="data-idx" align="left">
+											
+											<SELECT name='zaikoJoutaiKbn' id='zaikoJoutaiKbn_4'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='100' SELECTED>通常品</OPTION><OPTION VALUE='200' >アウトレット品</OPTION><OPTION VALUE='300' >中古品</OPTION><OPTION VALUE='500' >保留品</OPTION><OPTION VALUE='900' >不良品</OPTION><OPTION VALUE='400' >通常品400</OPTION> </SELECT>
+											<input type="hidden" name="zaikoJoutaiKbnNm" id="_zaikoJoutaiKbnNm_4" value=""/>	
+										</td>
+									
+								</tr>
+							
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr id="row_btn">
+					<td>
+						┗<input id="btnAddRow" type="button" value="5行追加" onclick="addRow();" 
+							
+							/>
+					</td>
+				</tr>
+			</table>
+			
+			<table>
+				<tr>
+					<td>
+						<table class="nb" style="width: 960px">
+							
+								<tr style="background-color:#ffcccc;">
+										<td align="center">
+											<input id="btnSubmit" value="登録する" type="button" onClick="doInsert();" 
+											 
+											/>
+										</td>
+								</tr>
+							
+						</table>
+					</td>
+				</tr>
+			</table>
+			
+		</form>
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

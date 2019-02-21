@@ -1,0 +1,611 @@
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?qHwgWXoU6c" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+	<meta http-equiv = "Pragma" content="no-cache">																	
+	<meta http-equiv = "Cache-control" content="no-cache">
+	<META http-equiv="content-type" content="text/html; charset=windows-31j">
+		
+		<TITLE>
+			受払照会
+		</TITLE> 
+		<SCRIPT type="text/javascript">
+			//「検索」ボタン押下時処理
+			function Search(){
+				$$("_Form").action="ZI011UkeList.html";
+				$$("_processType").value="1";
+				$$("_Form").submit();
+				btnDisabled();	
+			}
+
+	</SCRIPT>
+	</head>
+	<BODY>
+		<img src='../ecsdocs2/img/head_zaiko.gif' alt='' align='middle' border='0'>
+		<div class=pt>受払照会<br><A href='ZI010ZaikoList.html?backUrlKey=&intPageNo=1&intPageCount=225&intPageSize=30&intRecordCount=6730&strToolbarX=&strToolbarY=&strSpaceHeight=50px&processType=2&processKbn=&searchKbn=2&group_level=0&zaiko_itme_no=&coNo=2535&search_bunrui_cd=&search_bunrui_nm=&search_bunrui_kbn=&search_ondo_kbn=&search_wh_cd=&search_bumon_cd=&search_bunrui_big_cd=&search_bunrui_middle_cd=&search_bunrui_small_cd=&search_zaiko_item_no=&search_zaiko_item_no_s=&search_zaiko_item_no_e=&search_zaiko_item_nm=&search_jan_cd=&search_item_tani_kbn=&search_zaiko_kbn=&search_siire_cd=&search_siire_nm=&search_zaiko_flg=&search_hattyu_flg=&search_hyouji_flg=&search_location_cd_s=&search_location_cd_e=&search_in_ymd_s=&search_in_ymd_e=&search_tran_no=&search_lot_no=&search_syo_kigen_ymd_s=&search_syo_kigen_ymd_e=&search_syukka_kigen_ymd_s=&search_syukka_kigen_ymd_e=&search_syokigen_flg=&search_zaiko_jotai=&search_site_cd=&search_not_safe_flg=&search_not_ship_flg=&search_not_sale_flg=&search_sale_ymd_s=&search_sale_ymd_e=&search_orderby_cd=0&search_maker_cd=&search_maker_hinban=' tabindex="1" ><img src="../ecsdocs2/img/return.gif"></A></div></br>
+		<b style="color:red"></b>
+		<br>
+		
+		<form id="_Form" method="post" action="/easpro2/e_asproZaiko/ZI011UkeList">
+			<div ID='div1' style='display:block;'>
+			<input type="hidden" name="strForwordFlg" value="2">
+			<input type="hidden" name="searchKbn" value="2">
+			<input type="hidden" name="zaiko_item_no" value="0001">
+			<input type="hidden" name="processType" id="_processType" value="">
+			<input type="hidden" name="syoriKbn" id="_syoriKbn" value="ZI010">
+		    <input type="hidden" name="wh_cd" id="_wh_cd" value=""/>
+			<input type="hidden" name="strFromPageId" value="ZI010">
+			<input type="hidden" name="csv_down_kbn" id="_csv_down_kbn">
+			<input type="hidden" name="search_not_safe_flg" id="_search_not_safe_flg" value=""/>
+			<br>
+			<FONT SIZE="2" COLOR="#ff9900">■</FONT>
+			<FONT SIZE="2">受注基本情報<BR>
+			</FONT>
+			<TABLE class="nb">
+				<TR>
+					<TD>
+						<TABLE CLASS="ft" WIDTH="920" >
+							<TR>
+								<TH style="background-color:#CCCCFF"  ALIGN="center" NOWRAP WIDTH="100">
+									<FONT SIZE="2">在庫商品コード</FONT>
+								</TH>
+								<TD NOWRAP WIDTH="130" title="0001">
+									0001</TD>
+								<TH style="background-color:#CCCCFF"  ALIGN="center" NOWRAP WIDTH="100">
+									<FONT SIZE="2">在庫商品名</FONT>
+								</TH>
+								<TD NOWRAP WIDTH="130">
+									<div style="white-space:normal;">検査キット</div></TD>
+								<TH  style="background-color:#CCCCFF"  ALIGN="center" NOWRAP WIDTH="100">
+									<FONT SIZE="2">代表バーコード</FONT>
+								</TH>
+								<TD NOWRAP WIDTH="130" title="">
+									</TD>
+								<TH  style="background-color:#CCCCFF"  ALIGN="center" NOWRAP WIDTH="100">
+									<FONT SIZE="2">倉庫名</FONT>
+								</TH>
+								<TD NOWRAP WIDTH="130">
+									<div style="white-space:normal;"></div>
+									<input type="hidden" name="wh_cd" value=""></TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+			</TABLE>
+			<FONT SIZE="2" COLOR="#ff9900">■</FONT>
+			<FONT SIZE="2">検索条件<BR></FONT>
+			<TABLE class="nb">
+				<TR>
+					<TD>
+						<TABLE CLASS="sf" WIDTH="649">
+							<TR>
+								<TH ALIGN="center" NOWRAP WIDTH="100">
+									<FONT SIZE="2">在庫状態</FONT>
+								</TH>
+								<TD NOWRAP WIDTH="214">
+											<SELECT name='zaiko_jotai_kbn' id='_zaiko_jotai_kbn' style='width:245px' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='100' >通常品</OPTION><OPTION VALUE='200' >アウトレット品</OPTION><OPTION VALUE='300' >中古品</OPTION><OPTION VALUE='500' >保留品</OPTION><OPTION VALUE='900' >不良品</OPTION><OPTION VALUE='400' >通常品400</OPTION> </SELECT>
+								<TH ALIGN="center" NOWRAP WIDTH="100">
+									<FONT SIZE="2">賞味期限</FONT>
+								</TH>
+										<TD>
+											<input type='text' name='syokigen' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_syokigen' onblur='_formateDate(this,"賞味期限は日付を入力して下さい。");' /><a href='#' id='_syokigen_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_syokigen',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_syokigen_calendar_link_id',singleClick : true,step:1});</script>
+										</TD>
+							</TR>
+							<TR>
+								<TH ALIGN="center" NOWRAP WIDTH="100" CLASS="must">
+									<FONT SIZE="2">集計期間</FONT>
+								</TH>
+										<TD>
+											<input type='text' name='searchYM_from' style='width:82px;'  maxlength=10 value='2016/12/01' class='ymd' onkeypress='_chkInp();' id='_searchYM_from' onblur='_formateDate(this,"集計期間は日付を入力して下さい。");' /><a href='#' id='_searchYM_from_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchYM_from',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchYM_from_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='searchYM_to' style='width:82px;'  maxlength=10 value='2019/01/10' class='ymd' onkeypress='_chkInp();' id='_searchYM_to' onblur='_formateDate(this,"集計期間は日付を入力して下さい。");' /><a href='#' id='_searchYM_to_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchYM_to',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchYM_to_calendar_link_id',singleClick : true,step:1});</script>
+										</TD>
+							</TR>
+						</TABLE>
+					</TD>
+					<TD VALIGN="bottom">
+						<input   type="button" onClick="Search();" value="検索"/>
+					</TD>
+				</TR>
+			</TABLE>
+		</form>
+		<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=1050px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=1050px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+		
+					<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>3件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1</SELECT>/1</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='/easpro2/e_asproZaiko/ZI011UkeList' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="1"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="3"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value="1"><input type='hidden' name='searchKbn' value="2"><input type='hidden' name='co_no' value="2535"><input type='hidden' name='user_no' value="42"><input type='hidden' name='syukei_kbn' value=""><input type='hidden' name='zaiko_item_no' value="0001"><input type='hidden' name='wh_cd' value=""><input type='hidden' name='location_cd' value=""><input type='hidden' name='searchYM_from' value="2016/12/01"><input type='hidden' name='searchYM_to' value="2019/01/10"><input type='hidden' name='search_not_safe_flg' value=""><input type='hidden' name='search_not_ship_flg' value=""><input type='hidden' name='search_not_sale_flg' value=""></form>
+					
+					
+					<TABLE CLASS="lt" width="1050">
+	                    <TR CLASS="head">
+	                    	<TH width="30"　　NOWRAP><FONT SIZE="2">No</FONT></TH>
+	 	   				 	 <TH width="85"　NOWRAP><FONT SIZE="2">日付</FONT></TH>                   	
+	   						<TH width="85"　NOWRAP><FONT SIZE="2">摘要</FONT></TH>
+	 						<TH width="100"　NOWRAP><FONT SIZE="2">在庫状態</FONT></TH>
+	 						<TH width="70"　　NOWRAP><FONT SIZE="2">入庫</FONT></TH>
+	 						<TH width="70"　　NOWRAP><FONT SIZE="2">出庫</FONT></TH>
+	 						<TH width="80"　　NOWRAP><FONT SIZE="2">在庫数</FONT></TH>
+	 						
+	 							<TH width="100"　NOWRAP><FONT SIZE="2">通常品</FONT></TH>
+	 							
+	 						
+	 							<TH width="100"　NOWRAP><FONT SIZE="2">アウトレット品</FONT></TH>
+	 							
+	 						
+	 							<TH width="100"　NOWRAP><FONT SIZE="2">中古品</FONT></TH>
+	 							
+	 						
+	 							<TH width="100"　NOWRAP><FONT SIZE="2">保留品</FONT></TH>
+	 							
+	 						
+	 							<TH width="100"　NOWRAP><FONT SIZE="2">不良品</FONT></TH>
+	 							
+	 						
+	 							<TH width="100"　NOWRAP><FONT SIZE="2">通常品400</FONT></TH>
+	 							
+	 						
+						</TR>
+					
+					
+					
+					
+						<TR style="background-color:#ffffcc">
+							<TD NOWRAP WIDTH="30"><BR></TD>
+							<TD NOWRAP WIDTH="85"><BR></TD>
+							<TD NOWRAP WIDTH="85"><FONT SIZE="2">【前月繰越】</FONT></TD>
+							<TD NOWRAP WIDTH="100"><BR></TD>
+							<TD NOWRAP WIDTH="70"><BR></TD>
+							<TD NOWRAP WIDTH="70"><BR></TD>
+							
+							
+	 						
+	 							
+	 							
+	 							
+		 							
+									
+	 									<TD align="right" width="80"　NOWRAP>0</TD>
+	 								
+		 						
+		 						
+	 							
+	 								<TD align="right" width="100"　NOWRAP>0</TD>
+	 							
+	 						
+	 							
+	 							
+	 							
+		 							
+									
+		 						
+		 						
+	 							
+	 								<TD align="right" width="100"　NOWRAP>0</TD>
+	 							
+	 						
+	 							
+	 							
+	 							
+		 							
+									
+		 						
+		 						
+	 							
+	 								<TD align="right" width="100"　NOWRAP>0</TD>
+	 							
+	 						
+	 							
+	 							
+	 							
+		 							
+									
+		 						
+		 						
+	 							
+	 								<TD align="right" width="100"　NOWRAP>0</TD>
+	 							
+	 						
+	 							
+	 							
+	 							
+		 							
+									
+		 						
+		 						
+	 							
+	 								<TD align="right" width="100"　NOWRAP>0</TD>
+	 							
+	 						
+	 							
+	 							
+	 							
+		 							
+									
+		 						
+		 						
+	 							
+	 								<TD align="right" width="100"　NOWRAP>0</TD>
+	 							
+	 						
+						</TR>
+
+				
+				
+				
+				
+				
+				
+				
+				
+
+				
+					
+					
+						
+						
+					
+					
+					
+ 					
+					
+						
+							
+							
+ 						
+ 					
+						
+ 					
+						
+ 					
+						
+ 					
+						
+ 					
+						
+ 					
+				
+					
+					
+						
+						
+					
+					
+					
+ 					
+					
+						
+							
+							
+ 						
+ 					
+						
+ 					
+						
+ 					
+						
+ 					
+						
+ 					
+						
+ 					
+				
+					
+					
+						
+						
+					
+					
+					
+ 					
+					
+						
+							
+							
+ 						
+ 					
+						
+ 					
+						
+ 					
+						
+ 					
+						
+ 					
+						
+ 					
+				
+				
+				
+				
+				
+				
+				
+					
+					
+	            	<TR>
+						<TD WIDTH="30" ALIGN="center" title="1">
+							1</TD>
+						
+						<TD WIDTH="85" ALIGN="left" title="2018/10/03">
+							2018/10/03</TD>
+						
+						<TD WIDTH="85" ALIGN="left" title="入荷">
+							入荷</TD>
+						
+						<TD WIDTH="100" ALIGN="left" title="通常品">
+							通常品</TD>
+						
+						
+						
+						<TD WIDTH="70" align="right"  title="15">
+							15</TD>
+							
+								
+								
+							
+						
+						
+						
+						
+	 						<TD width="70"　　NOWRAP></TD>
+						
+						
+						
+	 					<TD align="right" width="80"　　NOWRAP>15</TD>
+	 					
+ 						
+ 							
+ 								
+ 								
+	 							<TD align="right" width="100"　NOWRAP>15</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+						</TR>
+				
+					
+					
+	            	<TR>
+						<TD WIDTH="30" ALIGN="center" title="2">
+							2</TD>
+						
+						<TD WIDTH="85" ALIGN="left" title="2018/11/23">
+							2018/11/23</TD>
+						
+						<TD WIDTH="85" ALIGN="left" title="入荷">
+							入荷</TD>
+						
+						<TD WIDTH="100" ALIGN="left" title="通常品">
+							通常品</TD>
+						
+						
+						
+						<TD WIDTH="70" align="right"  title="10">
+							10</TD>
+							
+								
+								
+							
+						
+						
+						
+						
+	 						<TD width="70"　　NOWRAP></TD>
+						
+						
+						
+	 					<TD align="right" width="80"　　NOWRAP>25</TD>
+	 					
+ 						
+ 							
+ 								
+ 								
+	 							<TD align="right" width="100"　NOWRAP>25</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+						</TR>
+				
+					
+					
+	            	<TR>
+						<TD WIDTH="30" ALIGN="center" title="3">
+							3</TD>
+						
+						<TD WIDTH="85" ALIGN="left" title="2018/11/24">
+							2018/11/24</TD>
+						
+						<TD WIDTH="85" ALIGN="left" title="入荷">
+							入荷</TD>
+						
+						<TD WIDTH="100" ALIGN="left" title="通常品">
+							通常品</TD>
+						
+						
+						
+						<TD WIDTH="70" align="right"  title="5">
+							5</TD>
+							
+								
+								
+							
+						
+						
+						
+						
+	 						<TD width="70"　　NOWRAP></TD>
+						
+						
+						
+	 					<TD align="right" width="80"　　NOWRAP>30</TD>
+	 					
+ 						
+ 							
+ 								
+ 								
+	 							<TD align="right" width="100"　NOWRAP>30</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+ 							
+	 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 						
+	 					
+						</TR>
+				
+					<TR style="background-color:#ffcccc">
+						<TD colspan="4" align="right" width="300"　NOWRAP>期間合計</TD>
+	 					<TD align="right" width="70"　　NOWRAP>30</TD>
+	 					<TD align="right" width="70"　　NOWRAP>0</TD>
+	 					<TD align="right" width="80"　　NOWRAP>30</TD>
+	 					
+ 						
+ 							<TD align="right" width="100"　NOWRAP>30</TD>
+	 					
+ 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 					
+ 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 					
+ 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 					
+ 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 					
+ 							<TD align="right" width="100"　NOWRAP>0</TD>
+	 					
+					</TR>
+				</TABLE>
+
+				
+			
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</BODY>
+</html>

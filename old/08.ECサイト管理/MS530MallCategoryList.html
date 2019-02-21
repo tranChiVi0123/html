@@ -1,0 +1,934 @@
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?8G7hWyvCjn" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<HTML LANG="ja">
+	<HEAD>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<META HTTP-EQUIV="content-type" CONTENT="text/html;charset=Shift_JIS">
+		<TITLE>カテゴリマスタ</TITLE>
+		<SCRIPT type="text/javascript">
+		<!-- hide this script tags contents from old browsers
+		//CSV登録ボタン押下
+		function csvupload(){
+			if(confirm("登録を開始します。念のため、登録するデータと、サイトの指定が、一致していることを確認してください。")){
+				if(document.all("diskUploadFile").value.length < 5){
+					document.all("errMsg").innerText = "CSV形式でないファイルはアップロードできません。(拡張子エラー)";
+					return;
+				}
+				else{
+					var fileType = document.all("diskUploadFile").value.substr(document.all("diskUploadFile").value.length -4);
+					if(fileType.toUpperCase() != ".CSV"){
+						document.all("errMsg").innerText = "CSV形式でないファイルはアップロードできません。(拡張子エラー)";
+						return;
+					}
+				}
+				$$("_Form0").action="/easpro2/e_asproMaster/MS530MallCategoryList";
+				$$("_processType").value="3";
+				$$("_Form0").submit();
+				btnDisabled();
+			}else{
+				return;
+			}
+		}
+		//「検索」ボタン押下時処理
+		function Search(){
+			$$("_Form").action="/easpro2/e_asproMaster/MS530MallCategoryList";
+			$$("_processType1").value="2";
+			$$("_Form").submit();
+			btnDisabled();	
+		}
+		//「カテゴリ編集」ボタン押下時処理
+		function Cagetory_hensyu(){
+			//ラジオボタンが選択されているカテゴリ情報を取得する
+			var site_cd = document.getElementById('_search_site_cd2').value;					//一覧部.サイト区分
+			var category_set_no = document.getElementById('_search_category_set_no2').value;	//一覧部.カテゴリセット
+			var category_data = "";
+			var category_cd = "";
+			var category_class = "";
+
+			for (var i = 0; i < document.Form2.chk_category_data.length; i++){
+				if(document.Form2.chk_category_data[i].checked == true){
+					category_data = document.Form2.chk_category_data[i].value.split(",");
+					category_cd = category_data[0];
+					category_class = category_data[1];
+				}
+			}
+			if(category_cd ==""){
+				msg ="明細データを1件以上選択して下さい。<br>".replace("<br>","");
+				alert(msg);
+				return;
+			}
+			$$("_Form2").action="/easpro2/e_asproMaster/MS531CategoryEntry";
+			$$("_wv_site_cd").value=site_cd;
+			$$("_wv_category_set_no").value=category_set_no;
+			$$("_wv_category_cd").value=category_cd;
+			$$("_wv_category_class").value=category_class;
+			$$("_processType2").value="";
+			$$("_Form2").submit();
+			btnDisabled();
+		}
+		//「削除」ボタン押下時処理
+		function Delete(){
+			//ラジオボタンが選択されているカテゴリ情報を取得する
+			var site_kbn = document.getElementById('_wv_site_kbn').value;						//一覧部.サイト区分
+			var site_cd = document.getElementById('_search_site_cd2').value;					//一覧部.サイトCD
+			var category_set_no = document.getElementById('_search_category_set_no2').value;	//一覧部.カテゴリセット
+			var category_data = "";
+			var category_cd = "";
+			var category_class = "";
+			
+			for (var i = 0; i < document.Form2.chk_category_data.length; i++){
+				if(document.Form2.chk_category_data[i].checked == true){
+					category_data = document.Form2.chk_category_data[i].value.split(",");
+					category_cd = category_data[0];
+					category_class = category_data[1];
+				}
+			}
+			if(category_class=="0"){
+				msg ="カテゴリトップを削除対象として指定することは出来ません";
+				alert(msg);
+				return;
+			}
+			//初期化
+			$$("_wv_item_cnt").value="0";
+			//削除対象が楽天
+			if (site_kbn ==100){
+				getDelete_chk_R(category_set_no,category_cd,site_cd);
+			
+			//削除対象がYAHOO
+			}else if (site_kbn==101){
+				getDelete_chk_Y(category_cd,site_cd);
+			//その他（ECなど）
+			}else {
+				getDelete_chk(category_cd);
+			}
+			var item_cnt = $$("_wv_item_cnt").value;
+
+			if (item_cnt != 0){
+				if(confirm("削除対象のカテゴリに結び付く商品が存在します。削除してよろしいですか？")){
+				}else{
+					return;
+				}
+			}
+	    	if(category_cd ==""){
+	    		msg ="明細データを1件以上選択して下さい。<br>".replace("<br>","");
+	    		alert(msg);
+	    		return;
+	    	}
+	    	
+			if(confirm("削除します。よろしいですか？")){
+				$$("_Form2").action="/easpro2/e_asproMaster/MS530MallCategoryList";
+				$$("_wv_site_cd").value=site_cd;
+				$$("_wv_category_set_no").value=category_set_no;
+				$$("_wv_category_cd").value=category_cd;
+				$$("_processType2").value="5";
+				$$("_Form2").submit();
+				btnDisabled();
+			}else{
+				return;
+			}
+		}
+		//「各サイトに展開」ボタン押下時処理
+		function Develop(){
+			if(confirm("他のサイトにカテゴリを展開します。よろしいですか？")){
+				$$("_Form2").action="/easpro2/e_asproMaster/MS530MallCategoryList";
+				$$("_wv_site_cd").value="0000000001";
+				$$("_wv_category_set_no").value="0";
+				$$("_processType2").value="4";
+				$$("_Form2").submit();
+				btnDisabled();	
+			}else{
+				return;
+			}
+		}
+		//[+]ボタン押下時、対象カテゴリを上位階層として設定してあるカテゴリを全て表示
+		//[-]ボタン押下時、対象カテゴリを上位階層として設定してあるカテゴリを全て非表示
+		function open_underclass(tName,btn1,btn2) {
+			  tMenu = document.all[tName].style;
+			  btnnm1 =  document.all[btn1].style;		//ボタン[+]
+			  btnnm2 =  document.all[btn2].style;		//ボタン[-]
+
+			//ボタンが[-]の場合
+			if(btnnm1.display == 'none'){
+				tMenu.display ="none";
+			//ボタンが[+]の場合
+			}else{
+				tMenu.display ="inline";
+			}
+				
+			//ボタンが[-]の場合
+			if(btnnm1.display == 'none'){
+				btnnm1.display = "inline";
+				btnnm2.display = "none";
+			//ボタンが[+]の場合
+			}else{
+				btnnm1.display = "none";
+				btnnm2.display = "inline";
+			}
+		}
+
+		//削除ボタン押下時、削除対象カテゴリに紐付く商品存在チェック  楽天Ajax
+		function getDelete_chk_R(_category_set_no,_category_cd,_site_cd){
+			
+			var url = "/easpro2/e_asproMaster/MS530MallCategoryList";
+			var parms = "processType="+6;
+				parms = parms+"&ajaxKbn=rakuten";
+				parms = parms+"&site_cd="+_site_cd;
+				parms = parms+"&category_set_no="+_category_set_no;
+				parms = parms+"&category_cd="+_category_cd;
+			_SendByAjax(url,parms,'',false);
+		}
+
+		//削除ボタン押下時、削除対象カテゴリに紐付く商品存在チェック  YAHOOAjax
+		function getDelete_chk_Y(_category_cd,_site_cd){
+			
+			var url = "/easpro2/e_asproMaster/MS530MallCategoryList";
+			var parms = "processType="+6;
+				parms = parms+"&ajaxKbn=yahoo";
+				parms = parms+"&site_cd="+_site_cd;
+				parms = parms+"&category_cd="+_category_cd;
+			_SendByAjax(url,parms,'',false);
+		}
+		
+		//削除時、削除対象カテゴリに紐付く商品存在チェック 
+		function getDelete_chk(_category_cd){
+			
+			var url = "/easpro2/e_asproMaster/MS530MallCategoryList";
+			var parms = "processType="+6;
+				parms = parms+"&ajaxKbn=other";
+				parms = parms+"&category_cd="+_category_cd;
+			_SendByAjax(url,parms,'',false);
+		}
+
+		//Ajaxの戻り値をセット	楽天
+		function setM_EA025_R_CNT(cnt){
+			if (cnt!=0){
+				$$("_wv_item_cnt").value=cnt;
+			}
+		}
+		//Ajaxの戻り値をセット	YAHOO
+		function setM_EA025_Y_CNT(cnt){
+			if (cnt!=0){
+				$$("_wv_item_cnt").value=cnt;
+			}
+		}		
+		//Ajaxの戻り値をセット	そのほか
+		function setM_EA010_CNT(cnt){
+			if (cnt!=0){
+				$$("_wv_item_cnt").value=cnt;
+			}
+		}		
+
+		//Ajax検索　サイトCDに紐付くカテゴリーセットマスタを再取得する
+		function getCategory(_val,kbn){
+			var url = "/easpro2/e_asproMaster/MS530MallCategoryList";
+			var parms = "processType="+6;
+			parms = parms+"&ajaxKbn=category"+kbn;
+			parms = parms+"&ajax_site_cd="+_val;
+			_SendByAjax(url,parms,'',false);
+		}
+		//Ajaxの戻り値をセット
+		function setCategory(str,kbn){
+			if (kbn == 1) {
+				$$("js_category_set_no1").innerHTML=str;
+			}else if (kbn == 2) {
+				$$("js_category_set_no2").innerHTML=str;
+			}
+		}
+		//「CSV出力」ボタン押下時処理
+		function Download(){
+			$$("_Form").action="/easpro2/e_asproMaster/MS530MallCategoryList";
+			$$("_processType1").value="7";
+			$$("_csvRayoutKbn").value = $$("_csvRayoutKbnList").value;
+			$$("_Form").submit();
+			$$("js_btnDownload1").disabled=true;
+			
+			setTimeout('enableDownLoad()', '3000');
+		}
+		
+		function enableDownLoad(){
+			$$("js_btnDownload1").disabled = false;
+		}
+		// -- done hiding from old browsers -->
+		</SCRIPT>
+	</HEAD>
+	<BODY BGCOLOR="#ffffff" BGCOLOR="white" LINK="#000066" VLINK="#000066">
+		<img src='../ecsdocs2/img/head_master.gif' alt='' align='middle' border='0'>
+		<div class=pt>カテゴリマスタ</div>
+		<br>
+		<b style="color:red" id="errMsg"></b>
+		<br>
+		<form name="Form0" id="_Form0" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="secToken" id="secToken" value="ABEEEE12513934D16CA8D664B9698779"/>
+			<input type="hidden" name="login_user_No" id="_login_user_No" value="2"/>
+			<input type="hidden" name="processType" id="_processType" value="">
+			<input type="hidden" name="strFromPageId" value="MS530">
+			<table class="nb" style="width:400">
+				<tr >
+					<td>
+						<table class="sf">
+							<tr>
+								<th style="width:100px;" class="must">サイト</th>
+								<td style="width:600px;">
+									<select name="site_cd" id="_site_cd" onchange="getCategory(this.value,1);" style="width: 150px">
+										
+										
+										
+										<option value=""
+										
+										 selected >
+										
+										</option>
+										
+										
+										<option value="0000000001"
+										>
+										HTBオンラインショップ
+										</option>
+										
+									</select>
+									<span id="js_category_set_no1">
+									<SELECT name='category_set_no' id='_category_set_no'  tabindex=null >  </SELECT>
+									</span>
+								</TD>
+							</tr>
+							<tr>
+								<th style="width:100px;" class="must">ファイル</th>
+								<td style="width:600px;"><input type="file" name="diskUploadFile" size="50"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr bgcolor="#ffcccc">
+					<td align="center">
+						<input  type="button" onClick="csvupload();" value="登録する"/>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<FORM ID="_Form" NAME="Form1" method="post">
+			<input type="hidden" name="searchKbn" value="2">
+			<input type="hidden" name="processType" id="_processType1" value="2">
+			<input type="hidden" name="strFromPageId" value="MS530">
+			<input type="hidden" name="csvRayoutKbn" id="_csvRayoutKbn" value=""/>
+			<TABLE class="nb">
+				<TR>
+					<TD COLSPAN="3" HEIGHT="20">
+						<HR ALIGN="left" WIDTH="100%">
+					</TD>
+				</TR>
+				<TR>
+					<TD>
+						<TABLE class="sf">
+							<TR>
+								<TH style="width:100px;" class="MUST">サイト</TH>
+								<TD style="width:250px; white-space:initial;">
+									<select name="search_site_cd" id="_search_site_cd" onchange="getCategory(this.value,2);" style="width: 150px">
+										
+										
+										
+										<option value=""
+										>
+										
+										</option>
+										
+										
+										<option value="0000000001"
+										
+										 selected >
+										HTBオンラインショップ
+										</option>
+										
+									</select>
+									<span id="js_category_set_no2">
+									<SELECT name='search_category_set_no' id='_search_category_set_no'  tabindex=null > <OPTION VALUE='0' SELECTED>TOP</OPTION> </SELECT>
+									</span>
+								</TD>
+								<TH style="width:100px;">カテゴリ名</TH>
+								<TD style="width:250px;">
+									<input type='text' name='search_category_nm' id='' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='32' style='width:143.08px;'> </input>
+									(部分一致)
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+					<TD VALIGN="bottom">
+						<input type="button"  onClick="Search();" value="検索"/>
+					</TD>
+				</TR>
+				<TR>
+					<TD COLSPAN="3" HEIGHT="10">
+						<HR ALIGN="left" WIDTH="100%">
+					</TD>
+				</TR>
+			</TABLE>
+		</FORM>
+		
+			
+			<form action="/easpro2/e_asproMaster/MS530MallCategoryList" id="_Form2"  NAME="Form2" method="post">
+			<input type="hidden" name="secToken" id="secToken" value="ABEEEE12513934D16CA8D664B9698779"/>
+			
+				<input type="hidden" name="list_size" id="_list_size" value="16">
+				<TABLE BORDER="0" CELLSPACING="1" CELLPADDING="1">
+					<TR>
+						<TD ALIGN="center" bgcolor="#ffff66" NOWRAP WIDTH="300">
+							<SELECT name='csvRayoutKbnList' id='_csvRayoutKbnList'  tabindex=null > <OPTION VALUE='0' ></OPTION> </SELECT>
+							<input type="button"  id="js_btnDownload1" onclick="Download();" value="CSV出力"/>
+						</TD>
+						<TD ALIGN="left" NOWRAP WIDTH="450">
+							<input type="button"  onClick="Cagetory_hensyu();" value="カテゴリ編集"/>
+							<input type="button"  onClick="Delete();" value="削除"/>
+						
+							<input type="button"  value="各サイトに展開" disabled/>
+						
+						</TD>
+					</TR>
+				</TABLE>
+				<input type="hidden" name="searchKbn" value="2">
+				<input type="hidden" name="processType" id="_processType2" value="2">
+				<input type="hidden" name="strFromPageId" value="MS530">
+				<input type="hidden" name="search_site_cd" id="_search_site_cd2" value="0000000001">
+				<input type="hidden" name="search_category_set_no" id="_search_category_set_no2" value="0">
+				<input type="hidden" name="search_category_nm" id="_search_category_nm2"  value="">
+				<input type="hidden" name="wv_site_cd" id="_wv_site_cd"  value="">
+				<input type="hidden" name="wv_category_set_no" id="_wv_category_set_no"  value="">
+				<input type="hidden" name="wv_category_cd" id="_wv_category_cd"  value="">
+				<input type="hidden" name="wv_category_class" id="_wv_category_class"  value="">
+				<input type="hidden" name="wv_item_cnt" id="_wv_item_cnt" value=""/>
+				<input type="hidden" name="wv_site_kbn" id="_wv_site_kbn" value="3"/>
+				<input type="hidden" name="chk_category_data" value="dummy">
+				<TABLE CLASS="lt" width="750">
+				 	<COL width="50">
+					<COL width="700">
+					<TR CLASS="head">
+						<TH>選択</TH>
+						<TH>カテゴリ名</TH>
+					</TR>
+				</TABLE>	
+				
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_0" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_0" value="0000000000,0,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_0" value="0000000000">
+									<input type="hidden" name="list_category_class" id="_list_category_class_0" value="0">
+								</TD>
+								<TD nowrap ALIGN="left" title="カテゴリトップ">
+									
+									
+									カテゴリトップ
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_1" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_1" value="0000000001,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_1" value="0000000001">
+									<input type="hidden" name="list_category_class" id="_list_category_class_1" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000001　：　新グッズ情報">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000001　：　新グッズ情報
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_2" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_2" value="0000000020,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_2" value="0000000020">
+									<input type="hidden" name="list_category_class" id="_list_category_class_2" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000020　：　カテゴリ名">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000020　：　カテゴリ名
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_3" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_3" value="0000000002,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_3" value="0000000002">
+									<input type="hidden" name="list_category_class" id="_list_category_class_3" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000002　：　onちゃん">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000002　：　onちゃん
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_4" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_4" value="0000000003,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_4" value="0000000003">
+									<input type="hidden" name="list_category_class" id="_list_category_class_4" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000003　：　水曜どうでしょう　DVD関連">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000003　：　水曜どうでしょう　DVD関連
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_5" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_5" value="0000000004,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_5" value="0000000004">
+									<input type="hidden" name="list_category_class" id="_list_category_class_5" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000004　：　水曜どうでしょう　グッズ">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000004　：　水曜どうでしょう　グッズ
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_6" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_6" value="0000000006,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_6" value="0000000006">
+									<input type="hidden" name="list_category_class" id="_list_category_class_6" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000006　：　水曜どうでしょう　キャラバン">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000006　：　水曜どうでしょう　キャラバン
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_7" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_7" value="0000000007,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_7" value="0000000007">
+									<input type="hidden" name="list_category_class" id="_list_category_class_7" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000007　：　おにぎりあたためますか">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000007　：　おにぎりあたためますか
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_8" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_8" value="0000000008,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_8" value="0000000008">
+									<input type="hidden" name="list_category_class" id="_list_category_class_8" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000008　：　ハナタレナックス">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000008　：　ハナタレナックス
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_9" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_9" value="0000000009,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_9" value="0000000009">
+									<input type="hidden" name="list_category_class" id="_list_category_class_9" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000009　：　FFFFF">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000009　：　FFFFF
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_10" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_10" value="0000000010,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_10" value="0000000010">
+									<input type="hidden" name="list_category_class" id="_list_category_class_10" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000010　：　ドラバラ鈴井の巣">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000010　：　ドラバラ鈴井の巣
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_11" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_11" value="0000000011,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_11" value="0000000011">
+									<input type="hidden" name="list_category_class" id="_list_category_class_11" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000011　：　Yumechika Records">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000011　：　Yumechika Records
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_12" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_12" value="0000000012,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_12" value="0000000012">
+									<input type="hidden" name="list_category_class" id="_list_category_class_12" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000012　：　藤村・嬉野プロデュース">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000012　：　藤村・嬉野プロデュース
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_13" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_13" value="0000000014,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_13" value="0000000014">
+									<input type="hidden" name="list_category_class" id="_list_category_class_13" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000014　：　ヒゲマラソン部">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000014　：　ヒゲマラソン部
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_14" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_14" value="0000000015,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_14" value="0000000015">
+									<input type="hidden" name="list_category_class" id="_list_category_class_14" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000015　：　ビジービー">
+									
+									
+											
+									
+									
+													&nbsp;-&nbsp;
+									
+									
+									0000000015　：　ビジービー
+								</TD>
+							</TR>
+						</TABLE>
+					
+						
+						<TABLE CLASS="lt" style="padding: 0x 0x 0x 0x;border-width : 0px 1px 0px 1px;table-layout:fixed;" width="750">
+					 	<COL width="50">
+						<COL width="700">
+							
+							
+								<TR id="meisai_data_15" style="background-color: #E8E8E8;">
+							
+								<TD align="center">
+									<input type="radio" name="chk_category_data" id="_chk_category_data_15" value="0000000016,1,3">
+									<input type="hidden" name="list_category_cd" id="_list_category_cd_15" value="0000000016">
+									<input type="hidden" name="list_category_class" id="_list_category_class_15" value="1">
+								</TD>
+								<TD nowrap ALIGN="left" title="0000000016　：　ギフトバッグ">
+									
+									
+											
+									
+												&nbsp;-&nbsp;
+									
+									0000000016　：　ギフトバッグ
+								</TD>
+							</TR>
+						</TABLE>
+					
+					
+					
+			
+			</form>
+			
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</BODY>
+</HTML>

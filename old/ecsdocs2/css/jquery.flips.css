@@ -1,0 +1,58 @@
+.to-flips {
+    height: 800px;
+    float: left;
+}
+
+.to-flips .content {
+    height: 800px;
+    position: relative;
+    overflow: hidden;
+}
+
+.to-flips .content .block {
+    height: 20%;
+    position: absolute;
+    top: 0px;
+    display: none;
+    overflow: hidden;
+}
+
+.to-flips .navigation {
+    margin-top: 10px;
+    margin-left: 130px;
+}
+
+.to-flips .navigation .btn-left, 
+.to-flips .navigation .btn-right,
+.to-flips .navigation .btn-left-dis, 
+.to-flips .navigation .btn-right-dis {
+    width: 20px;
+    height: 20px;
+    background-color: #eee;
+    color: black;
+    float: left;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.to-flips .navigation .btn-left-dis, .to-flips .navigation .btn-right-dis {
+    background-color: #444;
+    color: #888;
+    cursor: default;
+}
+
+.to-flips h3 {
+    margin: 0px;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.to-flips h2 {
+    text-align: center;
+    color: white;
+}
+
+.color1 {
+    background-color: #ffffff;
+}

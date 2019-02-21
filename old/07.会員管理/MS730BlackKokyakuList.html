@@ -1,0 +1,283 @@
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?8G7hWyvCjn" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+		<TITLE>ブラック顧客マスタ</TITLE>
+		<SCRIPT type="text/javascript">
+			//search
+			function Search(){
+				$$("_Form").action="/easpro2/e_asproMaster/MS730BlackKokyakuList"
+				$$("_Form").submit();
+				btnDisabled();
+			}
+			//insert
+			function Insert(){
+				$$("_Form").action="/easpro2/e_asproMaster/MS731BlackKokyakuEntry"
+				$$("_processType").value="";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+		</SCRIPT>
+	</head>
+	<BODY>
+		<img src='../ecsdocs2/img/head_kokyaku.gif' alt='' align='middle' border='0'>
+		<div class=pt>ブラック顧客マスタ</div><br>
+			<b style="color:red"></b>
+			<br>
+			<form action="/easpro2/e_asproMaster/MS730BlackKokyakuList"  id="_Form" method="post">
+				<input type="hidden" name="userNo" id="_userNo" value=""/>
+				<input type="hidden" name="strFromPageId" value="MS730">
+				<input type="hidden" name="searchKbn" value="2">
+				<input type="hidden" name="processType" id="_processType" value="1">
+				<div ID='div1' style='display:block;'>
+				<TABLE class="nb">
+					<TR>
+						<TD>
+							<TABLE class="sf" style="width:760">
+								<col width="100">
+								<col width="280">
+								<col width="100">
+								<col width="280">
+								<TR>
+									<TH>登録番号</TH>
+									<TD>
+										<input type='text' name='blackentryNo' id='blackentryNo' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='numcode' maxlength='9' style='width:87.48px;'> </input>
+										(前方一致)
+									</TD>
+									<TH>会員名</TH>
+									<TD>
+										<input type='text' name='kokyakuNm' id='kokyakuNm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='multi' maxlength='125' style='width:198.68px;'> </input>
+										(前方一致)
+									</TD>
+								</TR>
+								<TR>
+									<TH>会員カナ</TH>
+									<TD>
+										<input type='text' name='kokyakuKana' id='kokyakuKana' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='multi' maxlength='125' style='width:198.68px;'> </input>
+										(前方一致)
+									</TD>
+									<TH>郵便番号</TH>
+									<TD>
+										<input type='text' name='kokyakuZip' id='kokyakuZip' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='zip' maxlength='8' style='width:81.92px;'> </input>
+										(前方一致)
+									</TD>
+								</TR>
+								<TR>
+									<TH>住所</TH>
+									<TD>
+										<input type='text' name='kokyakuAddr' id='kokyakuAddr' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='multi' maxlength='125' style='width:198.68px;'> </input>
+										(前方一致)
+									</TD>
+									<TH>電話番号</TH>
+									<TD>
+										<input type='text' name='kokyakuTel1' id='kokyakuTel1' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='tel' maxlength='50' style='width:198.68px;'> </input>
+										(前方一致)
+									</TD>
+								</TR>
+								<TR>
+									<TH>メールアドレス</TH>
+									<TD>
+										<input type='text' name='kokyakuMail1' id='kokyakuMail1' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='mail' maxlength='50' style='width:198.68px;'> </input>
+										(前方一致)
+									</TD>
+									<TH>適用区分</TH>
+									<TD>
+										<select name="tekiyouKbn">
+											<option  value="" ></option>
+											
+														<option value="0">停止</option>
+											
+														<option value="1">適用</option>
+											
+										</select>
+									</TD>
+								</TR>
+						</TABLE>
+					</TD>
+					<TD valign="bottom">
+						<TABLE>
+							<TR>
+								<TD>
+									
+									<input  type="button" onClick="Search();" value="検索"/>
+									
+									<input  type="button" onClick="Insert();" value="新規登録"/>
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+			</TABLE>
+			<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=850px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=850px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+		</form>
+		<br>
+		
+			
+			
+				<span style="height:12px;"></span>
+				<TABLE CLASS="lt" width="1270">
+					<COL width="80">
+					<COL width="120">
+					<COL width="120">
+					<COL width="80">
+					<COL width="300">
+					<COL width="120">
+					<COL width="120">
+					<COL width="250">
+					<COL width="80">
+					<TR CLASS="head">
+						<TH>登録番号</TH>
+						<TH>会員名</TH>
+						<TH>会員カナ</TH>
+						<TH>郵便番号</TH>
+						<TH>住所</TH>
+						<TH>電話番号</TH>
+						<TH>メールアドレス</TH>
+						<TH>メモ欄</TH>
+						<TH>適用区分</TH>
+					</tr>
+						
+							
+							<TR>
+								
+								<TD align="left" title="4">
+									<a href="MS731BlackKokyakuEntry?processKbn=2&blackEntryNo=4">
+												4</a>
+								</TD>
+								
+								<TD align="left" title="会員太郎">
+									<nobr>会員太郎</nobr>
+								</TD>
+								
+								<TD align="left" title="カイインタロウ">
+									<nobr>カイインタロウ</nobr>
+								</TD>
+								
+								<TD align="center" title="410-0021">
+									<nobr>410-0021</nobr>
+								</TD>
+								
+								<TD align="left" title="静岡県沼津市小林台住所2住所3">
+									<nobr>静岡県沼津市小林台住所2住所3</nobr>
+								</TD>
+								
+								<TD align="left" title="">
+									<nobr>&nbsp;</nobr>
+								</TD>
+								
+								<TD align="left" title="">
+									<nobr>&nbsp;</nobr>
+								</TD>
+								
+								<TD align="left" title="">
+									<nobr>&nbsp;</nobr>
+								</TD>
+								
+								<TD align="left" title="適用">
+									<nobr>適用</nobr>
+								</TD>
+							</TR>
+						
+					</TABLE>
+			
+						
+			
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</BODY>
+</html>

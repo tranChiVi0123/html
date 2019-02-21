@@ -1,0 +1,2377 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="content-type" content="text/html; charset=windows-31j">
+		
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?rx79AZ4iTx" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+		<title>返品確定入力</title>
+		<style type="text/css">
+		div.num{text-align:right;padding-right:5px;}
+		.errMsg{color:#FF0000;font-weight:bold;}
+		.readonly{background-color: #eeeeee;}
+		.redstar{color:#FF0000;}
+		.bluestar{color:#0000FF;}
+		table.sf td { width:auto }
+		table.tblInner{border-width:0px;border-style:none;}
+		table.tblInner th,table.tblInner td {border-width:0px;border-style:none;}
+		.disp{font-size:12px;text-align:right;border:none;background-color:transparent;}
+		.inputFont{font-family:sans-serif;font-size:12px;}
+		</style>
+		<script type="text/javascript">
+		var urlBase = "/easpro2";
+		var ajaxProcessType = "6";
+
+
+		//実績数
+		function changeJitusekiQty(_Index){
+
+			var tmp			= 0,
+			hpitemQty		= 0,		//[合計]返品数量
+			subtotalKin		= 0,		//[合計]返品商品売上金額(税抜)
+			subzeikin		= 0,
+			kahentotal		= 0
+			;
+
+			var count= 1;
+			for (var Index = 0; Index<count; Index++){
+				if(Index !=_Index){
+					//返品数量
+					tmp = parseInt($("#itemJitusekiqty_"+Index).val(),10);
+					hpitemQty += (isNaN(tmp)?0:tmp);
+
+					//返品商品売上金額
+					tmp = parseInt(reComma($("#itemHenpinkin1_"+Index).val()),10);
+					subtotalKin += (isNaN(tmp)?0:tmp);
+
+					//返品税金
+					tmp = parseInt(reComma($("#itemZeikin1_"+Index).val()),10);
+					subzeikin += (isNaN(tmp)?0:tmp);
+				}
+			}
+
+			for (var Index = 1; Index<=15; Index++){
+				var kahen= parseInt($("#h_orderTotalKin"+Index).val(),10);
+				var sign = $("#h_TotalKinSign"+(Index-1)).val();
+
+				tmp = parseInt($("#h_orderTotalKin"+Index).val(),10) * parseInt($("#h_TotalKinSign"+(Index-1)).val(),10);
+				kahentotal += (isNaN(tmp)?0:tmp);
+			}
+
+			$("#hpTotalkahenkin").val(kahentotal);
+
+			var url = urlBase + "HE040HenpinFixEntry.html";
+			var jitusekiQty = $("#itemJitusekiqty_"+_Index).val();
+			jitusekiQty = isNaN(jitusekiQty)?0:jitusekiQty;
+			var parms = "processType="+ajaxProcessType;
+			//出荷明細番号(リスト)
+			for (var Index = 0; Index<count; Index++){
+				parms += "&meiNo="+$("#meiNo_"+Index).val();
+			}
+			//商品コード(リスト)
+			for (var Index = 0; Index<count; Index++){
+				parms += "&itemNo="+$("#itemNo_"+Index).val();
+			}
+			//返品数量(リスト)
+			for (var Index = 0; Index<count; Index++){
+				var itemQty = $("#itemJitusekiqty_"+_Index).val();
+				itemQty = isNaN(itemQty)?0:itemQty;
+				parms += "&itemQty="+itemQty;
+			}
+			//返品金額(リスト)
+			for (var Index = 0; Index<count; Index++){
+				parms += "&itemTnk="+$$("itemHenpinkin_"+Index).innerText;
+			}
+			parms += "&ajaxKbn=1";
+			parms += "&sessionId="+$("#_sessionId").val();
+			parms += "&syorikbn="+$("#_syorikbn").val();
+			parms += "&userNo="+$("#_userNo").val();
+			parms += "&daihyoCd="+$("#daihyoCd").val();								//代表番号
+			parms += "&seqNo="+$("#_seqNo").val();									//SEQ_NO
+			parms += "&Index="+_Index;
+			parms += "&hanbaikin="+$("#itemHanbaikin_"+_Index).val();				//販売価格;
+			parms += "&jitusekiQty="+jitusekiQty;									//実績数;
+			parms += "&Salekin="+$("#itemSalekin_"+_Index).val();					//販売価格(税抜)
+			parms += "&TotalQty="+hpitemQty;
+			parms += "&Totalkin="+ subtotalKin;
+			parms += "&Totalzeikin="+ subzeikin;
+			parms += "&kahentotal=" +kahentotal;
+			parms += "&taxcalckbn="+$("#_taxcalckbn").val();						//税計算区分
+			parms += "&tnkdspKbn="+$("#_tnkdspKbn").val();							//表示区分
+			parms += "&orderYmd=" +$("#orderYmd").val();
+			_SendByAjax(url,parms,'',true);
+		}
+
+		//Ajax戻り値
+		function setkin(Index,henpinKin,zeikin,totalQty,totalTnk,totalZeikin,totalHpkin,hpPoint){
+			var itemcount_zan = parseInt(2,10);
+			var totalkin_zan =parseInt(1944,10);
+			var zeikin_zan = parseInt(144,10);
+			var seikyuu_zan = parseInt(2918,10);
+			var point_zan = parseInt(0,10);
+			var total_kin = 0;
+
+			$$("itemHenpinkin_"+Index).innerText = toComma(henpinKin);
+			$$("itemZeikin2_"+Index).innerText = toComma(zeikin);
+
+			$("#itemHenpinkin1_"+Index).val(henpinKin);
+			$("#itemZeikin1_"+Index).val(zeikin);
+
+			//返品合計情報
+			$("#hpItemcount").val(toComma(totalQty));						//[合計]返品数量
+			$$("hpItemcount").value=toComma(totalQty);					//[合計]返品数量
+
+			$("#h_orderSubtotalKin").val(toComma(totalTnk));				//[合計]返品商品売上金額
+			$$("h_orderSubtotalKin").value = toComma(totalTnk);			//[合計]返品商品売上金額
+			$("#hpItemTotalkin").val(toComma(totalTnk));
+			$("#hpItemsubtotalkin").val(toComma(totalTnk));					//[合計]返品商品売上金額(税抜)
+
+			$("#h_orderTotalZeiKin").val(toComma(totalZeikin));				//[合計]返品商品消費税
+			$$("h_orderTotalZeiKin").value = toComma(totalZeikin);		//[合計]返品商品消費税
+			$("#hpTotalZeiKin").val(totalZeikin);
+			$("#hpZeikin").val(totalZeikin);
+
+			$("#hpTotalkin").val(toComma(totalHpkin));						//[合計]返品商品返品金額
+			$$("hpTotalkin").value=toComma(totalHpkin);					//[合計]返品商品返品金額
+			$("#hppoint").val(hpPoint);										//[合計]返品商品ポイント
+
+			$$("seikyuNewItemcount").innerText = toComma(parseInt(itemcount_zan,10)-parseInt(totalQty,10));				//[合計]新請求情報 数量
+			$("#New_orderSubtotalKin").val(toComma(parseInt(totalkin_zan,10)-parseInt(totalTnk,10)));					//[合計]新請求情報 売上金額(税抜)
+			$("#New_orderTotalZeiKin").val(toComma(parseInt(zeikin_zan,10)-parseInt(totalZeikin,10)));					//[合計]新請求情報	商品消費税
+			$$("seikyuNewseikyu_kin").innerText = toComma((parseInt(seikyuu_zan,10))-(parseInt(totalHpkin,10)));		//[合計]新請求情報	請求金額
+			$$("seikyuNew_Point_fuyo").innerText  = toComma(parseInt(point_zan,10)-parseInt(hpPoint,10));				//[合計]新請求情報	ポイント
+		}
+
+
+		function update(){
+			if(confirm("登録します。よろしいですか？")){
+					$$("processType").value = "4";
+					$$("form").submit();
+					btnDisabled();
+				}
+		}
+
+		
+		var iCancelCnt ;
+		iCancelCnt = 0;
+		
+		</script>
+	</head>
+
+
+	<body bgcolor="#ffffff" link="#000066" vlink="#000066" bgcolor="#ffffff" >
+		<form id="form" action="HE040HenpinFixEntry.html" method="post" >
+		<input type="hidden" name="secToken" id="secToken" value="588C4E965D9695A81FD9F24F2DA2A587"/>
+		<input type="hidden" id="processType" name="processType" value="" />
+		<input type="hidden" id="_sessionId" name="sessionId" value="xDGrc3vV7CJ21yzp1NQhCcWLzPYlDG7L!-166925779!1547166293072" />
+		<input type="hidden" id="_wmsFlg" name="wmsFlg" value="0" />
+		<input type="hidden" id="_syorikbn" name="syorikbn" value="11" />
+		<input type="hidden" id="_userNo" name="userNo" value="42" />
+		<input type="hidden" id="_seqNo" name="seqNo" value="196116" />
+		<input type="hidden" id="hppoint" name="hppoint" value="0" />
+		<input type="hidden" id="hpItemsubtotalkin" name="hpItemsubtotalkin" value="900" />
+		<input type="hidden" id="hpItemsubtotalkin_zeikomi" name="hpItemsubtotalkin_zeikomi" value="972" />
+		<input type="hidden" id="hpTotalZeiKin" name="h_orderTotalZeiKin" value="72" />
+		<input type="hidden" id="strFromPageId" name="strFromPageId" value="HE030" />
+		<input type="hidden" id="ordMeiKakuteiFlg" name="ordMeiKakuteiFlg" value="" />
+		<input type="hidden" id="syorikbn" name="syorikbn" value="11" />
+		<input type="hidden" name="exclCnt" id="_exclCnt" value="1"/>
+		<input type="hidden" name="taxcalckbn" id="_taxcalckbn" value="1"/>
+		<input type="hidden" name="tnkdspKbn" id="_tnkdspKbn" value="1"/>
+		<input type="hidden" name="hpTotalkahenkin" id="_hpTotalkahenkin" value="0"/>
+		<input type="hidden" name="hpItemTotalkin" id="hpItemTotalkin" value="972"/>
+		<input type="hidden" name="hpZeikin" id="hpZeikin" value="72"/>
+		<div id="stock_table">
+			<img src='../ecsdocs2/img/head_henpin.gif' alt='' align='middle' border='0'>
+			<div class="pt">返品確定入力<br><A href='HE030HenpinList.html?backUrlKey=&intPageNo=1&intPageCount=24&intPageSize=30&intRecordCount=708&strToolbarX=&strToolbarY=&strSpaceHeight=50px&processType=2&searchKbn=2&searchHenYoteiYmdFrom=&searchHenYoteiYmdTo=&searchHenkakuteiYmdFrom=&searchHenkakuteiYmdTo=&searchHenCd=&searchHenJyotai=&searchHenKbn=&searchHenUkeYmdFrom=&searchHenUkeYmdTo=&searchOrderCd=&searchOrderYmdFrom=&searchOrderYmdTo=&searchKokyakuNm=&searchKokyakuTel=&searchSiteCd=&searchGaibuOrderCd=&searchTdkNm=&searchKessaiCd=&searchItemNm=&searchWhCd=&saiPrintFlg=&userNo=42&coNo=2535&userWhCd=' tabindex="1" ><img src="../ecsdocs2/img/return.gif"></A></div><br>
+			<span style="color:red;font-weight:bold;" id="ErrMsgInfo"></span>
+			<br>
+			<p style="color: red;font-weight:bold;" id="errmsg"></p>
+			<p style="color: red;font-weight:bold;" id="ajaxErrMsg"></p>
+		<table class="nb" style="width:907px;border:0 none; border-spacing:1px;">
+		<tr>
+		 <td valign="top" width="450">
+			<font size="2" color="#ff9900">■</font>
+			<font size="2">受注基本情報<br /></font>
+			<table class="nb">
+			  <tr>
+				 <td>
+				  <table class="sf" style="width:440">
+							<colgroup>
+							<col width="80"/>
+							<col width="140"/>
+							<col width="80"/>
+							<col width="140"/>
+							</colgroup>
+							<tr>
+							   <th>注文番号</th>
+								   <td>
+								   		<input type="hidden" id="tyumonbango" name="tyumonbango" value="OD19010887038" />
+								   		OD19010887038
+								   </td>
+								<th >代表番号</th>
+								   <td>
+								   		<input type="hidden" id="daihyoCd" name="daihyoCd" value="OD19010887038" />
+								   		OD19010887038
+								   </td>
+							 </tr>
+							 <tr>
+							 <th><FONT style="font-size:11px;">外部注文番号</FONT></th>
+									<td colspan="3">
+										  <input type="hidden" id="gaibuOrderCd" name="gaibuOrderCd" value="" />
+										  &nbsp;
+									 </td>
+							  </tr>
+							  <tr>
+								<th >注文日時</th>
+								 <td>
+								   <input type="hidden" id="orderYmd" name="orderYmd" value="2019/01/08" />
+								   <input type="hidden" id="orderHms" name="orderHms" value="19:44" />
+								   2019/01/08&nbsp;19:44
+								 </td>
+								<th >サイト名</th>
+								 <td style="white-space:normal;">
+								   <input type="hidden" name="siteCd" value="アクアペットサービス" />
+								   アクアペットサービス
+								 </td>
+							  </tr>
+							  <tr>
+								<th>注文区分</th>
+								 <td>
+								   <input type="hidden" name="orderKbn" value="01" />
+								  電話
+								 </td>
+								<th>媒体名</th>
+							   	 <td>
+								   <input type="hidden" name="mediaCd" value="" />
+								   &nbsp;
+							   	 </td>
+							</tr>
+					  </table>
+				   </td>
+			   </tr>
+			  </table>
+			  <font size="2" color="#ff9900">■</font>
+			  <font size="2">注文者情報<br /></font>
+							<div id="tab1" style="display:block">
+								<table class="nb">
+									<tr>
+										<td>
+											<table id="kokyakuInfo" class="sf" style="width:440;padding-top:0px;">
+												<colgroup>
+												<col width="80"/>
+												<col width="140"/>
+												<col width="80"/>
+												<col width="140"/>
+												</colgroup>
+												<tr>
+													<th>お客様番号</th>
+													<td>
+													<input type="hidden" name="kokyakuNo" id="kokyakuNo" value="-1" />
+													<input type="hidden" name="kokyakuCd" id="kokyakuCd" value="0000000004" />0000000004</td>
+													<th>外部コード</th>
+													<td>
+													<input type="hidden" name="gaibuCd" id="gaibuCd" value="-1" />
+													&nbsp;</td>
+												</tr>
+												<tr>
+													<th>注文者名</th>
+													<td style="white-space:normal;">
+														<input type="hidden"  name="kokyakuNm1" value="尾崎"/>
+														<input type="hidden"  name="kokyakuNm2" value="ﾔｽｼﾞ"/>
+														尾崎　ﾔｽｼﾞ
+													</td>
+													<th >注文者カナ</th>
+													<td style="white-space:normal;">
+														<input	type="hidden" name="kokyakuKana1" value="オザキ"/>
+														<input	type="hidden" name="kokyakuKana2"  value=""/>
+														 オザキ&nbsp;
+													</td>
+												</tr>
+												<tr style="height:95px;">
+													<th >注文者住所</th>
+													<td colspan="3">〒188-0013
+															<input type="hidden" name="kokyakuZip" value="188-0013"/>
+
+														<br/>
+														<table class="tblInner" cellspacing="0" cellpadding="0">
+															<tbody>
+																<tr>
+																	<td>住所1：</td>
+																	<td>
+																		東京都西東京市向台町9-99-99
+																		<input type="hidden"  name="kokyakuAddr1" value="東京都西東京市向台町9-99-99"/>
+																	</td>
+																</tr>
+																<tr>
+																	<td>住所2：</td>
+																	<td>
+																		&nbsp;
+																		<input type="hidden"  name="kokyakuAddr2" value=""/>
+																	</td>
+																</tr>
+																<tr>
+																	<td>住所3：</td>
+																	<td>
+																		&nbsp;
+																		<input type="hidden"  name="kokyakuAddr3"  value=""/>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</tr>
+												<tr>
+													<th>電話番号</th>
+													<td colspan="3">
+														 <input type="hidden"  name="kokyakuTel1"  value="042-458-9999"/><input type="hidden"  name="kokyakuTel2"  value=""/>  042-458-9999&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+												</tr>
+												 <tr style="height:48px;">
+													<th>メール</th>
+													<td colspan="3">
+														  <input type="hidden"	name="kokyakuMail1" value="" />
+														   &nbsp;
+															<br/>
+														  <input type="hidden"	name="kokyakuMail2"  value="" />
+														   &nbsp;
+													</td>
+												 </tr>
+											</table>
+											<BR>
+										</td>
+									</tr>
+								</table>
+							</div>
+				</td>
+						<td valign="top" width="450">
+							<font size="2" color="#ff9900">■</font>
+							<font size="2">支払情報<br></font>
+							<table class="nb">
+								<tr>
+									<td>
+										<table class="sf" style="width:440">
+											<colgroup>
+											 <col width="80"/>
+											 <col width="360"/>
+											</colgroup>
+
+											<tr>
+												<th>決済方法</th>
+												<td>
+													<input type="hidden" name="kessaiKbn" id="kessaiKbn" value="代引" />
+													代引
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						   <font size="2" color="#ff9900">■</font>
+						   <font size="2">出荷情報<br></font>
+						  <div id="skainfo" style="display:block">
+							<table class="nb">
+								<tr>
+									<td>
+										<table class="sf" style="width:440">
+										   <colgroup>
+											<col width="80"/>
+											<col width="140"/>
+											<col width="80"/>
+											<col width="140"/>
+											</colgroup>
+											<tr>
+												<th >出荷日</th>
+												<td>
+													<input type="hidden" name="syukaYmd" value="2019/01/10" />2019/01/10
+													</td>
+												<th >問合せNO</th>
+												<td>
+													<input type="hidden" id="toriwaseNo" name="toriwaseNo" value="624000198102" />624000198102
+												</td>
+											</tr>
+											<tr>
+												<th><FONT style="font-size:11px;">出荷指示番号</FONT></th>
+												<td colspan="3">
+													<input type="hidden" id="sjskCd" name="sjskCd" value="OD1901088703801" />OD1901088703801
+												</td>
+											</tr>
+									 </table>
+								 </td>
+							</tr>
+						</table>
+					 </div>
+					   <font size="2" color="#ff9900">■</font>
+					   <font size="2">届先情報<br></font>
+					 <div id="hpininfo" style="display:block">
+							<table class="nb">
+								<tr>
+									<td>
+										<table class="sf" style="width:440">
+										   <colgroup>
+											<col width="80"/>
+											<col width="140"/>
+											<col width="80"/>
+											<col width="140"/>
+											</colgroup>
+											<tr>
+												<th>届先名</th>
+												<td style="white-space:normal;">
+													  <input type="hidden" name="tdkNm1" value="尾崎" />
+													  尾崎 ﾔｽｼﾞ
+												</td>
+												<th>届先名カナ</th>
+												<td style="white-space:normal;">
+													  <input type="hidden" name="tdkKana1" value="オザキ" />
+													  オザキ 
+												</td>
+											</tr>
+												<tr style="height:95px;">
+													<th >届先住所</th>
+													<td colspan="3">〒188-0013
+															<input type="hidden" name="tdkZip" value="188-0013"/>
+														<br/>
+														<table class="tblInner" cellspacing="0" cellpadding="0">
+															<tbody>
+																<tr>
+																	<td>住所1：</td>
+																	<td>
+																		東京都西東京市向台町9-99-99
+																		<input type="hidden"  name="tdkAdd1" value="東京都西東京市向台町9-99-99"/>
+																	</td>
+																</tr>
+																<tr>
+																	<td>住所2：</td>
+																	<td>
+																		&nbsp;
+																		<input type="hidden"  name="tdkAddr2" value=""/>
+																	</td>
+																</tr>
+																<tr>
+																	<td>住所3：</td>
+																	<td>
+																		&nbsp;
+																		<input type="hidden"  name="tdkAddr3"  value=""/>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</tr>
+									 </table>
+									 <BR><BR><BR>
+								</td>
+							</tr>
+						</table>
+				  </div>
+			  </td>
+		 </tr>
+		 <tr>
+			<td>
+				<table style="width:440;border:0px">
+					<tr style="border:0px">
+						<td colspan="4" style="border:0px"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">
+				<font size="2" color="#ff9900">■</font>
+				<font size="2">返品情報<br /></font>
+				<table class="nb">
+					<tr>
+						<td>
+							<table class="sf" style="width:440">
+								<colgroup>
+								<col width="80"/>
+								<col width="140"/>
+								<col width="80"/>
+								<col width="140"/>
+								</colgroup>
+								<tr>
+									<th >処理方法</th>
+									<td colspan="3">
+										<input type="hidden" id="syoriKbnNm" name="syoriKbnNm" value="【返品】(商品あり・購入者都合)" />
+										【返品】(商品あり・購入者都合)
+									</td>
+								</tr>
+								<tr>
+								<th><FONT style="font-size:11px;">返品番号</FONT></th>
+									<td colspan="3">
+										  <input type="hidden" id="henpinCd" name="henpinCd" value="HP19011100713" />
+										  HP19011100713
+									</td>
+								</tr>
+								<tr>
+									<th >返品予定日</th>
+									<td>
+										<input type="hidden" id="yoteiYmd" name="yoteiYmd" value="2019/01/11" />
+										2019/01/11
+									</td>
+									<th >返品状態</th>
+									<td>
+										<input type="hidden" name="henpinJotai" value="0" />
+										予定
+									</td>
+								</tr>
+								<tr>
+									<th><FONT style="font-size:9px;">返品予定登録者</FONT></th>
+									<td colspan="3" style="white-space:normal;">
+										<input type="hidden" name="hepUser" value="東計電算　加藤" />
+										東計電算　加藤
+									</td>
+								</tr>
+								
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<font size="2" color="#ff9900">■</font>
+				<font size="2">返金情報<br></font>
+				<div id="hekininfo" style="display:block">
+					<table class="nb">
+						<tr >
+							<td>
+								<table class="sf" style="width:440">
+									<colgroup>
+										<col width="80"/>
+										<col width="140"/>
+										<col width="80"/>
+										<col width="140"/>
+										 </colgroup>
+									<tr>
+										<th >返金方法</th>
+										<td colspan = "3" >
+										  <input   type="hidden"  name="henkinHouhou"  value="返金不要"/>
+											返金不要
+										</td>
+									</tr>
+									<tr>
+									<th >銀行名</th>
+										<td style="white-space:normal;">
+											<input   type="hidden"  name="bankNm"  value=""/>
+												&nbsp;
+										</td>
+										<th >支店名</th>
+										<td style="white-space:normal;">
+											   <input type="hidden"  name="lbankNm"  value=""/>
+											  &nbsp;
+										</td>
+									   </tr>
+									   <tr>
+											<th >預金種別</th>
+											<td>
+											<input type="hidden"  name="haraisyurui"  value=""/>
+											   &nbsp;
+											</td>
+											<th >口座番号</th>
+											<td >
+											   <input  type="hidden"  name="kouzaCd"  value="" />
+												 &nbsp;
+											</td>
+									   </tr>
+									   <tr >
+											<th >預金者カナ</th>
+											<td colspan = "3" >
+											  <input type="hidden"	name="orderkana"  value=""/>
+												  &nbsp;
+											</td>
+									   </tr>
+									   <tr style="height:90px;">
+											<th >返金<br>特記事項</th>
+											<td valign="top"colspan = "3" style="height:auto;white-space:normal;" title="">
+											 <input  type="hidden"	name="henkinmemo"  value=""/>
+											 <span></span>
+											</td>
+									   </tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				 </div>
+			</td>
+		</tr>
+	</table>
+	
+	
+	</div>
+<div>
+  
+		<font size="2" color="#ff9900">■</font>
+		<font size="2"> 商品情報</font>
+		<table border="0" cellspacing="3" cellpadding="3">
+			<tr>
+				<td style="background-color:#faebd7;border:1px solid #FF9900;">
+					<table class=" itemInfo sf" style="width:1040px;background-color: #FFFFFF;">
+						<colgroup>
+							<col width="30" />
+							<col width="170" />
+							<col width="240" />
+							<col width="80" />
+							<col width="80" />
+							<col width="80" />
+							<col width="80" />
+							<col width="80" />
+							<col width="110" />
+							<col width="150" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="width:30px;" rowspan="2">No</th>
+								<th style="width:170px;" rowspan="2">商品コード</th>
+								<th style="width:240px;" rowspan="2">商品名</th>
+								<th style="width:80px;">返品状態</th>
+								<th style="width:80px;">販売価格</th>
+								<th style="width:80px;">販売数量</th>
+								<th style="width:80px;">明細計</th>
+								<th style="width:80px;">消費税</th>
+								<th style="width:110px;" rowspan = "2" class="must">返品確定日</th>
+								<th style="width:150px;" rowspan = "2">返品理由コメント</th>
+							</tr>
+							<tr>
+								<th>予定数</th>
+								<th>実績数</th>
+								<th>取消数</th>
+								<th>返品額</th>
+								<th>消費税</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							
+								<tr>
+									
+										<td   style="text-align:center;" rowspan="2" title="1" NOWRAP>
+										<input type="hidden" name="hep_mei_no" id="_hep_mei_no" value="1"/>
+										<input type="hidden" id="meiNo_0" name="mei_no" value="1" />
+										<input type="hidden" name="itemRow_num" id="_itemRow_num" value=""/>
+										
+										<input type="hidden" name="itemMei_no"	value ="1" />
+										<input type="hidden" name="No" id="No" value ="1" />
+										1
+									</td>
+									<!-- 商品コード -->
+									<td   style="text-align:left;" rowspan = "2" title="000391" NOWRAP>
+										<input type="hidden" name="itemNo"	id="itemNo_0"   value ="000391"/>000391</td>
+									<!-- 商品名 -->
+									<td  style="text-align:left;" rowspan = "2" title="エヴァリス　プリセットオートヒーター１０Ｗ" NOWRAP>
+										<input type="hidden" name="chkKakuflg"	id="flg_0"  value ="1"/>
+										<input type="hidden" name="itemNm"	id="itemNm_0"  value ="エヴァリス　プリセットオートヒーター１０Ｗ"/>
+											エヴァリス　プリセットオートヒーター１０Ｗ
+									</td>
+									<!--返品状態 -->
+									<td  style="text-align:center;" title="予定" NOWRAP>
+										<input type="hidden" name="itemMesaiJoutaiKbn"	id="itemMesaiJoutaiKbn"   value ="0"/>
+										<input type="hidden" name="itemMesaiJoutai"  id="itemMesaiJoutai"	value ="予定"/>
+											予定
+									</td>
+									<!-- 販売価格 -->
+									<td  style="text-align:right;" title="972" NOWRAP>
+										<input type="hidden" name="itemHanbaikin" id="itemHanbaikin_0"   value ="972"/>
+										<input type="hidden" name="itemSalekin" id="itemSalekin_0"   value ="900"/>
+										<input type="hidden" name="itemSalezeikkin" id="itemSalezeikkin_0"   value ="972"/>
+											972
+									</td>
+									<!-- 販売数量 -->
+									<td  style="text-align:right;" title="2" NOWRAP>
+										<input type="hidden" name="itemHanbaiqty"  id="itemHanbaiqty"	value ="2"/>
+											2
+									</td>
+									<!-- 明細計-->
+									<td  style="text-align:right;" title="[Ljava.lang.String;@25076af" NOWRAP>
+										<input type="hidden" name="itemMeisaitotal"  id="itemMeisaitotal_0"  value ="1944"/>
+											1,944
+									</td>
+									<!-- 消費税 -->
+									<td style="text-align:right;" title="144" NOWRAP>
+										<input type="hidden" name="itemZeikin"	id="itemZeikin_0" value ="144"/>
+											144
+									</td>
+									
+									<td  style="text-align:center;" rowspan = "2" title="" NOWRAP>
+										<input type='text' name='itemKakuteYmd' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='itemKakuteYmd_0' onblur='_formateDate(this,"返品確定日は日付を入力して下さい。");' /><a href='#' id='itemKakuteYmd_0_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'itemKakuteYmd_0',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'itemKakuteYmd_0_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+									
+									<!-- 返品理由コメント -->
+									<td style="text-align:left;white-space:normal;" rowspan = "2" title="購入者都合" NOWRAP>
+										<input type="hidden" name="itemHpkakuteiriyu"  id="itemHpkakuteiriyu"	value ="購入者都合"/>
+											購入者都合
+									</td >
+								</tr>
+								<tr>
+									<!-- 予定数 -->
+									<td style="text-align:right;" title="1" NOWRAP>
+										<input type="hidden" name="itemYoteiqty"  id="itemYoteiqty"   value ="1"/>
+											1
+									</td>
+									<!-- 実績数 -->
+									
+									<td>
+										<input type="hidden" name="itemJitusekiqty_before"	id="itemJitusekiqty_before_0"	 value ="0"/>
+										<input type='text' name='itemJitusekiqty' id='itemJitusekiqty_0' value='0' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='7' style='width:70.80px;' onchange=changeJitusekiQty(0)> </input>
+									</td>
+									
+									<!-- 取消数 -->
+									
+									<td  style="text-align:right;" title="0" NOWRAP>
+										<input type='text' name='itemTorikeshiqty' id='itemTorikeshiqty_0' value='0' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='7' style='width:70.80px;'> </input>
+									</td>
+									
+									<!-- 返品額 -->
+									<td   style="text-align:right;" title="0" NOWRAP>
+											<input type="hidden" name="itemHenpinkin"  id="itemHenpinkin1_0" value ="0"/>
+											<span id="itemHenpinkin_0" >0</span>
+									</td>
+									<!-- 消費税 -->
+									<td   style="text-align:right;" NOWRAP>
+											<input type="hidden" name="hpItemZeikin"  id="itemZeikin1_0" value ="0"/>
+											<span id="itemZeikin2_0" >0</span>
+									</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</td>
+				 </tr>
+			</table>
+			<BR>
+			<table class="nb">
+				<tbody>
+					<tr>
+						<td id="seikyu_zankin_area">
+							<font size="2" color="#ff9900">■</font>
+							<font size="2">請求残情報<br></font>
+							<table class="sf" style="background-color:#D8E0F5;">
+								<colgroup>
+									<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+								
+								</colgroup>
+								<tbody>
+									<tr >
+										<th style="background-color:#99ccff">商品数量</th>
+									
+										<th style="background-color:#99ccff">商品合計</th>
+									
+										<th style="background-color:#99ccff">内消費税</th>
+									
+										<th style="background-color:#99ccff">送料</th>
+									
+										<th style="background-color:#99ccff">代引手数料</th>
+									
+										<th style="background-color:#99ccff">払込手数料</th>
+									
+										<th style="background-color:#99ccff">決済手数料</th>
+									
+										<th style="background-color:#99ccff">ポイント利用料</th>
+									
+										<th style="background-color:#99ccff">クーポン値引き</th>
+									
+									
+								</tr>
+								<tr>
+									<!-- 商品数量-->
+									<td style="text-align:right;" class="totalAmountPlus">
+										<input type="hidden" name="Itemcount" value="2" />
+										2
+									</td>
+									
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="orderSubtotalKin" id="orderSubtotalKin" size="10" readonly="readonly"
+											value="1,944" tabindex="-1" class="disp inputFont"
+											style="width:60px"/>
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="orderTotalZeiKin" id="orderTotalZeiKin" size="10" readonly="readonly"
+											value="144" tabindex="-1" class="disp inputFont"
+											style="width:60px"/>
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="orderTotalKin1" id="orderTotalKin1" size="10" readonly="readonly"
+											value="650" tabindex="-1" class="disp inputFont"
+											style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign0" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="orderTotalKin2" id="orderTotalKin2" size="10" readonly="readonly"
+											value="324" tabindex="-1" class="disp inputFont"
+											style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign1" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="orderTotalKin3" id="orderTotalKin3" size="10" readonly="readonly"
+											value="0" tabindex="-1" class="disp inputFont"
+											style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign2" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="orderTotalKin4" id="orderTotalKin4" size="10" readonly="readonly"
+											value="0" tabindex="-1" class="disp inputFont"
+											style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign3" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountMinus">-
+										
+											<input type="text" name="orderTotalKin5" id="orderTotalKin5" size="10" readonly="readonly"
+											value="0" tabindex="-1" class="disp inputFont"
+											style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign4" value="-1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountMinus">-
+										
+											<input type="text" name="orderTotalKin6" id="orderTotalKin6" size="10" readonly="readonly"
+											value="0" tabindex="-1" class="disp inputFont"
+											style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign5" value="-1" />
+											
+											</td>
+										
+									
+									
+								</tr>
+							</table>
+
+							
+								<table class="sf" style="background-color:#D8E0F5">
+									<colgroup>
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+									<col width="90" />
+									<col width="90" />
+									</colgroup>
+									<tbody>
+									<tr >
+										
+												<th style="background-color:#99ccff">値引き</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+										<th style="background-color:#99ccff">請求金額</th>
+										<th style="background-color:#99ccff">ポイント付与数</th>
+									</tr>
+									<tr>
+										
+											
+											
+												<td style="text-align:right;" class="totalAmountMinus">-
+											
+											
+												<input type="text" name="orderTotalKin7" id="orderTotalKin7" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign6" value="-1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="orderTotalKin8" id="orderTotalKin8" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign7" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="orderTotalKin9" id="orderTotalKin9" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign8" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="orderTotalKin10" id="orderTotalKin10" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign9" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="orderTotalKin11" id="orderTotalKin11" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign10" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="orderTotalKin12" id="orderTotalKin12" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign11" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="orderTotalKin13" id="orderTotalKin13" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign12" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="orderTotalKin14" id="orderTotalKin14" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign13" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="orderTotalKin15" id="orderTotalKin15" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign14" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+
+										<!-- 請求金額-->
+										<td style="text-align:right;" class="totalAmountPlus">
+											<input type="hidden" name="saleSeikyuuZeiKKin" value="2918" />
+											2,918
+										</td>
+										<!-- ポイント付与数-->
+										<td style="text-align:right;" class="totalAmountPlus">
+											<input type="hidden" name="PointhuyoSu" value="0" />
+											0
+										</td>
+									</tr>
+								</table>
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="nb">
+				<tbody>
+					<tr>
+						<td id="seikyu_zankin_area">
+							<font size="2" color="#ff9900">■</font>
+							<font size="2">返品合計情報<br></font>
+							<table class="sf" style="background-color:#D8E0F5;">
+								<colgroup>
+									<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+								
+								</colgroup>
+								<tbody>
+									<tr >
+									<th style="background-color:#99ccff">返品数量</th>
+									
+										<th style="background-color:#99ccff">商品合計</th>
+									
+										<th style="background-color:#99ccff">内消費税</th>
+									
+										<th style="background-color:#99ccff">送料</th>
+									
+										<th style="background-color:#99ccff">代引手数料</th>
+									
+										<th style="background-color:#99ccff">払込手数料</th>
+									
+										<th style="background-color:#99ccff">決済手数料</th>
+									
+										<th style="background-color:#99ccff">ポイント利用料</th>
+									
+										<th style="background-color:#99ccff">クーポン値引き</th>
+									
+									
+								</tr>
+								<tr>
+									<!-- 返品数量-->
+									<td style="text-align:right;" class="totalAmountPlus">
+										<input	type="text"
+												name="hpItemcount"
+												id = "hpItemcount"
+												value="1"
+												size = "10"
+												style="width:67px;TEXT-ALIGN:right;BORDER:none;BACKGROUND-COLOR:#D8E0F5;"
+												readonly="readonly"
+												class="inputFont"
+										/>
+									</td>
+									
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+											
+										
+											<!-- <input type="hidden" name="h_orderSubtotalKin" id="h_orderSubtotalKin" value="972" /> -->
+											<!-- <span id="h_orderSubtotalKin">972</span> -->
+											<input	type="text"
+													name="h_orderSubtotalKin"
+													id = "h_orderSubtotalKin"
+													value="972"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class="totalAmountPlus inputFont"
+											/>
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+											
+										
+											<!-- <input type="hidden" name="h_orderTotalZeiKin" id="h_orderTotalZeiKin" value="72" /> -->
+											<!-- <span id="h_orderTotalZeiKin">72</span> -->
+											<input	type="text"
+													name="h_orderTotalZeiKin"
+													id = "h_orderTotalZeiKin"
+													value="72"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class="totalAmountPlus inputFont"
+											/>
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+											
+										
+											<!-- <input type="hidden" name="h_orderTotalKin1" id="h_orderTotalKin1" value="0" /> -->
+											<!-- <span id="h_orderTotalKin1">0</span> -->
+											<input	type="text"
+													name="h_orderTotalKin1"
+													id = "h_orderTotalKin1"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class="totalAmountPlus inputFont"
+											/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign0" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+											
+										
+											<!-- <input type="hidden" name="h_orderTotalKin2" id="h_orderTotalKin2" value="0" /> -->
+											<!-- <span id="h_orderTotalKin2">0</span> -->
+											<input	type="text"
+													name="h_orderTotalKin2"
+													id = "h_orderTotalKin2"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class="totalAmountPlus inputFont"
+											/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign1" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+											
+										
+											<!-- <input type="hidden" name="h_orderTotalKin3" id="h_orderTotalKin3" value="0" /> -->
+											<!-- <span id="h_orderTotalKin3">0</span> -->
+											<input	type="text"
+													name="h_orderTotalKin3"
+													id = "h_orderTotalKin3"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class="totalAmountPlus inputFont"
+											/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign2" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+											
+										
+											<!-- <input type="hidden" name="h_orderTotalKin4" id="h_orderTotalKin4" value="0" /> -->
+											<!-- <span id="h_orderTotalKin4">0</span> -->
+											<input	type="text"
+													name="h_orderTotalKin4"
+													id = "h_orderTotalKin4"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class="totalAmountPlus inputFont"
+											/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign3" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountMinus">-
+											
+										
+											<!-- <input type="hidden" name="h_orderTotalKin5" id="h_orderTotalKin5" value="0" /> -->
+											<!-- <span id="h_orderTotalKin5">0</span> -->
+											<input	type="text"
+													name="h_orderTotalKin5"
+													id = "h_orderTotalKin5"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class="totalAmountMinus inputFont"
+											/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign4" value="-1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountMinus">-
+											
+										
+											<!-- <input type="hidden" name="h_orderTotalKin6" id="h_orderTotalKin6" value="0" /> -->
+											<!-- <span id="h_orderTotalKin6">0</span> -->
+											<input	type="text"
+													name="h_orderTotalKin6"
+													id = "h_orderTotalKin6"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class="totalAmountMinus inputFont"
+											/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign5" value="-1" />
+											
+											</td>
+										
+									
+									
+								</tr>
+							</table>
+
+							
+								<table class="sf" style="background-color:#D8E0F5">
+									<colgroup>
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+									<col width="90" />
+									</colgroup>
+									<tbody>
+									<tr >
+										
+												<th style="background-color:#99ccff">値引き</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+										<th style="background-color:#99ccff">返品金額</th>
+									</tr>
+									<tr>
+										
+											
+											
+												<td style="text-align:right;" class="totalAmountMinus">-
+												
+											
+											
+												<!-- x<input type="hidden" name="h_orderTotalKin7" id="h_orderTotalKin7" value="0" />
+												<span id="h_orderTotalKin7">
+													0
+												</span>-->
+												<input type="text"
+													name="h_orderTotalKin7"
+													id = "h_orderTotalKin7"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class="totalAmountMinus inputFont"
+											/>
+											
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign6" value="-1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<!-- x<input type="hidden" name="h_orderTotalKin8" id="h_orderTotalKin8" value="0" />
+												<span id="h_orderTotalKin8">
+													0
+												</span>-->
+												<input type="text"
+													name="h_orderTotalKin8"
+													id = "h_orderTotalKin8"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class=" inputFont"
+											/>
+											
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign7" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<!-- x<input type="hidden" name="h_orderTotalKin9" id="h_orderTotalKin9" value="0" />
+												<span id="h_orderTotalKin9">
+													0
+												</span>-->
+												<input type="text"
+													name="h_orderTotalKin9"
+													id = "h_orderTotalKin9"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class=" inputFont"
+											/>
+											
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign8" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<!-- x<input type="hidden" name="h_orderTotalKin10" id="h_orderTotalKin10" value="0" />
+												<span id="h_orderTotalKin10">
+													0
+												</span>-->
+												<input type="text"
+													name="h_orderTotalKin10"
+													id = "h_orderTotalKin10"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class=" inputFont"
+											/>
+											
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign9" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<!-- x<input type="hidden" name="h_orderTotalKin11" id="h_orderTotalKin11" value="0" />
+												<span id="h_orderTotalKin11">
+													0
+												</span>-->
+												<input type="text"
+													name="h_orderTotalKin11"
+													id = "h_orderTotalKin11"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class=" inputFont"
+											/>
+											
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign10" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<!-- x<input type="hidden" name="h_orderTotalKin12" id="h_orderTotalKin12" value="0" />
+												<span id="h_orderTotalKin12">
+													0
+												</span>-->
+												<input type="text"
+													name="h_orderTotalKin12"
+													id = "h_orderTotalKin12"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class=" inputFont"
+											/>
+											
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign11" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<!-- x<input type="hidden" name="h_orderTotalKin13" id="h_orderTotalKin13" value="0" />
+												<span id="h_orderTotalKin13">
+													0
+												</span>-->
+												<input type="text"
+													name="h_orderTotalKin13"
+													id = "h_orderTotalKin13"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class=" inputFont"
+											/>
+											
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign12" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<!-- x<input type="hidden" name="h_orderTotalKin14" id="h_orderTotalKin14" value="0" />
+												<span id="h_orderTotalKin14">
+													0
+												</span>-->
+												<input type="text"
+													name="h_orderTotalKin14"
+													id = "h_orderTotalKin14"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class=" inputFont"
+											/>
+											
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign13" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<!-- x<input type="hidden" name="h_orderTotalKin15" id="h_orderTotalKin15" value="0" />
+												<span id="h_orderTotalKin15">
+													0
+												</span>-->
+												<input type="text"
+													name="h_orderTotalKin15"
+													id = "h_orderTotalKin15"
+													value="0"
+													size = "10"
+													style="width:60px;TEXT-ALIGN:right;BORDER:none;"
+													readonly="readonly"
+													class=" inputFont"
+											/>
+											
+											
+												<input type="hidden" name="orderTotalKinSign" id="h_TotalKinSign14" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+											
+											</td>
+											
+										
+
+										<!-- 返品金額-->
+										<td style="text-align:right;" class="totalAmountPlus">
+											<input	type="text"
+													name="hpTotalkin"
+													id = "hpTotalkin"
+													value="972"
+													size = "10"
+													style="width:62px;TEXT-ALIGN:right;BORDER:none;BACKGROUND-COLOR:#D8E0F5;"
+													readonly="readonly"
+													class="inputFont"
+											/>
+										</td>
+									</tr>
+								</table>
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="nb">
+				<tbody>
+					<tr>
+						<td id="seikyu_zankin_area">
+							<font size="2" color="#ff9900">■</font>
+							<font size="2">新請求情報<br></font>
+							<table class="sf" style="background-color:#D8E0F5;">
+								<colgroup>
+									<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+										<col width="90" />
+								
+								
+								</colgroup>
+								<tbody>
+									<tr >
+										<th style="background-color:#99ccff">商品数量</th>
+									
+										<th style="background-color:#99ccff">商品合計</th>
+									
+										<th style="background-color:#99ccff">内消費税</th>
+									
+										<th style="background-color:#99ccff">送料</th>
+									
+										<th style="background-color:#99ccff">代引手数料</th>
+									
+										<th style="background-color:#99ccff">払込手数料</th>
+									
+										<th style="background-color:#99ccff">決済手数料</th>
+									
+										<th style="background-color:#99ccff">ポイント利用料</th>
+									
+										<th style="background-color:#99ccff">クーポン値引き</th>
+									
+									
+								</tr>
+								<tr>
+									<!-- 商品数量-->
+									<td style="text-align:right;" class="totalAmountPlus">
+										<span id="seikyuNewItemcount">1</span>
+									</td>
+									
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="New_orderSubtotalKin" id="New_orderSubtotalKin" size="10" readonly="readonly"
+												value="972" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="New_orderTotalZeiKin" id="New_orderTotalZeiKin" size="10" readonly="readonly"
+												value="72" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="New_orderTotalKin1" id="New_orderTotalKin1" size="10" readonly="readonly"
+												value="650" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign0" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="New_orderTotalKin2" id="New_orderTotalKin2" size="10" readonly="readonly"
+												value="324" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign1" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="New_orderTotalKin3" id="New_orderTotalKin3" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign2" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountPlus">
+										
+											<input type="text" name="New_orderTotalKin4" id="New_orderTotalKin4" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign3" value="1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountMinus">-
+										
+											<input type="text" name="New_orderTotalKin5" id="New_orderTotalKin5" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign4" value="-1" />
+											
+											</td>
+										
+									
+										
+										
+											<td style="text-align:right;" class="totalAmountMinus">-
+										
+											<input type="text" name="New_orderTotalKin6" id="New_orderTotalKin6" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign5" value="-1" />
+											
+											</td>
+										
+									
+									
+								</tr>
+							</table>
+
+							
+								<table class="sf" style="background-color:#D8E0F5">
+									<colgroup>
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+											<col width="90" />
+									
+									<col width="90" />
+									<col width="90" />
+									</colgroup>
+									<tbody>
+									<tr >
+										
+												<th style="background-color:#99ccff">値引き</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+												<th style="background-color:#99ccff">&nbsp;</th>
+										
+										<th style="background-color:#99ccff">請求金額</th>
+										<th style="background-color:#99ccff">ポイント付与数</th>
+									</tr>
+									<tr>
+										
+											
+											
+												<td style="text-align:right;" class="totalAmountMinus">-
+											
+											
+												<input type="text" name="New_orderTotalKin7" id="New_orderTotalKin7" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign6" value="-1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="New_orderTotalKin8" id="New_orderTotalKin8" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign7" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="New_orderTotalKin9" id="New_orderTotalKin9" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign8" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="New_orderTotalKin10" id="New_orderTotalKin10" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign9" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="New_orderTotalKin11" id="New_orderTotalKin11" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign10" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="New_orderTotalKin12" id="New_orderTotalKin12" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign11" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="New_orderTotalKin13" id="New_orderTotalKin13" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign12" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="New_orderTotalKin14" id="New_orderTotalKin14" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign13" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;display:none;">
+											
+											
+												<input type="text" name="New_orderTotalKin15" id="New_orderTotalKin15" size="10" readonly="readonly"
+												value="0" tabindex="-1" class="disp inputFont"
+												style="width:60px"/>
+											
+
+											
+												<input type="hidden" name="orderTotalKinSign" id="orderTotalKinSign14" value="1" />
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+											
+											
+												<td style="text-align:right;">
+											
+											&nbsp;
+											
+
+											
+											</td>
+											
+										
+
+										<!-- 請求金額-->
+										<td style="text-align:right;" class="totalAmountPlus">
+											<span id="seikyuNewseikyu_kin">1,946</span>
+										</td>
+										<!-- ポイント付与数-->
+										<td style="text-align:right;" class="totalAmountPlus">
+											<span id="seikyuNew_Point_fuyo">0</span>
+										</td>
+									</tr>
+								</table>
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<BR><BR>
+			<table class="nb"	style="width: 1055">
+				<tr BGCOLOR="#ffcccc" >
+					
+					<td align="center"	>
+						<input type="button" onClick="update();" value="確定する"   >
+							</td>
+					
+				</tr>
+			</table>
+		
+	</div>
+  </form>
+  <script type='text/javascript'>$(document).ready(function(){_PageInit('0','1','1','1','0','1');})</script>
+ </body>
+</html>
+
+ 

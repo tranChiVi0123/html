@@ -1,0 +1,817 @@
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?tz5JEgZK6N" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?tz5JEgZK6N" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+	    <meta http-equiv = "Pragma" content="no-cache">
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j" />
+		<title>出荷指示入力</title>
+		<style type="text/css">
+			table.totalTable {
+				border-collapse:collapse;
+			}
+			
+			table.totalTable td.totalTd1{
+				border				:1px solid #666666;
+				text-align			:right;
+				height				:28px;
+				font-size			:12px;
+				width				:91px; 
+			}
+			
+			table.totalTable td.totalTd2{
+				width				:91px; 
+			}
+			
+			table.totalTable th.totalTh1{
+				border			:1px solid #666666;
+				text-align		:center; 
+				vertical-align	:middle; 
+				font-weight		:bold;
+				background-color:#99CCFF; 
+				padding			:2px; 
+				width			:91px; 
+				height			:28px;
+				font-style		:normal; 
+				font-variant	:normal; 
+				font-size		:12px;
+			}
+			
+			table.totalTable th.totalTh2{
+				width			:91px; 
+			}
+			
+		</style>
+		
+	</head>
+	<body>
+		<div class=pt style="float:left;">
+			<img src='../ecsdocs2/img/head_syukka.gif' alt='' align='middle' border='0'>
+			出荷指示入力
+			<br><A href='SY160ShipList.html?backUrlKey=&intPageNo=1&intPageCount=1&intPageSize=30&intRecordCount=9&strToolbarX=&strToolbarY=&strSpaceHeight=50px&processType=2&syukkaYoteiYmdFrom=2018%2F12%2F10&syukkaYoteiYmdTo=2019%2F01%2F10&sksjCd=&orderYmdFrom=&orderYmdTo=&orderCd=&sTdkNm=&sTdkAddr=&whCd=&login_wh_cd=&binsyuCdList=%5B%7BSORT_NO%3Dnull%2C+VALUE%3Dnull%2C+KEY%3Dnull%2C+VALUE2%3Dnull%7D%2C+%7BSORT_NO%3D1%2C+VALUE%3D%82%E4%82%A4%83%70%83%62%83%4E%2C+KEY%3D01%2C+VALUE2%3D01%81%46%82%E4%82%A4%83%70%83%62%83%4E%7D%2C+%7BSORT_NO%3D2%2C+VALUE%3D%82%E4%82%A4%83%70%83%62%83%4E%81%69%83%60%83%8B%83%68%81%6A%2C+KEY%3D02%2C+VALUE2%3D02%81%46%82%E4%82%A4%83%70%83%62%83%4E%81%69%83%60%83%8B%83%68%81%6A%7D%2C+%7BSORT_NO%3D3%2C+VALUE%3D%82%E4%82%A4%83%70%83%62%83%4E%81%69%97%E2%93%80%81%6A%2C+KEY%3D03%2C+VALUE2%3D03%81%46%82%E4%82%A4%83%70%83%62%83%4E%81%69%97%E2%93%80%81%6A%7D%2C+%7BSORT_NO%3D12%2C+VALUE%3D%82%E4%82%A4%83%70%83%50%83%62%83%67%2C+KEY%3D12%2C+VALUE2%3D12%81%46%82%E4%82%A4%83%70%83%50%83%62%83%67%7D%2C+%7BSORT_NO%3D300%2C+VALUE%3D%82%BB%82%CC%91%BC%2C+KEY%3D300%2C+VALUE2%3D300%81%46%82%BB%82%CC%91%BC%7D%5D&binsyuCd=&siteCd=&kessaiCd=&kessaiKbnList=%5B%7BSORT_NO%3D0%2C+VALUE%3Dnull%2C+KEY%3Dnull%2C+PARAM_MARK%3Dnull%7D%2C+%7BSORT_NO%3D1%2C+VALUE%3D%8C%B3%95%A5%2C+KEY%3D0%2C+PARAM_MARK%3Dnull%7D%2C+%7BSORT_NO%3D2%2C+VALUE%3D%91%E3%88%F8%2C+KEY%3D1%2C+PARAM_MARK%3Dnull%7D%5D&kessaiKbn=&kokyakuSagyouList=%5B%7BSORT_NO%3D0%2C+VALUE%3Dnull%2C+KEY%3Dnull%2C+PARAM_MARK%3Dnull%7D%2C+%7BSORT_NO%3D1%2C+VALUE%3D%8C%DF%91%4F%8F%6F%89%D7%2C+KEY%3D01%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D2%2C+VALUE%3D12%8E%9E%8F%6F%89%D7%2C+KEY%3D02%2C+PARAM_MARK%3D1%7D%2C+%7BSORT_NO%3D3%2C+VALUE%3D14%8E%9E%8F%6F%89%D7%2C+KEY%3D03%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D4%2C+VALUE%3D15%8E%9E%8F%6F%89%D7%2C+KEY%3D04%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D5%2C+VALUE%3D17%8E%9E%8F%6F%89%D7%2C+KEY%3D05%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D6%2C+VALUE%3D17%8E%9E%88%C8%8D%7E%28%97%D5%8E%9E1%81%6A%2C+KEY%3D06%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D7%2C+VALUE%3D17%8E%9E%88%C8%8D%7E%28%97%D5%8E%9E2%81%6A%2C+KEY%3D07%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D8%2C+VALUE%3D17%8E%9E%88%C8%8D%7E%28%97%D5%8E%9E3%81%6A%2C+KEY%3D08%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D9%2C+VALUE%3D17%8E%9E%88%C8%8D%7E%28%97%D5%8E%9E4%81%6A%2C+KEY%3D09%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D10%2C+VALUE%3D17%8E%9E%88%C8%8D%7E%28%97%D5%8E%9E5%81%6A%2C+KEY%3D10%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D11%2C+VALUE%3D17%8E%9E%88%C8%8D%7E%28%97%D5%8E%9E6%81%6A%2C+KEY%3D11%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D12%2C+VALUE%3D17%8E%9E%88%C8%8D%7E%28%97%D5%8E%9E7%81%6A%2C+KEY%3D12%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D13%2C+VALUE%3D17%8E%9E%88%C8%8D%7E%28%97%D5%8E%9E8%81%6A%2C+KEY%3D13%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D14%2C+VALUE%3D17%8E%9E%88%C8%8D%7E%28%97%D5%8E%9E9%81%6A%2C+KEY%3D14%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D15%2C+VALUE%3D17%8E%9E%88%C8%8D%7E%28%97%D5%8E%9E10%81%6A%2C+KEY%3D15%2C+PARAM_MARK%3D0%7D%2C+%7BSORT_NO%3D99%2C+VALUE%3D%93%96%93%FA%92%86%8F%6F%89%D7%2C+KEY%3D99%2C+PARAM_MARK%3D0%7D%5D&kokyakuSagyoKbn=&okurinoFrom=&okurinoTo=&syoriJyoukyou=&giftKbn=0&deleteKbn=0&sItemNoFrom=&sItemNoTo=&sItemNm=&titleKbn=&_fromMenu=1&upload_no=&skyKbn=0' tabindex="1" ><img src="../ecsdocs2/img/return.gif"></A>
+		</div>
+		<div style="clear:both;">
+			<b style="color:red;"></b>
+		</div>
+		<br/>
+		
+		
+		
+			<table class="nb">
+				<tr>
+					<td valign="top" width="450">
+						<div style="margin-bottom:7px;">
+							<font size="2" color="#ff9900">■</font>
+							<font size="2">基本情報</font>
+						</div>
+						<div id="_div1" style="display:block">
+							<table class="sf" style="width:470;">
+								<col width="110"/>
+								<col width="125"/>
+								<col width="110"/>
+								<col width="125"/>
+								<tr>
+									<th>
+										出荷指示番号
+									</th>
+									<td>OD1901088703801</td>
+									<th>
+										お問い合わせ番号
+									</th>
+									<td>624000198102</td>
+								</tr>
+								<tr>
+									<th>
+										出荷予定日
+									</th>
+									<td>2019/01/08</td>
+									<th>
+										倉庫名
+									</th>
+									<td>アクアペット倉庫</td>
+								</tr>
+								<tr>
+									<th>
+										運送業者
+									</th>
+									<td>日本郵便</td>
+									<th>
+										商品種別
+									</th>
+									<td >ゆうパック</td>
+								</tr>
+								<tr>
+									<th>
+										注文区分
+									</th>
+									<td>電話</td>
+									<th>
+										決済方法
+									</th>
+									<td>代引</td>
+								</tr>
+								<tr>
+									<th>
+										ギフト
+									</th>
+									<td></td>
+									<th>
+										支払区分
+									</th>
+									<td>代引</td>
+								</tr>
+								<tr>
+									<th>
+										配達希望日
+									</th>
+									<td></td>
+									<th>
+										配達（希望）時間
+									</th>
+									<td>指定なし</td>
+								</tr>
+								<tr>
+									<th>
+										注文番号
+									</th>
+									<td>OD19010887038</td>
+									<th>
+										代表番号
+									</th>
+									<td>OD19010887038</td>
+								</tr>
+								<tr>
+									<th>
+										外部注文番号
+									</th>
+									<td colspan="3"></td>
+								</tr>
+								<tr>
+									<th>
+										注文日時
+									</th>
+									<td colspan="3">2019/01/08 19:44</td>
+								</tr>
+								<tr>
+									<th>
+										顧客指定作業区分
+									</th>
+									<td>午前出荷</td>
+									<th>
+										処理状況
+									</th>
+									<td>作業完了</td>
+								</tr>
+							</table>
+						</div>
+						<div style="margin-bottom:7px;margin-top:7px;">
+							<font size="2" color="#ff9900">■</font>
+							<font size="2">届先情報</font>
+						</div>
+						
+						
+						<div id="_div3" style="display:block">
+							<table class="sf" style="width:470;">
+								<col width="110"/>
+								<col width="125"/>
+								<col width="110"/>
+								<col width="125"/>
+								
+								<tr>
+									<th>
+										届先名
+									</th>
+									<td colspan="3">尾崎 ﾔｽｼﾞ</td>
+								</tr>
+								<tr>
+									<th>
+										届先カナ
+									</th>
+									<td colspan="3">オザキ</td>
+								</tr>
+								<tr>
+									<th style="height:86px;" align="center">
+										届先住所
+									</th>
+									<td colspan="3" style="height:86px;">
+										<div style="margin-bottom:5px;margin-top:5px;">〒188-0013</div>
+										<div style="margin-bottom:5px;margin-top:5px;">東京都西東京市向台町9-99-99</div>
+										<div style="margin-bottom:5px;margin-top:5px;"></div>
+										<div style="margin-bottom:5px;margin-top:5px;"></div>
+									</td>
+								</tr>
+								
+								<tr>
+									<th>
+										電話番号
+									</th>
+									<td colspan="3">042-458-9999</td>
+								</tr>
+								<tr>
+									<th>
+										メールアドレス
+									</th>
+									<td colspan="3" style="word-break:break-all;word-wrap:break-word;height:25px;"></td>
+								</tr>
+							</table>
+						</div>
+						<div style="margin-bottom:7px;margin-top:7px;">
+							<font size="2" color="#ff9900">■</font>
+							<font size="2">注文者情報</font>
+						</div>
+						
+						<div id="_div4">
+							<table class="sf" style="width:470;">
+								<col width="110"/>
+								<col width="125"/>
+								<col width="110"/>
+								<col width="125"/>
+								<tr>
+									<th>
+										お客様番号
+									</th>
+									<td colspan="3">0000000004</td>
+								</tr>
+								<tr>
+									<th>
+										注文者名
+									</th>
+									<td colspan="3">尾崎 ﾔｽｼﾞ</td>
+								</tr>
+								<tr>
+									<th>
+										注文者名カナ
+									</th>
+									<td colspan="3">オザキ</td>
+								</tr>
+								<tr>
+									<th style="height:86px;" align="center">
+										注文者住所
+									</th>
+									<td colspan="3" style="height:86px;">
+										<div style="margin-bottom:5px;margin-top:5px;">〒188-0013</div>
+										<div style="margin-bottom:5px;margin-top:5px;">東京都西東京市向台町9-99-99</div>
+										<div style="margin-bottom:5px;margin-top:5px;"></div>
+										<div style="margin-bottom:5px;margin-top:5px;"></div>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										電話番号
+									</th>
+									<td colspan="3">042-458-9999</td>
+								</tr>
+								<tr>
+									<th>
+										FAX
+									</th>
+									<td colspan="3"></td>
+								</tr>
+								<tr>
+									<th>
+										<div style="margin-bottom:15px;margin-top:15px;">
+											メールアドレス
+										</div>
+									</th>
+									<td colspan="3" style="word-break:break-all;word-wrap:break-word;height:25px;">
+										<div style="margin-bottom:5px;margin-top:5px;">
+											
+										</div>
+										<div style="margin-bottom:5px;margin-top:5px;">
+											
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+
+					<td>
+						<div style="width:20px;"></div>
+					</td>
+					<td valign="top">
+						<div>
+							
+							<div style="margin-bottom:7px;">
+								<font size="2" color="#ff9900">■</font>
+								<font size="2">サイト情報</font>
+							</div>
+							<table class="sf" style="width:470;">
+								<col width="110"/>
+								<col width="125"/>
+								<col width="110"/>
+								<col width="125"/>
+								<tr>
+									<th>
+										サイト区分
+									</th>
+									<td>受注クラウド（BtoC）</td>
+									<th>
+										サイト名
+									</th>
+									<td style="word-break:break-all;word-wrap:break-word;height:25px;white-space:normal;overflow:inherit">アクアペットサービス</td>
+								</tr>
+								<tr>
+									<th>
+										販売者名
+									</th>
+									<td colspan="3">アクアペットサービス</td>
+								</tr>
+								<tr>
+									<th style="height:86px;" align="center">
+										販売者住所
+									</th>
+									<td colspan="3" style="height:86px;">
+										<div style="margin-bottom:5px;margin-top:5px;">〒333-0845</div>
+										<div style="margin-bottom:5px;margin-top:5px;">埼玉県川口市上青木西</div>
+										<div style="margin-bottom:5px;margin-top:5px;">9-9-99 メゾンＩＫＫＩ　9階</div>
+										<div style="margin-bottom:5px;margin-top:5px;"></div>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										電話番号
+									</th>
+									<td colspan="3">048-229-9999</td>
+								</tr>
+							</table>
+							
+							
+							<div style="margin-bottom:7px;margin-top:7px;">
+								<font size="2" color="#ff9900">■</font>
+								<font size="2">配送情報</font>
+							</div>
+							<table class="sf" style="width:470;">
+								<col width="110"/>
+								<col width="125"/>
+								<col width="110"/>
+								<col width="125"/>
+								<tr>
+									<th style="height:40px;" align="center">
+										送り状<br/>備考欄
+									</th>
+									<td colspan="3" style="height:40px;width:350px;white-space:normal;overflow:inherit">
+										<br/>
+									</td>
+								</tr>
+								<tr>
+								<tr>
+									<th style="height:100px;" align="center">
+										納品書<br/>ヘッダー
+									</th>
+									<td colspan="3" style="height:40px;width:350px;white-space:normal;overflow:inherit">
+										
+									</td>
+								</tr>
+								<tr>
+									<th>
+										品名
+									</th>
+									<td colspan="3">水槽用ヒーター</td>
+								</tr>
+								<tr>
+									<th style="min-height:40px; width:350px;" align="center">
+										梱包作業指示
+									</th>
+									<td colspan="3" valign="top" style="min-height:40px;width:350px;">
+										<div style="min-height:40px;white-space:normal;overflow:inherit">
+											
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										個口数
+									</th>
+									<td style="text-align:right;">1</td>
+									<th>
+										損害要償額
+									</th>
+									
+									<td style="text-align:right;">0</td>
+								</tr>
+								<tr>
+									<th>
+										のし贈り主名
+									</th>
+									<td colspan="3"></td>
+								</tr>
+								
+							</table>
+							
+							
+							<div style="margin-bottom:7px;margin-top:7px;">
+								<font size="2" color="#ff9900">■</font>
+								<font size="2">管理情報</font>
+							</div>
+							<table class="sf" style="width:470;">
+								<col width="110"/>
+								<col width="125"/>
+								<col width="110"/>
+								<col width="125"/>
+								<tr>
+									<th>
+										登録日時
+									</th>
+									<td>2019/01/08 19:55</td>
+									<th>
+										更新日時
+									</th>
+									<td>2019/01/08 19:55</td>
+								</tr>
+								<tr>
+									<th>
+										更新者
+									</th>
+									<td colspan="3"></td>
+								</tr>
+								<tr>
+									<th style="height:40px;" align="center">
+										<div style="margin-bottom:15px;margin-top:15px;">
+											社内コメント
+										</div>
+									</th>
+									<td colspan="3" valign="top" style="height:40px;width:350px;white-space:normal;overflow:inherit"></td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+			
+			
+			<div style="margin-bottom:7px;margin-top:7px;">
+				<font size="2" color="#ff9900">■</font>
+				<font size="2">商品情報</font>
+			</div>
+			<table class="sf" style="width:962">
+				<col width="22"/>
+				<col width="170"/>
+				<col width="240"/>
+				<col width="75"/>
+				<col width="75"/>
+				<col width="180"/>
+				<col width="180"/>
+				<tr>
+					<th rowspan="2">
+						NO
+					</th>
+					<th rowspan="2">
+						商品コード
+					</th>
+					<th rowspan="2">
+						商品名
+					</th>
+					<th id = "td111">
+						販売価格
+					</th>
+					<th>
+						数量
+					</th>
+					<th rowspan="2">
+						商品メモ
+					</th>
+					<th rowspan="2">
+						商品作業指示
+					</th>
+				</tr>
+				<tr>
+					<th>
+						明細計
+					</th>
+					<th>
+						消費税
+					</th>
+				</tr>
+				
+					<tr>
+					<td rowspan="2" style="text-align:center;">
+						1</td>
+					<td rowspan="2" style="word-break:break-all;word-wrap:break-word;height:25px;">
+						000391</td>
+					<td rowspan="2" style="white-space:normal;overflow:inherit">
+						エヴァリス　プリセットオートヒーター１０Ｗ</td>
+					
+					<td height="28" style="text-align:right;">
+						972</td>
+					<td height="28" style="text-align:right;">
+						2</td>
+					<td rowspan="2" valign="top" style="white-space:normal;overflow:inherit">
+						販売メモです</td>
+					<td rowspan="2" valign="top" style="white-space:normal;overflow:inherit">
+						袋やぶれがないか確認後、プチプチ巻き</td>
+				</tr>
+				<tr>
+					
+					<td height="28" style="text-align:right;">
+						1,944</td>
+					
+					<td height="28" style="text-align:right;">
+						144</td>
+				</tr>
+				
+			</table>
+				
+			
+			<div style="margin-bottom:7px;margin-top:7px;">
+				<font size="2" color="#ff9900">■</font>
+				<font size="2">合計情報</font>
+			</div>
+			<table class="totalTable" id="totalTable" style="width:960px;">
+				
+				<tr>
+					
+							<th class="totalTh1">
+								商品数量
+							</th>
+						
+					
+							<th class="totalTh1">
+								商品合計
+							</th>
+						
+					
+							<th class="totalTh1">
+								内消費税
+							</th>
+						
+					
+							<th class="totalTh1">
+								送料
+							</th>
+						
+					
+							<th class="totalTh1">
+								代引手数料
+							</th>
+						
+					
+							<th class="totalTh1">
+								払込手数料
+							</th>
+						
+					
+							<th class="totalTh1">
+								決済手数料
+							</th>
+						
+					
+							<th class="totalTh1">
+								ポイント利用料
+							</th>
+						
+					
+							<th class="totalTh1">
+								クーポン値引き
+							</th>
+						
+					
+							<th class="totalTh2">
+							</th>
+						
+					
+				</tr>
+				
+				<tr>
+					
+							<td class="totalTd1 totalAmountOther">
+								<span style="margin-right:60px;"><nobr></nobr></span>2
+							</td>
+						
+					
+							<td class="totalTd1 totalAmountOther">
+								<span style="margin-right:60px;"><nobr></nobr></span>1,944
+							</td>
+						
+					
+							<td class="totalTd1 totalAmountOther">
+								<span style="margin-right:60px;"><nobr></nobr></span>144
+							</td>
+						
+					
+							<td class="totalTd1 totalAmountPlus">
+								<span style="margin-right:60px;"><nobr></nobr></span>650
+							</td>
+						
+					
+							<td class="totalTd1 totalAmountPlus">
+								<span style="margin-right:60px;"><nobr></nobr></span>324
+							</td>
+						
+					
+							<td class="totalTd1 totalAmountPlus">
+								<span style="margin-right:60px;"><nobr></nobr></span>0
+							</td>
+						
+					
+							<td class="totalTd1 totalAmountPlus">
+								<span style="margin-right:60px;"><nobr></nobr></span>0
+							</td>
+						
+					
+							<td class="totalTd1 totalAmountMinus">
+								<span style="margin-right:60px;"><nobr>-</nobr></span>0
+							</td>
+						
+					
+							<td class="totalTd1 totalAmountMinus">
+								<span style="margin-right:60px;"><nobr>-</nobr></span>0
+							</td>
+						
+					
+							<td class="totalTd2">
+							</td>
+						
+					
+				</tr>
+				
+				
+				
+					<tr>
+						
+								<th class="totalTh1">
+									値引き
+								</th>
+							
+						
+								<th class="totalTh1">
+								</th >
+							
+						
+								<th class="totalTh1">
+								</th >
+							
+						
+								<th class="totalTh1">
+								</th >
+							
+						
+								<th class="totalTh1">
+								</th >
+							
+						
+								<th class="totalTh1">
+								</th >
+							
+						
+								<th class="totalTh1">
+								</th >
+							
+						
+								<th class="totalTh1">
+								</th >
+							
+						
+								<th class="totalTh1">
+								</th >
+							
+						
+						<th class="totalTh1">
+							請求金額
+						</th>
+					</tr>
+					<tr>
+						
+								<td class="totalTd1 totalAmountMinus">
+									<span style="margin-right:60px;"><nobr>-</nobr></span>0
+								</td>
+							
+						
+								<td class="totalTd1 totalAmountPlus">
+								</td>
+							
+						
+								<td class="totalTd1 totalAmountPlus">
+								</td>
+							
+						
+								<td class="totalTd1 totalAmountPlus">
+								</td>
+							
+						
+								<td class="totalTd1 totalAmountPlus">
+								</td>
+							
+						
+								<td class="totalTd1 totalAmountPlus">
+								</td>
+							
+						
+								<td class="totalTd1 totalAmountPlus">
+								</td>
+							
+						
+								<td class="totalTd1 totalAmountPlus">
+								</td>
+							
+						
+								<td class="totalTd1 totalAmountPlus">
+								</td>
+							
+						
+						<td class="totalTd1 totalAmountPlus">
+							2,918
+						</td>
+					</tr>
+				
+			</table>
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

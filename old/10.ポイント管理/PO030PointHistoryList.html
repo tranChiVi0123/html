@@ -1,0 +1,1971 @@
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			var allcookies = document.cookie;
+			var pos = allcookies.indexOf("compString=");
+			var v_compValue= "0000000000";
+			if (pos!=-1){
+				var start = pos + 11;
+				var end = allcookies.indexOf(";",start);
+				if (end == -1){
+					end = allcookies.length;
+				}
+				v_compValue = allcookies.substring(start, end);
+			}
+
+			if(top.opener != null){
+		    	try{
+		    		var parentWindow = null;
+		    		parentWindow = getOpenParentWin(top);
+		    		parentWindow.location = "/easpro2/e_asproLogin/login?compString="+v_compValue;
+		    	}catch(e){
+		    		top.close();
+		    	}
+
+		    }else{
+		    	top.location = "/easpro2/e_asproLogin/login?compString="+v_compValue;
+		    }
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+<html>
+    <head>
+    	<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+        <TITLE>
+        	ポイント履歴照会
+        </TITLE>
+	    <SCRIPT type="text/javascript">
+	    	//「検索」ボタン押下時処理
+	 	    function Search(){
+				$$("_Form").action="/easpro2/e_asproPoint/PO030PointHistoryList";
+				$$("_Form").processType.value = "2";
+				$$("_Form").submit();
+				btnDisabled();
+		    }
+			//「CSV出力」ボタン押下時処理
+			function Download(csv_down_kbn){
+				$$("_Form").action="/easpro2/e_asproPoint/PO030PointHistoryList";
+				$$("_processType").value="7";
+				$$("_down_kbn").value= csv_down_kbn;
+				$$("_Form").submit();
+				btnDisabled();
+				setTimeout('enableDownLoad()', '3000');
+			}			
+			function enableDownLoad(){
+				btnAbled();
+			}
+			//2014/08/13 add motoyama 顧客検索用
+			function sel_kokyaku_cd(){
+				var url= "/easpro2/e_asproLogin/CC030SearchCustomer?callsSrciptFuncName=set_kokyaku_cd";
+				url = url + "&login_co_no=" + document.all("co_no").value;
+			    _searchWin = window.open(url,"CC030","width=780,height=620,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+		        _searchWin.focus();
+			}
+
+			 //20132014/08/13 add motoyama お客様番号検索ウィンドウ戻り
+	        function set_kokyaku_cd(kokyakuno,_kokyakucd){
+	 		    $$("_kokyakuCd").value = _kokyakucd;
+	 		   chg_kokyaku_cd();
+	        }     
+	        
+		</SCRIPT>
+	</head>
+<BODY>
+	<img src='../ecsdocs2/img/head_bt_keiri.gif' alt='' align='middle' border='0'>
+	<div class="pt">ポイント履歴照会</div>
+	<br>
+	<b style="color:red"></b>
+	<br>
+	<br>
+	<form method="post" id="_Form">
+		<input type="hidden" name="processType" id="_processType" value="2"/>
+		<input type="hidden" name="co_no" id="_co_No" value="2625"/>
+		<input type="hidden" name="down_kbn" id="_down_kbn" value="50"/>
+		<input type="hidden" name="kokyakuCd" value="">
+		<input type="hidden" name="kokyakuNm" value="">
+		
+		<div ID='div1' style='display:block;'>
+		<TABLE class="nb">
+			<TR>
+				<TD>
+					<TABLE CLASS="sf" style="width:840">
+						<col width="150"><col width="270">
+						<col width="150"><col width="270">
+ 						<TR>
+							<TH align="center" style="width:200">ポイント反映日</TH>
+							<TD>
+								<input type='text' name='pointChgDateFromSearch' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='js_pointChgDateFromSearch' onblur='_formateDate(this,"ポイント反映日は日付を入力して下さい。");' /><a href='#' id='js_pointChgDateFromSearch_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_pointChgDateFromSearch',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_pointChgDateFromSearch_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='pointChgDateToSearch' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='js_pointChgDateToSearch' onblur='_formateDate(this,"ポイント反映日は日付を入力して下さい。");' /><a href='#' id='js_pointChgDateToSearch_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_pointChgDateToSearch',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_pointChgDateToSearch_calendar_link_id',singleClick : true,step:1});</script>
+							</TD>
+							<TH align="center" style="width:200">ポイント履歴種別</TH>
+							<TD>
+								<select name="rcdSyubetuSearch" id="js_rcdSyubetuSearch">
+									
+									
+												<option value="" selected></option>
+									
+												<option value="FY">付与</option>
+									
+												<option value="RY">利用</option>
+									
+												<option value="CHG">ポイント変更</option>
+									
+								</select>
+							</TD>												
+						</TR>
+						<TR>
+							<TH align="center" style="width:200">ポイント変更状況</TH>
+							<TD>
+								<select name="pointChgStsSearch" id="js_pointChgStsSearch">
+									
+									
+												<option value="" selected></option>
+									
+												<option value="0">未処理</option>
+									
+												<option value="1">処理済</option>
+									
+								</select>
+							</TD>
+							<TH align="center" style="width:200">お客様番号</TH>
+							<TD colspan="3" style="width:690">
+								<input type='text' name='kokyakuCdSearch' id='_kokyakuCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='code' maxlength='10' style='width:154.20px;'> </input>
+								<a href="javascript:sel_kokyaku_cd()"><IMG SRC="../ecsdocs2/img/hatena2.gif" ALT=""  ALIGN="absmiddle" BORDER="0"></a>
+							</TD>
+						</TR>												
+						<TR>
+							<TH align="center" style="width:200">会員ランク</TH>
+							<TD colspan="3">
+								<select name="kokyakuRankTypeSearch" id="kokyakuRankTypeSearch">
+									
+									
+												<option value="" selected></option>
+									
+												<option value="C">BtoC</option>
+									
+												<option value="B">BtoB</option>
+									
+								</select>
+							</TD>
+						</TR>												
+						<TR>
+							<TH align="center" style="width:200">ポイント付与種別コード</TH>
+							<TD>
+								<input type='text' name='pointCdSearch' id='pointCdSearch' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='code' maxlength='8' style='width:81.92px;'> </input>
+								(前方一致)
+							</TD>							
+							<TH align="center" style="width:200">ポイント付与種別名</TH>
+							<TD>
+								<input type='text' name='pointNmSearch' id='pointNmSearch' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='multi' maxlength='80' style='width:182.00px;'> </input>
+								(部分一致)
+							</TD>
+						</TR>												
+						<TR>
+							<TH align="center" style="width:200">注文番号</TH>
+							<TD>
+								<input type='text' name='orderCdSearch' id='orderCdSearch' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='code' maxlength='15' style='width:154.20px;'> </input>
+								(前方一致)
+							</TD>												
+							<TH align="center" style="width:200">注文日</TH>
+							<TD colspan="3">
+								<input type='text' name='orderDateFromSearch' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='js_orderDateFromSearch' onblur='_formateDate(this,"注文日は日付を入力して下さい。");' /><a href='#' id='js_orderDateFromSearch_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_orderDateFromSearch',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_orderDateFromSearch_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='orderDateToSearch' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='js_orderDateToSearch' onblur='_formateDate(this,"注文日は日付を入力して下さい。");' /><a href='#' id='js_orderDateToSearch_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_orderDateToSearch',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_orderDateToSearch_calendar_link_id',singleClick : true,step:1});</script>
+							</TD>
+						</TR>	
+					</TABLE>
+				</TD>
+				<TD VALIGN="bottom">
+					
+					<input  type="button" onClick="Search();" value="検索"/>
+				</TD>
+			</TR>
+		</TABLE>
+		<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=840px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=840px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+	</form>
+	 
+	
+		
+		 
+			<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>293件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1<OPTION   VALUE='2'>2<OPTION   VALUE='3'>3<OPTION   VALUE='4'>4<OPTION   VALUE='5'>5<OPTION   VALUE='6'>6<OPTION   VALUE='7'>7<OPTION   VALUE='8'>8<OPTION   VALUE='9'>9<OPTION   VALUE='10'>10</SELECT>/10</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(2)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(10)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='/easpro2/e_asproPoint/PO030PointHistoryList' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="10"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="293"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value="2"><input type='hidden' name='co_no' value="2625"><input type='hidden' name='searchKbn' value="2"><input type='hidden' name='kokyakuCdSearch' value=""><input type='hidden' name='kokyakuRankTypeSearch' value=""><input type='hidden' name='pointCdSearch' value=""><input type='hidden' name='pointNmSearch' value=""><input type='hidden' name='orderCdSearch' value=""><input type='hidden' name='orderDateFromSearch' value=""><input type='hidden' name='orderDateToSearch' value=""><input type='hidden' name='pointChgDateFromSearch' value=""><input type='hidden' name='pointChgDateToSearch' value=""><input type='hidden' name='pointChgStsSearch' value=""><input type='hidden' name='rcdSyubetuSearch' value=""></form>
+			<TABLE BORDER="0" CELLSPACING="1" CELLPADDING="1">
+				<TR>
+					<TD ALIGN="center" NOWRAP BGCOLOR="#ffff66" WIDTH="180">
+						<INPUT ONCLICK="Download('50');" TYPE="button" VALUE="CSV出力" TABINDEX="0" BORDER="0">
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE CLASS="lt">
+				<col width="30">
+				<col width="80">
+				<col width="80">
+				<col width="80">
+				<col width="80">
+				<col width="80">
+				<col width="100">
+				<col width="120">
+				<col width="80">
+				<col width="70">
+				<col width="70">				
+				<col width="100">
+				<col width="100">				
+				<TR CLASS="head">
+					<TH ALIGN="center">No</TH>
+					<TH ALIGN="center">ポイント<br>反映日</TH>
+					<TH ALIGN="center">お客様番号</TH>
+					<TH ALIGN="center">顧客名</TH>
+					<TH ALIGN="center">顧客名カナ</TH>
+					<TH ALIGN="center">注文日</TH>
+					<TH ALIGN="center">注文番号</TH>
+					<TH ALIGN="center">ポイント付与種別名</TH>
+					<TH ALIGN="center">履歴種別</TH>
+					<TH ALIGN="center">減算<BR>ポイント数</TH>
+					<TH ALIGN="center">加算<BR>ポイント数</TH>
+					<TH ALIGN="center">ポイント変更状況</TH>
+					<TH ALIGN="center">ポイント変更理由</TH>
+				</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="0">
+							<nobr>1</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2019/01/10">
+							<nobr>2019/01/10</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000509324">
+							<nobr>0000509324</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="東計太郎">
+							<nobr>東計太郎</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="トウケイタロウ">
+							<nobr>トウケイタロウ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="100P">
+							<nobr>100P</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="検証用">
+							<nobr>検証用</nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="1">
+							<nobr>2</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/09/03">
+							<nobr>2018/09/03</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000508305">
+							<nobr>0000508305</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="高木かなこ">
+							<nobr>高木かなこ</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="タカキカナコ">
+							<nobr>タカキカナコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="2">
+							<nobr>3</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/09/03">
+							<nobr>2018/09/03</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000508305">
+							<nobr>0000508305</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="高木かなこ">
+							<nobr>高木かなこ</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="タカキカナコ">
+							<nobr>タカキカナコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="3">
+							<nobr>4</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/22">
+							<nobr>2018/08/22</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000196780">
+							<nobr>0000196780</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="坂野勝仁">
+							<nobr>坂野勝仁</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="バンノカツヒト">
+							<nobr>バンノカツヒト</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="4">
+							<nobr>5</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/22">
+							<nobr>2018/08/22</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000196780">
+							<nobr>0000196780</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="坂野勝仁">
+							<nobr>坂野勝仁</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="バンノカツヒト">
+							<nobr>バンノカツヒト</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="5">
+							<nobr>6</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000506890">
+							<nobr>0000506890</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="南崎信志">
+							<nobr>南崎信志</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミナミザキシンジ">
+							<nobr>ミナミザキシンジ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="6">
+							<nobr>7</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000506890">
+							<nobr>0000506890</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="南崎信志">
+							<nobr>南崎信志</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミナミザキシンジ">
+							<nobr>ミナミザキシンジ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="7">
+							<nobr>8</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507746">
+							<nobr>0000507746</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="出口聡之">
+							<nobr>出口聡之</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="デグチサトシ">
+							<nobr>デグチサトシ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="8">
+							<nobr>9</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507746">
+							<nobr>0000507746</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="出口聡之">
+							<nobr>出口聡之</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="デグチサトシ">
+							<nobr>デグチサトシ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="9">
+							<nobr>10</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000508149">
+							<nobr>0000508149</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="小林あゆみ">
+							<nobr>小林あゆみ</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="コバヤシアユミ">
+							<nobr>コバヤシアユミ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="10">
+							<nobr>11</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000508149">
+							<nobr>0000508149</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="小林あゆみ">
+							<nobr>小林あゆみ</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="コバヤシアユミ">
+							<nobr>コバヤシアユミ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="11">
+							<nobr>12</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507992">
+							<nobr>0000507992</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="宮武幸子">
+							<nobr>宮武幸子</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミヤタケサチコ">
+							<nobr>ミヤタケサチコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="12">
+							<nobr>13</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507992">
+							<nobr>0000507992</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="宮武幸子">
+							<nobr>宮武幸子</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミヤタケサチコ">
+							<nobr>ミヤタケサチコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="13">
+							<nobr>14</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507992">
+							<nobr>0000507992</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="宮武幸子">
+							<nobr>宮武幸子</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミヤタケサチコ">
+							<nobr>ミヤタケサチコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="14">
+							<nobr>15</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507992">
+							<nobr>0000507992</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="宮武幸子">
+							<nobr>宮武幸子</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミヤタケサチコ">
+							<nobr>ミヤタケサチコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="15">
+							<nobr>16</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507992">
+							<nobr>0000507992</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="宮武幸子">
+							<nobr>宮武幸子</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミヤタケサチコ">
+							<nobr>ミヤタケサチコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="16">
+							<nobr>17</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507992">
+							<nobr>0000507992</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="宮武幸子">
+							<nobr>宮武幸子</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミヤタケサチコ">
+							<nobr>ミヤタケサチコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="17">
+							<nobr>18</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507992">
+							<nobr>0000507992</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="宮武幸子">
+							<nobr>宮武幸子</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミヤタケサチコ">
+							<nobr>ミヤタケサチコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="18">
+							<nobr>19</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507992">
+							<nobr>0000507992</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="宮武幸子">
+							<nobr>宮武幸子</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミヤタケサチコ">
+							<nobr>ミヤタケサチコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="19">
+							<nobr>20</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507992">
+							<nobr>0000507992</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="宮武幸子">
+							<nobr>宮武幸子</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミヤタケサチコ">
+							<nobr>ミヤタケサチコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="20">
+							<nobr>21</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/16">
+							<nobr>2018/08/16</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507992">
+							<nobr>0000507992</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="宮武幸子">
+							<nobr>宮武幸子</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ミヤタケサチコ">
+							<nobr>ミヤタケサチコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="21">
+							<nobr>22</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/14">
+							<nobr>2018/08/14</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507588">
+							<nobr>0000507588</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="塚本貴之">
+							<nobr>塚本貴之</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ツカモトタカユキ">
+							<nobr>ツカモトタカユキ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="22">
+							<nobr>23</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/14">
+							<nobr>2018/08/14</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000507588">
+							<nobr>0000507588</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="塚本貴之">
+							<nobr>塚本貴之</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ツカモトタカユキ">
+							<nobr>ツカモトタカユキ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="23">
+							<nobr>24</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/14">
+							<nobr>2018/08/14</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000182414">
+							<nobr>0000182414</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="中井貴章">
+							<nobr>中井貴章</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ナカイタカアキ">
+							<nobr>ナカイタカアキ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="24">
+							<nobr>25</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/14">
+							<nobr>2018/08/14</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000182414">
+							<nobr>0000182414</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="中井貴章">
+							<nobr>中井貴章</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ナカイタカアキ">
+							<nobr>ナカイタカアキ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="25">
+							<nobr>26</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/14">
+							<nobr>2018/08/14</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000123864">
+							<nobr>0000123864</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="中村昭文">
+							<nobr>中村昭文</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ナカムラアキブミ">
+							<nobr>ナカムラアキブミ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="26">
+							<nobr>27</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/14">
+							<nobr>2018/08/14</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000123864">
+							<nobr>0000123864</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="中村昭文">
+							<nobr>中村昭文</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ナカムラアキブミ">
+							<nobr>ナカムラアキブミ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="27">
+							<nobr>28</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/02">
+							<nobr>2018/08/02</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000180737">
+							<nobr>0000180737</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="鈴木勝彦">
+							<nobr>鈴木勝彦</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="スズキカツヒコ">
+							<nobr>スズキカツヒコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="28">
+							<nobr>29</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/08/02">
+							<nobr>2018/08/02</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000180737">
+							<nobr>0000180737</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="鈴木勝彦">
+							<nobr>鈴木勝彦</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="スズキカツヒコ">
+							<nobr>スズキカツヒコ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="29">
+							<nobr>30</nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="2018/07/20">
+							<nobr>2018/07/20</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="0000156583">
+							<nobr>0000156583</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="井上和憲">
+							<nobr>井上和憲</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="イノウエカズノリ">
+							<nobr>イノウエカズノリ</nobr>
+						</TD>						
+						
+						<TD ALIGN="center" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="ポイント変更">
+							<nobr>ポイント変更</nobr>
+						</TD>						
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD style="" ALIGN="right" NOWRAP title="P">
+							<nobr>
+						</TD>
+						
+						<TD ALIGN="center" NOWRAP title="処理済P">
+							<nobr>処理済</nobr>
+						</TD>						
+						
+						<TD ALIGN="left" NOWRAP title="">
+							<nobr></nobr>
+						</TD>
+					</TR>
+				
+			</TABLE>
+		
+	
+	
+	 
+	<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+</BODY>
+</html>

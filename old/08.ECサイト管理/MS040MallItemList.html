@@ -1,0 +1,2231 @@
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?8G7hWyvCjn" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+		<title>サイト用商品マスタ</title>
+	</head>
+	<body bgcolor="#ffffff" bgcolor="white" link="#000066" vlink="#000066">
+		<form id="_Form" name="Form1" method="post">
+			<input type="hidden" name="processType" id="_processType" value="2"/>
+			<input type="hidden" name="mallCsvDownKbn" id="_mallCsvDownKbn" value=""/>
+			<input type="hidden" name="mallCsvPtn" id="_mallCsvPtn" value=""/>
+			<input type="hidden" name="fromPage" id="fromPage" value="" />
+			<img src='../ecsdocs2/img/head_master.gif' alt='' align='middle' border='0'>
+			<div class=pt>サイト用商品マスタ
+				
+			</div>
+			<br />
+			<b id="errMsg" style="color:red"></b>
+			<br />
+			<div ID='div1' style='display:block;'>
+			<table class="nb">
+				<tr>
+					<td>
+						<table class="sf" id="search_table" style="width:840">
+							<colgroup>
+								<col width="100" />
+								<col width="320" />
+								<col width="100" />
+								<col width="320" />
+							</colgroup>
+							<tr>
+								<th width="100" id="search_th">サイト</th>
+								<td width="240" nowrap id="search_td">
+									<SELECT name='siteKbn' id='js_siteKbn' style='width:300px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='0000000001' >EC(BtoC)</OPTION> </SELECT>
+								</td>
+								<th width="100" id="search_th">出品状況</th>
+								<td width="240" nowrap id="search_td">
+									<SELECT name='syupinFlg' id='js_syupinFlg' style='width:300px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='0' >出品前</OPTION><OPTION VALUE='1' >出品準備完了</OPTION><OPTION VALUE='2' >出品チェック完了(画像アップロード有)</OPTION><OPTION VALUE='6' >出品チェック完了(画像アップロード無)</OPTION><OPTION VALUE='3' >出品中</OPTION><OPTION VALUE='4' >出品キャンセル</OPTION><OPTION VALUE='5' >出品キャンセル中</OPTION> </SELECT>
+								</td>
+							</tr>
+							<tr>
+								<th width="100" id="search_th">商品コード</th>
+								<td width="240" nowrap id="search_td">
+									<input type='text' name='mItemCodeFrom' id='js_mItemCodeFrom' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='32' style='width:115.28px;'> </input>
+									～
+									<input type='text' name='mItemCodeTo' id='js_mItemCodeTo' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='32' style='width:115.28px;'> </input>
+								</td>
+								<th width="100" id="search_th">商品名</th>
+								<td width="240" nowrap id="search_td">
+									<input type='text' name='mItemName' id='js_mItemName' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='75' style='width:193.12px;'> </input>
+									(部分一致)
+								</td>
+							</tr>
+							<tr>
+								<th width="100" id="search_th">大分類</th>
+								<td width="240" NOWRAP id="search_td">
+									<SELECT name='searchBunruiBigCd' id='js_searchBunruiBigCd' style='width:300px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='1' >1:FFFFF</OPTION><OPTION VALUE='10' >10:藤村・嬉野</OPTION><OPTION VALUE='11' >11:備品・什器</OPTION><OPTION VALUE='12' >12:北海どテレビ</OPTION><OPTION VALUE='2' >2:onちゃん</OPTION><OPTION VALUE='3' >3:おにぎりあたためますか</OPTION><OPTION VALUE='4' >4:ドラバラ鈴井の巣</OPTION><OPTION VALUE='5' >5:ハナタレナックス</OPTION><OPTION VALUE='6' >6:ヒゲマラソン部</OPTION><OPTION VALUE='7' >7:ユメチカ</OPTION><OPTION VALUE='8' >8:委託</OPTION><OPTION VALUE='9' >9:水曜どうでしょう</OPTION> </SELECT>
+								</td>
+								<th width="100" id="search_th">中分類</th>
+								<td width="240" NOWRAP id="search_td">
+									<SELECT name='searchBunruiMiddleCd' id='js_searchBunruiMiddleCd' style='width:300px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='1001' >1001:DVD・BD関係</OPTION><OPTION VALUE='101' >101:DVD・BD関係</OPTION><OPTION VALUE='1201' >1201:衣類</OPTION><OPTION VALUE='201' >201:ステーショナリー</OPTION><OPTION VALUE='202' >202:ステッカー</OPTION><OPTION VALUE='203' >203:タオル</OPTION><OPTION VALUE='204' >204:ぬいぐるみ</OPTION><OPTION VALUE='205' >205:衣類</OPTION><OPTION VALUE='206' >206:雑貨</OPTION><OPTION VALUE='207' >207:食品</OPTION><OPTION VALUE='208' >208:書籍</OPTION><OPTION VALUE='301' >301:DVD・BD関係</OPTION><OPTION VALUE='401' >401:DVD・BD関係</OPTION><OPTION VALUE='501' >501:DVD・BD関係</OPTION><OPTION VALUE='601' >601:衣類</OPTION><OPTION VALUE='701' >701:CD</OPTION><OPTION VALUE='702' >702:衣類</OPTION><OPTION VALUE='901' >901:CD</OPTION><OPTION VALUE='902' >902:DVD・BD関係</OPTION><OPTION VALUE='903' >903:ステーショナリー</OPTION><OPTION VALUE='904' >904:ステッカー</OPTION><OPTION VALUE='905' >905:タオル</OPTION><OPTION VALUE='906' >906:ぬいぐるみ</OPTION><OPTION VALUE='907' >907:フィギュア</OPTION><OPTION VALUE='908' >908:衣類</OPTION><OPTION VALUE='909' >909:雑貨</OPTION><OPTION VALUE='910' >910:書籍</OPTION><OPTION VALUE='911' >911:食品</OPTION> </SELECT>
+								</td>
+							</tr>
+							<tr>
+								<th width="100" id="search_th">小分類</th>
+								<td width="240" NOWRAP id="search_td">
+									<SELECT name='searchBunruiSmallCd' id='js_searchBunruiSmallCd' style='width:300px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='100101' >100101:一般</OPTION><OPTION VALUE='10101' >10101:一般</OPTION><OPTION VALUE='120102' >120102:イベント</OPTION><OPTION VALUE='20101' >20101:一般</OPTION><OPTION VALUE='20201' >20201:一般</OPTION><OPTION VALUE='20301' >20301:一般</OPTION><OPTION VALUE='20401' >20401:一般</OPTION><OPTION VALUE='20501' >20501:一般</OPTION><OPTION VALUE='20601' >20601:一般</OPTION><OPTION VALUE='20702' >20702:イベント</OPTION><OPTION VALUE='20801' >20801:一般</OPTION><OPTION VALUE='30101' >30101:一般</OPTION><OPTION VALUE='40101' >40101:一般</OPTION><OPTION VALUE='50101' >50101:一般</OPTION><OPTION VALUE='60101' >60101:イベント</OPTION><OPTION VALUE='70101' >70101:一般</OPTION><OPTION VALUE='70201' >70201:一般</OPTION><OPTION VALUE='90101' >90101:一般</OPTION><OPTION VALUE='90201' >90201:一般</OPTION><OPTION VALUE='90301' >90301:一般</OPTION><OPTION VALUE='90302' >90302:イベント</OPTION><OPTION VALUE='90401' >90401:一般</OPTION><OPTION VALUE='90501' >90501:一般</OPTION><OPTION VALUE='90502' >90502:イベント</OPTION><OPTION VALUE='90601' >90601:一般</OPTION><OPTION VALUE='90701' >90701:一般</OPTION><OPTION VALUE='90801' >90801:一般</OPTION><OPTION VALUE='90802' >90802:イベント</OPTION><OPTION VALUE='90901' >90901:一般</OPTION><OPTION VALUE='90902' >90902:イベント</OPTION><OPTION VALUE='91001' >91001:一般</OPTION><OPTION VALUE='91101' >91101:一般</OPTION><OPTION VALUE='91102' >91102:イベント</OPTION> </SELECT>
+								</td>
+								<th width="100" id="search_th">FTP送信日</th>
+								<td width="240" nowrap id="search_td">
+									<input type='text' name='ftpFrom' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='js_ftpFrom' onblur='_formateDate(this,"FTP送信日は日付を入力して下さい。");' /><a href='#' id='js_ftpFrom_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_ftpFrom',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_ftpFrom_calendar_link_id',singleClick : true,step:1});</script>
+									～
+									<input type='text' name='ftpTo' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='js_ftpTo' onblur='_formateDate(this,"FTP送信日は日付を入力して下さい。");' /><a href='#' id='js_ftpTo_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_ftpTo',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_ftpTo_calendar_link_id',singleClick : true,step:1});</script>
+								</td>
+							</tr>
+							<tr>
+								<th width="100" id="search_th">更新者</th>
+								<td width="240" nowrap id="search_td">
+									<SELECT name='userName' id='js_userName' style='width:300px;' tabindex=null > <OPTION VALUE='-1' SELECTED></OPTION><OPTION VALUE='3' >HTB　泉</OPTION><OPTION VALUE='1' >JP管理者</OPTION><OPTION VALUE='2' >荷主管理者</OPTION><OPTION VALUE='9' >東計電算　加藤</OPTION><OPTION VALUE='7' >日本郵便　熊川</OPTION><OPTION VALUE='4' >日本郵便　松村</OPTION><OPTION VALUE='8' >日本郵便　上村</OPTION><OPTION VALUE='6' >日本郵便　石田</OPTION><OPTION VALUE='5' >日本郵便　滝田</OPTION> </SELECT>
+								</td>
+								<th width="100" id="search_th">更新日</th>
+								<td width="240" id="search_td">
+									<input type='text' name='repDateFrom' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='js_repDateFrom' onblur='_formateDate(this,"更新日(開始日)は日付を入力して下さい。");' /><a href='#' id='js_repDateFrom_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_repDateFrom',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_repDateFrom_calendar_link_id',singleClick : true,step:1});</script>
+									～
+									<input type='text' name='repDateTo' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='js_repDateToo' onblur='_formateDate(this,"更新日(終了日)は日付を入力して下さい。");' /><a href='#' id='js_repDateToo_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_repDateToo',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_repDateToo_calendar_link_id',singleClick : true,step:1});</script>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td valign="bottom">
+						<input  type="button" onClick="Search();" value="検索"/>
+						<input  onclick="Upload();" type="button" value="アップロード" tabindex="0">
+					</td>
+				</tr>
+			</table>
+			<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=920px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=920px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+		</form>
+		
+			<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>440件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1<OPTION   VALUE='2'>2<OPTION   VALUE='3'>3<OPTION   VALUE='4'>4<OPTION   VALUE='5'>5<OPTION   VALUE='6'>6<OPTION   VALUE='7'>7<OPTION   VALUE='8'>8<OPTION   VALUE='9'>9<OPTION   VALUE='10'>10<OPTION   VALUE='11'>11<OPTION   VALUE='12'>12<OPTION   VALUE='13'>13<OPTION   VALUE='14'>14<OPTION   VALUE='15'>15</SELECT>/15</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(2)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(15)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='/easpro2/e_asproMaster/MS040MallItemList' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="15"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="440"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='fromPage' value=""><input type='hidden' name='processType' value="2"><input type='hidden' name='searchKbn' value=""><input type='hidden' name='uploadNo' value=""><input type='hidden' name='siteKbn' value=""><input type='hidden' name='siteCd' value=""><input type='hidden' name='tanto' value=""><input type='hidden' name='syupinFlg' value=""><input type='hidden' name='mallSyupinFlg' value=""><input type='hidden' name='mItemCodeFrom' value=""><input type='hidden' name='mItemCodeTo' value=""><input type='hidden' name='mItemName' value=""><input type='hidden' name='searchBunruiBigCd' value=""><input type='hidden' name='searchBunruiMiddleCd' value=""><input type='hidden' name='searchBunruiSmallCd' value=""><input type='hidden' name='ftpFrom' value=""><input type='hidden' name='ftpTo' value=""><input type='hidden' name='userName' value="-1"><input type='hidden' name='repDateFrom' value=""><input type='hidden' name='repDateTo' value=""></form>
+			<table>
+				<tr>
+					<td>
+						<table border="0" cellspacing="1">
+							<tr>
+								<td nowrap bgcolor="#ffff66" width="600px">
+									
+									<SELECT name='mallCsvDownKbn' id='js_mallCsvDownKbn' onchange='getCsvPtnItem(this.value)'style='width:200px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='105' >ECサイト販売対象外得意先選択</OPTION><OPTION VALUE='541' >サイト用商品楽天情報</OPTION><OPTION VALUE='542' >サイト用商品Yahoo!情報</OPTION><OPTION VALUE='543' >サイト用商品項目選択肢（カラー・サイズ）</OPTION><OPTION VALUE='544' >サイト用商品オプション項目</OPTION><OPTION VALUE='548' >サイト用商品Amazon情報</OPTION><OPTION VALUE='549' >サイト用商品マスタ(BtoC)</OPTION><OPTION VALUE='550' >サイト用商品マスタ(BtoB)</OPTION> </SELECT>
+									
+									<SELECT name='mallCsvPtn' id='js_mallCsvPtn' style='width:200px;' tabindex=null >  </SELECT>
+									<input  onclick="Download();" type="button" value="CSV出力" tabindex="0">
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<form action="/easpro2/e_asproMaster/MS040MallItemList" id="_Form2" name="Form2" method="post">
+			<input type="hidden" name="secToken" id="secToken" value="ABEEEE12513934D16CA8D664B9698779"/>
+			<input type="hidden" name="processType" id="_processType2" value="2">
+			<input type="hidden" name="siteKbn" id="_siteKbn2" value="">
+			<input type="hidden" name="syupinFlg" id="_syupinFlg2" value="">
+			<input type="hidden" name="mItemCodeFrom" id="_mItemCodeFrom2" value="">
+			<input type="hidden" name="mItemCodeTo" id="_mItemCodeTo2" value="">
+			<input type="hidden" name="mItemName" id="_mItemName2" value="">
+			<input type="hidden" name="searchBunruiBigCd" id="_searchBunruiBigCd2" value="">
+			<input type="hidden" name="searchBunruiMiddleCd" id="_searchBunruiMiddleCd2" value="">
+			<input type="hidden" name="searchBunruiSmallCd" id="_searchBunruiMmallCd2" value="">
+			<input type="hidden" name="ftpFrom" id="_ftpFrom2" value="">
+			<input type="hidden" name="ftpTo" id="_ftpTo2" value="">
+			<input type="hidden" name="userName" id="_userName2" value="-1">
+			<input type="hidden" name="strFromPageId" value="MS040">
+			
+			<table>
+				<tr>
+					<td>
+						<table border="0" cellspacing="1">
+							<tr>
+								<td nowrap bgcolor="#ffcc66" width="600">
+								<font style="font-weight: bold;font-size:12px;">対象サイト</font>
+									<SELECT name='syoriSite' id='js_syoriSite' style='width:200px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='0000000001' >EC(BtoC)</OPTION><OPTION VALUE='ALL' >全て</OPTION> </SELECT>
+									<select name="syoriStatus" id="js_syoriStatus" style="width:200px;">
+										
+											
+											
+												<option value="" selected></option>
+											
+										
+											
+											
+										
+											
+											
+										
+											
+											
+										
+											
+											
+										
+											
+											
+										
+											
+											
+												<option value="4" >出品キャンセル</option>
+											
+										
+											
+											
+										
+									</select>
+									<input  onclick="kobetu();" type="button" value="出品状況変更" tabindex="0">
+								</td>
+								<td nowrap bgcolor="#afeeee" width="200">
+									<font style="font-weight: bold;font-size:12px;">&nbsp;商品情報削除&nbsp;</font>
+									<input  onclick="Upload_delete();" type="button" value="アップロード" tabindex="0">
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<table class="lt2" "style="width:1300px;" >
+				
+				<col width="30">
+				
+				<col width="30">
+				
+				
+					<col width="80">
+				
+				
+				<col width="220">
+				
+				<col width="370">
+				
+				<col width="100">
+				
+				<col width="100">
+				
+				<col width="100">
+				
+				
+					<col width="100">
+				
+				
+				<col width="100">
+				
+				<col width="120">
+				
+				<tr class="head">
+					<th rowspan="2"><input class="checkall" type="checkbox" data-target="mItemNo" data-form="_Form2"></th>
+					<th rowspan="2" height="28">No</th>
+					<th rowspan="1" colspan="1">出品状況</th>
+					<th rowspan="2">商品コード</th>
+					<th rowspan="2">商品名</th>
+					<th rowspan="2">大分類</th>
+					<th rowspan="2">中分類</th>
+					<th rowspan="2">小分類</th>
+					
+					<th rowspan="1" colspan="1">FTP送信日時</th>
+					
+					<th rowspan="2">最終更新者</th>
+					<th rowspan="2">最終更新日時</th>
+				</tr>
+				
+				<tr class="head">
+					
+						
+							<td title="EC(BtoC)">
+								<span style="font-weight:bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">EC(BtoC)</span>
+							</td>
+						
+					
+					
+						
+							<td title="EC(BtoC)">
+								<span style="font-weight:bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">EC(BtoC)</span>
+							</td>
+						
+					
+				</tr>
+				
+				
+					<tr>
+						
+						<td align="center" title="1">
+							<input type="checkbox" name="mItemNo" value="0001,16">
+						</td>
+						
+						<td align="center" title="1">
+							1
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=0001" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="0001">
+								
+								<a href='javascript:itemNoLink("0001","MS040",0,"0001")'>
+									0001
+								</a>
+							</td>
+							
+							<td title="商品A更新">
+								商品A更新
+							</td>
+							
+							<td title="2:onちゃん">
+								2:onちゃん
+							</td>
+							
+							<td title="1201:衣類">
+								1201:衣類
+							</td>
+							
+							<td title="100101:一般">
+								100101:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2019/01/11 11:19">
+								2019/01/11 11:19
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="2">
+							<input type="checkbox" name="mItemNo" value="0002,3">
+						</td>
+						
+						<td align="center" title="2">
+							2
+						</td>
+						
+											<td title="出品前">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=0002" target="blank">
+													<span>出品前</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="0002">
+								
+								<a href='javascript:itemNoLink("0002","MS040",1,"0002")'>
+									0002
+								</a>
+							</td>
+							
+							<td title="商品B">
+								商品B
+							</td>
+							
+							<td title="2:onちゃん">
+								2:onちゃん
+							</td>
+							
+							<td title="1201:衣類">
+								1201:衣類
+							</td>
+							
+							<td title="100101:一般">
+								100101:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/10/10 16:10">
+								2018/10/10 16:10
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="3">
+							<input type="checkbox" name="mItemNo" value="0003,2">
+						</td>
+						
+						<td align="center" title="3">
+							3
+						</td>
+						
+											<td title="出品前">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=0003" target="blank">
+													<span>出品前</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="0003">
+								
+								<a href='javascript:itemNoLink("0003","MS040",2,"0003")'>
+									0003
+								</a>
+							</td>
+							
+							<td title="商品C">
+								商品C
+							</td>
+							
+							<td title="10:藤村・嬉野">
+								10:藤村・嬉野
+							</td>
+							
+							<td title="101:DVD・BD関係">
+								101:DVD・BD関係
+							</td>
+							
+							<td title="120102:イベント">
+								120102:イベント
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/10/10 16:08">
+								2018/10/10 16:08
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="4">
+							<input type="checkbox" name="mItemNo" value="1000000000004,12">
+						</td>
+						
+						<td align="center" title="4">
+							4
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000004" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000004">
+								
+								<a href='javascript:itemNoLink("1000000000004","MS040",3,"1000000000004")'>
+									1000000000004
+								</a>
+							</td>
+							
+							<td title="onちゃん特小">
+								onちゃん特小
+							</td>
+							
+							<td title="11:備品・什器">
+								11:備品・什器
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2019/01/11 10:34">
+								2019/01/11 10:34
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="5">
+							<input type="checkbox" name="mItemNo" value="1000000000007,5">
+						</td>
+						
+						<td align="center" title="5">
+							5
+						</td>
+						
+											<td title="出品前">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000007" target="blank">
+													<span>出品前</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000007">
+								
+								<a href='javascript:itemNoLink("1000000000007","MS040",4,"1000000000007")'>
+									1000000000007
+								</a>
+							</td>
+							
+							<td title="onちゃん小">
+								onちゃん小
+							</td>
+							
+							<td title="11:備品・什器">
+								11:備品・什器
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/09/25 17:11">
+								2018/09/25 17:11
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="6">
+							<input type="checkbox" name="mItemNo" value="1000000000082,2">
+						</td>
+						
+						<td align="center" title="6">
+							6
+						</td>
+						
+											<td title="出品前">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000082" target="blank">
+													<span>出品前</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000082">
+								
+								<a href='javascript:itemNoLink("1000000000082","MS040",5,"1000000000082")'>
+									1000000000082
+								</a>
+							</td>
+							
+							<td title="onちゃんヨコ">
+								onちゃんヨコ
+							</td>
+							
+							<td title="11:備品・什器">
+								11:備品・什器
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2017/06/21 08:14">
+								2017/06/21 08:14
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="7">
+							<input type="checkbox" name="mItemNo" value="1000000000083,1">
+						</td>
+						
+						<td align="center" title="7">
+							7
+						</td>
+						
+											<td title="出品前">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000083" target="blank">
+													<span>出品前</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000083">
+								
+								<a href='javascript:itemNoLink("1000000000083","MS040",6,"1000000000083")'>
+									1000000000083
+								</a>
+							</td>
+							
+							<td title="onちゃん超特大">
+								onちゃん超特大
+							</td>
+							
+							<td title="11:備品・什器">
+								11:備品・什器
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2017/06/20 07:51">
+								2017/06/20 07:51
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="8">
+							<input type="checkbox" name="mItemNo" value="1000000000133,18">
+						</td>
+						
+						<td align="center" title="8">
+							8
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000133" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000133">
+								
+								<a href='javascript:itemNoLink("1000000000133","MS040",7,"1000000000133")'>
+									1000000000133
+								</a>
+							</td>
+							
+							<td title="水曜どうでしょうフィギュア 其の5(1BOX/8個入)">
+								水曜どうでしょうフィギュア 其の5(1BOX/8個入)
+							</td>
+							
+							<td title="9:水曜どうでしょう">
+								9:水曜どうでしょう
+							</td>
+							
+							<td title="907:フィギュア">
+								907:フィギュア
+							</td>
+							
+							<td title="90701:一般">
+								90701:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="">
+								
+							</td>
+							
+							<td align="center" title="2018/09/25 16:57">
+								2018/09/25 16:57
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="9">
+							<input type="checkbox" name="mItemNo" value="1000000000185,7">
+						</td>
+						
+						<td align="center" title="9">
+							9
+						</td>
+						
+											<td title="出品キャンセル">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000185" target="blank">
+													<span>出品キャンセル</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000185">
+								
+								<a href='javascript:itemNoLink("1000000000185","MS040",8,"1000000000185")'>
+									1000000000185
+								</a>
+							</td>
+							
+							<td title="水曜どうでしょうフィギュア 其の7(1BOX/8個入)">
+								水曜どうでしょうフィギュア 其の7(1BOX/8個入)
+							</td>
+							
+							<td title="9:水曜どうでしょう">
+								9:水曜どうでしょう
+							</td>
+							
+							<td title="907:フィギュア">
+								907:フィギュア
+							</td>
+							
+							<td title="90701:一般">
+								90701:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/04/04 19:26">
+								2018/04/04 19:26
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="10">
+							<input type="checkbox" name="mItemNo" value="1000000000291,9">
+						</td>
+						
+						<td align="center" title="10">
+							10
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000291" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000291">
+								
+								<a href='javascript:itemNoLink("1000000000291","MS040",9,"1000000000291")'>
+									1000000000291
+								</a>
+							</td>
+							
+							<td title="水曜どうでしょうフィギュア 其の9(1BOX/8個入)">
+								水曜どうでしょうフィギュア 其の9(1BOX/8個入)
+							</td>
+							
+							<td title="9:水曜どうでしょう">
+								9:水曜どうでしょう
+							</td>
+							
+							<td title="907:フィギュア">
+								907:フィギュア
+							</td>
+							
+							<td title="90701:一般">
+								90701:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/04/10 15:33">
+								2018/04/10 15:33
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="11">
+							<input type="checkbox" name="mItemNo" value="1000000000299,8">
+						</td>
+						
+						<td align="center" title="11">
+							11
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000299" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000299">
+								
+								<a href='javascript:itemNoLink("1000000000299","MS040",10,"1000000000299")'>
+									1000000000299
+								</a>
+							</td>
+							
+							<td title="水曜どうでしょうフィギュア 其の10(1BOX/8個入)">
+								水曜どうでしょうフィギュア 其の10(1BOX/8個入)
+							</td>
+							
+							<td title="9:水曜どうでしょう">
+								9:水曜どうでしょう
+							</td>
+							
+							<td title="907:フィギュア">
+								907:フィギュア
+							</td>
+							
+							<td title="90701:一般">
+								90701:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/04/10 15:20">
+								2018/04/10 15:20
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="12">
+							<input type="checkbox" name="mItemNo" value="1000000000305,8">
+						</td>
+						
+						<td align="center" title="12">
+							12
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000305" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000305">
+								
+								<a href='javascript:itemNoLink("1000000000305","MS040",11,"1000000000305")'>
+									1000000000305
+								</a>
+							</td>
+							
+							<td title="水曜どうでしょうフィギュア　其の11(1BOX/8個入)">
+								水曜どうでしょうフィギュア　其の11(1BOX/8個入)
+							</td>
+							
+							<td title="9:水曜どうでしょう">
+								9:水曜どうでしょう
+							</td>
+							
+							<td title="907:フィギュア">
+								907:フィギュア
+							</td>
+							
+							<td title="90701:一般">
+								90701:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/04/10 14:11">
+								2018/04/10 14:11
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="13">
+							<input type="checkbox" name="mItemNo" value="1000000000311,4">
+						</td>
+						
+						<td align="center" title="13">
+							13
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000311" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000311">
+								
+								<a href='javascript:itemNoLink("1000000000311","MS040",12,"1000000000311")'>
+									1000000000311
+								</a>
+							</td>
+							
+							<td title="ビジービーオリジナル社長戦国キャラシール">
+								ビジービーオリジナル社長戦国キャラシール
+							</td>
+							
+							<td title="8:委託">
+								8:委託
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2017/07/14 17:29">
+								2017/07/14 17:29
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="14">
+							<input type="checkbox" name="mItemNo" value="1000000000312,17">
+						</td>
+						
+						<td align="center" title="14">
+							14
+						</td>
+						
+											<td title="出品キャンセル">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000312" target="blank">
+													<span>出品キャンセル</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000312">
+								
+								<a href='javascript:itemNoLink("1000000000312","MS040",13,"1000000000312")'>
+									1000000000312
+								</a>
+							</td>
+							
+							<td title="水曜どうでしょうフィギュア　其の12(1BOX/8個入)">
+								水曜どうでしょうフィギュア　其の12(1BOX/8個入)
+							</td>
+							
+							<td title="9:水曜どうでしょう">
+								9:水曜どうでしょう
+							</td>
+							
+							<td title="907:フィギュア">
+								907:フィギュア
+							</td>
+							
+							<td title="90701:一般">
+								90701:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/04/04 15:59">
+								2018/04/04 15:59
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="15">
+							<input type="checkbox" name="mItemNo" value="1000000000317,21">
+						</td>
+						
+						<td align="center" title="15">
+							15
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000317" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000317">
+								
+								<a href='javascript:itemNoLink("1000000000317","MS040",14,"1000000000317")'>
+									1000000000317
+								</a>
+							</td>
+							
+							<td title="水曜どうでしょうフィギュア　其の13(1BOX/8個入)">
+								水曜どうでしょうフィギュア　其の13(1BOX/8個入)
+							</td>
+							
+							<td title="9:水曜どうでしょう">
+								9:水曜どうでしょう
+							</td>
+							
+							<td title="907:フィギュア">
+								907:フィギュア
+							</td>
+							
+							<td title="90701:一般">
+								90701:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/04/04 19:22">
+								2018/04/04 19:22
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="16">
+							<input type="checkbox" name="mItemNo" value="1000000000319,4">
+						</td>
+						
+						<td align="center" title="16">
+							16
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000319" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000319">
+								
+								<a href='javascript:itemNoLink("1000000000319","MS040",15,"1000000000319")'>
+									1000000000319
+								</a>
+							</td>
+							
+							<td title="創立20周年記念　ビジービー美術倶楽部ぬり絵セット">
+								創立20周年記念　ビジービー美術倶楽部ぬり絵セット
+							</td>
+							
+							<td title="8:委託">
+								8:委託
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2017/11/15 14:57">
+								2017/11/15 14:57
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="17">
+							<input type="checkbox" name="mItemNo" value="1000000000320,16">
+						</td>
+						
+						<td align="center" title="17">
+							17
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000320" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000320">
+								
+								<a href='javascript:itemNoLink("1000000000320","MS040",16,"1000000000320")'>
+									1000000000320
+								</a>
+							</td>
+							
+							<td title="水曜どうでしょう　フィギュア其の14(1BOX/8個入り)">
+								水曜どうでしょう　フィギュア其の14(1BOX/8個入り)
+							</td>
+							
+							<td title="9:水曜どうでしょう">
+								9:水曜どうでしょう
+							</td>
+							
+							<td title="907:フィギュア">
+								907:フィギュア
+							</td>
+							
+							<td title="90701:一般">
+								90701:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/04/04 15:45">
+								2018/04/04 15:45
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="18">
+							<input type="checkbox" name="mItemNo" value="1000000000323,2">
+						</td>
+						
+						<td align="center" title="18">
+							18
+						</td>
+						
+											<td title="出品前">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000323" target="blank">
+													<span>出品前</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000323">
+								
+								<a href='javascript:itemNoLink("1000000000323","MS040",17,"1000000000323")'>
+									1000000000323
+								</a>
+							</td>
+							
+							<td title="【予約特典】おにぎりあたためますか ハワイの旅　ロゴステッカー">
+								【予約特典】おにぎりあたためますか ハワイの旅　ロゴステッカー
+							</td>
+							
+							<td title="3:おにぎりあたためますか">
+								3:おにぎりあたためますか
+							</td>
+							
+							<td title="301:DVD・BD関係">
+								301:DVD・BD関係
+							</td>
+							
+							<td title="30101:一般">
+								30101:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/01/12 15:54">
+								2018/01/12 15:54
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="19">
+							<input type="checkbox" name="mItemNo" value="1000000000324,2">
+						</td>
+						
+						<td align="center" title="19">
+							19
+						</td>
+						
+											<td title="出品前">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000324" target="blank">
+													<span>出品前</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000324">
+								
+								<a href='javascript:itemNoLink("1000000000324","MS040",18,"1000000000324")'>
+									1000000000324
+								</a>
+							</td>
+							
+							<td title="【予約特典】ハナタレナックス　第6滴">
+								【予約特典】ハナタレナックス　第6滴
+							</td>
+							
+							<td title="5:ハナタレナックス">
+								5:ハナタレナックス
+							</td>
+							
+							<td title="501:DVD・BD関係">
+								501:DVD・BD関係
+							</td>
+							
+							<td title="50101:一般">
+								50101:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/03/02 10:50">
+								2018/03/02 10:50
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="20">
+							<input type="checkbox" name="mItemNo" value="1000000000325,10">
+						</td>
+						
+						<td align="center" title="20">
+							20
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1000000000325" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1000000000325">
+								
+								<a href='javascript:itemNoLink("1000000000325","MS040",19,"1000000000325")'>
+									1000000000325
+								</a>
+							</td>
+							
+							<td title="水曜どうでしょう　フィギュア其の15（1BOX/8個入り）">
+								水曜どうでしょう　フィギュア其の15（1BOX/8個入り）
+							</td>
+							
+							<td title="9:水曜どうでしょう">
+								9:水曜どうでしょう
+							</td>
+							
+							<td title="907:フィギュア">
+								907:フィギュア
+							</td>
+							
+							<td title="90701:一般">
+								90701:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/08/17 11:52">
+								2018/08/17 11:52
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="21">
+							<input type="checkbox" name="mItemNo" value="1090400093200,6">
+						</td>
+						
+						<td align="center" title="21">
+							21
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1090400093200" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1090400093200">
+								
+								<a href='javascript:itemNoLink("1090400093200","MS040",20,"1090400093200")'>
+									1090400093200
+								</a>
+							</td>
+							
+							<td title="ユメチカレコードラグランTシャツ「ヘザーグレー/ブラック」S">
+								ユメチカレコードラグランTシャツ「ヘザーグレー/ブラック」S
+							</td>
+							
+							<td title="7:ユメチカ">
+								7:ユメチカ
+							</td>
+							
+							<td title="702:衣類">
+								702:衣類
+							</td>
+							
+							<td title="70201:一般">
+								70201:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/06/05 16:06">
+								2018/06/05 16:06
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="22">
+							<input type="checkbox" name="mItemNo" value="1090400093300,5">
+						</td>
+						
+						<td align="center" title="22">
+							22
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1090400093300" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1090400093300">
+								
+								<a href='javascript:itemNoLink("1090400093300","MS040",21,"1090400093300")'>
+									1090400093300
+								</a>
+							</td>
+							
+							<td title="ユメチカレコードラグランTシャツ「ヘザーグレー/ブラック」M">
+								ユメチカレコードラグランTシャツ「ヘザーグレー/ブラック」M
+							</td>
+							
+							<td title="7:ユメチカ">
+								7:ユメチカ
+							</td>
+							
+							<td title="702:衣類">
+								702:衣類
+							</td>
+							
+							<td title="70201:一般">
+								70201:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/06/05 16:05">
+								2018/06/05 16:05
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="23">
+							<input type="checkbox" name="mItemNo" value="1090400093400,5">
+						</td>
+						
+						<td align="center" title="23">
+							23
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1090400093400" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1090400093400">
+								
+								<a href='javascript:itemNoLink("1090400093400","MS040",22,"1090400093400")'>
+									1090400093400
+								</a>
+							</td>
+							
+							<td title="ユメチカレコードラグランTシャツ「ヘザーグレー/ブラック」L">
+								ユメチカレコードラグランTシャツ「ヘザーグレー/ブラック」L
+							</td>
+							
+							<td title="7:ユメチカ">
+								7:ユメチカ
+							</td>
+							
+							<td title="702:衣類">
+								702:衣類
+							</td>
+							
+							<td title="70201:一般">
+								70201:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/09/16 18:29">
+								2018/09/16 18:29
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="24">
+							<input type="checkbox" name="mItemNo" value="1090400093500,6">
+						</td>
+						
+						<td align="center" title="24">
+							24
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1090400093500" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1090400093500">
+								
+								<a href='javascript:itemNoLink("1090400093500","MS040",23,"1090400093500")'>
+									1090400093500
+								</a>
+							</td>
+							
+							<td title="ユメチカレコードラグランTシャツ「ヘザーグレー/ブラック」XL">
+								ユメチカレコードラグランTシャツ「ヘザーグレー/ブラック」XL
+							</td>
+							
+							<td title="7:ユメチカ">
+								7:ユメチカ
+							</td>
+							
+							<td title="702:衣類">
+								702:衣類
+							</td>
+							
+							<td title="70201:一般">
+								70201:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/09/16 18:45">
+								2018/09/16 18:45
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="25">
+							<input type="checkbox" name="mItemNo" value="1090400093600,4">
+						</td>
+						
+						<td align="center" title="25">
+							25
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1090400093600" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1090400093600">
+								
+								<a href='javascript:itemNoLink("1090400093600","MS040",24,"1090400093600")'>
+									1090400093600
+								</a>
+							</td>
+							
+							<td title="ユメチカレコードラグランTシャツ「ブラック/ホワイト」S">
+								ユメチカレコードラグランTシャツ「ブラック/ホワイト」S
+							</td>
+							
+							<td title="7:ユメチカ">
+								7:ユメチカ
+							</td>
+							
+							<td title="702:衣類">
+								702:衣類
+							</td>
+							
+							<td title="70201:一般">
+								70201:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/06/05 16:11">
+								2018/06/05 16:11
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="26">
+							<input type="checkbox" name="mItemNo" value="1090400093700,4">
+						</td>
+						
+						<td align="center" title="26">
+							26
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1090400093700" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1090400093700">
+								
+								<a href='javascript:itemNoLink("1090400093700","MS040",25,"1090400093700")'>
+									1090400093700
+								</a>
+							</td>
+							
+							<td title="ユメチカレコードラグランTシャツ「ブラック/ホワイト」M">
+								ユメチカレコードラグランTシャツ「ブラック/ホワイト」M
+							</td>
+							
+							<td title="7:ユメチカ">
+								7:ユメチカ
+							</td>
+							
+							<td title="702:衣類">
+								702:衣類
+							</td>
+							
+							<td title="70201:一般">
+								70201:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/06/05 16:12">
+								2018/06/05 16:12
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="27">
+							<input type="checkbox" name="mItemNo" value="1090400093800,4">
+						</td>
+						
+						<td align="center" title="27">
+							27
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1090400093800" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1090400093800">
+								
+								<a href='javascript:itemNoLink("1090400093800","MS040",26,"1090400093800")'>
+									1090400093800
+								</a>
+							</td>
+							
+							<td title="ユメチカレコードラグランTシャツ「ブラック/ホワイト」L">
+								ユメチカレコードラグランTシャツ「ブラック/ホワイト」L
+							</td>
+							
+							<td title="7:ユメチカ">
+								7:ユメチカ
+							</td>
+							
+							<td title="702:衣類">
+								702:衣類
+							</td>
+							
+							<td title="70201:一般">
+								70201:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/06/05 16:18">
+								2018/06/05 16:18
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="28">
+							<input type="checkbox" name="mItemNo" value="1090400093900,4">
+						</td>
+						
+						<td align="center" title="28">
+							28
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=1090400093900" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="1090400093900">
+								
+								<a href='javascript:itemNoLink("1090400093900","MS040",27,"1090400093900")'>
+									1090400093900
+								</a>
+							</td>
+							
+							<td title="ユメチカレコードラグランTシャツ「ブラック/ホワイト」XL">
+								ユメチカレコードラグランTシャツ「ブラック/ホワイト」XL
+							</td>
+							
+							<td title="7:ユメチカ">
+								7:ユメチカ
+							</td>
+							
+							<td title="702:衣類">
+								702:衣類
+							</td>
+							
+							<td title="70201:一般">
+								70201:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/06/05 16:19">
+								2018/06/05 16:19
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="29">
+							<input type="checkbox" name="mItemNo" value="2090200087100,4">
+						</td>
+						
+						<td align="center" title="29">
+							29
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=2090200087100" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="2090200087100">
+								
+								<a href='javascript:itemNoLink("2090200087100","MS040",28,"2090200087100")'>
+									2090200087100
+								</a>
+							</td>
+							
+							<td title="LEF-T 1st Mini Album 「オスミツキノヒダリ」">
+								LEF-T 1st Mini Album 「オスミツキノヒダリ」
+							</td>
+							
+							<td title="7:ユメチカ">
+								7:ユメチカ
+							</td>
+							
+							<td title="701:CD">
+								701:CD
+							</td>
+							
+							<td title="70101:一般">
+								70101:一般
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/06/05 16:25">
+								2018/06/05 16:25
+							</td>
+						</tr>
+					
+				
+					<tr>
+						
+						<td align="center" title="30">
+							<input type="checkbox" name="mItemNo" value="4562168923592,17">
+						</td>
+						
+						<td align="center" title="30">
+							30
+						</td>
+						
+											<td title="出品中">
+												<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=4562168923592" target="blank">
+													<span>出品中</span>
+												</a>
+											</td>
+											
+								
+							
+						
+							
+							<td id="mitemcode" title="4562168923592">
+								
+								<a href='javascript:itemNoLink("4562168923592","MS040",29,"4562168923592")'>
+									4562168923592
+								</a>
+							</td>
+							
+							<td title="CAST YOUR DICE(LP Record)">
+								CAST YOUR DICE(LP Record)
+							</td>
+							
+							<td title="8:委託">
+								8:委託
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+							<td title="">
+								
+							</td>
+							
+												<td></td>
+											
+									
+								
+							
+							<td align="left" title="荷主管理者">
+								荷主管理者
+							</td>
+							
+							<td align="center" title="2018/08/04 13:24">
+								2018/08/04 13:24
+							</td>
+						</tr>
+					
+				
+				</table>
+			</form>
+		
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+	<script type="text/javascript">
+		//「検索」ボタン押下時処理
+		function Search(){
+			$$("_Form").action="/easpro2/e_asproMaster/MS040MallItemList";
+			$$("_processType").value="2";
+			$$("_mallCsvDownKbn").value = "";
+			$$("_mallCsvPtn").value = "";
+			$$("_Form").submit();
+			btnDisabled();
+		}
+
+		//「CSV出力」ボタン押下時処理
+		function Download(){
+			$("#errMsg").html("");
+			$$("_Form").action="/easpro2/e_asproMaster/MS040MallItemList";
+			$$("_processType").value="7";
+			$$("_mallCsvDownKbn").value = $$("js_mallCsvDownKbn").value;
+			$$("_mallCsvPtn").value = $$("js_mallCsvPtn").value;
+			$$("_Form").submit();
+			btnDisabled();
+
+			//CSV出力ボタン  3秒後に利用可能
+			setTimeout('enableDownLoad()', '3000');
+		}
+
+		//CSV出力ボタン押下3秒後に処理
+		function enableDownLoad(){
+			$("input[@type=button]").removeAttr("disabled");
+		}
+
+		//対象サイトの「アップロード」ボタン押下時処理
+		function Upload(){
+			var url= "/easpro2/e_asproMaster/MS042MallItemUp";
+			_searchWin = window.open(url,"MS042","width=1000,height=720,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+			_searchWin.focus();
+		}
+
+		//商品情報削除の「アップロード」ボタン押下時処理
+		function Upload_delete(){
+			var url= "/easpro2/e_asproMaster/MS047MallDelItemUp";
+			_searchWin = window.open(url,"MS047","width=910,height=720,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+			_searchWin.focus();
+		}
+
+		//対象サイトの「出品状況変更」ボタン押下時処理
+		function kobetu() {
+			if (!checkBox()) {
+				return;
+			}
+			var updConfirmMsg = "更新します。よろしいですか？";
+
+			if(confirm(updConfirmMsg)){
+				$$("_processType2").value = "4";
+				$$("_Form2").action = "/easpro2/e_asproMaster/MS040MallItemList"
+				$$("_Form2").submit();
+				btnDisabled();
+			}
+		}
+
+		//選択チェック処理
+		function checkBox(){
+			var checkCount = 0;
+			$("input[name=mItemNo]").each(
+				function(i,checkbox){
+					if(checkbox.checked == true){
+						checkCount++;
+					}
+				}
+				);
+			if(checkCount == 0){
+				var msg ="商品コードを1件以上選択して下さい。<br>".replace("<br>","");
+				alert(msg);
+				return false;
+			}else{
+				return true;
+			}
+		}
+
+		function setCsvPtn_list(str){
+			$("#js_mallCsvPtn").html(str);
+		}
+
+		//「CheckAll」ボタン押下時処理
+		$(function(){
+			$(".checkall").each(function(i,obj){
+				$(obj).click(CheckAll);
+				var target = $(obj).attr("data-target");
+				var form = $(obj).attr("data-form");
+				$("input[@name="+ target+"]").click(itemChecked);
+				$("input[@name="+ target+"]").attr("data-form",form);
+			});
+		});
+
+		//「CheckAll」ボタン押下時処理
+		function itemChecked(){
+			var name = $(this).attr("name");
+			var form = $(this).attr("data-form");
+			var checkedLength = $("input[@name="+ name+"]",$("#"+form)).size();
+			if(checkedLength == 0){
+				return ;
+			}
+			if(checkedLength == $("input[@name="+ name +"][@checked]",$("#"+form)).size()){
+				$(".checkall",$("#"+form)).attr("checked",true);
+			}else{
+				$(".checkall",$("#"+form)).attr("checked",false);
+			}
+		}
+
+		//商品コードリンク押下時処理
+		function itemNoLink(itemNo,fromPageId,i,sItemno){
+			var actionURL =  "/easpro2/e_asproMaster/MS041MallItemEntry?";
+			actionURL = actionURL + "&processType=0" + "&item_no=" + itemNo;
+			actionURL = actionURL + "&strFromPageId=" + fromPageId;
+			actionURL = actionURL + "&sItemNo=" + sItemno;
+			var siteDispKbn = 0;
+			if ('1'==siteDispKbn) {
+				var itemSite = $("#itemSite_"+i).val();
+				actionURL = actionURL + "&itemSite=" + itemSite;
+			}
+			$$("_Form").action = actionURL;
+			$$("_Form").submit();
+			btnDisabled();
+		}
+		function CheckAll(){
+			var target = $(this).attr("data-target");
+			var form = $(this).attr("data-form");
+			$("input[@name="+ target +"]",$("#"+form)).attr("checked",$(this).attr("checked"));
+		}
+
+		//対象サイト出品状況プルダウン変更で下位分類の表示制御
+		function getCsvPtnItem(_val){
+
+			var csvOutMall = document.getElementById('js_mallCsvPtn');
+			csvOutMall.innerHTML = "";
+			if( _val ==""){
+				return;
+			}
+			var url = "/easpro2/e_asproMaster/MS040MallItemList";
+			var parms = "processType="+6;
+				parms += "&ajaxKbn=csvPtn";
+				parms += "&mallcsvdown_kbn="+_val;
+				_SendByAjax(url,parms,'',false);
+		}
+	</script>
+</html>

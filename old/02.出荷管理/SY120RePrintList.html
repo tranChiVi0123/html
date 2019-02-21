@@ -1,0 +1,612 @@
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?dMaslCyZrz" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?dMaslCyZrz" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j" />
+		<title>
+			再印刷（印刷単位）
+		</title>
+		<style type="text/css">
+			table.lt2 .head{ 
+				background-color: #CCCCFF;
+			}
+		</style>
+		<script type="text/javascript">		  
+			
+			//検索ボタン押下 実施
+	 		function Search() {
+	 			$$("_processType").value = "2";
+				$$("_Form").action = "/easpro2/e_asproShip/SY120RePrintList"
+				$$("_Form").submit();
+				btnDisabled();	
+			}
+			
+			//印刷ボタン押下 実施
+			function goPrint(printNo, binsyuCd, printTypeNo) {
+				var printConfirmMsg = "印刷を行います。よろしいですか？";
+				if(confirm(printConfirmMsg)){
+					//chromeの場合はpdfFlgを1に設定する。
+					if (navigator.userAgent.indexOf("Chrome") >= 0){
+						$$("_pdfFlg").value="1";
+						setTimeout(enableDownLoad,3000);
+					}
+		 			$$("_processType").value = "08";
+		 			$$("_printNo").value = printNo;
+		 			$$("_binsyuCd").value = binsyuCd;
+		 			$$("_printTypeNo").value = printTypeNo;
+					$$("_Form").action = "/easpro2/e_asproShip/SY120RePrintList"
+					$$("_Form").submit();
+					btnDisabled();	
+				}
+			}
+			//CSV出力ボタン押下3秒後に処理
+			function enableDownLoad(){
+				$("input[@type=button]").removeAttr("disabled");
+			}
+		</script>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_syuturyoku.gif' alt='' align='middle' border='0'>
+		<div class=pt>再印刷（印刷単位）</div>
+		<br>
+		<div style="clear:both;">
+			<b style="color:red;"></b>
+		</div>
+		<br>
+		<form action="/easpro2/SY160ShipList" id="_Form" method="post">
+			<input type="hidden" name="secToken" id="secToken" value="F799AF7C2C36D4EA06D4C29423FCDE93"/>
+			<input type="hidden" name="processType" id="_processType" value="2">
+			<input type="hidden" name="printNo" id="_printNo" value="2535">
+			<input type="hidden" name="binsyuCd" id="_binsyuCd" value="">
+			<input type="hidden" name="printTypeNo" id="_printTypeNo" value="">
+			
+			<input type="hidden" name="pdfFlg" id="_pdfFlg" value="" />
+			<div ID='div1' style='display:block;'>
+				<table class="nb">
+					<tr>
+						<td>
+							<table class="sf" style="width:845px">
+								<col width="120"/>
+								<col width="300"/>
+								<col width="120"/>
+								<col width="300"/>
+								<tr>
+									<th>
+										印刷日
+									</th>
+									<td>
+										<input type='text' name='printYmdFrom' style='width:82px;'  maxlength=10 value='2018/10/16' class='ymd' onkeypress='_chkInp();' id='_printYmdFrom' onblur='_formateDate(this,"印刷日は日付を入力して下さい。");' /><a href='#' id='_printYmdFrom_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_printYmdFrom',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_printYmdFrom_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='printYmdTo' style='width:82px;'  maxlength=10 value='2019/01/23' class='ymd' onkeypress='_chkInp();' id='_printYmdTo' onblur='_formateDate(this,"印刷日は日付を入力して下さい。");' /><a href='#' id='_printYmdTo_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_printYmdTo',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_printYmdTo_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+									<th>
+										倉庫名
+									</th>
+									<td>
+										
+											<SELECT name='whCd' id='_whCd' style='width:280' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='036410501' >アクアペット倉庫</OPTION><OPTION VALUE='039010000' >新越谷ソリューションセンター</OPTION> </SELECT>
+										
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td valign="bottom">
+							<table>
+								<tr>
+									<td>
+										<div style="float:left;margin-left:5px;margin-top:3px;">
+											<input type="button" onClick="Search();" value="検索"
+												/>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=845px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=845px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+		</form>
+		
+		
+			
+			
+			
+				<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>5件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1</SELECT>/1</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='/easpro2/e_asproShip/SY120RePrintList' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="1"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="5"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value="2"><input type='hidden' name='printYmdFrom' value="2018/10/16"><input type='hidden' name='printYmdTo' value="2019/01/23"><input type='hidden' name='printNo' value="2535"><input type='hidden' name='printTypeNo' value=""><input type='hidden' name='whCd' value=""><input type='hidden' name='searchKbn' value="2"><input type='hidden' name='coNo' value="2535"><input type='hidden' name='userNo' value="42"><input type='hidden' name='loginWhCd' value=""><input type='hidden' name='loginWhNm' value=""></form>
+				<table class="lt2">
+					<col width="30">
+					<col width="110">
+					<col width="80">
+					<col width="150">
+					<tr class="head">
+						<th align="center" rowspan="2">No</th>
+						<th align="center" rowspan="2">印刷日時</th>
+						<th align="center" rowspan="2">出荷指示数</th>
+						<th align="center" rowspan="2">商品種別</th>
+						<th align="center" colspan="4" width="520px">印刷</th>
+					</tr>
+					<tr class="head">
+						
+							<th width="130px">
+								送り状
+							</th>
+						
+							<th width="130px">
+								総量ﾋﾟｯｸ
+							</th>
+						
+							<th width="130px">
+								ｵｰﾀﾞｰﾋﾟｯｸ
+							</th>
+						
+							<th width="130px">
+								納品書
+							</th>
+						
+					</tr>
+					
+						
+						<tr>
+							<td align="center">
+								1
+							</td>
+							<td align="center" title="2019/01/15  22:21">
+								2019/01/15  22:21
+							</td>
+							<td align="right" title="1">
+								
+								<a href="/easpro2/e_asproShip/SY110PrintList?processType=2
+										&printFlg=1&printNo=4393
+										&binsyuCd=01
+										&sagyoKbn=01
+										&syukkaPrintYmdFrom=2018/10/16
+										&syukkaPrintYmdTo=2019/01/23
+										&screenType=2
+										&whCd=">
+										
+									1
+								</a>
+								
+							</td>
+							<td align="left" title="ゆうパック" style="white-space:normal;overflow:inherit">
+								ゆうパック
+							</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn0" 
+											onClick="goPrint('4393',
+																'01',
+																'1');" 
+											value="送り状"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn1" 
+											onClick="goPrint('4393',
+																'01',
+																'14');" 
+											value="総量ﾋﾟｯｸ"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn2" 
+											onClick="goPrint('4393',
+																'01',
+																'15');" 
+											value="ｵｰﾀﾞｰﾋﾟｯｸ"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn3" 
+											onClick="goPrint('4393',
+																'01',
+																'16');" 
+											value="納品書"
+											/>
+								</td>
+							
+						</tr>
+					 
+						
+						<tr>
+							<td align="center">
+								2
+							</td>
+							<td align="center" title="2019/01/08  19:59">
+								2019/01/08  19:59
+							</td>
+							<td align="right" title="1">
+								
+								<a href="/easpro2/e_asproShip/SY110PrintList?processType=2
+										&printFlg=1&printNo=4392
+										&binsyuCd=01
+										&sagyoKbn=01
+										&syukkaPrintYmdFrom=2018/10/16
+										&syukkaPrintYmdTo=2019/01/23
+										&screenType=2
+										&whCd=">
+										
+									1
+								</a>
+								
+							</td>
+							<td align="left" title="ゆうパック" style="white-space:normal;overflow:inherit">
+								ゆうパック
+							</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn0" 
+											onClick="goPrint('4392',
+																'01',
+																'1');" 
+											value="送り状"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn1" 
+											onClick="goPrint('4392',
+																'01',
+																'14');" 
+											value="総量ﾋﾟｯｸ"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn2" 
+											onClick="goPrint('4392',
+																'01',
+																'15');" 
+											value="ｵｰﾀﾞｰﾋﾟｯｸ"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn3" 
+											onClick="goPrint('4392',
+																'01',
+																'16');" 
+											value="納品書"
+											/>
+								</td>
+							
+						</tr>
+					 
+						
+						<tr>
+							<td align="center">
+								3
+							</td>
+							<td align="center" title="2019/01/08  19:58">
+								2019/01/08  19:58
+							</td>
+							<td align="right" title="1">
+								
+								<a href="/easpro2/e_asproShip/SY110PrintList?processType=2
+										&printFlg=1&printNo=4391
+										&binsyuCd=01
+										&sagyoKbn=01
+										&syukkaPrintYmdFrom=2018/10/16
+										&syukkaPrintYmdTo=2019/01/23
+										&screenType=2
+										&whCd=">
+										
+									1
+								</a>
+								
+							</td>
+							<td align="left" title="ゆうパック" style="white-space:normal;overflow:inherit">
+								ゆうパック
+							</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn0" 
+											onClick="goPrint('4391',
+																'01',
+																'1');" 
+											value="送り状"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn1" 
+											onClick="goPrint('4391',
+																'01',
+																'14');" 
+											value="総量ﾋﾟｯｸ"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn2" 
+											onClick="goPrint('4391',
+																'01',
+																'15');" 
+											value="ｵｰﾀﾞｰﾋﾟｯｸ"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn3" 
+											onClick="goPrint('4391',
+																'01',
+																'16');" 
+											value="納品書"
+											/>
+								</td>
+							
+						</tr>
+					 
+						
+						<tr>
+							<td align="center">
+								4
+							</td>
+							<td align="center" title="2018/12/12  20:34">
+								2018/12/12  20:34
+							</td>
+							<td align="right" title="1">
+								
+								<a href="/easpro2/e_asproShip/SY110PrintList?processType=2
+										&printFlg=1&printNo=4390
+										&binsyuCd=01
+										&sagyoKbn=01
+										&syukkaPrintYmdFrom=2018/10/16
+										&syukkaPrintYmdTo=2019/01/23
+										&screenType=2
+										&whCd=">
+										
+									1
+								</a>
+								
+							</td>
+							<td align="left" title="ゆうパック" style="white-space:normal;overflow:inherit">
+								ゆうパック
+							</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn0" 
+											onClick="goPrint('4390',
+																'01',
+																'1');" 
+											value="送り状"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn1" 
+											onClick="goPrint('4390',
+																'01',
+																'14');" 
+											value="総量ﾋﾟｯｸ"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn2" 
+											onClick="goPrint('4390',
+																'01',
+																'15');" 
+											value="ｵｰﾀﾞｰﾋﾟｯｸ"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn3" 
+											onClick="goPrint('4390',
+																'01',
+																'16');" 
+											value="納品書"
+											/>
+								</td>
+							
+						</tr>
+					 
+						
+						<tr>
+							<td align="center">
+								5
+							</td>
+							<td align="center" title="2018/12/11  15:58">
+								2018/12/11  15:58
+							</td>
+							<td align="right" title="1">
+								
+								<a href="/easpro2/e_asproShip/SY110PrintList?processType=2
+										&printFlg=1&printNo=4389
+										&binsyuCd=01
+										&sagyoKbn=01
+										&syukkaPrintYmdFrom=2018/10/16
+										&syukkaPrintYmdTo=2019/01/23
+										&screenType=2
+										&whCd=">
+										
+									1
+								</a>
+								
+							</td>
+							<td align="left" title="ゆうパック" style="white-space:normal;overflow:inherit">
+								ゆうパック
+							</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn0" 
+											onClick="goPrint('4389',
+																'01',
+																'1');" 
+											value="送り状"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn1" 
+											onClick="goPrint('4389',
+																'01',
+																'14');" 
+											value="総量ﾋﾟｯｸ"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn2" 
+											onClick="goPrint('4389',
+																'01',
+																'15');" 
+											value="ｵｰﾀﾞｰﾋﾟｯｸ"
+											/>
+								</td>
+							
+								<td align="center">
+									
+									<input type="button" 
+											id="_btn3" 
+											onClick="goPrint('4389',
+																'01',
+																'16');" 
+											value="納品書"
+											/>
+								</td>
+							
+						</tr>
+					 
+				</table>
+			
+			
+			
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

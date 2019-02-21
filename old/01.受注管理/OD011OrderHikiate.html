@@ -1,0 +1,175 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?YdLY67uJ3R" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?YdLY67uJ3R" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<TITLE>
+			引当状況詳細
+		</TITLE>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+	<SCRIPT type="text/javascript">
+		//search
+			function Search(){
+				$$("OD011Form").action="/easpro2/e_asproOrder/OD011OrderHikiate";
+				$$("OD011Form").processType.value = "1";
+				$$("OD011Form").submit();
+				btnDisabled();
+			}
+			function Close(){
+				window.close();
+			}
+		</SCRIPT>
+	</head>
+	<BODY>
+		<TABLE style="margin:10px;">
+			<TR>
+				<TD BGCOLOR="white">
+					<form action="e_asproOrder/OD011OrderHikiate" method="post" id="OD011Form">
+						<input type="hidden" name="processType" value=""/>
+						<input type="hidden" name="orderNo" id="orderNo" value="187041"/>
+						<input type="hidden" name="orderLineNo" id="orderLineNo" value="1"/>
+					</form>
+						
+							<span style="height:12px;"></span>
+							<TABLE CLASS="lt" width="675" style="border-width: 2px 2px 0px 2px;">
+								<COL width="190">
+								<COL width="265">
+								<COL width="60">
+								<COL width="80">
+								<COL width="80">
+								<TR CLASS="head">
+									<TH>商品コード</TH>
+									<TH>商品名</TH>
+									<TH>数量</TH>
+									<TH>在庫状況</TH>
+									<TH>賞味期限</TH>
+								</TR>
+							</TABLE>
+							<div id="_pageDivId" style="width:685" class="listdiv">
+								<TABLE CLASS="lt" width="675" style="border-width:0px 2px 2px 2px;">
+								<COL width="190">
+								<COL width="265">
+								<COL width="60">
+								<COL width="80">
+								<COL width="80">
+								
+									
+									<TR>
+										<!--商品コード-->
+										<TD align="left" title="0001">
+											<nobr>0001</nobr>
+										</TD>
+										<!--商品名-->
+										<TD align="left" title="検査キット">
+											<nobr>検査キット</nobr>
+										</TD>
+										<!--数量-->
+										<TD align="right" title="1">
+											<nobr>1</nobr>
+										</TD>
+										<!--在庫状況-->
+										<TD align="center" title="在庫不足">
+											<nobr>在庫不足</nobr>
+										</TD>
+										<!--引当：賞味期限-->
+										<TD align="center" title="">
+											<nobr></nobr>
+										</TD>
+									</TR>
+								
+								</TABLE>
+							</div>
+						
+					 
+					<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+				</TD>
+			</TR>
+		</TABLE>
+		<TABLE width="725">
+		<COL width="725">
+			<TR>
+				<TD  align="center">
+					<input type="button" value="閉じる" onclick="Close()">
+				</TD>
+			</TR>
+		</TABLE>
+	</BODY>
+</html>

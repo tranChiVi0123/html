@@ -1,0 +1,981 @@
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+	<meta http-equiv = "Pragma" content="no-cache">
+	<meta http-equiv = "Cache-control" content="no-cache">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?8G7hWyvCjn" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+    <title>サイト用商品マスタCSV登録</title>
+    <style>
+        .listdiv {
+            overflow: auto;
+            height: expression( this.scrollHeight > 400 ? "400px" : "auto" ); /* sets max-height for IE */
+            max-height: 400px; /* sets max-height value for all standards-compliant browsers */
+        }
+    </style>
+    <script type="text/javascript">
+        function Submit() {
+            if (confirm("登録します。よろしいですか？")) {
+                $$("_processType").value = "3";
+                $$("_Form").action = "/easpro2/e_asproMaster/MS042MallUpTempList";
+                $$("_Form").submit();
+                btnDisabled();
+            }
+        }
+
+        function Cannel() {
+            $$("_processType").value = "";
+            $$("_uuid").value = "";
+            $$("_Form").action = "/easpro2/e_asproMaster/MS042MallItemUp";
+            $$("_Form").submit();
+            btnDisabled();
+        }
+        //エラー内容のダウンロード
+        function Download() {
+            $$("_processType").value = "7";
+            $$("_Form").action = "/easpro2/e_asproMaster/MS042MallUpTempList";
+            $$("_Form").submit();
+        }
+    </script>
+</head>
+<body>
+
+<img src='../ecsdocs2/img/head_master.gif' alt='' align='middle' border='0'>
+<div class=pt>サイト用商品マスタCSV登録</div>
+<p>
+	以下の商品データをサイト用商品マスタに登録します。<br>宜しければ、[登録する]ボタンをクリックしてください。
+</p>
+<p>
+	<span style="border: 0.1px solid #a9a9a9; line-height: 1; display: inline-block; height: 12px; width: 12px;"></span>&nbsp;背景色：白は新規取込対象となります。<br>
+	<span style="border: 0.1px solid #a9a9a9; background: #fcc; line-height: 1; display: inline-block; width: 12px; height: 12px;"></span>&nbsp;背景色：赤はエラーの為、取込対象外となります。
+	
+</p>
+
+<b style="color:red"></b>
+<form action="/easpro2/e_asproMaster/MS042MallUpTempList" id="_Form" method="post">
+	<input type="hidden" name="secToken" id="secToken" value="ABEEEE12513934D16CA8D664B9698779"/>
+    <input type="hidden" name="processType" id="_processType" value="2">
+    <input type="hidden" name="strForwordFlg" value="2">
+    <input type="hidden" name="uuid" id="_uuid" value="1926eb4463de47e28fb173386b47dee1">
+    <input type="hidden" name="syubetu" id="_syubetu" value="16">
+    <input type="hidden" name="patternNo" value="99999">
+</form>
+
+
+
+
+<span style="height:12px;"></span>
+<table class="lt" width="630">
+    <tr class="head">
+        <th width="30" nowrap>No</th>
+        <th width="400" nowrap>エラー理由</th>
+        
+        
+        <th width="125" nowrap>商品コード
+        </th>
+        
+        <th width="125" nowrap>販売期間開始日
+        </th>
+        
+        <th width="125" nowrap>販売期間開始時間
+        </th>
+        
+        <th width="125" nowrap>販売期間終了日
+        </th>
+        
+        <th width="125" nowrap>販売期間終了時間
+        </th>
+        
+        <th width="125" nowrap>掲載期間開始日
+        </th>
+        
+        <th width="125" nowrap>掲載期間開始時間
+        </th>
+        
+        <th width="125" nowrap>掲載期間終了日
+        </th>
+        
+        <th width="125" nowrap>掲載期間終了時間
+        </th>
+        
+        <th width="125" nowrap>WEB商品名キャッチコピー前
+        </th>
+        
+        <th width="125" nowrap>WEB商品名
+        </th>
+        
+        <th width="125" nowrap>WEB商品名キャッチコピー後
+        </th>
+        
+        <th width="125" nowrap>課税対象
+        </th>
+        
+        <th width="125" nowrap>標準単価(税抜)
+        </th>
+        
+        <th width="125" nowrap>販売価格(税抜)
+        </th>
+        
+        <th width="125" nowrap>標準単価(税込)
+        </th>
+        
+        <th width="125" nowrap>販売価格(税込)
+        </th>
+        
+        <th width="125" nowrap>ECサイト表示カテゴリ1
+        </th>
+        
+        <th width="125" nowrap>ECサイト表示カテゴリ2
+        </th>
+        
+        <th width="125" nowrap>ECサイト表示カテゴリ3
+        </th>
+        
+        <th width="125" nowrap>ECサイト表示カテゴリ4
+        </th>
+        
+        <th width="125" nowrap>ECサイト表示カテゴリ5
+        </th>
+        
+        <th width="125" nowrap>在庫表示方法
+        </th>
+        
+        <th width="125" nowrap>在庫閾値
+        </th>
+        
+        <th width="125" nowrap>在庫状態文言1
+        </th>
+        
+        <th width="125" nowrap>在庫状態文言2
+        </th>
+        
+        <th width="125" nowrap>在庫状態文言3
+        </th>
+        
+        <th width="125" nowrap>在庫表示箇所
+        </th>
+        
+        <th width="125" nowrap>在庫切れの注文
+        </th>
+        
+        <th width="125" nowrap>購入制限数
+        </th>
+        
+        <th width="125" nowrap>購入制限数(上限)
+        </th>
+        
+        <th width="125" nowrap>購入制限数(下限)
+        </th>
+        
+        <th width="125" nowrap>キャッチコピー(商品詳細上)
+        </th>
+        
+        <th width="125" nowrap>PC用商品説明文
+        </th>
+        
+        <th width="125" nowrap>スマートフォン用商品説明文
+        </th>
+        
+        <th width="125" nowrap>PC用販売説明
+        </th>
+        
+        <th width="125" nowrap>商品画像1メイン画像(130×130)フォルダ名
+        </th>
+        
+        <th width="125" nowrap>商品画像1メイン画像(130×130)ファイル名
+        </th>
+        
+        <th width="125" nowrap>商品画像1メイン画像(260×260)フォルダ名
+        </th>
+        
+        <th width="125" nowrap>商品画像1メイン画像(260×260)ファイル名
+        </th>
+        
+        <th width="125" nowrap>商品画像1メイン拡大画像(500×500)フォルダ名
+        </th>
+        
+        <th width="125" nowrap>商品画像1メイン拡大画像(500×500)ファイル名
+        </th>
+        
+        <th width="125" nowrap>商品画像2メイン画像(260×260)フォルダ名
+        </th>
+        
+        <th width="125" nowrap>商品画像2メイン画像(260×260)ファイル名
+        </th>
+        
+        <th width="125" nowrap>商品画像3メイン画像(260×260)フォルダ名
+        </th>
+        
+        <th width="125" nowrap>商品画像3メイン画像(260×260)ファイル名
+        </th>
+        
+        <th width="125" nowrap>商品画像4メイン画像(260×260)フォルダ名
+        </th>
+        
+        <th width="125" nowrap>商品画像4メイン画像(260×260)ファイル名
+        </th>
+        
+        <th width="125" nowrap>商品画像5メイン画像(260×260)フォルダ名
+        </th>
+        
+        <th width="125" nowrap>商品画像5メイン画像(260×260)ファイル名
+        </th>
+        
+        <th width="125" nowrap>商品画像6メイン画像(260×260)フォルダ名
+        </th>
+        
+        <th width="125" nowrap>商品画像6メイン画像(260×260)ファイル名
+        </th>
+        
+        <th width="125" nowrap>商品画像7メイン画像(260×260)フォルダ名
+        </th>
+        
+        <th width="125" nowrap>商品画像7メイン画像(260×260)ファイル名
+        </th>
+        
+        <th width="125" nowrap>関連商品コード1
+        </th>
+        
+        <th width="125" nowrap>関連商品コード2
+        </th>
+        
+        <th width="125" nowrap>関連商品コード3
+        </th>
+        
+        <th width="125" nowrap>関連商品コード4
+        </th>
+        
+        <th width="125" nowrap>関連商品コード5
+        </th>
+        
+        <th width="125" nowrap>関連商品コード6
+        </th>
+        
+        <th width="125" nowrap>関連商品コード7
+        </th>
+        
+        <th width="125" nowrap>関連商品コード8
+        </th>
+        
+        <th width="125" nowrap>関連商品コード9
+        </th>
+        
+        <th width="125" nowrap>関連商品コード10
+        </th>
+        
+        <th width="125" nowrap>関連商品コード11
+        </th>
+        
+        <th width="125" nowrap>関連商品コード12
+        </th>
+        
+        <th width="125" nowrap>関連商品コード13
+        </th>
+        
+        <th width="125" nowrap>関連商品コード14
+        </th>
+        
+        <th width="125" nowrap>関連商品コード15
+        </th>
+        
+        <th width="125" nowrap>関連商品コード16
+        </th>
+        
+        <th width="125" nowrap>キーワード1
+        </th>
+        
+        <th width="125" nowrap>キーワード2
+        </th>
+        
+        <th width="125" nowrap>キーワード3
+        </th>
+        
+        <th width="125" nowrap>キーワード4
+        </th>
+        
+        <th width="125" nowrap>キーワード5
+        </th>
+        
+        <th width="125" nowrap>商品ステータス1
+        </th>
+        
+        <th width="125" nowrap>商品ステータス2
+        </th>
+        
+        <th width="125" nowrap>商品ステータス3
+        </th>
+        
+    </tr>
+    
+    <tr style="background-color:">
+        
+        <td align="center">
+            1
+        </td>
+        
+        
+        <td style="overflow: auto; white-space: normal;" title="&nbsp;">
+            &nbsp;
+        </td>
+        
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="0001">
+            0001
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="検査キット">
+            検査キット
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="0">
+            0
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="0">
+            0
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="0">
+            0
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="0">
+            0
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="0">
+            0
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="1">
+            1
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="11">
+            11
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="在庫有り">
+            在庫有り
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="残りわずか">
+            残りわずか
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="在庫無し">
+            在庫無し
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="0">
+            0
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="0">
+            0
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="0">
+            0
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="">
+            
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="1">
+            1
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="1">
+            1
+        </td>
+        
+            
+
+        <td style="word-wrap: normal;word-break:keep-all;white-space: inherit;" width="150"
+            title="1">
+            1
+        </td>
+        
+    </tr>
+    
+</table>
+<br>
+<table class="nb" style="WIDTH:700">
+    <tr BGCOLOR="#ffcccc">
+        
+        <td ALIGN="center" width="50%">
+            <input type="button" onclick="Submit()" value="登録する" />
+        </td>
+        
+        <td ALIGN="center" width="25%">
+            <input type="button" onclick="Cannel()" value="キャンセルする"/>
+        </td>
+         
+    </tr>
+</table>
+
+
+<script type='text/javascript'>$(document).ready(function(){_PageInit('0','1','1','1','1','1');})</script>
+</body>
+</html>

@@ -1,0 +1,2523 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+<HTML>
+
+	<HEAD>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+        <LINK HREF="../ecsdocs2/css/system.css" REL="stylesheet" TYPE="text/css" MEDIA="all"/>
+        <link href="../ecsdocs2/css/iWidget.css" rel="stylesheet" type="text/css" />
+        
+        <style type="text/css">  
+  		<!-- 
+   		.txt01 {color:#666; font-size:11px; line-height:1.4em;}
+		.site_design1 {margin:5px;}
+ 	    -->  
+        </style>  
+		<TITLE></TITLE>
+		<script type="text/javascript"> 
+		<!-- 
+		function getWidget(){
+			var lv_id = 0;
+			$("div[id=columns]").each(
+				function(index){
+					//枠IDを繰越
+					$$("_wakuId_"+lv_id).value = index+1
+					$("li[id^=js_id_widget]",this).each(
+						function(detailIndex){
+							//枠内順序
+							$$("_ecPartsNo_"+lv_id).value = this.value
+							$$("_wakuId_"+lv_id).value = index+1
+							$$("_wakuSortNo_"+lv_id).value = detailIndex+1
+							lv_id = lv_id + 1;
+						}
+					)
+				}
+			)
+		}
+		function doInsUpdWT() {
+			getWidget();
+			$$("_form1").action="/easpro2/e_asproKanri/EC021LayPageEntry"
+			$$("_form1").processType.value = "1";
+			$$("_form1").submit();
+			btnDisabled();
+		}
+		function doInsUpdMT() {
+			if(confirm("更新します。よろしいですか？")){
+				getWidget();
+				$$("_form1").action="/easpro2/e_asproKanri/EC021LayPageEntry"
+				$$("_form1").processType.value = "3";
+				$$("_form1").submit();
+				btnDisabled();
+			}
+		}
+		
+		function doDelMT() {
+			if(confirm("削除します。よろしいですか？")){
+				getWidget();
+				$$("_form1").action="/easpro2/e_asproKanri/EC021LayPageEntry"
+				$$("_form1").processType.value = "4";
+				$$("_form1").submit();
+				btnDisabled();
+			}
+		}
+		
+		function reLoadGamen() {
+			if ($$("_wakuPtnNo").value != '' ){
+				$$("_form1").action="/easpro2/e_asproKanri/EC021LayPageEntry"
+				$$("_form1").processType.value = "5";
+				$$("_form1").submit();
+				btnDisabled();
+			}
+		}
+		function openSubWinFunc() {
+			if ($$("_actionPath").value != null){
+				if ($$("_actionPath").value.indexOf("?")<0){
+					window.open("null"+'/'+$$("_actionPath").value+"?coNo="+$$("_coNo").value+"&tenpoCd="+$$("_tenpoCd").value+"&moDo=3&sessionId="+$$("_sessionId").value, "subwin", 
+					"width=1020,height=600,menubar=yes,location=yes,status=yes,resizable=yes,scrollbars=yes");
+				} else {
+					window.open("null"+'/'+$$("_actionPath").value+"&coNo="+$$("_coNo").value+"&tenpoCd="+$$("_tenpoCd").value+"&moDo=3&sessionId="+$$("_sessionId").value, "subwin", 
+					"width=1020,height=600,menubar=yes,location=yes,status=yes,resizable=yes,scrollbars=yes");
+				}
+			}
+		}
+		
+		function openPartsEntry(_searchKbn,_ec_parts_no,_naiyoKbn) {
+			if (_naiyoKbn != "1"){
+
+
+
+				window.open("/easpro2/e_asproKanri/EC022LayPartsEntry?searchKbn="
+				+_searchKbn+"&ec_parts_no="+_ec_parts_no+"&ec_parts_kbn=U&ec_parts_size=PC", "", "width=700,height=630,resizable=yes");
+			}
+		}
+		
+		function openEC023(_searchKbn,_ec_parts_no,_naiyoKbn) {
+			window.open("/easpro2/e_asproKanri/EC023LayPartsEntry?searchKbn="+_searchKbn+"&ec_parts_no="+_ec_parts_no+"&ec_parts_kbn=U&ec_parts_size=PC", "", "width=700,height=460,resizable=yes");
+		}
+		//-->  	
+		</script>
+		
+	</HEAD>
+
+	<BODY BGCOLOR="#ffffff" onload="">
+	<FORM name="form1" id="_form1" method="post">
+		<input type="hidden" name="secToken" id="secToken" value="ABEEEE12513934D16CA8D664B9698779"/>
+		<INPUT TYPE="hidden" name="processType" id="_processType"/>
+		<INPUT TYPE="hidden" name="searchKbn" id="_searchKbn" value="2"/>
+		<input type="hidden" name="coNo" id="_coNo" value="2625"/>
+		<input type="hidden" name="tenpoCd" id="_tenpoCd" value="1"/>
+		<input type="hidden" name="ecPageNo" id="_ecPageNo" value="1"/>
+		<input type="hidden" name="exclCnt" id="_exclCnt" value="65" />
+	    <input type="hidden" name="sessionId" id="_sessionId" value="xDGrc3vV7CJ21yzp1NQhCcWLzPYlDG7L!-166925779!1547174733841"/>
+	    <input type="hidden" name="userNo" id="_userNo" value="2"/>
+	    <input type="hidden" name="dispSize" id="_dispSize" value="PC"/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_0" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_0" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_0" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_1" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_1" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_1" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_2" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_2" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_2" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_3" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_3" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_3" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_4" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_4" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_4" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_5" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_5" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_5" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_6" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_6" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_6" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_7" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_7" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_7" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_8" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_8" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_8" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_9" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_9" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_9" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_10" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_10" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_10" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_11" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_11" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_11" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_12" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_12" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_12" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_13" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_13" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_13" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_14" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_14" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_14" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_15" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_15" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_15" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_16" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_16" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_16" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_17" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_17" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_17" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_18" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_18" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_18" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_19" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_19" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_19" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_20" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_20" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_20" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_21" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_21" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_21" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_22" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_22" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_22" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_23" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_23" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_23" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_24" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_24" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_24" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_25" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_25" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_25" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_26" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_26" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_26" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_27" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_27" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_27" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_28" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_28" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_28" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_29" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_29" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_29" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_30" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_30" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_30" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_31" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_31" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_31" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_32" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_32" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_32" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_33" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_33" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_33" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_34" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_34" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_34" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_35" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_35" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_35" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_36" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_36" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_36" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_37" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_37" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_37" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_38" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_38" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_38" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_39" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_39" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_39" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_40" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_40" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_40" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_41" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_41" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_41" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_42" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_42" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_42" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_43" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_43" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_43" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_44" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_44" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_44" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_45" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_45" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_45" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_46" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_46" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_46" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_47" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_47" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_47" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_48" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_48" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_48" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_49" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_49" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_49" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_50" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_50" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_50" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_51" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_51" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_51" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_52" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_52" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_52" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_53" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_53" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_53" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_54" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_54" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_54" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_55" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_55" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_55" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_56" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_56" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_56" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_57" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_57" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_57" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_58" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_58" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_58" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_59" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_59" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_59" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_60" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_60" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_60" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_61" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_61" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_61" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_62" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_62" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_62" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_63" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_63" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_63" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_64" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_64" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_64" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_65" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_65" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_65" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_66" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_66" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_66" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_67" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_67" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_67" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_68" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_68" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_68" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_69" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_69" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_69" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_70" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_70" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_70" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_71" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_71" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_71" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_72" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_72" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_72" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_73" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_73" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_73" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_74" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_74" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_74" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_75" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_75" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_75" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_76" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_76" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_76" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_77" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_77" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_77" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_78" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_78" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_78" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_79" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_79" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_79" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_80" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_80" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_80" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_81" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_81" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_81" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_82" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_82" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_82" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_83" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_83" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_83" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_84" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_84" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_84" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_85" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_85" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_85" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_86" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_86" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_86" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_87" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_87" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_87" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_88" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_88" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_88" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_89" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_89" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_89" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_90" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_90" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_90" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_91" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_91" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_91" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_92" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_92" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_92" value=""/>
+	    
+			<input type="hidden" name="wakuId" id="_wakuId_93" value=""/>
+		    <input type="hidden" name="wakuSortNo" id="_wakuSortNo_93" value=""/>
+		    <input type="hidden" name="ecPartsNo" id="_ecPartsNo_93" value=""/>
+	    
+	<img src='../ecsdocs2/img/head_master.gif' alt='' align='middle' border='0'>
+    <div class=pt><B>ページ設定　【TOPページ】</B>
+    <br><A href='/easpro2/e_asproKanri/EC020LayPageList?backUrlKey=&intPageNo=1&intPageCount=0&intPageSize=30&intRecordCount=0&strToolbarX=&strToolbarY=&strSpaceHeight=50px&processType=3&searchKbn=&coNo=2625&tenpoCd=&dispSize=PC&search_page_nm=&search_disp_from=&search_disp_to=' tabindex="1" ><img src="../ecsdocs2/img/return.gif"></A></div>
+    <p class="txt01">ここではECサイトの各ページの編集を行います。</p>
+    <b style="color:red"></b>
+    <table CLASS="list" width="650" cellspacing="0">
+      <tr>
+        <th BGCOLOR="#cccccc" width="100" class="must" nowrap>ページ名</th>
+        <td nowrap bgcolor="white" WIDTH="225">
+         
+	    	TOPページ
+	    	<input type="hidden" name="ecPageTitle" value="TOPページ"/>
+	    
+        </td>
+        <th BGCOLOR="#cccccc" width="100" nowrap>表示端末</th>
+        <td nowrap bgcolor="white" WIDTH="225">
+        <input type="hidden" name="ecPageSize" id="_ecPageSize" value="PC"/>
+        <input type="hidden" name="ecPageSizeNm" id="_ecPageSizeNm" value=" パソコン用"/>
+         パソコン用</td>
+      </tr>
+      <tr>
+        <th BGCOLOR="#cccccc" nowrap>ページ種類</th>
+        <td nowrap bgcolor="white">
+	    	 システム専用
+	    	<input type="hidden" name="ecPageKbn" id="_ecPageKbn" value="S"/>
+	    	<input type="hidden" name="ecPageKbnNm" id="_ecPageKbnNm" value=" システム専用"/>
+		</td>
+        <th BGCOLOR="#cccccc" nowrap>URL</th>
+        <td nowrap bgcolor="white">
+         
+	    	PG010TopPage.act
+	    	<input type="hidden" name="actionPath" id="_actionPath" value="PG010TopPage.act"/>
+	    
+		</td>
+      </tr>
+      <tr>
+        <th BGCOLOR="#cccccc" width="100" nowrap>枠パターンNo</th>
+        <td nowrap bgcolor="white" colspan="3">
+        
+	    	ヘッダー、左側、メイン、フッター
+	    
+	    	<input type="hidden" name="wakuPtnNo" id="_wakuPtnNo" value="2"/>
+	    
+        </td>
+      </tr>
+		<TR>
+			<TH BGCOLOR="#cccccc" nowrap class="must">表示開始日</TH>
+			<TD nowrap>
+			  	<input type='text' name='disp_s_ymd' style='width:82px;'  maxlength=10 value='2011/04/01' class='ymd' onkeypress='_chkInp();' id='disp_s_ymd' onblur='_formateDate(this,"表示開始日は日付を入力して下さい。");' /><a href='#' id='disp_s_ymd_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'disp_s_ymd',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'disp_s_ymd_calendar_link_id',singleClick : true,step:1});</script>
+			</TD>
+			<TH BGCOLOR="#cccccc" nowrap class="must">表示終了日</TH>
+			<TD nowrap>
+			  	<input type='text' name='disp_e_ymd' style='width:82px;'  maxlength=10 value='2099/12/31' class='ymd' onkeypress='_chkInp();' id='disp_e_ymd' onblur='_formateDate(this,"表示終了日は日付を入力して下さい。");' /><a href='#' id='disp_e_ymd_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'disp_e_ymd',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'disp_e_ymd_calendar_link_id',singleClick : true,step:1});</script>
+			</TD>
+		</TR>
+		<TR>
+			<TH BGCOLOR="#cccccc" nowrap class="must">表示開始時間</TH>
+			<TD nowrap>
+				<input type='text' name='disp_s_hms' id='disp_s_hms' value='00:00:00' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='half' maxlength='8' style='width:70.80px;'> </input>
+			</TD>
+			<TH BGCOLOR="#cccccc" nowrap class="must">表示終了時間</TH>
+			<TD nowrap>
+				<input type='text' name='disp_e_hms' id='disp_e_hms' value='00:00:00' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='half' maxlength='8' style='width:70.80px;'> </input>
+			</TD>
+		</TR>
+    </table>
+    <br/>
+    <table CLASS="list" border="1" width="850px" cellspacing="0">
+    <tr>
+        <td BGCOLOR="#cccccc" colspan="2">&nbsp</td>
+    </tr>
+    <tr>
+        <td bgcolor="white" align="center">
+                <input  type="button" onClick="doInsUpdWT();" value="プレビュー"/>
+                <input  type="button" onClick="doInsUpdMT();" value="更新する"/>
+        </td>
+        <td bgcolor="white">パーツ：<input type="button" value="新規作成" onclick="openPartsEntry(1,'')"></td>
+    </tr>
+    
+	<tr>
+	<td width="650px" height="500px" style="vertical-align:top;">
+	<div style="height:500px; overflow-x:scroll;">
+		<table>
+
+			<tr>
+				<td style="background: url(../ecsdocs2/img/page_sitting_head.png) no-repeat center center;width:640px;vertical-align:top;border:solid 1px" colspan="2">
+					<div id="columns" name="div_head">
+						<ul id="column1" class="column" style="width:625px">
+						
+							
+							<li class="widget color-bg" id="js_id_widget_0" value="270"
+								ondblclick='openPartsEntry(2,270,2)'>
+								<div class="widget-head">
+									
+										<h3>GoogleAnalyticsObjectタグ</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+							<li class="widget color-bg" id="js_id_widget_1" value="284"
+								ondblclick='openPartsEntry(2,284,2)'>
+								<div class="widget-head">
+									
+										<h3>G_EC_リマーケティングタグ</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+							<li class="widget color-bg2" id="js_id_widget_2" value="1"
+								ondblclick='openPartsEntry(2,1,1)'>
+								<div class="widget-head">
+									
+										<h3>グローバルメニューパーツ</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+									
+						</ul>
+					</div>
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				
+				<td style="background: url(../ecsdocs2/img/page_sitting_left.png) no-repeat center center;width:190px;vertical-align:top;border:solid 1px">
+					<div id="columns" name="div_left">
+						<ul id="column2" class="column"  style="width:175px">
+						
+							
+						
+							
+						
+							
+						
+							
+							<li class="widget color-bg2" id="js_id_widget_3" value="4"
+								ondblclick='openPartsEntry(2,4,1)'>
+								<div class="widget-head">
+									
+										<h3>カテゴリ表示パーツ</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+							<li class="widget color-bg" id="js_id_widget_4" value="255"
+								ondblclick='openPartsEntry(2,255,2)'>
+								<div class="widget-head">
+									
+										<h3>送料バナー</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+						</ul>
+					</div>
+				</td>
+				
+				<td style="background: url(../ecsdocs2/img/page_sitting_center.png) no-repeat center center;vertical-align:top;border:solid 1px">
+					<div id="columns" name="div_center">
+						
+							<ul id="column3" class="column" style="width:425px">
+						
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+							<li class="widget color-bg" id="js_id_widget_5" value="257"
+								ondblclick='openPartsEntry(2,257,2)'>
+								<div class="widget-head">
+									
+										<h3>スライダー</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+							<li class="widget color-bg" id="js_id_widget_6" value="275"
+								ondblclick='openPartsEntry(2,275,2)'>
+								<div class="widget-head">
+									
+										<h3>グッズニュース(PC)</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+							<li class="widget color-bg2" id="js_id_widget_7" value="7"
+								ondblclick='openPartsEntry(2,7,1)'>
+								<div class="widget-head">
+									
+										<h3>ランキングパーツ</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+							<li class="widget color-bg2" id="js_id_widget_8" value="9"
+								ondblclick='openPartsEntry(2,9,1)'>
+								<div class="widget-head">
+									
+										<h3>お知らせパーツ</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+							<li class="widget color-bg2" id="js_id_widget_9" value="16"
+								ondblclick='openPartsEntry(2,16,1)'>
+								<div class="widget-head">
+									
+										<h3>関連商品「この商品を買った人はこんな商品も買っています」パーツ</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+							<li class="widget color-bg2" id="js_id_widget_10" value="146"
+								ondblclick='openPartsEntry(2,146,1)'>
+								<div class="widget-head">
+									
+										<h3>最近購入したパーツ</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+						</ul>
+					</div>
+				</td>
+				
+				<td width="0" style="display:none">
+					<div id="columns" name="div_right">
+						<ul id="column4" class="column" style="width:175px">
+						</ul>
+					</div>
+				</td>	
+				
+			</tr>
+			
+			
+			
+			<tr>
+				<td style="background: url(../ecsdocs2/img/page_sitting_footer.png) no-repeat center center;border:solid 1px" colspan="2">
+					<div id="columns" name="div_footer">
+						<ul id="column5" class="column" style="width:625px">
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+							<li class="widget color-bg" id="js_id_widget_11" value="256"
+								ondblclick='openPartsEntry(2,256,2)'>
+								<div class="widget-head">
+									
+										<h3>フッター</h3>
+									
+								</div>
+							</li>
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+						</ul>
+					</div>
+
+				</td>
+			</tr>
+
+		</table>
+	</div>
+	</td>
+	<td style="vertical-align:top" height="500px">
+		<div id="columns" name="div_unuse" style="height:500px; overflow-x:scroll;">
+			<ul id="column5" class="column" style="width:150px">
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_12" value="0"
+						ondblclick='openPartsEntry(2,0,1)'>
+						<div class="widget-head">
+							
+								<h3>共通</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_13" value="2"
+						ondblclick='openPartsEntry(2,2,1)'>
+						<div class="widget-head">
+							
+								<h3>ステータス見出しパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_14" value="3"
+						ondblclick='openPartsEntry(2,3,1)'>
+						<div class="widget-head">
+							
+								<h3>商品検索パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_15" value="5"
+						ondblclick='openPartsEntry(2,5,1)'>
+						<div class="widget-head">
+							
+								<h3>ショッピングカートパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_16" value="6"
+						ondblclick='openPartsEntry(2,6,1)'>
+						<div class="widget-head">
+							
+								<h3>ログインパーツ（左)</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_17" value="8"
+						ondblclick='openPartsEntry(2,8,1)'>
+						<div class="widget-head">
+							
+								<h3>カテゴリー見出しパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_18" value="10"
+						ondblclick='openPartsEntry(2,10,1)'>
+						<div class="widget-head">
+							
+								<h3>ピックアップ／おすすめ商品</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_19" value="11"
+						ondblclick='openPartsEntry(2,11,1)'>
+						<div class="widget-head">
+							
+								<h3>商品一覧パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_20" value="12"
+						ondblclick='openPartsEntry(2,12,1)'>
+						<div class="widget-head">
+							
+								<h3>商品詳細パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_21" value="13"
+						ondblclick='openPartsEntry(2,13,1)'>
+						<div class="widget-head">
+							
+								<h3>ヘッダーパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_22" value="14"
+						ondblclick='openPartsEntry(2,14,1)'>
+						<div class="widget-head">
+							
+								<h3>フッターパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_23" value="15"
+						ondblclick='openPartsEntry(2,15,1)'>
+						<div class="widget-head">
+							
+								<h3>パスワード再設定</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_24" value="17"
+						ondblclick='openPartsEntry(2,17,1)'>
+						<div class="widget-head">
+							
+								<h3>最近チェックした商品/カテゴリーパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_25" value="19"
+						ondblclick='openPartsEntry(2,19,1)'>
+						<div class="widget-head">
+							
+								<h3>メール問合せフォームパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_26" value="20"
+						ondblclick='openPartsEntry(2,20,1)'>
+						<div class="widget-head">
+							
+								<h3>クイックオーダーパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_27" value="21"
+						ondblclick='openPartsEntry(2,21,1)'>
+						<div class="widget-head">
+							
+								<h3>配送先変更パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_28" value="22"
+						ondblclick='openPartsEntry(2,22,1)'>
+						<div class="widget-head">
+							
+								<h3>配送先一覧パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_29" value="23"
+						ondblclick='openPartsEntry(2,23,1)'>
+						<div class="widget-head">
+							
+								<h3>退会パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_30" value="24"
+						ondblclick='openPartsEntry(2,24,1)'>
+						<div class="widget-head">
+							
+								<h3>購入履歴パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_31" value="25"
+						ondblclick='openPartsEntry(2,25,1)'>
+						<div class="widget-head">
+							
+								<h3>購入履歴詳細パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_32" value="26"
+						ondblclick='openPartsEntry(2,26,1)'>
+						<div class="widget-head">
+							
+								<h3>詳しく検索パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_33" value="27"
+						ondblclick='openPartsEntry(2,27,1)'>
+						<div class="widget-head">
+							
+								<h3>ショッピングカートパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_34" value="28"
+						ondblclick='openPartsEntry(2,28,1)'>
+						<div class="widget-head">
+							
+								<h3>お気に入りパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_35" value="29"
+						ondblclick='openPartsEntry(2,29,1)'>
+						<div class="widget-head">
+							
+								<h3>会員登録パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_36" value="31"
+						ondblclick='openPartsEntry(2,31,1)'>
+						<div class="widget-head">
+							
+								<h3>パスワード忘れた方へパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_37" value="33"
+						ondblclick='openPartsEntry(2,33,1)'>
+						<div class="widget-head">
+							
+								<h3>会員登録完了パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_38" value="34"
+						ondblclick='openPartsEntry(2,34,1)'>
+						<div class="widget-head">
+							
+								<h3>ポイント表示</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_39" value="35"
+						ondblclick='openPartsEntry(2,35,1)'>
+						<div class="widget-head">
+							
+								<h3>ログインパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_40" value="36"
+						ondblclick='openPartsEntry(2,36,1)'>
+						<div class="widget-head">
+							
+								<h3>お届先指定パーツ
+								<a href="#" style="color:blue;font-weight:normal;" onClick="openEC023(2,36,1);">【詳細設定】</a></h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_41" value="37"
+						ondblclick='openPartsEntry(2,37,1)'>
+						<div class="widget-head">
+							
+								<h3>お届先指定（複数配送先）パーツ
+								<a href="#" style="color:blue;font-weight:normal;" onClick="openEC023(2,37,1);">【詳細設定】</a></h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_42" value="38"
+						ondblclick='openPartsEntry(2,38,1)'>
+						<div class="widget-head">
+							
+								<h3>お支払方法指定パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_43" value="39"
+						ondblclick='openPartsEntry(2,39,1)'>
+						<div class="widget-head">
+							
+								<h3>ご注文内容確認パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_44" value="40"
+						ondblclick='openPartsEntry(2,40,1)'>
+						<div class="widget-head">
+							
+								<h3>注文完了パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg2" id="js_id_widget_45" value="145"
+						ondblclick='openPartsEntry(2,145,1)'>
+						<div class="widget-head">
+							
+								<h3>Myページパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_46" value="230"
+						ondblclick='openPartsEntry(2,230,2)'>
+						<div class="widget-head">
+							
+								<h3>ご利用ガイド(個人情報保護方針）１</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_47" value="231"
+						ondblclick='openPartsEntry(2,231,2)'>
+						<div class="widget-head">
+							
+								<h3>トップ：カレンダー8月</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_48" value="232"
+						ondblclick='openPartsEntry(2,232,2)'>
+						<div class="widget-head">
+							
+								<h3>左パーツテストテスト</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_49" value="233"
+						ondblclick='openPartsEntry(2,233,2)'>
+						<div class="widget-head">
+							
+								<h3>トップ左（商品カテゴリ）</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_50" value="234"
+						ondblclick='openPartsEntry(2,234,2)'>
+						<div class="widget-head">
+							
+								<h3>トップフッターナビゲーション</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_51" value="235"
+						ondblclick='openPartsEntry(2,235,2)'>
+						<div class="widget-head">
+							
+								<h3>トップ：ヘッダー</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_52" value="236"
+						ondblclick='openPartsEntry(2,236,2)'>
+						<div class="widget-head">
+							
+								<h3>トップ：カレンダー9月</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_53" value="237"
+						ondblclick='openPartsEntry(2,237,2)'>
+						<div class="widget-head">
+							
+								<h3>トップ：センターバナー</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_54" value="238"
+						ondblclick='openPartsEntry(2,238,2)'>
+						<div class="widget-head">
+							
+								<h3>システムイメージ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_55" value="239"
+						ondblclick='openPartsEntry(2,239,2)'>
+						<div class="widget-head">
+							
+								<h3>会社概要</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_56" value="240"
+						ondblclick='openPartsEntry(2,240,2)'>
+						<div class="widget-head">
+							
+								<h3>営業時間について</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_57" value="241"
+						ondblclick='openPartsEntry(2,241,2)'>
+						<div class="widget-head">
+							
+								<h3>お支払いについて</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_58" value="242"
+						ondblclick='openPartsEntry(2,242,2)'>
+						<div class="widget-head">
+							
+								<h3>配送について</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_59" value="243"
+						ondblclick='openPartsEntry(2,243,2)'>
+						<div class="widget-head">
+							
+								<h3>消費税計算・返品について</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_60" value="244"
+						ondblclick='openPartsEntry(2,244,2)'>
+						<div class="widget-head">
+							
+								<h3>おすすめ商品一覧</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_61" value="245"
+						ondblclick='openPartsEntry(2,245,2)'>
+						<div class="widget-head">
+							
+								<h3>トップ：カレンダー１０月</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_62" value="246"
+						ondblclick='openPartsEntry(2,246,2)'>
+						<div class="widget-head">
+							
+								<h3>おすすめ商品一覧</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_63" value="247"
+						ondblclick='openPartsEntry(2,247,2)'>
+						<div class="widget-head">
+							
+								<h3>テスト</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_64" value="248"
+						ondblclick='openPartsEntry(2,248,2)'>
+						<div class="widget-head">
+							
+								<h3>トップ：商品一覧下段</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_65" value="249"
+						ondblclick='openPartsEntry(2,249,2)'>
+						<div class="widget-head">
+							
+								<h3>トップ：商品一覧上段</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_66" value="250"
+						ondblclick='openPartsEntry(2,250,2)'>
+						<div class="widget-head">
+							
+								<h3>トップ：商品一覧用CSSリンク</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_67" value="251"
+						ondblclick='openPartsEntry(2,251,2)'>
+						<div class="widget-head">
+							
+								<h3>ご利用ガイド(個人情報保護方針）２</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_68" value="252"
+						ondblclick='openPartsEntry(2,252,2)'>
+						<div class="widget-head">
+							
+								<h3>ご利用ガイド(個人情報保護方針）３</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_69" value="253"
+						ondblclick='openPartsEntry(2,253,2)'>
+						<div class="widget-head">
+							
+								<h3>leftパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_70" value="254"
+						ondblclick='openPartsEntry(2,254,2)'>
+						<div class="widget-head">
+							
+								<h3>テストパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_71" value="258"
+						ondblclick='openPartsEntry(2,258,2)'>
+						<div class="widget-head">
+							
+								<h3>ユメミル工房バナー</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_72" value="259"
+						ondblclick='openPartsEntry(2,259,2)'>
+						<div class="widget-head">
+							
+								<h3>ヘッダーパーツ(商品購入チャート用)</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_73" value="260"
+						ondblclick='openPartsEntry(2,260,2)'>
+						<div class="widget-head">
+							
+								<h3>フッターパーツ(商品購入チャート用)</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_74" value="261"
+						ondblclick='openPartsEntry(2,261,2)'>
+						<div class="widget-head">
+							
+								<h3>ご利用ガイド(プライバシーポリシー）パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_75" value="262"
+						ondblclick='openPartsEntry(2,262,2)'>
+						<div class="widget-head">
+							
+								<h3>会社概要パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_76" value="263"
+						ondblclick='openPartsEntry(2,263,2)'>
+						<div class="widget-head">
+							
+								<h3>初めての方へ①</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_77" value="264"
+						ondblclick='openPartsEntry(2,264,2)'>
+						<div class="widget-head">
+							
+								<h3>初めての方へ②</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_78" value="265"
+						ondblclick='openPartsEntry(2,265,2)'>
+						<div class="widget-head">
+							
+								<h3>お支払方法についてパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_79" value="266"
+						ondblclick='openPartsEntry(2,266,2)'>
+						<div class="widget-head">
+							
+								<h3>Myページメニュー</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_80" value="267"
+						ondblclick='openPartsEntry(2,267,2)'>
+						<div class="widget-head">
+							
+								<h3>配達についてパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_81" value="268"
+						ondblclick='openPartsEntry(2,268,2)'>
+						<div class="widget-head">
+							
+								<h3>特定商取引法に基づく表示パーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_82" value="269"
+						ondblclick='openPartsEntry(2,269,2)'>
+						<div class="widget-head">
+							
+								<h3>配送先リストパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_83" value="272"
+						ondblclick='openPartsEntry(2,272,2)'>
+						<div class="widget-head">
+							
+								<h3>アイコン説明</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_84" value="273"
+						ondblclick='openPartsEntry(2,273,2)'>
+						<div class="widget-head">
+							
+								<h3>おススメ商品１（PC）</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_85" value="274"
+						ondblclick='openPartsEntry(2,274,2)'>
+						<div class="widget-head">
+							
+								<h3>おススメ商品２（PC）</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_86" value="276"
+						ondblclick='openPartsEntry(2,276,2)'>
+						<div class="widget-head">
+							
+								<h3>TEST_HTML</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_87" value="277"
+						ondblclick='openPartsEntry(2,277,2)'>
+						<div class="widget-head">
+							
+								<h3>ご利用ガイド（プライバシーポリシー）パーツ２</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_88" value="278"
+						ondblclick='openPartsEntry(2,278,2)'>
+						<div class="widget-head">
+							
+								<h3>ご利用ガイド(プライバシーポリシー）パーツ３</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_89" value="282"
+						ondblclick='openPartsEntry(2,282,2)'>
+						<div class="widget-head">
+							
+								<h3>Y_EC_CVタグ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_90" value="283"
+						ondblclick='openPartsEntry(2,283,2)'>
+						<div class="widget-head">
+							
+								<h3>G_EC_CVタグ</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_91" value="285"
+						ondblclick='openPartsEntry(2,285,2)'>
+						<div class="widget-head">
+							
+								<h3>20180523search console_meta-tag</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_92" value="286"
+						ondblclick='openPartsEntry(2,286,2)'>
+						<div class="widget-head">
+							
+								<h3>new　parts</h3>
+							
+						</div>
+					</li>
+					
+				
+					
+					<li class="widget color-bg" id="js_id_widget_93" value="287"
+						ondblclick='openPartsEntry(2,287,2)'>
+						<div class="widget-head">
+							
+								<h3>SNSパーツ</h3>
+							
+						</div>
+					</li>
+					
+				
+			</ul>
+		</div>
+	</td>
+</tr>
+</table>
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery-ui-personalized-1.6rc2.min.js"></script>
+<script type="text/javascript" src="../ecsdocs2/js/iWidget.js"></script>
+
+
+    
+    <br/>
+    <TABLE WIDTH="700" BORDER="0" CELLSPACING="0" CELLPADDING="1">
+      <TR>
+        <TD ALIGN="center">
+        <input  type="button" onClick="doInsUpdWT();" value="プレビュー"/>
+		<input  type="button" onClick="doInsUpdMT();" value="更新する"/>
+		
+        </TD>
+      </TR>
+    </TABLE>
+    <script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</BODY>
+
+</HTML>

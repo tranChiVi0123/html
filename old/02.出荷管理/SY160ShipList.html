@@ -1,0 +1,1167 @@
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?tz5JEgZK6N" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?tz5JEgZK6N" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<title>
+			
+			出荷照会
+			
+		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j" />
+		<script type="text/javascript" src="../ecsdocs2/js/prototype.js"></script>
+		
+		<script type="text/javascript">
+			
+			function Search() {
+				$$("_processType").value = "2";
+				$$("_intPageNo").value = 1;
+				$$("_Form").action = "SY160ShipList.html";
+				$$("_Form").submit();
+
+				btnDisabled();
+			}
+			
+			function DownLoad(csv_down_kbn) {
+				if (csv_down_kbn == '6') {
+					$$("_header_csv_out").value = $$("_header_csv_out_noform").value;
+				}
+				if (csv_down_kbn == '7') {
+					$$("_list_csv_out").value = $$("_list_csv_out_noform").value;
+				}
+				$$("_processType").value = "7";
+				$$("_csv_down_kbn").value = csv_down_kbn;
+				$$("_Form").action = "SY160ShipList.html";
+				$$("_Form").submit();
+				
+				$$("_btnDownload1").disabled=true;
+				$$("_btnDownload2").disabled=true;
+				
+				setTimeout('enableDownLoad()', '3000');
+			}
+
+			function enableDownLoad(){
+				if ("" == "") {
+					$$("_btnDownload1").disabled = false;
+				}
+				if ("" == "") {
+					$$("_btnDownload2").disabled = false;
+				}
+			}
+
+			$(document).ready(function(){
+				if("1"=="" && "" == ""){
+					/*CC052画面を呼び出す処理を記述*/
+						var url;
+						var _width = 740;
+						var _hight = 160;
+						/*表示する画面位置の設定*/
+						var _dispWidth = (window.screen.width - _width)/2 ;
+						var _dispHight = (window.screen.height - _hight)/2;
+						url = "/easpro2/e_asproLogin/CC052PrintPdfWindow";
+						url = url + "?seqNo=" + "";
+						url = url + "&previewType=" + "1";
+						url = url + "&processKbn=" + "0";
+						url = url + "&printFlg=" + "";
+						url = url + "&printNo=" + "";
+						url = url + "&autoPrint=" + "0";
+						url = url + "&printTypeNo=" + "";
+						url = url + "&binsyuCd=" + "";
+						url = url + "&pdfFlg=" + "";
+						url = url + "&wrfPath=" + "e_asproShip/reports/";
+						_searchWin = window.open(url,"CC052","width="+_width+",height="+_hight+",menubar=0,location=0,status=yes,resizable=1,scrollbars=1,directories=0,status=0,left="+_dispWidth+",top="+_dispHight);
+						_searchWin.focus();
+				}
+			});
+
+			function funCheckAll() {
+				if ($("#_titleCheck").attr('checked') == true) {
+					$(".cssItemCheck").attr("checked", true);
+				} else {
+					$(".cssItemCheck").attr("checked", false);
+				}
+			}
+			//全選択時のリスト行のカラー変更
+			function chgAllLineColor(){
+				$("input[name=arr_seq_no]").each(
+						function(i,checkbox){
+							chgLineColor(i,checkbox);
+							}
+					);
+			}
+			//リスト行のカラー変更
+			function chgLineColor(idx,cbox){
+				if( cbox.checked == true ){
+					$("#listline_"+idx).css("background-color",$("#_rowBackGroundColor").val());
+				}else{
+					if(idx%2==1){	//偶数行
+						$("#listline_"+idx).css("background-color","#EEEEEE");
+					}else{			//奇数行
+						$("#listline_"+idx).css("background-color","#ffffff");
+					}
+				}
+			}
+
+			function doDelete(){
+				var checkCount;
+
+				checkCount = checkBox();
+				if (checkCount > 0) {
+					if(confirm("削除します。よろしいですか？")){
+						$$("_processType2").value = 5;
+						$$("_Form2").action = "SY160ShipList.html";
+						$$("_Form2").submit();
+
+						btnDisabled();
+					}
+				}else {
+					return;
+				}
+			}
+			//選択チェック
+			function checkBox(){
+				var checkCount = 0;
+				$("input[name=arr_seq_no]").each(
+					function(i,checkbox){
+							if(checkbox.checked == true){
+								checkCount++;
+							}
+						}
+				);
+				if(checkCount == 0){
+					var msg ="対象データを1件以上選択して下さい。<br>".replace("<br>","");
+					alert(msg);
+				}
+				return checkCount;
+			}
+
+			//OPEN印刷の注意
+			function openAlert(){
+				var url;
+				url = "/easpro2/e_asproLogin/CC800PopUpMessage";
+				url = url + "?programId=" + "SY160ShipList";
+				window.open(url,"CC800","width=650,height=300,scrollbars=1,resizable=1,toolbar=1,menubar=0,location=0,directories=0,status=0");
+			}
+		</script>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_syukka.gif' alt='' align='middle' border='0'>
+			
+		<div class=pt>出荷照会</div>
+			
+			
+		<br>
+		<b style="color:red"></b>
+		<br>
+		<form action="/easpro2/SY160ShipList" id="_Form" method="post">
+			<input type="hidden" name="strForwordFlg" value="2">
+			<input type="hidden" name="processType" id="_processType" value="2">
+			<input type="hidden" name="csv_down_kbn" id="_csv_down_kbn">
+			<input type="hidden" name="header_csv_out" id="_header_csv_out">
+			<input type="hidden" name="list_csv_out" id="_list_csv_out">
+			<INPUT TYPE="hidden" NAME="login_wh_cd" id="_login_wh_cd" value="">
+			<INPUT TYPE="hidden" NAME="login_wh_nm" id="_login_wh_nm" value="">
+			<input type='hidden' name="intPageNo" id="_intPageNo" value="1">
+			<input type='hidden' name="intRecordCount" id="_intRecordCount" value="9">
+			<input type='hidden' name="intPageSize" id="_intPageSize" value="30">
+			<input type='hidden' name="intPageCount" id="_intPageCount" value="1">
+			<input type='hidden' name="titleKbn" id="_titleKbn" value="">
+			<input type='hidden' name="_fromMenu" id="_fromMenu" value="1">
+			
+			<input type="hidden" name="rowBackGroundColor" id="_rowBackGroundColor" value="#FFFF00" />
+			<div ID='div1' style='display:block;'>
+				<table class="nb">
+					<tr>
+						<td>
+							<table class="sf" style="width:845px">
+								<col width="120"/>
+								<col width="300"/>
+								<col width="120"/>
+								<col width="300"/>
+								<tr>
+									<th class="must">出荷予定日</th>
+									<td>
+ 										<input type='text' name='syukkaYoteiYmdFrom' style='width:82px;'  maxlength=10 value='2018/12/10' class='ymd' onkeypress='_chkInp();' id='syukkaYoteiYmdFrom' onblur='_formateDate(this,"出荷予定日は日付を入力して下さい。");' /><a href='#' id='syukkaYoteiYmdFrom_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'syukkaYoteiYmdFrom',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syukkaYoteiYmdFrom_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='syukkaYoteiYmdTo' style='width:82px;'  maxlength=10 value='2019/01/10' class='ymd' onkeypress='_chkInp();' id='syukkaYoteiYmdTo' onblur='_formateDate(this,"出荷予定日は日付を入力して下さい。");' /><a href='#' id='syukkaYoteiYmdTo_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'syukkaYoteiYmdTo',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syukkaYoteiYmdTo_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+									<th>出荷指示番号</th>
+									<td>
+										<input type='text' name='sksjCd' id='sksjCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='16' style='width:182.00px;'> </input>
+										(前方一致)
+									</td>
+								</tr>
+								<tr>
+									<th>注文日</th>
+									<td>
+										<input type='text' name='orderYmdFrom' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='orderYmdFrom' onblur='_formateDate(this,"注文日は日付を入力して下さい。");' /><a href='#' id='orderYmdFrom_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'orderYmdFrom',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'orderYmdFrom_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='orderYmdTo' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='orderYmdTo' onblur='_formateDate(this,"注文日は日付を入力して下さい。");' /><a href='#' id='orderYmdTo_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'orderYmdTo',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'orderYmdTo_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+									<th>注文番号</th>
+									<td>
+										<input type='text' name='orderCd' id='orderCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='50' style='width:182.00px;'> </input>
+										(前方一致)
+									</td>
+								</tr>
+								<tr>
+									<th>届先名</th>
+									<td>
+										<input type='text' name='sTdkNm' id='sTdkNm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='100' style='width:182.00px;'> </input>
+										(前方一致)
+									</td>
+									<th>届先住所</th>
+									<td>
+										<input type='text' name='sTdkAddr' id='sTdkAddr' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='150' style='width:182.00px;'> </input>
+										(部分一致)
+									</td>
+								</tr>
+								<tr>
+									<th>倉庫名</th>
+									<td>
+										
+											<select name="whCd" id="whCd" SIZE="1" style="width:280px">
+											<option></option>
+											
+												
+														<option value="036410501">アクアペット倉庫</option>
+												
+														<option value="039010000">新越谷ソリューションセンター</option>
+												
+											</select>
+										
+									</td>
+									<th>商品種別</th>
+									<td>
+										<SELECT name='binsyuCd' id='binsyuCd' style='width:280' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='01' >ゆうパック</OPTION><OPTION VALUE='02' >ゆうパック（チルド）</OPTION><OPTION VALUE='03' >ゆうパック（冷凍）</OPTION><OPTION VALUE='12' >ゆうパケット</OPTION><OPTION VALUE='300' >その他</OPTION> </SELECT>
+									</td>
+								</tr>
+								<tr>
+									
+										<th>サイト名</th>
+									
+									<td>
+											<select name="siteCd" id="siteCd" SIZE="1" style="width:280px" >
+											<option></option>
+											
+												
+														<option value="1001">アクアペットサービス 楽天市場店</option>
+												
+														<option value="1004">ペットプラザ</option>
+												
+														<option value="1002">アクアペットサービス ヤフー店</option>
+												
+														<option value="1003">アクアペットサービス Amazon店</option>
+												
+														<option value="1">アクアペットサービス</option>
+												
+														<option value="8888">楽天ペイテスト</option>
+												
+											</select>
+									</td>
+									<th>決済方法</th>
+									<td>
+											<select name="kessaiCd" id="kessaiCd" SIZE="1" style="width:280px">
+											<option></option>
+											
+												
+														<option value="2">代引</option>
+												
+														<option value="4">銀行振込（前払）</option>
+												
+														<option value="101">楽天クレジットカード決済</option>
+												
+														<option value="102">楽天代金引換</option>
+												
+														<option value="103">楽天バンク決済</option>
+												
+														<option value="104">楽天銀行振込</option>
+												
+														<option value="108">楽天セブンイレブン決済（前払）</option>
+												
+														<option value="109">楽天セブンイレブン決済（後払）</option>
+												
+														<option value="110">楽天ローソン決済（前払）</option>
+												
+														<option value="115">楽天ペイジー</option>
+												
+														<option value="116">楽天楽天Edy決済</option>
+												
+														<option value="201">Yahoo!クレジットカード決済</option>
+												
+														<option value="202">Yahoo!商品代引</option>
+												
+														<option value="120">楽天ペイ</option>
+												
+														<option value="203">Yahoo!コンビニ（セブン-イレブン）</option>
+												
+														<option value="204">Yahoo!コンビニ（その他）</option>
+												
+														<option value="208">Yahoo!ソフトバンクまとめて支払い</option>
+												
+														<option value="209">Yahoo!銀行振込（ペイジー）</option>
+												
+														<option value="210">ジャパンネットバンク</option>
+												
+														<option value="211">巣鴨信用金庫</option>
+												
+														<option value="212">埼玉縣信用金庫</option>
+												
+														<option value="213">Yahoo!銀行振込（前払い）</option>
+												
+														<option value="216">Yahoo!ゆうちょ銀行（振替/前払い）</option>
+												
+														<option value="225">Yahoo!ポイント全額払い</option>
+												
+														<option value="226">Yahoo!マネー/預金払い</option>
+												
+														<option value="301">元払い</option>
+												
+														<option value="302">代引</option>
+												
+														<option value="0">なし</option>
+												
+											</select>
+									</td>
+								</tr>
+								<tr>
+									<th>支払区分</th>
+									<td>
+										<SELECT name='kessaiKbn' id='kessaiKbn' style='width:280' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='0' >元払</OPTION><OPTION VALUE='1' >代引</OPTION> </SELECT>
+									</td>
+									<th>顧客指定作業区分</th>
+									<td>
+										<SELECT name='kokyakuSagyoKbn' id='kokyakuSagyoKbn' style='width:280' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='01' >午前出荷</OPTION><OPTION VALUE='02' >12時出荷</OPTION><OPTION VALUE='03' >14時出荷</OPTION><OPTION VALUE='04' >15時出荷</OPTION><OPTION VALUE='05' >17時出荷</OPTION><OPTION VALUE='06' >17時以降(臨時1）</OPTION><OPTION VALUE='07' >17時以降(臨時2）</OPTION><OPTION VALUE='08' >17時以降(臨時3）</OPTION><OPTION VALUE='09' >17時以降(臨時4）</OPTION><OPTION VALUE='10' >17時以降(臨時5）</OPTION><OPTION VALUE='11' >17時以降(臨時6）</OPTION><OPTION VALUE='12' >17時以降(臨時7）</OPTION><OPTION VALUE='13' >17時以降(臨時8）</OPTION><OPTION VALUE='14' >17時以降(臨時9）</OPTION><OPTION VALUE='15' >17時以降(臨時10）</OPTION><OPTION VALUE='99' >当日中出荷</OPTION> </SELECT>
+									</td>
+								</tr>
+								<tr>
+									<th>お問い合わせ番号</th>
+									<td nowrap>
+										<input type='text' name='okurinoFrom' id='okurinoFrom' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='12' style='width:98.60px;'> </input>
+										 ～
+										<input type='text' name='okurinoTo' id='okurinoTo' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='12' style='width:98.60px;'> </input>
+									</td>
+									<th>処理状況</th>
+									<td>
+										<select name="syoriJyoukyou" id="syoriJyoukyou" style="width:280">
+											
+											
+														<option value="" selected></option>
+											
+														<option value="1">作業前</option>
+											
+														<option value="2">作業中</option>
+											
+														<option value="3">作業完了</option>
+											
+														<option value="4">配達中</option>
+											
+														<option value="5">配達完了</option>
+											
+														<option value="6">作業完了前</option>
+											
+														<option value="7">作業完了後</option>
+											
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th>ギフト区分</th>
+									<td>
+										<SELECT name='giftKbn' id='giftKbn' style='width:280' tabindex=null > <OPTION VALUE='0' SELECTED></OPTION><OPTION VALUE='1' >ギフト</OPTION><OPTION VALUE='2' >お中元</OPTION><OPTION VALUE='3' >お歳暮</OPTION> </SELECT>
+									</td>
+									<th>削除区分</th>
+									<td>
+										<select name="deleteKbn" id="deleteKbn" style="width:280">
+										
+											<option></option>
+											<option value="0" selected>通常</option>
+											<option value="1">削除</option>
+										
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th>商品コード</th>
+									<td nowrap>
+										<input type='text' name='sItemNoFrom' id='sItemNoFrom' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='70' style='width:98.60px;'> </input>
+										 ～
+										<input type='text' name='sItemNoTo' id='sItemNoTo' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='70' style='width:98.60px;'> </input>
+									</td>
+									<th>商品名</th>
+									<td>
+									<input type='text' name='sItemNm' id='sItemNm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='mulri' maxlength='200' style='width:182.00px;'> </input>
+									(部分一致)
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td valign="bottom">
+							<table>
+								<tr>
+									<td>
+										<input type="button" onClick="Search();" value="検索"
+										
+										/>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=845px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=845px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+			</form>
+		
+			
+			
+				<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>9件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1</SELECT>/1</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='SY160ShipList.html' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="1"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="9"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value="2"><input type='hidden' name='syukkaYoteiYmdFrom' value="2018/12/10"><input type='hidden' name='syukkaYoteiYmdTo' value="2019/01/10"><input type='hidden' name='sksjCd' value=""><input type='hidden' name='orderYmdFrom' value=""><input type='hidden' name='orderYmdTo' value=""><input type='hidden' name='orderCd' value=""><input type='hidden' name='sTdkNm' value=""><input type='hidden' name='sTdkAddr' value=""><input type='hidden' name='whCd' value=""><input type='hidden' name='login_wh_cd' value=""><input type='hidden' name='binsyuCdList' value="[{SORT_NO=null, VALUE=null, KEY=null, VALUE2=null}, {SORT_NO=1, VALUE=ゆうパック, KEY=01, VALUE2=01：ゆうパック}, {SORT_NO=2, VALUE=ゆうパック（チルド）, KEY=02, VALUE2=02：ゆうパック（チルド）}, {SORT_NO=3, VALUE=ゆうパック（冷凍）, KEY=03, VALUE2=03：ゆうパック（冷凍）}, {SORT_NO=12, VALUE=ゆうパケット, KEY=12, VALUE2=12：ゆうパケット}, {SORT_NO=300, VALUE=その他, KEY=300, VALUE2=300：その他}]"><input type='hidden' name='binsyuCd' value=""><input type='hidden' name='siteCd' value=""><input type='hidden' name='kessaiCd' value=""><input type='hidden' name='kessaiKbnList' value="[{SORT_NO=0, VALUE=null, KEY=null, PARAM_MARK=null}, {SORT_NO=1, VALUE=元払, KEY=0, PARAM_MARK=null}, {SORT_NO=2, VALUE=代引, KEY=1, PARAM_MARK=null}]"><input type='hidden' name='kessaiKbn' value=""><input type='hidden' name='kokyakuSagyouList' value="[{SORT_NO=0, VALUE=null, KEY=null, PARAM_MARK=null}, {SORT_NO=1, VALUE=午前出荷, KEY=01, PARAM_MARK=0}, {SORT_NO=2, VALUE=12時出荷, KEY=02, PARAM_MARK=1}, {SORT_NO=3, VALUE=14時出荷, KEY=03, PARAM_MARK=0}, {SORT_NO=4, VALUE=15時出荷, KEY=04, PARAM_MARK=0}, {SORT_NO=5, VALUE=17時出荷, KEY=05, PARAM_MARK=0}, {SORT_NO=6, VALUE=17時以降(臨時1）, KEY=06, PARAM_MARK=0}, {SORT_NO=7, VALUE=17時以降(臨時2）, KEY=07, PARAM_MARK=0}, {SORT_NO=8, VALUE=17時以降(臨時3）, KEY=08, PARAM_MARK=0}, {SORT_NO=9, VALUE=17時以降(臨時4）, KEY=09, PARAM_MARK=0}, {SORT_NO=10, VALUE=17時以降(臨時5）, KEY=10, PARAM_MARK=0}, {SORT_NO=11, VALUE=17時以降(臨時6）, KEY=11, PARAM_MARK=0}, {SORT_NO=12, VALUE=17時以降(臨時7）, KEY=12, PARAM_MARK=0}, {SORT_NO=13, VALUE=17時以降(臨時8）, KEY=13, PARAM_MARK=0}, {SORT_NO=14, VALUE=17時以降(臨時9）, KEY=14, PARAM_MARK=0}, {SORT_NO=15, VALUE=17時以降(臨時10）, KEY=15, PARAM_MARK=0}, {SORT_NO=99, VALUE=当日中出荷, KEY=99, PARAM_MARK=0}]"><input type='hidden' name='kokyakuSagyoKbn' value=""><input type='hidden' name='okurinoFrom' value=""><input type='hidden' name='okurinoTo' value=""><input type='hidden' name='syoriJyoukyou' value=""><input type='hidden' name='giftKbn' value="0"><input type='hidden' name='deleteKbn' value="0"><input type='hidden' name='sItemNoFrom' value=""><input type='hidden' name='sItemNoTo' value=""><input type='hidden' name='sItemNm' value=""><input type='hidden' name='titleKbn' value=""><input type='hidden' name='_fromMenu' value="1"><input type='hidden' name='upload_no' value=""><input type='hidden' name='skyKbn' value="0"></form>
+				<form name="Form2" id="_Form2" method="post">
+				<input type="hidden" name="secToken" id="secToken" value="51D6868AF48DECE964305614F4AB8B6C"/>
+				<input type="hidden" name="processType" id="_processType2" >
+
+				
+				<input type="hidden" name="syukkaYoteiYmdFrom" id="syukkaYoteiYmdFrom" value="2018/12/10">
+				<input type="hidden" name="syukkaYoteiYmdTo" id="syukkaYoteiYmdTo" value="2019/01/10">
+				<input type="hidden" name="sksjCd" id="sksjCd" value="">
+				<input type="hidden" name="orderYmdFrom" id="orderYmdFrom" value="">
+				<input type="hidden" name="orderYmdTo" id="orderYmdTo" value="">
+				<input type="hidden" name="orderCd" id="orderCd" value="">
+				<input type="hidden" name="sTdkNm" id="sTdkNm" value="">
+				<input type="hidden" name="sTdkAddr" id="sTdkAddr" value="">
+				<input type="hidden" name="whCd" id="whCd" value="">
+				<input type="hidden" name="binsyuCd" id="binsyuCd" value="">
+				<input type="hidden" name="siteCd" id="siteCd" value="">
+				<input type="hidden" name="kessaiCd" id="kessaiCd" value="">
+				<input type="hidden" name="kessaiKbn" id="kessaiKbn" value="">
+				<input type="hidden" name="kokyakuSagyoKbn" id="kokyakuSagyoKbn" value="">
+				<input type="hidden" name="okurinoFrom" id="okurinoFrom" value="">
+				<input type="hidden" name="okurinoTo" id="okurinoTo" value="">
+				<input type="hidden" name="syoriJyoukyou" id="syoriJyoukyou" value="">
+				<input type="hidden" name="giftKbn" id="giftKbn" value="0">
+				<input type="hidden" name="deleteKbn" id="deleteKbn" value="0">
+				<input type="hidden" name="sItemNoFrom" id="sItemNoFrom" value="">
+				<input type="hidden" name="sItemNoTo" id="sItemNoTo" value="">
+				<input type="hidden" name="sItemNm" id="sItemNm" value="">
+
+				<input type="hidden" name="csv_down_kbn" id="_csv_down_kbn">
+				<input type="hidden" name="header_csv_out" id="_header_csv_out">
+				<input type="hidden" name="list_csv_out" id="_list_csv_out">
+				<INPUT TYPE="hidden" NAME="login_wh_cd" id="_login_wh_cd" value="">
+				<INPUT TYPE="hidden" NAME="login_wh_nm" id="_login_wh_nm" value="">
+				<input type='hidden' name="intPageNo" id="_intPageNo" value="1">
+				<input type='hidden' name="intRecordCount" id="_intRecordCount" value="9">
+				<input type='hidden' name="intPageSize" id="_intPageSize" value="30">
+				<input type='hidden' name="intPageCount" id="_intPageCount" value="1">
+				<input type='hidden' name="titleKbn" id="_titleKbn" value="">
+				<input type='hidden' name="_fromMenu" id="_fromMenu" value="1">
+				<table>
+					<tr>
+						
+						<td align="center" NOWRAP width="auto" bgcolor="#ffff66" >
+							<select name="header_csv_out_noform" id="_header_csv_out_noform" >
+							
+							
+							<option value="0"></option>
+							
+							<option value="1" selected>出荷指示ヘッダー</option>
+							
+							</select>
+							<input type="button"  onClick="DownLoad('6');" value="ヘッダCSV出力"
+							
+							id="_btnDownload1"/>
+
+						</td>
+						<td align="center" NOWRAP width="auto" bgcolor="#CCFF66" >
+							<select name="list_csv_out_noform" id="_list_csv_out_noform" >
+							
+							
+							<option value="0"></option>
+							
+							<option value="1" selected>出荷指示明細</option>
+							
+							</select>
+							<input type="button"  onClick="DownLoad('7');" value="明細CSV出力"
+							
+							id="_btnDownload2"/>
+						</td>
+					</tr>
+				</table>
+				<table class="lt" id="itemTable" style="width:1570px;">
+					
+					<col width="50">
+					<col width="80">
+					<col width="110">
+					<col width="80">
+					<col width="100">
+					<col width="100">
+					<col width="150">
+					<col width="100">
+					<col width="110">
+					<col width="50">
+					<col width="110">
+					<col width="110">
+					<col width="90">
+					<col width="110">
+					<col width="110">
+					<col width="110">
+					<tr class="head">
+						<th style='display:none;'><input type="checkbox" name="titleCheck" id="_titleCheck" onclick="funCheckAll();chgAllLineColor();" value= "1" />
+						<th>No</th>
+						<th>出荷予定日</th>
+						<th>出荷指示番号</th>
+						<th>注文日</th>
+						<th>注文番号</th>
+						<th>届先名</th>
+						<th>届先住所</th>
+						<th>倉庫名</th>
+						<th>商品種別</th>
+						<th>支払</th>
+						<th>顧客指定作業区分</th>
+						<th>お問い合わせ番号</th>
+						<th>処理状況</th>
+						<th>印刷日</th>
+						<th>出荷実績確定日</th>
+						<th>配送完了日</th>
+					</tr>
+	 					
+							
+							
+							
+							<tr id="listline_0">
+								<td align="center" style='display:none;'>
+									
+										<input type="checkbox" class="cssItemCheck" onclick="chgLineColor(0,this);" name="arr_seq_no" value="196116,2,OD1901088703801"></td>
+									
+								<td align="center" bgcolor="" nowrap>
+									1</td>
+								
+								<td align="center" title="2019/01/08" bgcolor="" nowrap>
+									<nobr>2019/01/08</nobr></td>
+								
+								<td align="left" title="OD1901088703801" bgcolor="" nowrap>
+									
+										<a href="SY010ShijiEntry.html?processType=2&seqNo=196116"><nobr>OD1901088703801</nobr></a>
+									
+								</td>
+								
+								<td align="center" title="2019/01/08" bgcolor="" nowrap>
+									<nobr>2019/01/08</nobr></td>
+								
+								<td align="left" title="OD19010887038" bgcolor="" nowrap>
+									<nobr>OD19010887038</nobr></td>
+								
+								<td align="left" title="尾崎ﾔｽｼﾞ" bgcolor="" nowrap>
+									<nobr>尾崎ﾔｽｼﾞ</nobr></td>
+								
+								<td align="left" title="東京都西東京市向台町9-99-99" bgcolor="" nowrap>
+									<nobr>東京都西東京市向台町9-99-99</nobr></td>
+								
+								<td align="left" title="アクアペット倉庫" bgcolor="" nowrap>
+									<nobr>アクアペット倉庫</nobr></td>
+								
+								<td align="left" title="ゆうパック" bgcolor="" nowrap>
+									<nobr>ゆうパック</nobr></td>
+								
+								<td align="left" title="代引" bgcolor="" nowrap>
+									<nobr>代引</nobr></td>
+								
+								<td align="left" title="午前出荷" bgcolor="" nowrap>
+									<nobr>午前出荷</nobr></td>
+								
+								<td align="left" title="624000198102" bgcolor="" nowrap>
+									<nobr>624000198102</nobr></td>
+								
+								<td align="left" title="作業完了" bgcolor="" nowrap>
+									<nobr>作業完了</nobr></td>
+								
+								<td align="center" title="2019/01/08" bgcolor="" nowrap>
+									<nobr>2019/01/08</nobr></td>
+								
+								<td align="center" title="2019/01/08" bgcolor="" nowrap>
+									<nobr>2019/01/08</nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+							</tr>
+						
+							
+							
+							
+							<tr id="listline_1">
+								<td align="center" style='display:none;'>
+									
+										<input type="checkbox" class="cssItemCheck" onclick="chgLineColor(1,this);" name="arr_seq_no" value="196115,2,OD1809108639601"></td>
+									
+								<td align="center" bgcolor="" nowrap>
+									2</td>
+								
+								<td align="center" title="2019/01/07" bgcolor="" nowrap>
+									<nobr>2019/01/07</nobr></td>
+								
+								<td align="left" title="OD1809108639601" bgcolor="" nowrap>
+									
+										<a href="SY010ShijiEntry.html?processType=2&seqNo=196115"><nobr>OD1809108639601</nobr></a>
+									
+								</td>
+								
+								<td align="center" title="2018/09/10" bgcolor="" nowrap>
+									<nobr>2018/09/10</nobr></td>
+								
+								<td align="left" title="tcc-227483-20180910-00321829" bgcolor="" nowrap>
+									<nobr>tcc-227483-20180910-00321829</nobr></td>
+								
+								<td align="left" title="矢澤明雄" bgcolor="" nowrap>
+									<nobr>矢澤明雄</nobr></td>
+								
+								<td align="left" title="埼玉県上尾市愛宕9-9-99" bgcolor="" nowrap>
+									<nobr>埼玉県上尾市愛宕9-9-99</nobr></td>
+								
+								<td align="left" title="アクアペット倉庫" bgcolor="" nowrap>
+									<nobr>アクアペット倉庫</nobr></td>
+								
+								<td align="left" title="ゆうパック" bgcolor="" nowrap>
+									<nobr>ゆうパック</nobr></td>
+								
+								<td align="left" title="元払" bgcolor="" nowrap>
+									<nobr>元払</nobr></td>
+								
+								<td align="left" title="午前出荷" bgcolor="" nowrap>
+									<nobr>午前出荷</nobr></td>
+								
+								<td align="left" title="624000198146" bgcolor="" nowrap>
+									<nobr>624000198146</nobr></td>
+								
+								<td align="left" title="作業中" bgcolor="" nowrap>
+									<nobr>作業中</nobr></td>
+								
+								<td align="center" title="2019/01/08" bgcolor="" nowrap>
+									<nobr>2019/01/08</nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+							</tr>
+						
+							
+							
+							
+							<tr id="listline_2">
+								<td align="center" style='display:none;'>
+									
+										<input type="checkbox" class="cssItemCheck" onclick="chgLineColor(2,this);" name="arr_seq_no" value="196114,1,OD1812208703602"></td>
+									
+								<td align="center" bgcolor="" nowrap>
+									3</td>
+								
+								<td align="center" title="2018/12/20" bgcolor="" nowrap>
+									<nobr>2018/12/20</nobr></td>
+								
+								<td align="left" title="OD1812208703602" bgcolor="" nowrap>
+									
+										<a href="SY010ShijiEntry.html?processType=2&seqNo=196114"><nobr>OD1812208703602</nobr></a>
+									
+								</td>
+								
+								<td align="center" title="2018/12/20" bgcolor="" nowrap>
+									<nobr>2018/12/20</nobr></td>
+								
+								<td align="left" title="OD18122087036" bgcolor="" nowrap>
+									<nobr>OD18122087036</nobr></td>
+								
+								<td align="left" title="藤井美惠子" bgcolor="" nowrap>
+									<nobr>藤井美惠子</nobr></td>
+								
+								<td align="left" title="岡山県岡山市中区高島9-9-9　D999-9" bgcolor="" nowrap>
+									<nobr>岡山県岡山市中区高島9-9-9　D999-9</nobr></td>
+								
+								<td align="left" title="新越谷ソリューションセンター" bgcolor="" nowrap>
+									<nobr>新越谷ソリューションセンター</nobr></td>
+								
+								<td align="left" title="ゆうパック（冷凍）" bgcolor="" nowrap>
+									<nobr>ゆうパック（冷凍）</nobr></td>
+								
+								<td align="left" title="元払" bgcolor="" nowrap>
+									<nobr>元払</nobr></td>
+								
+								<td align="left" title="12時出荷" bgcolor="" nowrap>
+									<nobr>12時出荷</nobr></td>
+								
+								<td align="left" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="left" title="作業中" bgcolor="" nowrap>
+									<nobr>作業中</nobr></td>
+								
+								<td align="center" title="2018/12/20" bgcolor="" nowrap>
+									<nobr>2018/12/20</nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+							</tr>
+						
+							
+							
+							
+							<tr id="listline_3">
+								<td align="center" style='display:none;'>
+									
+										<input type="checkbox" class="cssItemCheck" onclick="chgLineColor(3,this);" name="arr_seq_no" value="196113,2,OD1812208703601"></td>
+									
+								<td align="center" bgcolor="" nowrap>
+									4</td>
+								
+								<td align="center" title="2018/12/20" bgcolor="" nowrap>
+									<nobr>2018/12/20</nobr></td>
+								
+								<td align="left" title="OD1812208703601" bgcolor="" nowrap>
+									
+										<a href="SY010ShijiEntry.html?processType=2&seqNo=196113"><nobr>OD1812208703601</nobr></a>
+									
+								</td>
+								
+								<td align="center" title="2018/12/20" bgcolor="" nowrap>
+									<nobr>2018/12/20</nobr></td>
+								
+								<td align="left" title="OD18122087036" bgcolor="" nowrap>
+									<nobr>OD18122087036</nobr></td>
+								
+								<td align="left" title="藤井美惠子" bgcolor="" nowrap>
+									<nobr>藤井美惠子</nobr></td>
+								
+								<td align="left" title="岡山県岡山市中区高島9-9-9　D999-9" bgcolor="" nowrap>
+									<nobr>岡山県岡山市中区高島9-9-9　D999-9</nobr></td>
+								
+								<td align="left" title="アクアペット倉庫" bgcolor="" nowrap>
+									<nobr>アクアペット倉庫</nobr></td>
+								
+								<td align="left" title="ゆうパック" bgcolor="" nowrap>
+									<nobr>ゆうパック</nobr></td>
+								
+								<td align="left" title="元払" bgcolor="" nowrap>
+									<nobr>元払</nobr></td>
+								
+								<td align="left" title="12時出荷" bgcolor="" nowrap>
+									<nobr>12時出荷</nobr></td>
+								
+								<td align="left" title="624000198135" bgcolor="" nowrap>
+									<nobr>624000198135</nobr></td>
+								
+								<td align="left" title="作業前" bgcolor="" nowrap>
+									<nobr>作業前</nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+							</tr>
+						
+							
+							
+							
+							<tr id="listline_4">
+								<td align="center" style='display:none;'>
+									
+										<input type="checkbox" class="cssItemCheck" onclick="chgLineColor(4,this);" name="arr_seq_no" value="196112,2,OD1812208703501"></td>
+									
+								<td align="center" bgcolor="" nowrap>
+									5</td>
+								
+								<td align="center" title="2018/12/20" bgcolor="" nowrap>
+									<nobr>2018/12/20</nobr></td>
+								
+								<td align="left" title="OD1812208703501" bgcolor="" nowrap>
+									
+										<a href="SY010ShijiEntry.html?processType=2&seqNo=196112"><nobr>OD1812208703501</nobr></a>
+									
+								</td>
+								
+								<td align="center" title="2018/12/20" bgcolor="" nowrap>
+									<nobr>2018/12/20</nobr></td>
+								
+								<td align="left" title="OD18122087035" bgcolor="" nowrap>
+									<nobr>OD18122087035</nobr></td>
+								
+								<td align="left" title="木野雅子" bgcolor="" nowrap>
+									<nobr>木野雅子</nobr></td>
+								
+								<td align="left" title="神奈川県横浜市青葉区松風台9-9" bgcolor="" nowrap>
+									<nobr>神奈川県横浜市青葉区松風台9-9</nobr></td>
+								
+								<td align="left" title="アクアペット倉庫" bgcolor="" nowrap>
+									<nobr>アクアペット倉庫</nobr></td>
+								
+								<td align="left" title="ゆうパック" bgcolor="" nowrap>
+									<nobr>ゆうパック</nobr></td>
+								
+								<td align="left" title="代引" bgcolor="" nowrap>
+									<nobr>代引</nobr></td>
+								
+								<td align="left" title="午前出荷" bgcolor="" nowrap>
+									<nobr>午前出荷</nobr></td>
+								
+								<td align="left" title="624000198091" bgcolor="" nowrap>
+									<nobr>624000198091</nobr></td>
+								
+								<td align="left" title="作業前" bgcolor="" nowrap>
+									<nobr>作業前</nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+							</tr>
+						
+							
+							
+							
+							<tr id="listline_5">
+								<td align="center" style='display:none;'>
+									
+										<input type="checkbox" class="cssItemCheck" onclick="chgLineColor(5,this);" name="arr_seq_no" value="196111,2,OD1812138703401"></td>
+									
+								<td align="center" bgcolor="" nowrap>
+									6</td>
+								
+								<td align="center" title="2018/12/13" bgcolor="" nowrap>
+									<nobr>2018/12/13</nobr></td>
+								
+								<td align="left" title="OD1812138703401" bgcolor="" nowrap>
+									
+										<a href="SY010ShijiEntry.html?processType=2&seqNo=196111"><nobr>OD1812138703401</nobr></a>
+									
+								</td>
+								
+								<td align="center" title="2018/12/13" bgcolor="" nowrap>
+									<nobr>2018/12/13</nobr></td>
+								
+								<td align="left" title="OD18121387034" bgcolor="" nowrap>
+									<nobr>OD18121387034</nobr></td>
+								
+								<td align="left" title="東計次郎" bgcolor="" nowrap>
+									<nobr>東計次郎</nobr></td>
+								
+								<td align="left" title="神奈川県川崎市中原区宮内２丁目５－２" bgcolor="" nowrap>
+									<nobr>神奈川県川崎市中原区宮内２丁目５－２</nobr></td>
+								
+								<td align="left" title="アクアペット倉庫" bgcolor="" nowrap>
+									<nobr>アクアペット倉庫</nobr></td>
+								
+								<td align="left" title="ゆうパック" bgcolor="" nowrap>
+									<nobr>ゆうパック</nobr></td>
+								
+								<td align="left" title="代引" bgcolor="" nowrap>
+									<nobr>代引</nobr></td>
+								
+								<td align="left" title="午前出荷" bgcolor="" nowrap>
+									<nobr>午前出荷</nobr></td>
+								
+								<td align="left" title="624000198080" bgcolor="" nowrap>
+									<nobr>624000198080</nobr></td>
+								
+								<td align="left" title="作業前" bgcolor="" nowrap>
+									<nobr>作業前</nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+							</tr>
+						
+							
+							
+							
+							<tr id="listline_6">
+								<td align="center" style='display:none;'>
+									
+										<input type="checkbox" class="cssItemCheck" onclick="chgLineColor(6,this);" name="arr_seq_no" value="196110,2,OD1812128703301"></td>
+									
+								<td align="center" bgcolor="" nowrap>
+									7</td>
+								
+								<td align="center" title="2018/12/12" bgcolor="" nowrap>
+									<nobr>2018/12/12</nobr></td>
+								
+								<td align="left" title="OD1812128703301" bgcolor="" nowrap>
+									
+										<a href="SY010ShijiEntry.html?processType=2&seqNo=196110"><nobr>OD1812128703301</nobr></a>
+									
+								</td>
+								
+								<td align="center" title="2018/12/12" bgcolor="" nowrap>
+									<nobr>2018/12/12</nobr></td>
+								
+								<td align="left" title="OD18121287033" bgcolor="" nowrap>
+									<nobr>OD18121287033</nobr></td>
+								
+								<td align="left" title="東計太郎" bgcolor="" nowrap>
+									<nobr>東計太郎</nobr></td>
+								
+								<td align="left" title="神奈川県川崎市中原区市ノ坪１５０" bgcolor="" nowrap>
+									<nobr>神奈川県川崎市中原区市ノ坪１５０</nobr></td>
+								
+								<td align="left" title="アクアペット倉庫" bgcolor="" nowrap>
+									<nobr>アクアペット倉庫</nobr></td>
+								
+								<td align="left" title="ゆうパック" bgcolor="" nowrap>
+									<nobr>ゆうパック</nobr></td>
+								
+								<td align="left" title="代引" bgcolor="" nowrap>
+									<nobr>代引</nobr></td>
+								
+								<td align="left" title="午前出荷" bgcolor="" nowrap>
+									<nobr>午前出荷</nobr></td>
+								
+								<td align="left" title="624000198076" bgcolor="" nowrap>
+									<nobr>624000198076</nobr></td>
+								
+								<td align="left" title="作業中" bgcolor="" nowrap>
+									<nobr>作業中</nobr></td>
+								
+								<td align="center" title="2018/12/12" bgcolor="" nowrap>
+									<nobr>2018/12/12</nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+							</tr>
+						
+							
+							
+							
+							<tr id="listline_7">
+								<td align="center" style='display:none;'>
+									
+										<input type="checkbox" class="cssItemCheck" onclick="chgLineColor(7,this);" name="arr_seq_no" value="196108,2,OD1812118703201"></td>
+									
+								<td align="center" bgcolor="" nowrap>
+									8</td>
+								
+								<td align="center" title="2018/12/11" bgcolor="" nowrap>
+									<nobr>2018/12/11</nobr></td>
+								
+								<td align="left" title="OD1812118703201" bgcolor="" nowrap>
+									
+										<a href="SY010ShijiEntry.html?processType=2&seqNo=196108"><nobr>OD1812118703201</nobr></a>
+									
+								</td>
+								
+								<td align="center" title="2018/12/11" bgcolor="" nowrap>
+									<nobr>2018/12/11</nobr></td>
+								
+								<td align="left" title="OD18121187032" bgcolor="" nowrap>
+									<nobr>OD18121187032</nobr></td>
+								
+								<td align="left" title="東計太郎" bgcolor="" nowrap>
+									<nobr>東計太郎</nobr></td>
+								
+								<td align="left" title="神奈川県川崎市中原区市ノ坪１５０" bgcolor="" nowrap>
+									<nobr>神奈川県川崎市中原区市ノ坪１５０</nobr></td>
+								
+								<td align="left" title="アクアペット倉庫" bgcolor="" nowrap>
+									<nobr>アクアペット倉庫</nobr></td>
+								
+								<td align="left" title="ゆうパック" bgcolor="" nowrap>
+									<nobr>ゆうパック</nobr></td>
+								
+								<td align="left" title="代引" bgcolor="" nowrap>
+									<nobr>代引</nobr></td>
+								
+								<td align="left" title="午前出荷" bgcolor="" nowrap>
+									<nobr>午前出荷</nobr></td>
+								
+								<td align="left" title="624000198065" bgcolor="" nowrap>
+									<nobr>624000198065</nobr></td>
+								
+								<td align="left" title="作業中" bgcolor="" nowrap>
+									<nobr>作業中</nobr></td>
+								
+								<td align="center" title="2018/12/11" bgcolor="" nowrap>
+									<nobr>2018/12/11</nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+							</tr>
+						
+							
+							
+							
+							<tr id="listline_8">
+								<td align="center" style='display:none;'>
+									
+										<input type="checkbox" class="cssItemCheck" onclick="chgLineColor(8,this);" name="arr_seq_no" value="196109,2,OD1809108633701"></td>
+									
+								<td align="center" bgcolor="" nowrap>
+									9</td>
+								
+								<td align="center" title="2018/12/11" bgcolor="" nowrap>
+									<nobr>2018/12/11</nobr></td>
+								
+								<td align="left" title="OD1809108633701" bgcolor="" nowrap>
+									
+										<a href="SY010ShijiEntry.html?processType=2&seqNo=196109"><nobr>OD1809108633701</nobr></a>
+									
+								</td>
+								
+								<td align="center" title="2018/09/10" bgcolor="" nowrap>
+									<nobr>2018/09/10</nobr></td>
+								
+								<td align="left" title="tcc-227483-20180910-00521810" bgcolor="" nowrap>
+									<nobr>tcc-227483-20180910-00521810</nobr></td>
+								
+								<td align="left" title="永井一郎" bgcolor="" nowrap>
+									<nobr>永井一郎</nobr></td>
+								
+								<td align="left" title="兵庫県神戸市東灘区魚崎北町9-9-99" bgcolor="" nowrap>
+									<nobr>兵庫県神戸市東灘区魚崎北町9-9-99</nobr></td>
+								
+								<td align="left" title="アクアペット倉庫" bgcolor="" nowrap>
+									<nobr>アクアペット倉庫</nobr></td>
+								
+								<td align="left" title="ゆうパック" bgcolor="" nowrap>
+									<nobr>ゆうパック</nobr></td>
+								
+								<td align="left" title="元払" bgcolor="" nowrap>
+									<nobr>元払</nobr></td>
+								
+								<td align="left" title="12時出荷" bgcolor="" nowrap>
+									<nobr>12時出荷</nobr></td>
+								
+								<td align="left" title="624000198124" bgcolor="" nowrap>
+									<nobr>624000198124</nobr></td>
+								
+								<td align="left" title="作業前" bgcolor="" nowrap>
+									<nobr>作業前</nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+								
+								<td align="center" title="" bgcolor="" nowrap>
+									<nobr></nobr></td>
+							</tr>
+						
+	 				</table>
+	 			</form>
+			
+			
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

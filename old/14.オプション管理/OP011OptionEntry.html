@@ -1,0 +1,1578 @@
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?Eje6d1TMFS" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+<html>
+	<head>
+	    <meta http-equiv = "Pragma" content="no-cache">
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j" />
+		<title>
+			オプションマスタ
+		</title>
+		<script type="text/javascript">
+			// モード切替
+			function changeMode(tabNo) {
+				$("#tabView_1").hide();
+				$("#tabView_2").hide();
+				$("#tabView_3").hide();
+				$("#tabView_4").hide();
+				$("#tabView_5").hide();
+				$("#tabView_6").hide();
+
+				$("#tab_1").css("background-color","white");
+				$("#tab_2").css("background-color","white");
+				$("#tab_3").css("background-color","white");
+				$("#tab_4").css("background-color","white");
+				$("#tab_5").css("background-color","white");
+				$("#tab_6").css("background-color","white");
+				if (tabNo == 1){
+					$("#tabView_1").show();
+					$("#tab_1").css("background-color","#FFCCCC");
+				}else if (tabNo == 2){
+					$("#tabView_2").show();
+					$("#tab_2").css("background-color","#FFCCCC");
+				}else if (tabNo == 3){
+					$("#tabView_3").show();
+					$("#tab_3").css("background-color","#FFCCCC");
+				}else if (tabNo == 4){
+					$("#tabView_4").show();
+					$("#tab_4").css("background-color","#FFCCCC");
+				}else if (tabNo == 5){
+					$("#tabView_5").show();
+					$("#tab_5").css("background-color","#FFCCCC");
+				}else if (tabNo == 6){
+					$("#tabView_6").show();
+					$("#tab_6").css("background-color","#FFCCCC");
+				}
+			}
+
+			// ログイン許可するIPアドレスの追加・削除
+			function updIpSelectVal(syoriKbn) {
+				// 追加
+				if (syoriKbn == 1) {
+					var ipTextVal = $("#ipTextVal").val();
+					if (ipTextVal == "") {
+						alert("IPアドレスは必須です。");
+						return ;
+					}
+					var maxIndex = $("#ipSelectVal_1 option:last").attr("value");
+					var newIndex = 0;
+					if (typeof(maxIndex) == "undefined") {
+						maxIndex = 0;
+					}
+					newIndex = Number(maxIndex) + 1;
+					$("#ipSelectVal_1").append("<option value='" + newIndex + "'>" + ipTextVal + "</option>");
+					$("#ipTextVal").val("");
+					// 追加ボタンがディセーブル
+					$("#insertBtn").attr("disabled",true);
+				// 削除
+				} else if (syoriKbn == 2) {
+					var selectBox = document.forms[0].elements["ipSelectVal_1"];
+					var result = new Array();
+					var option = null;
+					var len = selectBox.options.length;
+
+					for (var i = 0; i < len; i ++) {
+						option = selectBox.options[i];
+						if (!option.selected) {
+							result.push(option);
+						}
+					}
+
+					$("#ipSelectVal_1").empty();
+
+					len = result.length;
+					for (var i = 0; i < len; i ++) {
+						$("#ipSelectVal_1").append("<option value='" + result[i].value + "'>" + result[i].text + "</option>");
+					}
+
+					// 削除ボタンがディセーブル
+					$("#deleteBtn").attr("disabled",true);
+				}
+			}
+
+			// 帳票チェック
+			function updCheckPrintNo() {
+				btnDisabled();
+				// 【標準】・【カスタマイズ】のチェックボックスを取得
+				var printYoutoKbnList = getPrintTypeVal();
+				// 【標準】・【カスタマイズ】のチェックボックスの雛形no
+				var printtypenoList = getPrintTypeVal_1("print_type_no");
+				var youto_nm = getPrintTypeVal_1("youto_nm");
+				var coNo = $("#coNo").val();
+
+				var url = "/easpro2/e_asproOption/OP011OptionEntry";
+				var parms = "processType="+6;
+				parms += "&printYoutoKbnList="+printYoutoKbnList;
+				parms += "&printtypenoList="+printtypenoList;
+				parms += "&youto_nm="+youto_nm;
+				parms += "&coNo="+coNo;
+				_SendByAjax(url,parms,'',true);
+			}
+
+			// 更新ボタン
+			function update(cnt, typeNo) {
+				if (cnt > 0) {
+					var printNm = $("#youto_nm_" + typeNo).val();
+					var msg = "【帳票】{printNm}は印刷設定マスタで設定されています。更新すると設定が解除されますので、再度印刷設定マスタの設定をして下さい。".replace("{printNm}",printNm);
+					if (!confirm(msg)) {
+						btnAbled();
+						$("#insertBtn").attr("disabled",true);
+						$("#deleteBtn").attr("disabled",true);
+						return;
+					}
+				}
+				if (!confirm("更新します。よろしいですか？")) {
+					btnAbled();
+					$("#insertBtn").attr("disabled",true);
+					$("#deleteBtn").attr("disabled",true);
+					return;
+				}
+				// 保留項目（標準）の利用の値を取得
+				var checkBoxList = getTyouseiSeiVal();
+				var checkBoxNmList = getPrintTypeVal_1("tyouseiSeiNm");
+				// 【標準】・【カスタマイズ】のチェックボックスを取得
+				var printYoutoKbnList = getPrintTypeVal();
+				// 【標準】・【カスタマイズ】のチェックボックスの雛形no
+				var printtypenoList = getPrintTypeVal_1("print_type_no");
+				var optionFlgList = getPrintTypeVal_1("optionFlg");
+				var tabNoList = getPrintTypeVal_1("tabNoDisp");
+				// フォームの値に画面項目の値を設定する。
+				setGameValToFormVal();
+				$$("_form1").action="/easpro2/e_asproOption/OP011OptionEntry";
+				$$("_form1").checkBoxList.value = checkBoxList;
+				$$("_form1").printYoutoKbnList.value = printYoutoKbnList;
+				$$("_form1").printtypenoList.value = printtypenoList;
+				$$("_form1").optionFlgList.value = optionFlgList;
+				$$("_form1").tabNoList.value = tabNoList;
+				$$("_form1").checkBoxNmList.value = checkBoxNmList;
+				$$("_form1").processType.value = "4";
+				$$("_form1").submit();
+				btnDisabled();
+			}
+
+			// 【標準】・【カスタマイズ】のチェックボックス
+			function getPrintTypeVal() {
+				var chkList = "";
+				var idx = 0;
+				$("input[name='printYoutoKbnNm']:checkbox").each(function(){
+
+					if (idx > 0) {
+						chkList = chkList + ",";
+					}
+					if($(this).attr("checked")) {
+						chkList = chkList + $(this).val();
+					} else {
+						chkList = chkList + "0";
+					}
+
+					idx = idx + 1;
+				});
+				return chkList;
+			}
+
+			// 【標準】・【カスタマイズ】のチェックボックスの表示順序・雛形no
+			function getPrintTypeVal_1(name) {
+				var chkList = "";
+				var idx = 0;
+				$("input[name='" + name + "']").each(function(){
+
+					if (idx > 0) {
+						chkList = chkList + ",";
+					}
+
+					chkList = chkList + $(this).val();
+
+					idx = idx + 1;
+				});
+				return chkList;
+			}
+
+			// 保留項目（標準）の利用の値を取得
+			function getTyouseiSeiVal() {
+				var chkList = "";
+				var idx = 0;
+				$("input[name='tyouseiSei']:checkbox").each(function(){
+
+					if (idx > 0) {
+						chkList = chkList + ",";
+					}
+					if($(this).attr("checked")) {
+						chkList = chkList + $(this).attr("id") + ":" + $(this).val();
+					} else {
+						chkList = chkList + $(this).attr("id") + ":" + "0";
+					}
+
+					idx = idx + 1;
+				});
+				return chkList;
+			}
+			// 権限により、画面項目の編集状態を設定する。
+			function setJyoutai(kengenCd) {
+
+				// JP（支社・LSC）
+				if (kengenCd == "22") {
+					// サイトのデータ優先取込の利用
+					$("#kanriCoData_2126_1").attr("disabled",true);
+					// 予約商品の利用
+					$("#kanriCoData_675_1").attr("disabled",true);
+					// 複数届先の利用
+					$("#kanriCoData_671_1").attr("disabled",true);
+					// お届け希望日の利用
+					$("#kanriCoData_672_1").attr("disabled",true);
+					// のし欄の利用
+					$("#kanriCoData_673_1").attr("disabled",true);
+					// ECサイト備考欄の利用
+					$("#kanriCoData_674_1").attr("disabled",true);
+					// 問合せ入力の利用
+					$("#kanriCoData_2011_1").attr("disabled",true);
+					// 問合せ照会の利用
+					$("#kanriCoData_2012_1").attr("disabled",true);
+					// 保管タイプの利用
+					$("#kanriCoData_2118_1").attr("disabled",true);
+					// 標準　ゆうパック、ゆうパック（チルド）、ゆうパック（冷凍）
+					// 標準　ゆうメール、ゆうパケット
+					// カスタマイズ　ゆうパック、ゆうパック（チルド）、ゆうパック（冷凍）
+					// カスタマイズ　ゆうメール、ゆうパケット
+					$("#tabView_5").find("input[name='printYoutoKbnNm']").attr("disabled",true);
+					// ログインIP制限の利用
+					$("#kanriCoData_50_1").attr("disabled",true);
+					// ログイン許可するIPアドレス　入力欄
+					$("#ipTextVal").attr("disabled",true);
+					// ログイン許可するIPアドレス　登録内容表示欄
+					$("#ipSelectVal_1").attr("disabled",true);
+
+					$("#insertBtn").attr("disabled",true);
+					$("#deleteBtn").attr("disabled",true);
+					// 利用メニュー
+					$("#kanriCoData_2150_1").attr("disabled",true);
+					// 日次処理の表示
+					$("#kanriCoData_2006_1").attr("disabled",true);
+				}
+				// houryuJyoutaiSet("12");
+			}
+
+			// 任意保留
+			function houryuJyoutaiSet(koumokuNo){
+				var kengenCd = $("#kengenCode").val();
+
+				if ((kengenCd == "11" || kengenCd == "21" || kengenCd == "22") && koumokuNo == "12") {
+					if($("#tyouseiSei_12").is(":checked")) {
+						$("#ktyousei_1001").attr("disabled",false);
+						$("#ktyousei_koumoku_1001").attr("disabled",false);
+						$("#ktyousei_koumoku_r_1001").attr("disabled",false);
+
+						$("#ktyousei_1002").attr("disabled",false);
+						$("#ktyousei_koumoku_1002").attr("disabled",false);
+						$("#ktyousei_koumoku_r_1002").attr("disabled",false);
+
+						$("#ktyousei_1003").attr("disabled",false);
+						$("#ktyousei_koumoku_1003").attr("disabled",false);
+						$("#ktyousei_koumoku_r_1003").attr("disabled",false);
+
+						$("#ktyousei_1004").attr("disabled",false);
+						$("#ktyousei_koumoku_1004").attr("disabled",false);
+						$("#ktyousei_koumoku_r_1004").attr("disabled",false);
+
+						$("#ktyousei_1005").attr("disabled",false);
+						$("#ktyousei_koumoku_1005").attr("disabled",false);
+						$("#ktyousei_koumoku_r_1005").attr("disabled",false);
+					} else {
+						$("#ktyousei_1001").attr("disabled",true);
+						$("#ktyousei_koumoku_1001").attr("disabled",true);
+						$("#ktyousei_koumoku_r_1001").attr("disabled",true);
+						$("#ktyousei_1001").removeAttr("checked");
+
+						$("#ktyousei_1002").attr("disabled",true);
+						$("#ktyousei_koumoku_1002").attr("disabled",true);
+						$("#ktyousei_koumoku_r_1002").attr("disabled",true);
+						$("#ktyousei_1002").removeAttr("checked");
+
+						$("#ktyousei_1003").attr("disabled",true);
+						$("#ktyousei_koumoku_1003").attr("disabled",true);
+						$("#ktyousei_koumoku_r_1003").attr("disabled",true);
+						$("#ktyousei_1003").removeAttr("checked");
+
+						$("#ktyousei_1004").attr("disabled",true);
+						$("#ktyousei_koumoku_1004").attr("disabled",true);
+						$("#ktyousei_koumoku_r_1004").attr("disabled",true);
+						$("#ktyousei_1004").removeAttr("checked");
+
+						$("#ktyousei_1005").attr("disabled",true);
+						$("#ktyousei_koumoku_1005").attr("disabled",true);
+						$("#ktyousei_koumoku_r_1005").attr("disabled",true);
+						$("#ktyousei_1005").removeAttr("checked");
+					}
+				}
+			}
+
+			// ログインIP制限の利用が利用しない場合は、ログイン許可するIPアドレスは、ディセーブルにする。
+			function setIpTextDisabled(riyouFlg) {
+				// ログイン許可するIPアドレス　入力欄
+				$("#ipTextVal").attr("disabled",true);
+				// ログイン許可するIPアドレス　登録内容表示欄
+				$("#ipSelectVal_1").attr("disabled",true);
+				$("#insertBtn").attr("disabled",true);
+				$("#deleteBtn").attr("disabled",true);
+				if (riyouFlg == '1') {
+					$("#ipTextVal").attr("disabled",false);
+					$("#ipSelectVal_1").attr("disabled",false);
+				}
+			}
+
+			// ログイン許可するIPアドレスのIP入力欄に値が入ると、追加ボタンがイネーブル、値が入っていないとディセーブル。
+			function setInsertBtnDisabled(syouriFlg) {
+				if (syouriFlg == '1') {
+					var ipTextVal = $("#ipTextVal").val();
+					if (ipTextVal == "") {
+						$("#insertBtn").attr("disabled",true);
+					} else {
+						$("#insertBtn").attr("disabled",false);
+					}
+				} else {
+					$("#insertBtn").attr("disabled",true);
+				}
+			}
+
+			jQuery(document).ready(function(){
+				setSendMail(0);
+				// ログインIP制限の利用が利用しない場合は、ログイン許可するIPアドレスは、ディセーブルにする。
+				setIpTextDisabled(0);
+				// 権限により、画面項目の編集状態を設定する。
+				setJyoutai(21);
+				$("#deleteBtn").attr("disabled",true);
+				$("#ipSelectVal_1").bind("change",function(){
+					$("#deleteBtn").attr("disabled",false);
+				});
+
+				changeMode(1);
+				/** 削除ボタンとセレクトの制御 Start */
+				//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+				// 削除ボタンを押下
+				$('#deleteBtn').bind('click',function(event){
+					updIpSelectVal(2);
+					//プロパゲーションの抑制
+					event.stopPropagation();
+				});
+
+				// ログイン許可するIPアドレスのセレクト項目
+				$('#ipSelectVal_1').bind('click',function(event){
+					//プロパゲーションの抑制
+					event.stopPropagation();
+				});
+
+				// 該当画面のクリックイベント
+				$(document).bind('click',function(event){
+					$("#deleteBtn").attr("disabled",true);
+					$("#ipSelectVal_1").find("option:selected").attr("selected",false);
+				});
+
+				//LeftMenuのクリックイベント
+				$(window.parent.frames["menu"].document).bind('click',function(event){
+					$("#deleteBtn",$(window.parent.frames["main"].document)).attr("disabled",true);
+					$("#ipSelectVal_1",$(window.parent.frames["main"].document)).find("option:selected").attr("selected",false);
+				});
+
+				//topMenuのクリックイベント
+				$(window.parent.parent.parent.frames["head"].document).bind('click',function(event){
+					$("#deleteBtn",$(window.parent.frames["main"].document)).attr("disabled",true);
+					$("#ipSelectVal_1",$(window.parent.frames["main"].document)).find("option:selected").attr("selected",false);
+				});
+				//↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+				/** 削除ボタンとセレクトの制御 End */
+			});
+			// フォームの値に画面項目の値を設定する。
+			function setGameValToFormVal() {
+				// 配達希望日保留の日数
+				$("#kanriCoData_571").val($("#kanriCoData_571_1").val());
+				// 冷蔵／冷凍商品自動保留の利用
+				$("#kanriCoData_2116").val($("#kanriCoData_2116_1").val());
+				// サイトのデータ優先取込の利用
+				$("#kanriCoData_2126").val($("#kanriCoData_2126_1").val());
+				// 予約商品の利用
+				$("#kanriCoData_675").val($("#kanriCoData_675_1").val());
+				// 複数届先の利用
+				$("#kanriCoData_671").val($("#kanriCoData_671_1").val());
+				// お届け希望日の利用
+				$("#kanriCoData_672").val($("#kanriCoData_672_1").val());
+				// お届け希望日の日数
+				$("#kanriCoData_677").val($("#kanriCoData_677_1").val());
+				// お届け希望日の日数の期間
+				$("#kanriCoData_678").val($("#kanriCoData_678_1").val());
+				// のし欄の利用
+				$("#kanriCoData_673").val($("#kanriCoData_673_1").val());
+				// ECサイト備考欄の利用
+				$("#kanriCoData_674").val($("#kanriCoData_674_1").val());
+				// 問合せ入力の利用
+				$("#kanriCoData_2011").val($("#kanriCoData_2011_1").val());
+				// 問合せ照会の利用
+				$("#kanriCoData_2012").val($("#kanriCoData_2012_1").val());
+				// 在庫連携時の自動引当の利用
+				$("#kanriCoData_2111").val($("#kanriCoData_2111_1").val());
+				// 保管タイプの利用
+				$("#kanriCoData_2118").val($("#kanriCoData_2118_1").val());
+				// オーダーピッキングリスト商品名印字バイト数
+				$("#kanriCoData_579").val($("#kanriCoData_579_1").val());
+				// 総量ピッキングリスト印字商品文字バイト数
+				$("#kanriCoData_578").val($("#kanriCoData_578_1").val());
+				// 納品書印字商品文字バイト数
+				$("#kanriCoData_580").val($("#kanriCoData_580_1").val());
+				// ログインIP制限の利用
+				$("#kanriCoData_50").val($("#kanriCoData_50_1").val());
+				// ログイン許可するIPアドレス
+				$("#ipTextareaVal").val($("#ipSelectVal_1 option").map(function(){return $(this).text();}).get().join(";"));
+				// 利用メニュー
+				$("#kanriCoData_2150").val($("#kanriCoData_2150_1").val());
+				// 日次処理の利用
+				$("#kanriCoData_2006").val($("#kanriCoData_2006_1").val());
+				//
+				$("#kanriCoData_430_mail").val($("#kanriCoData_430_mail_1").val());
+			}
+
+			// 日次完了時の送信メールアドレス
+			function setSendMail(riyouFlg) {
+				$("#kanriCoData_430_mail_1").attr("disabled",true);
+				var kengenCode = $("#kengenCode").val();
+				if ((kengenCode == '11' || kengenCode == '21') && riyouFlg == '1') {
+					$("#kanriCoData_430_mail_1").attr("disabled",false);
+				}
+			}
+		</script>
+
+		<style type="text/css">
+			.tdClass{
+				cursor:pointer;
+				width:20px;
+				border-top:1px solid black;
+				border-left:1px solid black;
+				border-bottom:1px solid black;
+				border-right:1px solid black;
+				border-collapse: collapse;
+				padding:3px;
+			}
+
+			.groupNmClass{
+				border-left:0px solid #666666;
+				border-right:1px solid #666666;
+				border-top:0px solid #666666;
+				border-bottom:1px solid #666666;
+				text-align      : left;
+				vertical-align  : top;
+				font-weight     : normal;
+				background-color: #CCCCCC;
+				padding         : 2px;
+				width           : 100px;
+			/** height          : 28px; */
+				font-style:normal;
+				font-variant:normal;
+				font-size:12px
+			}
+
+			/* Search table CSS */
+			table.sf_tyouhyou{
+				border-style    : solid;
+				border-width    : 1px 1px 1px 1px;
+				border-color    : #666666;
+				empty-cells     : show;
+				margin          : 0;
+				width           : 280px;
+				border-collapse : collapse;
+				table-layout    : fixed;
+			}
+
+			.groupNmClass_val{
+				border-left:0px solid #666666;
+				border-right:1px solid #666666;
+				border-top:0px solid #666666;
+				border-bottom:1px solid #666666;
+				text-align      : left;
+				vertical-align  : top;
+				font-weight     : normal;
+				background-color: #FFFFFF;
+				padding         : 2px;
+				width           : 100px;
+			/** height          : 28px; */
+				font-style:normal;
+				font-variant:normal;
+				font-size:12px
+			}
+			table.sf_tyouhyou_val{
+				border-style    : solid;
+				border-width    : 1px 1px 1px 1px;
+				border-color    : #666666;
+				empty-cells     : show;
+				margin          : 0;
+				width           : 400px;
+				border-collapse : collapse;
+				table-layout    : fixed;
+			}
+		</style>
+	</head>
+
+	<body bgcolor="#FFFFFF">
+	<img src='../ecsdocs2/img/head_master.gif' alt='' align='middle' border='0'>
+	<b>オプションマスタ</b>
+	
+		<br><A href='/easpro2/e_asproOption/OP010OptionList?backUrlKey=&intPageNo=1&intPageCount=3&intPageSize=30&intRecordCount=88&strToolbarX=&strToolbarY=&strSpaceHeight=50px&processType=2&searchKbn=2&coNo=0&compCd=&compNm=&btocRiyouFlg=&btocEcRiyouFlg=&btobRiyouFlg=&btobEcRiyouFlg=&wmsFlg=&syukkaRiyouFlg=&skyKbn=&unitKbn=' tabindex="1" ><img src="../ecsdocs2/img/return.gif"></A>
+		<br>
+		テスト荷主マスタ
+	
+	<br>
+	<b style="color:red"></b>
+	<br>
+		<form name="form1" id="_form1" method="post">
+		<input type="hidden" name="secToken" id="secToken" value="3F1ADB268189BA9D794217BD0F8DD3C7"/>
+		<input TYPE="hidden" name="coNo" id="coNo" value="3071">
+		<input TYPE="hidden" name="loginCoNo" id="loginCoNo" value="0">
+		<input TYPE="hidden" name="processKbn" id="processKbn" value="1">
+		<input TYPE="hidden" name="processType" id="_processType">
+		<input TYPE="hidden" name="ipTextareaVal" id="ipTextareaVal">
+		<input TYPE="hidden" name="checkBoxList" id="checkBoxList">
+		<input TYPE="hidden" name="printYoutoKbnList" id="printYoutoKbnList">
+		<input TYPE="hidden" name="sortnoList" id="sortnoList">
+		<input TYPE="hidden" name="printtypenoList" id="printtypenoList">
+		<input TYPE="hidden" name="tabNoList" id="tabNoList">
+		<input TYPE="hidden" name="exclCnt" id="exclCnt" value="1">
+		<input TYPE="hidden" name="kengenCode" id="kengenCode" value="21">
+		<input TYPE="hidden" name="systemFlg" id="systemFlg" value="1">
+		<input TYPE="hidden" name="optionFlgList" id="optionFlgList">
+		<input TYPE="hidden" name="checkBoxNmList" id="checkBoxNmList">
+
+		<!-- 配達希望日保留の日数 -->
+		<input TYPE="hidden" name="kanriCoData_571" id="kanriCoData_571">
+		<!-- 冷蔵／冷凍商品自動保留の利用 -->
+		<input TYPE="hidden" name="kanriCoData_2116" id="kanriCoData_2116">
+		<!-- サイトのデータ優先取込の利用 -->
+		<input TYPE="hidden" name="kanriCoData_2126" id="kanriCoData_2126">
+		<!-- 予約商品の利用 -->
+		<input TYPE="hidden" name="kanriCoData_675" id="kanriCoData_675">
+		<!-- 複数届先の利用 -->
+		<input TYPE="hidden" name="kanriCoData_671" id="kanriCoData_671">
+		<!-- お届け希望日の利用 -->
+		<input TYPE="hidden" name="kanriCoData_672" id="kanriCoData_672">
+		<!-- お届け希望日の日数 -->
+		<input TYPE="hidden" name="kanriCoData_677" id="kanriCoData_677">
+		<!-- お届け希望日の日数の期間 -->
+		<input TYPE="hidden" name="kanriCoData_678" id="kanriCoData_678">
+		<!-- のし欄の利用 -->
+		<input TYPE="hidden" name="kanriCoData_673" id="kanriCoData_673">
+		<!-- ECサイト備考欄の利用 -->
+		<input TYPE="hidden" name="kanriCoData_674" id="kanriCoData_674">
+		<!-- 問合せ入力の利用 -->
+		<input TYPE="hidden" name="kanriCoData_2011" id="kanriCoData_2011">
+		<!-- 問合せ照会の利用 -->
+		<input TYPE="hidden" name="kanriCoData_2012" id="kanriCoData_2012">
+		<!-- 在庫連携時の自動引当の利用 -->
+		<input TYPE="hidden" name="kanriCoData_2111" id="kanriCoData_2111">
+		<!-- 保管タイプの利用 -->
+		<input TYPE="hidden" name="kanriCoData_2118" id="kanriCoData_2118">
+		<!-- オーダーピッキングリスト商品名印字バイト数 -->
+		<input TYPE="hidden" name="kanriCoData_579" id="kanriCoData_579">
+		<!-- 総量ピッキングリスト印字商品文字バイト数 -->
+		<input TYPE="hidden" name="kanriCoData_578" id="kanriCoData_578">
+		<!-- 納品書印字商品文字バイト数 -->
+		<input TYPE="hidden" name="kanriCoData_580" id="kanriCoData_580">
+		<!-- ログインIP制限の利用 -->
+		<input TYPE="hidden" name="kanriCoData_50" id="kanriCoData_50">
+		<!-- ログイン許可するIPアドレス -->
+		<input TYPE="hidden" name="ipSelectVal" id="ipSelectVal">
+		<!-- 利用メニュー  -->
+		<input TYPE="hidden" name="kanriCoData_2150" id="kanriCoData_2150">
+		<!-- 日次処理の利用 -->
+		<input TYPE="hidden" name="kanriCoData_2006" id="kanriCoData_2006">
+		<input TYPE="hidden" name="kanriCoData_430_mail" id="kanriCoData_430_mail">
+		<div>
+			
+				<table style="text-align:center;border-width:2px;font-size:13px;border-collapse:collapse;width:450px;">
+					<tr>
+					
+						
+						<td class="tdClass" style="width:150px;border-right:1px solid black;color:blue;" id="tab_1" name="tabName_1" onclick="changeMode('1');">
+							受注内容調整
+							<input TYPE="hidden" name="tabNoDisp" id="tabNoList_0" value="1">
+						</td>
+					
+						
+						<td class="tdClass" style="width:150px;border-right:1px solid black;color:blue;" id="tab_2" name="tabName_2" onclick="changeMode('2');">
+							受注CSV登録
+							<input TYPE="hidden" name="tabNoDisp" id="tabNoList_1" value="2">
+						</td>
+					
+						
+						<td class="tdClass" style="width:150px;border-right:1px solid black;color:blue;" id="tab_6" name="tabName_6" onclick="changeMode('6');">
+							システム
+							<input TYPE="hidden" name="tabNoDisp" id="tabNoList_2" value="6">
+						</td>
+					
+					</tr>
+				</table>
+				<br>
+				<div>
+					<!-- 受注内容調整 -->
+					<div id="tabView_1" width="1250px">
+						<!-- グループリストをループする。 -->
+						
+									<!-- グループ名 -->
+									<font size="2" color="#ff9900">■</font><font size="2">受注内容調整(標準)の設定</font>
+						
+									<table class="lt" width="1250px" style="border-width: 2px 2px 0px 2px;">
+										<col width="280px"/>
+										<col width="400px"/>
+										<col width="570px"/>
+										<tr class="head">
+											<th>項目</th>
+											<th>設定</th>
+											<th>説明</th>
+										</tr>
+
+										<!-- レイアウト情報リストをループする。 -->
+										
+													<!-- 保留項目（標準）の利用、配達希望日保留の日数、冷蔵／冷凍商品自動保留の利用  -->
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>調整項目（標準）の利用</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- 保留項目（標準）の利用  -->
+															
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_0" value="1" checked="checked" disabled="disabled" />
+																		<label for="tyouseiSei_0">受注未確定</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_0" value="受注未確定">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_16" value="1"  disabled="disabled" />
+																		<label for="tyouseiSei_16">API連携中</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_16" value="API連携中">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_1" value="1" checked="checked"  />
+																		<label for="tyouseiSei_1">与信失敗</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_1" value="与信失敗">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_2" value="1"   />
+																		<label for="tyouseiSei_2">入金確認</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_2" value="入金確認">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_3" value="1" checked="checked" disabled="disabled" />
+																		<label for="tyouseiSei_3">住所修正</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_3" value="住所修正">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_4" value="1" checked="checked"  />
+																		<label for="tyouseiSei_4">配達希望日</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_4" value="配達希望日">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_5" value="1" checked="checked"  />
+																		<label for="tyouseiSei_5">発送予定日</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_5" value="発送予定日">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_6" value="1" checked="checked"  />
+																		<label for="tyouseiSei_6">ブラック</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_6" value="ブラック">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_7" value="1"   />
+																		<label for="tyouseiSei_7">同梱対象</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_7" value="同梱対象">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_8" value="1"   />
+																		<label for="tyouseiSei_8">同梱解除</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_8" value="同梱解除">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_21" value="1"  disabled="disabled" />
+																		<label for="tyouseiSei_21">予約商品</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_21" value="予約商品">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_9" value="1" checked="checked" disabled="disabled" />
+																		<label for="tyouseiSei_9">在庫不足</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_9" value="在庫不足">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_10" value="1" checked="checked"  />
+																		<label for="tyouseiSei_10">備考保留</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_10" value="備考保留">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_12" value="1" checked="checked" disabled="disabled" />
+																		<label for="tyouseiSei_12">確認待ち</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_12" value="確認待ち">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_30" value="1" checked="checked"  />
+																		<label for="tyouseiSei_30">配送混在</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_30" value="配送混在">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_31" value="1"  disabled="disabled" />
+																		<label for="tyouseiSei_31">受取保留</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_31" value="受取保留">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_34" value="1"  disabled="disabled" />
+																		<label for="tyouseiSei_34">A仮注文</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_34" value="A仮注文">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_35" value="1"  disabled="disabled" />
+																		<label for="tyouseiSei_35">A長期</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_35" value="A長期">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_36" value="1"  disabled="disabled" />
+																		<label for="tyouseiSei_36">A取り寄せ</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_36" value="A取り寄せ">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_41" value="1"  disabled="disabled" />
+																		<label for="tyouseiSei_41">楽天処理中</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_41" value="楽天処理中">
+																		<br>
+																
+																		<input type="checkbox" name="tyouseiSei" id ="tyouseiSei_40" value="1" checked="checked" disabled="disabled" />
+																		<label for="tyouseiSei_40">未確定全件</label>
+																		<input TYPE="hidden" name="tyouseiSeiNm" id="tyouseiSeiNm_40" value="未確定全件">
+																		<br>
+																
+															
+															<!-- 配達希望日保留の日数  -->
+															
+															<!-- 冷蔵／冷凍商品自動保留の利用  -->
+															
+															<!-- 任意保留（拡張１）の利用 -->
+															
+															<!-- 任意保留（拡張２）の利用 -->
+															
+															<!-- 任意保留（拡張３）の利用 -->
+															
+															<!-- 任意保留（拡張４）の利用 -->
+															
+															<!-- 任意保留（拡張５）の利用 -->
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">使用する調整項目をチェックしてください。<br>
+・受注未確定　　　　　：　受注確定の対象を表示します。チェックを外す事ができません。<br>
+・API連携中（機能）　：　サイトマスタのモールの設定と連動して自動でチェックされます。<br>
+・与信失敗　　　　　　 ：　クレジットカード払いを利用する場合は、チェックしてください。<br>
+・入金確認　　　　　　 ：　前払いの決済方法を保留にする場合は、チェックしてください。<br>
+・住所修正　　　　　　 ：　受注データの住所エラーの対象を表示します。チェックを外す事ができません。<br>
+・配達希望日　　　　　：　先付希望日の受注データを保留にする場合は、チェックしてください。<br>
+・発送予定日　　　　　：　先付出荷予定日の受注データを保留にする場合は、チェックしてください。<br>
+・ブラック　　　　　　　 ：　ブラック判定した注文を保留する場合は、チェックしてください。<br>
+・同梱対象　　　　　　 ：　同梱処理の運用を行う場合は、チェックしてください。<br>
+・同梱解除　　　　　　 ：　同梱処理の運用を行う場合は、チェックしてください。<br>
+・予約商品（機能）　　：　オプションマスタの予約商品の利用の設定と連動して自動でチェックされます。<br>
+・在庫不足　　　　　　 ：　在庫不足の対象を表示します。チェックを外す事ができません。<br>
+・備考保留　　　　　　 ：　備考欄のデータを処理する場合は、チェックしてください。<br>
+・確認待ち　　　　　　 ：　システムで判断した確認が必用な保留を表示します。チェックを外す事ができません。<br>
+・配送混在　　　　　　 ：　複数の商品種別混在時またはゆうパケット複数時に<br>
+　　　　　　　　　　　　　　　一つの商品種別に寄せて出荷する場合は、チェックしてください。<br>
+・受取保留（機能）　　：　荷主マスタの受取サービスの設定と連動して自動でチェックされます。<br>
+・A仮注文（機能）　　 ：　サイトマスタのAmazonの設定と連動して自動でチェックされます。<br>
+・A長期（機能）　　　　：　サイトマスタのAmazonの設定と連動して自動でチェックされます。<br>
+・A取り寄せ（機能）　 ：　サイトマスタのAmazonの設定と連動して自動でチェックされます。<br>
+・楽天処理中（機能） ：　サイトマスタの楽天の設定と連動して自動でチェックされます。<br>
+・未確定全件　　　　　：　保留を含めた受注確定前の対象を表示します。チェックを外す事ができません。<br>
+※　『XXX（機能）』の調整項目は機能と連動している為、各機能を利用する場合は連動して<br>
+　　自動でチェックされます。<br>
+※　保留の受注データが存在する場合は、該当する調整項目のチェックを外す事ができません。<br></span>
+														</td>
+													</tr>
+										
+													<!-- 保留項目（標準）の利用、配達希望日保留の日数、冷蔵／冷凍商品自動保留の利用  -->
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>配達希望日保留の日数</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- 保留項目（標準）の利用  -->
+															
+															<!-- 配達希望日保留の日数  -->
+															
+																<SELECT name='kanriCoData_571_1' id='kanriCoData_571_1' style='width:100px' tabindex=null > <OPTION VALUE='1' >1日</OPTION><OPTION VALUE='2' >2日</OPTION><OPTION VALUE='3' >3日</OPTION><OPTION VALUE='4' >4日</OPTION><OPTION VALUE='5' >5日</OPTION><OPTION VALUE='6' >6日</OPTION><OPTION VALUE='7' >7日</OPTION><OPTION VALUE='8' >8日</OPTION><OPTION VALUE='9' >9日</OPTION><OPTION VALUE='10' SELECTED>10日</OPTION> </SELECT>
+															
+															<!-- 冷蔵／冷凍商品自動保留の利用  -->
+															
+															<!-- 任意保留（拡張１）の利用 -->
+															
+															<!-- 任意保留（拡張２）の利用 -->
+															
+															<!-- 任意保留（拡張３）の利用 -->
+															
+															<!-- 任意保留（拡張４）の利用 -->
+															
+															<!-- 任意保留（拡張５）の利用 -->
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">配達希望日保留にする日数を設定してください。<br>
+翌日から数えて設定された日数以降の配達希望日を配達希望日保留とします。<br>
+（例）当日が2018年01月15日で設定が10日設定されている場合は、2018年01月26日以降に<br>
+　　配達希望日が設定されている受注データが配達希望日保留となります。<br>
+　　【設定】 1日～10日（デフォルト）<br></span>
+														</td>
+													</tr>
+										
+													<!-- 保留項目（標準）の利用、配達希望日保留の日数、冷蔵／冷凍商品自動保留の利用  -->
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>冷蔵／冷凍商品自動保留の利用</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- 保留項目（標準）の利用  -->
+															
+															<!-- 配達希望日保留の日数  -->
+															
+															<!-- 冷蔵／冷凍商品自動保留の利用  -->
+															
+																<SELECT name='kanriCoData_2116_1' id='kanriCoData_2116_1' style='width:100px' tabindex=null > <OPTION VALUE='0' SELECTED>利用しない</OPTION><OPTION VALUE='1' >利用する</OPTION> </SELECT>
+															
+															<!-- 任意保留（拡張１）の利用 -->
+															
+															<!-- 任意保留（拡張２）の利用 -->
+															
+															<!-- 任意保留（拡張３）の利用 -->
+															
+															<!-- 任意保留（拡張４）の利用 -->
+															
+															<!-- 任意保留（拡張５）の利用 -->
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">受注データに冷蔵商品／冷凍商品が含まれた時に自動で任意保留にする場合は、『利用する』に<br>
+設定してください。<br>
+　　【設定】 利用する ／ 利用しない（デフォルト）<br></span>
+														</td>
+													</tr>
+										
+									</table>
+									<br>
+						
+									<!-- グループ名 -->
+									<font size="2" color="#ff9900">■</font><font size="2">受注内容調整(拡張の任意保留)の設定</font>
+						
+										<table class="lt" width="1250px" style="border-width: 2px 2px 0px 2px;">
+											<col width="1250px"/>
+											<tr class="head">
+												<th align="left">説明</th>
+											</tr>
+											<tr>
+												<td style="background-color:#F0F0F0;">
+													<span style="word-wrap:break-word;white-space:normal">任意保留の内容を詳細に分けて管理する場合は、必要に応じて任意保留（拡張１）～任意保留（拡張５）をチェックし名称と略称を設定してください。<br>
+（例）高額の受注データを通常の任意保留とは別の保留で管理する場合<br>
+　　任意保留（拡張２）のチェックボックスをチェックし、名称に『高額保留』／略称に『高額』を設定すると受注内容調整に高額保留が表示されます。<br>
+　　受注内容調整の未確定全件タブの一覧から手動で高額保留に移動して管理してください。<br></span>
+												</td>
+											</tr>
+										</table>
+										<br>
+						
+									<table class="lt" width="1250px" style="border-width: 2px 2px 0px 2px;">
+										<col width="280px"/>
+										<col width="400px"/>
+										<col width="570px"/>
+										<tr class="head">
+											<th>項目</th>
+											<th>設定</th>
+											<th>説明</th>
+										</tr>
+
+										<!-- レイアウト情報リストをループする。 -->
+										
+													<!-- 保留項目（標準）の利用、配達希望日保留の日数、冷蔵／冷凍商品自動保留の利用  -->
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>任意保留（拡張１）の利用</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- 保留項目（標準）の利用  -->
+															
+															<!-- 配達希望日保留の日数  -->
+															
+															<!-- 冷蔵／冷凍商品自動保留の利用  -->
+															
+															<!-- 任意保留（拡張１）の利用 -->
+															
+																<table width="400px" style="border:0;">
+																	<tr>
+																		<td width="200px" style="border:0;">
+																			
+																			<input type="checkbox" name="ktyousei_1001" id ="ktyousei_1001" value="1" checked="checked"/><label for="ktyousei_1001">任意保留（拡張１）</label>
+																		</td>
+																		<td width="200px" style="border:0;">
+																			名称:
+																			<input type='text' name='ktyousei_koumoku_1001' id='ktyousei_koumoku_1001' value='任意保留' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='25' style='width:148.64px;text-align: left;'> </input>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td width="200px" style="border:0;">
+																			&nbsp;
+																		</td>
+																		<td width="200px" style="border:0;">
+																			略称:
+																			<input type='text' name='ktyousei_koumoku_r_1001' id='ktyousei_koumoku_r_1001' value='任意' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='10' style='width:81.92px;text-align: left;'> </input>
+																		</td>
+																	</tr>
+																</table>
+															
+															<!-- 任意保留（拡張２）の利用 -->
+															
+															<!-- 任意保留（拡張３）の利用 -->
+															
+															<!-- 任意保留（拡張４）の利用 -->
+															
+															<!-- 任意保留（拡張５）の利用 -->
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">任意保留（拡張１）の利用有無と名称（5文字以内）／略称（2文字以内）で設定してください。<br>
+名称は画面の上部に表示されます。略称は一覧のタイトルに表示されます。<br>
+※　任意保留（拡張１）の保留の受注データが存在する場合は、チェックを外す事ができません。<br></span>
+														</td>
+													</tr>
+										
+													<!-- 保留項目（標準）の利用、配達希望日保留の日数、冷蔵／冷凍商品自動保留の利用  -->
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>任意保留（拡張２）の利用</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- 保留項目（標準）の利用  -->
+															
+															<!-- 配達希望日保留の日数  -->
+															
+															<!-- 冷蔵／冷凍商品自動保留の利用  -->
+															
+															<!-- 任意保留（拡張１）の利用 -->
+															
+															<!-- 任意保留（拡張２）の利用 -->
+															
+																<table width="400px" style="border:0;">
+																	<tr>
+																		<td width="200px" style="border:0;">
+																			
+																			<input type="checkbox" name="ktyousei_1002" id ="ktyousei_1002" value="1" /><label for="ktyousei_1002">任意保留（拡張２）</label>
+																		</td>
+																		<td width="200px" style="border:0;">
+																			名称:
+																			<input type='text' name='ktyousei_koumoku_1002' id='ktyousei_koumoku_1002' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='25' style='width:148.64px;text-align: left;'> </input>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td width="200px" style="border:0;">
+																			&nbsp;
+																		</td>
+																		<td width="200px" style="border:0;">
+																			略称:
+																			<input type='text' name='ktyousei_koumoku_r_1002' id='ktyousei_koumoku_r_1002' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='10' style='width:81.92px;text-align: left;'> </input>
+																		</td>
+																	</tr>
+																</table>
+															
+															<!-- 任意保留（拡張３）の利用 -->
+															
+															<!-- 任意保留（拡張４）の利用 -->
+															
+															<!-- 任意保留（拡張５）の利用 -->
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">任意保留（拡張２）の利用有無と名称（5文字以内）／略称（2文字以内）で設定してください。<br>
+名称は画面の上部に表示されます。略称は一覧のタイトルに表示されます。<br>
+※　任意保留（拡張２）の保留の受注データが存在する場合は、チェックを外す事ができません。<br></span>
+														</td>
+													</tr>
+										
+													<!-- 保留項目（標準）の利用、配達希望日保留の日数、冷蔵／冷凍商品自動保留の利用  -->
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>任意保留（拡張３）の利用</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- 保留項目（標準）の利用  -->
+															
+															<!-- 配達希望日保留の日数  -->
+															
+															<!-- 冷蔵／冷凍商品自動保留の利用  -->
+															
+															<!-- 任意保留（拡張１）の利用 -->
+															
+															<!-- 任意保留（拡張２）の利用 -->
+															
+															<!-- 任意保留（拡張３）の利用 -->
+															
+																<table width="400px" style="border:0;">
+																	<tr>
+																		<td width="200px" style="border:0;">
+																			
+																			<input type="checkbox" name="ktyousei_1003" id ="ktyousei_1003" value="1" /><label for="ktyousei_1003">任意保留（拡張３）</label>
+																		</td>
+																		<td width="200px" style="border:0;">
+																			名称:
+																			<input type='text' name='ktyousei_koumoku_1003' id='ktyousei_koumoku_1003' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='25' style='width:148.64px;text-align: left;'> </input>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td width="200px" style="border:0;">
+																			&nbsp;
+																		</td>
+																		<td width="200px" style="border:0;">
+																			略称:
+																			<input type='text' name='ktyousei_koumoku_r_1003' id='ktyousei_koumoku_r_1003' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='10' style='width:81.92px;text-align: left;'> </input>
+																		</td>
+																	</tr>
+																</table>
+															
+															<!-- 任意保留（拡張４）の利用 -->
+															
+															<!-- 任意保留（拡張５）の利用 -->
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">任意保留（拡張３）の利用有無と名称（5文字以内）／略称（2文字以内）で設定してください。<br>
+名称は画面の上部に表示されます。略称は一覧のタイトルに表示されます。<br>
+※　任意保留（拡張３）の保留の受注データが存在する場合は、チェックを外す事ができません。<br></span>
+														</td>
+													</tr>
+										
+													<!-- 保留項目（標準）の利用、配達希望日保留の日数、冷蔵／冷凍商品自動保留の利用  -->
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>任意保留（拡張４）の利用</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- 保留項目（標準）の利用  -->
+															
+															<!-- 配達希望日保留の日数  -->
+															
+															<!-- 冷蔵／冷凍商品自動保留の利用  -->
+															
+															<!-- 任意保留（拡張１）の利用 -->
+															
+															<!-- 任意保留（拡張２）の利用 -->
+															
+															<!-- 任意保留（拡張３）の利用 -->
+															
+															<!-- 任意保留（拡張４）の利用 -->
+															
+																<table width="400px" style="border:0;">
+																	<tr>
+																		<td width="200px" style="border:0;">
+																			
+																			<input type="checkbox" name="ktyousei_1004" id ="ktyousei_1004" value="1" /><label for="ktyousei_1004">任意保留（拡張４）</label>
+																		</td>
+																		<td width="200px" style="border:0;">
+																			名称:
+																			<input type='text' name='ktyousei_koumoku_1004' id='ktyousei_koumoku_1004' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='25' style='width:148.64px;text-align: left;'> </input>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td width="200px" style="border:0;">
+																			&nbsp;
+																		</td>
+																		<td width="200px" style="border:0;">
+																			略称:
+																			<input type='text' name='ktyousei_koumoku_r_1004' id='ktyousei_koumoku_r_1004' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='10' style='width:81.92px;text-align: left;'> </input>
+																		</td>
+																	</tr>
+																</table>
+															
+															<!-- 任意保留（拡張５）の利用 -->
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">任意保留（拡張４）の利用有無と名称（5文字以内）／略称（2文字以内）で設定してください。<br>
+名称は画面の上部に表示されます。略称は一覧のタイトルに表示されます。<br>
+※　任意保留（拡張４）の保留の受注データが存在する場合は、チェックを外す事ができません。<br></span>
+														</td>
+													</tr>
+										
+													<!-- 保留項目（標準）の利用、配達希望日保留の日数、冷蔵／冷凍商品自動保留の利用  -->
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>任意保留（拡張５）の利用</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- 保留項目（標準）の利用  -->
+															
+															<!-- 配達希望日保留の日数  -->
+															
+															<!-- 冷蔵／冷凍商品自動保留の利用  -->
+															
+															<!-- 任意保留（拡張１）の利用 -->
+															
+															<!-- 任意保留（拡張２）の利用 -->
+															
+															<!-- 任意保留（拡張３）の利用 -->
+															
+															<!-- 任意保留（拡張４）の利用 -->
+															
+															<!-- 任意保留（拡張５）の利用 -->
+															
+																<table width="400px" style="border:0;">
+																	<tr>
+																		<td width="200px" style="border:0;">
+																			
+																			<input type="checkbox" name="ktyousei_1005" id ="ktyousei_1005" value="1" /><label for="ktyousei_1005">任意保留（拡張５）</label>
+																		</td>
+																		<td width="200px" style="border:0;">
+																			名称:
+																			<input type='text' name='ktyousei_koumoku_1005' id='ktyousei_koumoku_1005' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='25' style='width:148.64px;text-align: left;'> </input>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td width="200px" style="border:0;">
+																			&nbsp;
+																		</td>
+																		<td width="200px" style="border:0;">
+																			略称:
+																			<input type='text' name='ktyousei_koumoku_r_1005' id='ktyousei_koumoku_r_1005' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='10' style='width:81.92px;text-align: left;'> </input>
+																		</td>
+																	</tr>
+																</table>
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">任意保留（拡張５）の利用有無と名称（5文字以内）／略称（2文字以内）で設定してください。<br>
+名称は画面の上部に表示されます。略称は一覧のタイトルに表示されます。<br>
+※　任意保留（拡張５）の保留の受注データが存在する場合は、チェックを外す事ができません。<br></span>
+														</td>
+													</tr>
+										
+									</table>
+									<br>
+						
+					</div>
+					<!-- 受注CSV登録 -->
+					<div id="tabView_2" width="1250px">
+						<!-- グループリストをループする。 -->
+						
+									<!-- グループ名 -->
+									<font size="2" color="#ff9900">■</font><font size="2">受注CSV登録／削除の設定</font>
+						
+									<table class="lt" width="1250px" style="border-width: 2px 2px 0px 2px;">
+										<col width="280px"/>
+										<col width="400px"/>
+										<col width="570px"/>
+										<tr class="head">
+											<th>項目</th>
+											<th>設定</th>
+											<th>説明</th>
+										</tr>
+										<!-- レイアウト情報リストをループする。 -->
+										
+													<!-- サイトのデータ優先取込の利用  -->
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>サイトのデータ優先取込みの利用</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															
+																<SELECT name='kanriCoData_2126_1' id='kanriCoData_2126_1' style='width:100px' tabindex=null > <OPTION VALUE='0' SELECTED>利用しない</OPTION><OPTION VALUE='1' >利用する</OPTION> </SELECT>
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">受注CSV登録時に複数サイトの受注データが１ファイル内に存在する場合は、『利用する』に<br>
+設定してください。<br>
+『利用する』に設定した場合、CSVレイアウトでサイトコードの項目をマッピングした後に、<br>
+受注CSV登録/削除画面のサイト名で『データ優先』を指定して登録する事で、複数サイトの<br>
+受注データを取込みできるようになります。<br>
+　　【設定】 利用する ／ 利用しない（デフォルト）<br></span>
+														</td>
+													</tr>
+										
+									</table>
+									<br>
+						
+					</div>
+					<!-- ECサイト -->
+					<div id="tabView_3" width="1250px">
+						<!-- グループリストをループする。 -->
+						
+					</div>
+					<!-- WMS -->
+					<div id="tabView_4" width="1250px">
+						<!-- グループリストをループする。 -->
+						
+					</div>
+					<!-- 帳票 -->
+					<div id="tabView_5" width="1250px">
+						<!-- グループリストをループする。 -->
+						
+					</div>
+					<!-- システム -->
+					<div id="tabView_6" width="1250px">
+						<!-- グループリストをループする。 -->
+						
+									<!-- グループ名 -->
+									<font size="2" color="#ff9900">■</font><font size="2">荷主情報</font>
+						
+
+						<!-- レイアウト情報リストをループする。 -->
+						
+									<table class="lt" width="1250px" style="border-width: 2px 2px 0px 2px;">
+										
+											<col width="280px"/>
+											<col width="590px"/>
+											<col width="380px"/>
+										
+
+										<tr class="head">
+											<th>項目</th>
+											<th>設定</th>
+											<th>説明</th>
+										</tr>
+										<!-- レイアウト情報リストをループする。 -->
+										
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>メモ</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- メモ -->
+															
+																<textarea name="memo"
+																	id="_memo"
+																	rows="10"
+																	cols="80"
+																	wrap="soft"
+																	></textarea>
+															
+															<!-- ログインIP制限の利用 -->
+															
+															<!-- ログイン許可するIPアドレス -->
+															
+															<!-- 利用メニュー -->
+															
+															<!-- 日次処理の表示 -->
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">荷主に関する補足情報を記載したい場合は設定してください。<br>
+本情報は、備忘録用のメモの為、設定してもシステムには影響いたしません。<br></span>
+														</td>
+													</tr>
+										
+									</table>
+									<br>
+						
+									<!-- グループ名 -->
+									<font size="2" color="#ff9900">■</font><font size="2">ログインIPの設定</font>
+						
+
+						<!-- レイアウト情報リストをループする。 -->
+						
+									<table class="lt" width="1250px" style="border-width: 2px 2px 0px 2px;">
+										
+											<col width="280px"/>
+											<col width="400px"/>
+											<col width="570px"/>
+										
+
+										<tr class="head">
+											<th>項目</th>
+											<th>設定</th>
+											<th>説明</th>
+										</tr>
+										<!-- レイアウト情報リストをループする。 -->
+										
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>ログインIP制限の利用</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- メモ -->
+															
+															<!-- ログインIP制限の利用 -->
+															
+																<SELECT name='kanriCoData_50_1' id='kanriCoData_50_1' onchange='setIpTextDisabled(this.value)'style='width:100px' tabindex=null > <OPTION VALUE='0' SELECTED>利用しない</OPTION><OPTION VALUE='1' >利用する</OPTION> </SELECT>
+															
+															<!-- ログイン許可するIPアドレス -->
+															
+															<!-- 利用メニュー -->
+															
+															<!-- 日次処理の表示 -->
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">ログイン時にログインを許可するIPアドレスを制限する場合は、『利用する』に設定してください。<br>
+　　【設定】 利用する ／ 利用しない（デフォルト）<br>
+※　”利用する”に設定した場合は、ログイン許可するIPアドレスも設定してください。<br>
+※　固定のグローバルIPアドレスを設定してください。<br></span>
+														</td>
+													</tr>
+										
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>ログイン許可するIPアドレス</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- メモ -->
+															
+															<!-- ログインIP制限の利用 -->
+															
+															<!-- ログイン許可するIPアドレス -->
+															
+																<table class="sf_tyouhyou_val" style="border:0;">
+																	<tr>
+																		<td style="width:280px;border:0;">
+																			<input type='text' name='ipTextVal' id='ipTextVal' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='half' maxlength='15' style='width:170.88px;text-align: left;' onkeyup=setInsertBtnDisabled(1) onchange=setInsertBtnDisabled(1)> </input>
+																			<input name="insertBtn" id="insertBtn" type="button" onClick="updIpSelectVal(1);" value="追加" style="width:100px;"
+																				 />
+																		</td>
+																		<td style="width:120px;border:0;">
+																			&nbsp;
+																		</td>
+																	</tr>
+																	<tr>
+																		<td style="width:280px;border:0;">
+																			<select multiple="true" style="width:275px;" name="ipSelectVal_1" id="ipSelectVal_1">
+																			
+																			</select>
+																		</td>
+																		<td style="vertical-align:top;border:0;" align="left" border="0">
+																			<input name="deleteBtn" id="deleteBtn" type="button"  value="削除" style="width:100px;"
+																				 />
+																		</td>
+																	</tr>
+																</table>
+															
+															<!-- 利用メニュー -->
+															
+															<!-- 日次処理の表示 -->
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">ログイン許可するIPアドレスを設定してください。<br>
+追加する場合は、上段の入力欄にIPアドレスを入力後、『追加』ボタンを押下してください。<br>
+削除する場合は、下段の一覧からIPアドレスを選択して『削除』ボタンを押下してください。<br>
+※　荷主や倉庫が引っ越し等でIPアドレスが変更になる場合は、IPアドレスの追加／変更作業が<br>
+　　必用になります。<br></span>
+														</td>
+													</tr>
+										
+									</table>
+									<br>
+						
+									<!-- グループ名 -->
+									<font size="2" color="#ff9900">■</font><font size="2">メニューの設定</font>
+						
+
+						<!-- レイアウト情報リストをループする。 -->
+						
+									<table class="lt" width="1250px" style="border-width: 2px 2px 0px 2px;">
+										
+											<col width="280px"/>
+											<col width="400px"/>
+											<col width="570px"/>
+										
+
+										<tr class="head">
+											<th>項目</th>
+											<th>設定</th>
+											<th>説明</th>
+										</tr>
+										<!-- レイアウト情報リストをループする。 -->
+										
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>利用メニュー</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- メモ -->
+															
+															<!-- ログインIP制限の利用 -->
+															
+															<!-- ログイン許可するIPアドレス -->
+															
+															<!-- 利用メニュー -->
+															
+																<SELECT name='kanriCoData_2150_1' id='kanriCoData_2150_1' style='width:280px' tabindex=null > <OPTION VALUE='0' SELECTED>標準</OPTION><OPTION VALUE='100' >ケーブルメディアワイワイ用</OPTION> </SELECT>
+															
+															<!-- 日次処理の表示 -->
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">荷主毎にカスタマイズしたメニューを作成した場合は、カスタマイズした荷主に対して提供する<br>
+メニューを設定してください。<br>
+　　【設定】 標準（デフォルト） ／ ケーブルメディアワイワイ用 ／ カボス用<br></span>
+														</td>
+													</tr>
+										
+									</table>
+									<br>
+						
+									<!-- グループ名 -->
+									<font size="2" color="#ff9900">■</font><font size="2">日次バッチの設定</font>
+						
+
+						<!-- レイアウト情報リストをループする。 -->
+						
+									<table class="lt" width="1250px" style="border-width: 2px 2px 0px 2px;">
+										
+											<col width="280px"/>
+											<col width="400px"/>
+											<col width="570px"/>
+										
+
+										<tr class="head">
+											<th>項目</th>
+											<th>設定</th>
+											<th>説明</th>
+										</tr>
+										<!-- レイアウト情報リストをループする。 -->
+										
+													<tr>
+														<td class="groupNmClass">
+															<span style="word-wrap:break-word;white-space:normal"><nobr>日次処理の利用</nobr></span>
+														</td>
+														<td style="vertical-align:top">
+															<!-- メモ -->
+															
+															<!-- ログインIP制限の利用 -->
+															
+															<!-- ログイン許可するIPアドレス -->
+															
+															<!-- 利用メニュー -->
+															
+															<!-- 日次処理の表示 -->
+															
+																<SELECT name='kanriCoData_2006_1' id='kanriCoData_2006_1' onchange='setSendMail(this.value);'style='width:100px' tabindex=null > <OPTION VALUE='0' SELECTED>利用しない</OPTION><OPTION VALUE='1' >利用する</OPTION> </SELECT>
+																<br>
+																<table style="border:0;">
+																	<tr>
+																		<td style="width:100px;border:0;">
+																			<span style="word-wrap:break-word;white-space:normal">日次完了時の送信メールアドレス:</span>
+																		</td>
+																		<td style="width:180px;border:0;">
+																			<input type='text' name='kanriCoData_430_mail_1' id='kanriCoData_430_mail_1' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='mail' maxlength='300' style='width:265.40px;text-align: left;'> </input>
+																		</td>
+																	</tr>
+																</table>
+
+															
+														</td>
+														<td style="vertical-align:top;background-color:#F0F0F0;">
+															<span style="word-wrap:break-word;white-space:normal">日次処理を手動で実行する場合は、『利用する』に設定してください。<br>
+『利用する』に設定した場合、任意のタイミングで日次を実行する事が可能となり、日次処理完了後<br>
+在庫と売上を反映する事ができます。<br>
+但し、１日の全ての作業完了後に日次を実行する運用を徹底いただく必要があります。<br>
+　　【設定】 利用する ／ 利用しない（デフォルト）<br></span>
+														</td>
+													</tr>
+										
+									</table>
+									<br>
+						
+					</div>
+				</div>
+
+				<table border="0" cellspacing="0" cellpadding="1" style="width: 1250px">
+					<tr bgcolor="#ffcccc">
+						<td align="center" width="50%">
+							<input name="updateBtn" id="updateBtn"  type="button" onClick="updCheckPrintNo();" value="更新する"/>
+						</td>
+					</tr>
+				</table>
+			
+		</div>
+		</form>
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('0','1','1','1','1','1');})</script>
+	</body>
+</html>

@@ -1,0 +1,572 @@
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?8G7hWyvCjn" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="ja">
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="content-type" content="text/html;charset=Shift_JIS">
+		<title>カテゴリマスタ</title>
+
+	<script type="text/javascript" src="../ecsdocs2/js/MS041.js?t=0"></script>
+	<script language="JavaScript" type="text/javascript">
+		var docRoot = "../ecsdocs2";
+		var urBase = "/easpro2";
+		var pageAjax="6";
+
+
+		//「更新」ボタン押下時処理
+		function Update(kbn){
+			if (kbn==1){
+				if(confirm("更新します。よろしいですか？")){
+					$$("_processType").value="4";
+					$$("_formKbn").value="1";
+					$$("_Form").action="/easpro2/e_asproMaster/MS531CategoryEntry";
+					$$("_Form").submit();
+					btnDisabled();
+				}
+			} else if (kbn==2){
+				var category_cd = "";
+				var category_nm = "";
+				var site_cd = document.getElementById('_wv_site_cd').value;					//サイトCD
+				var site_kbn = document.getElementById('_wv_site_kbn').value;				//サイト区分
+				var category_set_no = document.getElementById('_wv_category_set_no').value;	//カテゴリセット管理番号
+				$$("_wv_item_cnt").value="0";
+
+				//明細数分チェックを実施
+				for (var i = 0; i < document.Form.category_cd.length; i++){
+					category_cd = document.Form.category_cd[i].value;
+					category_nm = document.Form.category_nm[i].value;
+					//カテゴリ名が削除された場合、対象のカテゴリがモール用商品マスタにて使用されていないかどうかを確認
+					if((category_cd!='' && category_nm==null)||(category_cd!='' && category_nm=='')){
+						//楽天の場合
+						if (site_kbn==100){
+							getDelete_chk_R(category_set_no,category_cd, site_cd);
+						//YAHOOの場合
+						}else if(site_kbn==101){
+							getDelete_chk_Y(category_cd, site_cd);
+						//その他（ECなど）
+						}else{
+							getDelete_chk(category_cd);
+						}
+					}
+				}
+				var item_cnt = $$("_wv_item_cnt").value;
+
+				//1明細でもモール用商品マスタで使用中のカテゴリが存在している場合はアラート表示
+				if (item_cnt != 0){
+					if(confirm("削除対象のカテゴリに結び付く商品が存在します。削除してよろしいですか？")){
+					}else{
+						return;
+					}
+				}
+				if(confirm("更新します。よろしいですか？")){
+					$$("_processType").value="4";
+					$$("_formKbn").value="2";
+					$$("_Form").action="/easpro2/e_asproMaster/MS531CategoryEntry";
+					$$("_Form").submit();
+					btnDisabled();
+				}
+			}
+		}
+		//削除時、削除対象カテゴリに紐付く商品存在チェック  楽天Ajax
+		function getDelete_chk_R(_category_set_no,_category_cd,_site_cd){
+
+			var url = "/easpro2/e_asproMaster/MS531CategoryEntry";
+			var parms = "processType="+6;
+				parms = parms+"&ajaxKbn=rakuten";
+				parms = parms+"&site_cd="+_site_cd;
+				parms = parms+"&category_set_no="+_category_set_no;
+				parms = parms+"&category_cd="+_category_cd;
+			_SendByAjax(url,parms,'',false);
+		}
+
+		//削除時、削除対象カテゴリに紐付く商品存在チェック  YAHOOAjax
+		function getDelete_chk_Y(_category_cd,_site_cd){
+
+			var url = "/easpro2/e_asproMaster/MS531CategoryEntry";
+			var parms = "processType="+6;
+				parms = parms+"&ajaxKbn=yahoo";
+				parms = parms+"&site_cd="+_site_cd;
+				parms = parms+"&category_cd="+_category_cd;
+			_SendByAjax(url,parms,'',false);
+		}
+
+		//削除時、削除対象カテゴリに紐付く商品存在チェック
+		function getDelete_chk(_category_cd){
+
+			var url = "/easpro2/e_asproMaster/MS531CategoryEntry";
+			var parms = "processType="+6;
+				parms = parms+"&ajaxKbn=other";
+				parms = parms+"&category_cd="+_category_cd;
+			_SendByAjax(url,parms,'',false);
+		}
+
+		//Ajaxの戻り値をセット	楽天
+		function setM_EA025_R_CNT(cnt){
+			if (cnt!=0){
+				$$("_wv_item_cnt").value=cnt;
+			}
+		}
+		//Ajaxの戻り値をセット	YAHOO
+		function setM_EA025_Y_CNT(cnt){
+			if (cnt!=0){
+				$$("_wv_item_cnt").value=cnt;
+			}
+		}
+		//Ajaxの戻り値をセット	そのほか
+		function setM_EA010_CNT(cnt){
+			if (cnt!=0){
+				$$("_wv_item_cnt").value=cnt;
+			}
+		}
+
+		//5行追加時の処理
+		function addRow(){
+			for(var i=0;i<5;i++){
+				var row = document.all("tempTable").rows[0].cloneNode(true);
+				var index = document.all("itemTable").rows.length -1;
+				document.all("itemTable").children[0].appendChild(row);
+
+				row.children[0].children[0].id="_category_cd_"+index;
+				row.children[0].children[1].id="_category_nm_"+index;
+				row.children[0].children[2].id="_excl_list_"+index;
+				row.children[1].children[0].id="_calc_str_"+index;
+			}
+		}
+
+	</script>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_master.gif' alt='' align='middle' border='0'>
+		<div class=pt>カテゴリマスタ<br><A href='/easpro2/e_asproMaster/MS530MallCategoryList?backUrlKey=&intPageNo=1&intPageCount=0&intPageSize=30&intRecordCount=0&strToolbarX=&strToolbarY=&strSpaceHeight=50px&processType=2&searchKbn=2&co_no=2625&search_site_cd=0000000001&search_category_set_no=0&search_category_nm=' tabindex="1" ><img src="../ecsdocs2/img/return.gif"></A></div>
+		<br>
+		<b style="color: red" id="js_errMsg"></b>
+		<br>
+		<form id="_Form" name="Form" method="post" action="/easpro2/e_asproMaster/MS531CategoryEntry">
+			<input type="hidden" name="secToken" id="secToken" value="ABEEEE12513934D16CA8D664B9698779"/>
+			<input type="hidden" name="processType" id="_processType">
+			<!-- 画面処理区分 -->
+			<input type="hidden" name="processKbn" id="_processKbn" value="">
+			<input type="hidden" name="formKbn" id="_formKbn" value="">
+			<input type="hidden" name="excl_Cnt" id="_excl_Cnt" value="4">
+			<input type="hidden" name="login_user_No" id="_login_user_No" value="2">
+			<input type="hidden" name="wv_item_cnt" id="_wv_item_cnt" value="">
+			<input type="hidden" name="wv_site_cd" id="_wv_site_cd" value="0000000001">
+			<input type="hidden" name="wv_site_kbn" id="_wv_site_kbn" value="3">
+			<input type="hidden" name="wv_category_set_no" id="_wv_category_set_no" value="0">
+			<input type="hidden" name="wv_category_cd" id="_wv_category_cd" value="0000000001">
+			<input type="hidden" name="wv_category_class" id="_wv_category_class" value="2">
+			<input type="hidden" name="wv_sys_category_nm" id="_wv_sys_category_nm" value="新グッズ情報">
+			<input type="hidden" name="wv_site_cd_nm" id="_wv_site_cd_nm" value="HTBオンラインショップ">
+			<input type="hidden" name="wv_category_set_no_nm" id="_wv_category_set_no_nm" value="TOP">
+			<input type="hidden" name="cPictPath" id="pictPath" value="jp_filedir\2625\image_folder\">
+			<table>
+				<tr>
+					<td>
+						<table class="ft" style="width: 620px;">
+						<col width="110">
+						<col width="510">
+							<tr>
+								<th>サイト</th>
+								<td>
+									HTBオンラインショップ
+								</td>
+							</tr>
+							<tr>
+								<th>カテゴリーセット</th>
+								<td>
+									TOP
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		
+			<br>
+			<div>■カテゴリ情報登録</div>
+			<table>
+				<tr>
+					<td>
+						<table class="ft" style="width: 620px;">
+							<col width="110">
+							<col width="510">
+							<tr>
+								<th align="center">カテゴリ名</th>
+								<td>0000000001　：　新グッズ情報</td>
+							</tr>
+							<tr>
+								<th align="center">カテゴリURL</th>
+								
+								<td title="https://www.htbshop.jp/htb/PG020ProductListPage.act?categoryCd=0000000001">
+									<a href="https://www.htbshop.jp/htb/PG020ProductListPage.act?categoryCd=0000000001" target="_blank">https://www.htbshop.jp/htb/PG020ProductListPage.act?categoryCd=0000000001</a>
+								</td>
+							</tr>
+							<tr>
+								<th align="center">カテゴリ見出し<br>タイトル</th>
+								<td>
+									<input type='text' name='hdr_title' id='' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='100' style='width:487.80px;'> </input>
+								</td>
+							</tr>
+							<tr>
+								<th align="center">カテゴリ見出し<br>説明</th>
+								<td>
+									<input type='text' name='hdr_disp' id='' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='100' style='width:487.80px;'> </input>
+								</td>
+							</tr>
+							<tr>
+								<th>カテゴリバナー</th>
+								<td>
+									<table border="0" cellspacing="0" cellpadding="0" style="width: 520px;">
+									<col width="30">
+									<col width="490">
+										<tr>
+											
+												<td style="border: none;" colspan="2">
+													<input type="button" onClick="searchItemPicture('id_ec_uploadFile0','ec_method1','0','0','0');" value="カテゴリ選択">
+													<input type="hidden" name="ecImgKbn0" id="id_ecImgKbn0" value="1">
+													<input id="id_ecUploadFile0" type="hidden" name="ecUploadFile0" value="">
+											
+											
+													<span id="ec_btn1">
+														
+															<input type="button" value="解　除" onclick="fileKaijo(ec_method1,'0','0')" id="ec_btn0">
+														
+													</span>
+												</td>
+											
+										</tr>
+										<tr>
+											
+												<td style="border: none;" colspan="2">
+													<span id="ec_method1">
+														
+															<img src="../ecsdocs2/jp_filedir\2625\image_folder\/category_image/50_menuImage.png" width="100" height="100">
+														
+													</span>
+												</td>
+											
+										</tr>
+										<tr>
+											
+												<td style="border: none;">
+													<font size="2">フォルダ名</font>
+												</td>
+												<td style="border: none;">
+													<input type="text" id="ec_path1" name="banner_path1"style="width: 93.5%"
+													 class="code" size="40" maxlength="250" value="category_image">
+												</td>
+											
+										</tr>
+										<tr>
+											
+												<td style="border: none;">
+													<font size="2">ファイル名</font>
+												</td>
+												<td style="border: none;">
+														<input type="text" value="50_menuImage.png" name="banner_uuid" style="width: 93.5%"
+														id="ec_file1" size="40" maxlength="32" class="half" onblur="getItemPict('ec_method1','0',this.value,'0');">
+												</td>
+											
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table width="100%" border="0" cellspacing="0" cellpadding="1">
+								<tr bgcolor="#ffcccc">
+									<td align="center" width="100%">
+										<input  type="button" onclick="Update(1);" value="更新する"/>
+									</td>
+								</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		
+			<br>
+			<div>■カテゴリ階層登録</div>
+			
+			<table>
+				<tr>
+					<td>
+						<table class="ft" style="width:650px;" id="itemTable">
+							<tr class="head">
+								<th style="width:90%;">カテゴリ名</th>
+								<th style="width:10%;">表示順</th>
+							</tr>
+						
+							<tr>
+								<td style="width:650px;" align="center">
+									
+									<input type="hidden" name="category_cd" id="_category_cd_0" value="">
+									<input style="width: 92.5%" type="text"
+										name="category_nm"
+										id="_category_nm_0"
+										size="75"
+										maxlength="40"
+										value=""
+										class="multi">
+									<input type="hidden" name="excl_list" id="_excl_list_0" value="">
+									
+								</td>
+								<td>
+									<input style="width: 90%" type="text"
+										name="calc_str"
+										id="_calc_str_0"
+										size="30"
+										maxlength="4"
+										value=""
+										class="num">
+								</td>
+							</tr>
+						
+							<tr>
+								<td style="width:650px;" align="center">
+									
+									<input type="hidden" name="category_cd" id="_category_cd_1" value="">
+									<input style="width: 92.5%" type="text"
+										name="category_nm"
+										id="_category_nm_1"
+										size="75"
+										maxlength="40"
+										value=""
+										class="multi">
+									<input type="hidden" name="excl_list" id="_excl_list_1" value="">
+									
+								</td>
+								<td>
+									<input style="width: 90%" type="text"
+										name="calc_str"
+										id="_calc_str_1"
+										size="30"
+										maxlength="4"
+										value=""
+										class="num">
+								</td>
+							</tr>
+						
+							<tr>
+								<td style="width:650px;" align="center">
+									
+									<input type="hidden" name="category_cd" id="_category_cd_2" value="">
+									<input style="width: 92.5%" type="text"
+										name="category_nm"
+										id="_category_nm_2"
+										size="75"
+										maxlength="40"
+										value=""
+										class="multi">
+									<input type="hidden" name="excl_list" id="_excl_list_2" value="">
+									
+								</td>
+								<td>
+									<input style="width: 90%" type="text"
+										name="calc_str"
+										id="_calc_str_2"
+										size="30"
+										maxlength="4"
+										value=""
+										class="num">
+								</td>
+							</tr>
+						
+							<tr>
+								<td style="width:650px;" align="center">
+									
+									<input type="hidden" name="category_cd" id="_category_cd_3" value="">
+									<input style="width: 92.5%" type="text"
+										name="category_nm"
+										id="_category_nm_3"
+										size="75"
+										maxlength="40"
+										value=""
+										class="multi">
+									<input type="hidden" name="excl_list" id="_excl_list_3" value="">
+									
+								</td>
+								<td>
+									<input style="width: 90%" type="text"
+										name="calc_str"
+										id="_calc_str_3"
+										size="30"
+										maxlength="4"
+										value=""
+										class="num">
+								</td>
+							</tr>
+						
+							<tr>
+								<td style="width:650px;" align="center">
+									
+									<input type="hidden" name="category_cd" id="_category_cd_4" value="">
+									<input style="width: 92.5%" type="text"
+										name="category_nm"
+										id="_category_nm_4"
+										size="75"
+										maxlength="40"
+										value=""
+										class="multi">
+									<input type="hidden" name="excl_list" id="_excl_list_4" value="">
+									
+								</td>
+								<td>
+									<input style="width: 90%" type="text"
+										name="calc_str"
+										id="_calc_str_4"
+										size="30"
+										maxlength="4"
+										value=""
+										class="num">
+								</td>
+							</tr>
+						
+						</table>
+						<table>
+							<tr>
+								<td id="row_btn" width="620">
+									┗<input type="button" value="5行追加" onclick="addRow();" tabindex="-1">
+								</td>
+							</tr>
+						</table>
+						<table width="100%" border="0" cellspacing="0" cellpadding="1">
+							<tr bgcolor="#ffcccc">
+								<td align="center" width="100%">
+									<input  type="button" onClick="Update(2);" value="更新する"/>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<form id="_Form3" NAME="Form3" name="tempForm" action="/master/.action" method="post">
+			<table id="tempTable" style="display:none">
+				<tr>
+					
+					<td style="width:620px;" align="center">
+						<input type="hidden" name="category_cd" id="_category_cd_" value="">
+						<input style="width: 94.1%" type="text"
+							name="category_nm"
+							id="_category_nm_"
+							size="75"
+							maxlength="40"
+							value=""
+							class="multi">
+						<input type="hidden" name="excl_list" id="_excl_list_" value="">
+					</td>
+					<td>
+						<input style="width: 90%" type="text"
+							name="calc_str"
+							id="_calc_str_"
+							size="30"
+							maxlength="4"
+							value="9999"
+							class="num">
+					</td>
+				</tr>
+			</table>
+		</form>
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>
