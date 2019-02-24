@@ -1,0 +1,307 @@
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			var allcookies = document.cookie;
+			var pos = allcookies.indexOf("compString=");
+			var v_compValue= "0000000000";
+			if (pos!=-1){
+				var start = pos + 11;
+				var end = allcookies.indexOf(";",start);
+				if (end == -1){
+					end = allcookies.length;
+				}
+				v_compValue = allcookies.substring(start, end);
+			}
+
+			if(top.opener != null){
+		    	try{
+		    		var parentWindow = null;
+		    		parentWindow = getOpenParentWin(top);
+		    		parentWindow.location = "/easpro2/e_asproLogin/login?compString="+v_compValue;
+		    	}catch(e){
+		    		top.close();
+		    	}
+
+		    }else{
+		    	top.location = "/easpro2/e_asproLogin/login?compString="+v_compValue;
+		    }
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<TITLE>
+			ポイント付与種別マスタ
+		</TITLE>
+		<SCRIPT type="text/javascript">
+			//「検索」ボタン押下時処理
+			function Search(){
+				$$("_Form").action="/easpro2/e_asproPoint/PO010MasPointAddList";
+				$$("_Form").processType.value = "2";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+			//「新規登録」ボタン押下時処理
+			function Insert(){
+				$$("_Form").action="/easpro2/e_asproPoint/PO011MasPointAddEntry"
+				$$("_processType").value="";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+			//「ポイント付与種別コード」リンク押下時処理
+			function update(_no){
+				if($$("callcenterFlg").value ==""){
+					$$("_Form").action="/easpro2/e_asproPoint/PO011MasPointAddEntry?processKbn=1&callcenterFlg=&point_cd="+_no
+				}else{	
+					$$("_Form").action="/easpro2/e_asproPoint/PO011MasPointAddEntry?processKbn=1&callcenterFlg=1&point_cd="+_no
+				}					
+				
+				$$("callcenterFlg").value = $$("callcenterFlg").value;
+				$$("_processType").value="";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+			//「CSV出力」ボタン押下時処理
+			function Download(){
+				$$("_Form").action="/easpro2/e_asproPoint/PO010MasPointAddList";
+				$$("_processType").value="7";
+				$$("_Form").submit();
+				btnDisabled();
+				setTimeout('enableDownLoad()', '3000');
+			}			
+			function enableDownLoad(){
+				btnAbled();
+			}
+		</SCRIPT>
+	</head>
+<BODY>
+	<img src='../ecsdocs2/img/head_bt_keiri.gif' alt='' align='middle' border='0'>
+	<div class="pt">ポイント付与種別マスタ</div>
+	<BR>
+	<b style="color:red"></b>
+	<BR>
+	<BR>
+	<form method="post" id="_Form">
+		<input type="hidden" name="processType" id="_processType" value="2"/>
+		<input type="hidden" name="callcenterFlg" id="callcenterFlg" value="">
+		<div ID='div1' style='display:block;'>
+		<TABLE class="nb">
+			<TR>
+				<TD>
+					<TABLE CLASS="sf" style="width:760">
+						<col width="150"><col width="240">
+						<col width="150"><col width="220">
+						<TR>
+							<TH align="center" style="width:150">ポイント付与種別コード</TH>
+							<TD>
+								<input type='text' name='pointAddSyubetuCdSearch' id='pointAddSyubetuCdSearch' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='code' maxlength='8' style='width:81.92px;'> </input>
+								(前方一致)
+							</TD>
+							<TH align="center" style="width:150">ポイント付与種別名</TH>
+							<TD>
+								<input type='text' name='pointAddSyubetuNmSearch' id='pointAddSyubetuNmSearch' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='multi' maxlength='40' style='width:154.20px;'> </input>
+								(部分一致)
+							</TD>
+						</TR>
+						<TR>
+							<TH align="center" style="width:150">対象期間</TH>
+							<TD>
+								<input type='text' name='orderDateFromSearch' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='js_orderDateFromSearch' onblur='_formateDate(this,"対象期間(FROM)は日付を入力して下さい。");' /><a href='#' id='js_orderDateFromSearch_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_orderDateFromSearch',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_orderDateFromSearch_calendar_link_id',singleClick : true,step:1});</script>
+								～ 
+								<input type='text' name='orderDateToSearch' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='js_orderDateToSearch' onblur='_formateDate(this,"対象期間(TO)は日付を入力して下さい。");' /><a href='#' id='js_orderDateToSearch_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_orderDateToSearch',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_orderDateToSearch_calendar_link_id',singleClick : true,step:1});</script>
+							</TD>
+							
+							<TH align="center" style="width:150">使用可否</TH>
+							<TD>
+								<select name="delFlgSearch" id="js_delFlgSearch">
+									
+									
+												<option value="" selected></option>
+									
+												<option value="0">使用中</option>
+									
+												<option value="1">使用停止</option>
+									
+								</select>
+							</TD>
+						</TR>
+					</TABLE>
+				</TD>
+				<TD VALIGN="bottom">
+					
+					<input  type="button" onClick="Search();" value="検索"/>
+					
+						
+						<input  type="button" onClick="Insert();" value="新規登録"/>
+					
+				</TD>
+			</TR>
+		</TABLE>
+		<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=800px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=800px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+	</form>
+	
+		
+		
+			<span style="height:12px;"></span>
+			<TABLE BORDER="0" CELLSPACING="1" CELLPADDING="1">
+				<TR>
+					<TD ALIGN="center" NOWRAP BGCOLOR="#ffff66" WIDTH="180">
+						<INPUT ONCLICK="Download();" TYPE="button" VALUE="CSV出力" TABINDEX="0" BORDER="0">
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE CLASS="lt" style="table-layout:auto;">
+				<col width="30">
+				<col width="80">
+				<col>
+				<col width="150">
+				<col width="80">
+				<col width="40">
+				<col width="80">
+				<col width="100">
+				<col width="80">
+				<col width="80">
+				<col width="80">
+
+				<TR CLASS="head">
+					<TH ALIGN="center" rowspan="2">No</TH>
+					<TH ALIGN="center" rowspan="2">ポイント付与<BR>種別コード</TH>
+					<TH ALIGN="center" rowspan="2">ポイント付与種別名</TH>
+					<TH ALIGN="center" rowspan="2">対象期間</TH>
+					<TH ALIGN="center" rowspan="2">使用可否</TH>
+					<TH ALIGN="center"  rowspan="2" colspan="2">付与ポイント数</TH>
+					<TH ALIGN="center" colspan="9">ポイント付与該当条件　適用状況</TH>
+				</TR>
+				<TR CLASS="head">
+					<TH ALIGN="center" title="購入金額(小計金額 - 割引金額　- プロモ値引)合計">購入金額</TH>
+					<TH ALIGN="center">会員</TH>
+					<TH ALIGN="center">対象商品</TH>
+					<TH ALIGN="center">入会特典</TH>
+				
+				</TR>
+				
+					
+					<TR>
+						
+						<TD ALIGN="center" NOWRAP title="0">
+							<nobr>1</nobr>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="PO000001">
+							<A href='javascript:update("PO000001")'>
+								<nobr>PO000001</nobr>
+							</A>
+						</TD>
+						
+						<TD ALIGN="left" NOWRAP title="ポイント付与種別名 ">
+							ポイント付与種別名 
+						</TD>
+						
+						<TD ALIGN="center" title="2019/01/01～2019/01/31" NOWRAP>
+							<nobr>2019/01/01～2019/01/31</nobr>
+						</TD>
+						
+						<TD ALIGN="left" title="使用中" NOWRAP>
+							<nobr>使用中</nobr>
+						</TD>
+						
+						
+						<TD ALIGN="center" title="率" NOWRAP>
+							率
+						</TD>
+						
+						
+							<TD ALIGN="right" title="10%" NOWRAP>
+								<nobr>10%</nobr>
+							</TD>
+						
+						
+						
+							<TD ALIGN="right" title="" NOWRAP>
+								<nobr></nobr>
+							</TD>
+						
+						
+						
+						<TD ALIGN="center" title="○" NOWRAP>
+							○
+						</TD>
+						
+						
+						<TD ALIGN="center" title="" NOWRAP>
+							
+						</TD>
+						
+						
+						<TD ALIGN="center" title="" NOWRAP>
+							
+						</TD>
+					</TR>
+				
+			</TABLE>
+		
+	
+	 
+	<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+</BODY>
+</html>

@@ -1,0 +1,412 @@
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?mCa4m7pyaL" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+
+
+</script>
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<TITLE>
+			対象商品登録
+		</TITLE>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+		<SCRIPT type="text/javascript">
+			//「選択」ボタン押下
+			function Entry1(){
+				if ($$("_itemNo").value =="" || $$("_itemNm").value =="" || $$("_itemNm2").innerHTML ==""){
+					return false;
+				}else{
+					$$("_Form1").action="/easpro2/e_asproLogin/CC026ProductEntry";
+					$$("_processType1").value="2";
+					$$("_Form1").submit();
+					btnDisabled();
+				}
+			}
+			//「削除」ボタン押下
+			function DeletePart(){
+				if (!checkBox()) {
+						return;
+					}
+	 			$$("_processType").value = "5";
+				$$("_Form2").action = "/easpro2/e_asproLogin/CC026ProductEntry";
+				$$("_Form2").submit();
+				btnDisabled();
+			}
+			//選択チェック
+			function checkBox(){
+				var checkCount = 0;
+				$("input[name=row_no]").each(
+					function(i,checkbox){
+							if(checkbox.checked == true){
+								checkCount++;
+							}
+						}
+				);
+				if(checkCount == 0){
+					var msg ="削除データを1件以上選択して下さい。<br>".replace("<br>","");
+					alert(msg);
+					return false;
+				}else{
+					return true;
+				}
+			}
+			//「一括削除」ボタン押下時処理
+			function DeleteAll(){
+				$$("_Form2").action="/easpro2/e_asproLogin/CC026ProductEntry";
+				$$("_processType").value="7";
+				$$("_Form2").submit();
+				btnDisabled();
+			}
+			
+			//閉じるボタン押下時の処理
+			function Close(){
+				var _qty =0;
+				var masta_goods_get_flg = $$("masta_goods_get_flg").value;
+				var str_calls_name = $$("js_calls").value;
+				
+					_qty = 0;
+					strRun = "window.parent.opener."+str_calls_name+"('"+ _qty +"','"+ masta_goods_get_flg +"');";
+ 					eval(strRun);
+					window.close();
+				
+			}
+			
+			//Ajax「登録」処理からの戻り
+			function rtnValue(_item_count) {
+				try{
+					var strRun;
+				 	var str_calls_name= $$("js_calls").value;
+				 	strRun = "window.parent.opener." +	str_calls_name + "('"+ _item_count +"');";
+			 		eval(strRun);
+			 		window.close();
+				}catch(e){window.close();}
+			}
+			//取込みボタン押下
+			function csvUpload(){
+				if(document.all("upload_file").value!=""){ 
+					if(document.all("upload_file").value.length < 5){
+						document.all("errMsg").innerText = "CSV形式でないファイルはアップロードできません。(拡張子エラー)";
+						return;
+					}
+					else{
+						var fileType = document.all("upload_file").value.substr(document.all("upload_file").value.length -4);
+						if(fileType.toUpperCase() != ".CSV"){
+							document.all("errMsg").innerText = "CSV形式でないファイルはアップロードできません。(拡張子エラー)";
+							return;
+						}
+					}
+					$$("_Form1").action="/easpro2/e_asproLogin/CC026ProductEntry";
+					$$("_processType1").value="3";
+					$$("_Form1").submit();
+					btnDisabled();
+				}
+			}
+			// 商品検索Link subWindow
+			function CC021() {
+				var url;
+				url = "/easpro2/e_asproLogin/CC021SearchProduct?callsSrciptFuncName=setFromCC026";
+				url = url + "&processType=";
+				_searchWin = window.open(url,"CC021","width=700,height=500,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+				_searchWin.focus();
+			}
+			// 商品検索 openWindow to client(画面にセット)
+			function setFromCC026(productNo,colorCd,sizeCd,productNm,std_tnk,sale_tnk){
+				$$("_itemNo").value = productNo+colorCd+sizeCd;
+				$$("item_no_1").value = productNo;
+				$$("_itemNm2").innerHTML = productNm;
+				$$("_itemNm").value = productNm;
+			}
+
+			//商品コード変更の場合、Ajax商品マスタから取得
+			function ItemAjaxSel(js_item_no){
+				if(js_item_no == ""){
+					$$("_itemNo").value = "";
+					$$("_itemNm").value = "";
+					$$("_itemNm2").innerHTML = "";
+					return;
+				}
+				$$("inQty_kbn_0").checked = true;
+				$$("inQty").value = "";
+				$$("inQty").disabled = true;
+				$$("inQty").style.backgroundColor="#C0C0C0";
+				
+				if ($$("inItem_no_before").value == js_item_no){
+					$$("update_kbn").value = 1;		//変更
+				}else{
+					$$("update_kbn").value = "";	//追加
+				}
+				var url = "/easpro2/e_asproLogin/CC026ProductEntry";
+				var parms = "kbn=1&processType="+6;
+					parms = parms+"&item_no="+js_item_no;
+				_SendByAjax(url,parms,'',true);
+			}
+
+			//商品検索Ajax商品マスタ検索結果を設定
+			function ItemAjaxSet(productNo,productNm,_check){
+				if (_check == "1") {
+					alert("入力した商品コードは商品マスタに存在しません。");
+					$$("_itemNo").value = "";
+					$$("_itemNm").value = "";
+					$$("_itemNm2").innerHTML = "";
+					$$("item_no_1").value = "";
+				} else {
+					$$("_itemNo").value = productNo;
+					$$("_itemNm").value = productNm;
+					$$("_itemNm2").innerHTML = productNm;
+					$$("item_no_1").value = productNo;
+				}
+			}
+			//画面ロード時処理
+			function set_gamen(){
+				//数量指定にて「なし」が選択されている場合
+				if($$("inQty_kbn_0").checked==true)
+				{
+					$$("inQty").value = "";
+					$$("inQty").disabled = true;
+					$$("inQty").style.backgroundColor="#C0C0C0";
+				}
+			}
+			//一覧内容を入力欄に反映
+			function update_meisai(item_no,item_nm,in_qty_kbn,in_qty,line_no,on,color,size,index){
+				$$("_item_no_"+index).value = on;
+				$$("_itemNo").value = item_no;
+				$$("_itemNm2").innerText = item_nm;
+				$$("_itemNm").value = item_nm;
+				$$("update_index").value = line_no;
+								
+				if(in_qty_kbn=="あり"){
+					$$("inQty_kbn_1").checked = true;
+					$$("inQty").disabled = false;
+					$$("inQty").style.backgroundColor="#FFFFFF";
+				}else{
+					$$("inQty_kbn_0").checked = true;
+					$$("inQty").disabled = true;
+					$$("inQty").style.backgroundColor="#C0C0C0";
+				}
+				$$("inQty").value = in_qty;
+				$$("update_kbn").value = 1;
+				$$("inItem_no_before").value = item_no;
+			}
+			
+						
+			//数量指定ラジオボタン変更時処理
+			function chg_radio_suryo_kbn(){
+				//数量指定にて「なし」が選択されている場合
+				if($$("inQty_kbn_0").checked==true)
+				{
+					$$("inQty").value = "";
+					$$("inQty").disabled = true;
+					$$("inQty").style.backgroundColor="#C0C0C0";
+					
+				//数量指定にて「あり」が選択されている場合
+				}else{
+					$$("inQty").disabled = false;
+					$$("inQty").style.backgroundColor="#FFFFFF";
+				}
+			}			
+		</SCRIPT>
+	</head>
+<BODY onload="set_gamen();">
+	<CENTER>
+		<img src='../ecsdocs2/img/head_bt_project.gif' alt='' align='middle' border='0'>
+		<div class=pt>対象商品登録</div>
+		<BR>
+		<b style="color:red" id="errMsg"></b>
+		<BR>
+		<form action="/easpro2/e_asproLogin/CC026ProductEntry" name="Form1" id="_Form1" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="secToken" id="secToken" value="595FFF67E483B30FF250971ED7B427F9"/>
+			<input type="hidden" name="point_cd" id="_point_cd" value="PO000001">
+			<input type="hidden" name="processType" id="_processType1" value=""/>
+			<input type="hidden" name="callsSrciptFuncName" id="js_calls" value="setFromCC026"/>
+			<input type="hidden" name="strFromPageId" value="">
+			<input type="hidden" name="update_kbn" id="update_kbn" value="">
+			<input type="hidden" name="update_index" id="update_index" value="">
+			<input type="hidden" name="inItem_no_before" id="inItem_no_before" value="">
+			<input type="hidden" name="gentei_flg" id="gentei_flg" value="">
+			<input type="hidden" name="update_hyoji_kbn" id="update_hyoji_kbn" value="">
+			<input type="hidden" name="callcenterFlg" id="callcenterFlg" value="">
+			<input type="hidden" name="masta_goods_get_flg" id="masta_goods_get_flg" value="1">
+			<TABLE class="nb">
+				<TR>
+					<TD>
+						<TABLE CLASS="ft" style="width:450">
+							<TR>
+								<TH ALIGN="CENTER" WIDTH="100">商品コード</TH>
+								<TD>
+									<input type='text' name='inItem_no' id='_itemNo' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='70' style='width:154.20px;' onchange=ItemAjaxSel(this.value);> </input>
+									<A ONCLICK="CC021();">
+										<IMG SRC="../ecsdocs2/img/hatena2.gif" ALT="" WIDTH="17" HEIGHT="17" ALIGN="absmiddle" BORDER="0">
+									</A>
+									&nbsp;&nbsp;
+									<span id="_itemNm2">
+										&nbsp;
+									</span>
+									<input type="hidden" name="item_no_1" id="item_no_1" >
+									<input type="hidden" name="inItem_nm1" id="_itemNm" value="">
+								</TD>
+							</TR>
+							<TR BGCOLOR="white">
+								<TH ALIGN="center" BGCOLOR="#cccccc" WIDTH="100"><FONT SIZE="2">数量指定</FONT></TH>
+								<TD NOWRAP BGCOLOR="white">
+								
+									
+										<INPUT TYPE="radio" 
+											NAME="inQty_kbn" 
+											id="inQty_kbn_1" 
+											VALUE="1" 
+											onclick="chg_radio_suryo_kbn();">あり　
+										<INPUT TYPE="radio" 
+											NAME="inQty_kbn" 
+											id="inQty_kbn_0" 
+											VALUE="0" 
+											checked
+											onclick="chg_radio_suryo_kbn();">なし
+									
+								
+								<input type='text' name='inQty' id='inQty' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='8' style='width:81.92px;'> </input>個以上
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+					<TD VALIGN="bottom">
+						
+						<INPUT TYPE="button" onClick="Entry1();" VALUE="選択">
+						
+					</TD>
+				</TR>
+				<TR>
+					<TD><BR></TD>
+				</TR>
+				<TR>
+					<TD>
+						<TABLE CLASS="ft" style="width:450">
+							<TR>
+								<TH ALIGN="CENTER" WIDTH="100">ファイル</TH>
+								<TD>
+									<INPUT TYPE="file" name="upload_file" id="upload_file" size="45">
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+					<TD VALIGN="bottom">
+											
+						<INPUT TYPE="button" NAME="submitButtonName" onClick="csvUpload();" VALUE="取込">
+						
+					</TD>
+				</TR>
+				<TR style="height:20px;">
+					<TD colspan="2" >
+						<HR>
+					</TD>
+				</TR>
+			</TABLE>
+		</form>
+		
+		 
+			<font size="2">
+				データが登録されていません。
+			</font>
+		
+		<TABLE width="600">
+			<COL width="600">
+			<TR>
+				<TD  align="center">
+					<input type="button" value="閉じる" onclick="Close()">
+				</TD>
+			</TR>
+		</TABLE>
+	</center>
+	<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>	
+</BODY>
+</html>

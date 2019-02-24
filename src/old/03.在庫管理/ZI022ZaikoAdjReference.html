@@ -1,0 +1,1059 @@
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?qHwgWXoU6c" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+	<meta http-equiv = "Pragma" content="no-cache">																	
+	<meta http-equiv = "Cache-control" content="no-cache">
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+		<title>
+			在庫調整照会
+		</title>
+		<SCRIPT type="text/javascript">
+			// search
+			function search(){
+				$$("_processType").value = "2";
+				$$("_Form").action="ZI022ZaikoAdjReference.html"
+				$$("_Form").submit();
+				btnDisabled();
+			}
+			// download
+			function download(){
+				$$("_processType").value = "7";
+				$$("_Form").action="ZI022ZaikoAdjReference.html"
+				$$("_Form").submit();
+				
+				$$("_btnDownload").disabled = true;
+				
+				setTimeout('enableDownLoad()', '3000');
+			}
+			
+			// CSV出力処理を実行するとき、3秒以降有効になる
+			function enableDownLoad(){
+				if ("" == "") {
+					$$("_btnDownload").disabled = false;
+				}
+			}
+
+		</SCRIPT>
+	</head>
+	<body>
+		<!-- MasStoreList -->
+		<img src='../ecsdocs2/img/head_zaiko.gif' alt='' align='middle' border='0'>
+		<div class="pt">在庫調整照会</div>
+		<br>
+		<b style="color:red"></b>
+		<br>
+		<form action="ZI022ZaikoAdjReference.html" id="_Form" method="post">
+			<input type="hidden" name="processType" id="_processType" value="1">
+			<input type="hidden" name="strFromPageId" value="">
+			<div ID='div1' style='display:block;'>
+			<table>	
+				<tr>
+					<td>
+						<table class="sf">
+							<col width="100"/>
+							<col width="220"/>
+							<col width="100"/>
+							<col width="220"/>
+							<tr>
+								<th class="must">調整日</th>
+								<td>
+									<input type='text' name='adjYmdFrom' style='width:82px;'  maxlength=10 value='2018/09/01' class='ymd' onkeypress='_chkInp();' id='_adjYmdFrom' onblur='_formateDate(this,"調整日は日付を入力して下さい。");' /><a href='#' id='_adjYmdFrom_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_adjYmdFrom',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_adjYmdFrom_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='adjYmdTo' style='width:82px;'  maxlength=10 value='2019/01/10' class='ymd' onkeypress='_chkInp();' id='_adjYmdTo' onblur='_formateDate(this,"調整日は日付を入力して下さい。");' /><a href='#' id='_adjYmdTo_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_adjYmdTo',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_adjYmdTo_calendar_link_id',singleClick : true,step:1});</script>
+								</td>
+								<th>調整区分</th>
+								<td>
+									<SELECT name='adjKbn' id='adjKbn' style='width:234px' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='10' >調整出庫</OPTION><OPTION VALUE='20' >調整入庫</OPTION><OPTION VALUE='30' >在庫振替</OPTION> </SELECT>
+								</td>			
+							</tr>
+							<tr>
+								<th>倉庫名</th>
+								<td>
+								
+									<SELECT name='whCd' id='whCd' style='width:234px' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='036410501' >アクアペット倉庫</OPTION><OPTION VALUE='039010000' >新越谷ソリューションセンター</OPTION> </SELECT>
+								
+								</td>
+								<th>在庫状態</th>
+								<td>
+									<SELECT name='zaikoJoutaiKbn' id='zaikoJoutaiKbn' style='width:234px' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='100' >通常品</OPTION><OPTION VALUE='200' >アウトレット品</OPTION><OPTION VALUE='300' >中古品</OPTION><OPTION VALUE='500' >保留品</OPTION><OPTION VALUE='900' >不良品</OPTION><OPTION VALUE='400' >通常品400</OPTION> </SELECT>
+								</td>
+							</tr>
+							<tr>
+								<th>商品コード</th>
+								<td>
+									<input type='text' name='zaikoItemNo' id='_zaikoItemNo' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='70' style='width:148.64px;'> </input>
+										(前方一致)
+								</td>
+								<th>商品名</th>
+								<td>
+									<input type='text' name='zaikoItemNm' id='_zaikoItemNm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='100' style='width:148.64px;'> </input>
+										(部分一致)
+								</td>
+							</tr>
+							<tr>
+								<th>登録者</th>
+								<td colspan="3">
+									<input type='text' name='insUser' id='_insUser' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='80' style='width:148.64px;'> </input>
+										(前方一致)
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td valign="bottom">
+						<table>
+							<tr>
+								<td>
+									<input type="button" onClick="search();" value="検索"
+										
+									/>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=738px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=738px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+		</form>
+
+		
+		
+			
+			
+				<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>526件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1<OPTION   VALUE='2'>2<OPTION   VALUE='3'>3<OPTION   VALUE='4'>4<OPTION   VALUE='5'>5<OPTION   VALUE='6'>6<OPTION   VALUE='7'>7<OPTION   VALUE='8'>8<OPTION   VALUE='9'>9<OPTION   VALUE='10'>10<OPTION   VALUE='11'>11<OPTION   VALUE='12'>12<OPTION   VALUE='13'>13<OPTION   VALUE='14'>14<OPTION   VALUE='15'>15<OPTION   VALUE='16'>16<OPTION   VALUE='17'>17<OPTION   VALUE='18'>18</SELECT>/18</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(2)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(18)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='ZI022ZaikoAdjReference.html' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="18"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="526"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value="2"><input type='hidden' name='searchKbn' value="2"><input type='hidden' name='adjYmdFrom' value="2018/09/01"><input type='hidden' name='adjYmdTo' value="2019/01/10"><input type='hidden' name='adjKbn' value=""><input type='hidden' name='whCd' value=""><input type='hidden' name='zaikoKbn' value=""><input type='hidden' name='zaikoItemNo' value=""><input type='hidden' name='zaikoItemNm' value=""><input type='hidden' name='insUser' value=""></form>
+
+				<table>
+					<tr>
+						<td align="center" width="300" bgcolor="#ffff66">
+							<input type="hidden" name="patternNo" id="patternNo" value="1">
+								<input type="button"  onClick="download();" value="CSV出力" 
+									
+								id="_btnDownload"/>
+						</td>
+					</tr>
+				</table>
+	
+				<table class="lt" width="1200">
+					<colgroup>
+						<col width="30">
+						<col width="60">
+						<col width="110">
+						<col width="100">
+						<col width="100">
+						<col width="160">
+						<col width="160">
+						<col width="80">
+						<col width="60">
+						<col width="60">
+						<col width="80">
+					</colgroup>
+					<tr class="head">
+						<th>No.</th>
+						<th>調整日</th>
+						<th>調整NO</th>
+						<th>調整区分</th>
+						<th>商品コード</th>
+						<th>商品名</th>
+						<th>倉庫名</th>
+						<th>在庫状態</th>
+						<th>賞味期限</th>
+						<th>調整数</th>
+						<th>登録者</th>
+					</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >1</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135886</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >x-4573170133830</td>
+							
+							<td nowrap align="left" title="ペアライト2灯式蛍光灯+レプティサンUVB 5.0 20W+ネイチャーサン 20Wセット　50Hz用">ペアライト2灯式蛍光灯+レプティサンUVB 5.0 20W+ネイチャーサン 20Wセット　50Hz用</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-1</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >2</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135887</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >x-4573170133830</td>
+							
+							<td nowrap align="left" title="ペアライト2灯式蛍光灯+レプティサンUVB 5.0 20W+ネイチャーサン 20Wセット　50Hz用">ペアライト2灯式蛍光灯+レプティサンUVB 5.0 20W+ネイチャーサン 20Wセット　50Hz用</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							1</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >3</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135888</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >4573140135735</td>
+							
+							<td nowrap align="left" title="ロングフィンらんちゅう（丹鳳）SM">ロングフィンらんちゅう（丹鳳）SM</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-3</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >4</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135889</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >sc-101-c-suihou</td>
+							
+							<td nowrap align="left" title="[廃番]水泡眼　キャリコ　SMサイズ　（5～6cm）">[廃番]水泡眼　キャリコ　SMサイズ　（5～6cm）</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-4</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >5</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135890</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >a-ac-5fu-951220</td>
+							
+							<td nowrap align="left" title="P5122　スドー　オカメのセレクトミックス　800ｇ">P5122　スドー　オカメのセレクトミックス　800ｇ</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-9</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >6</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135891</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >a-am-5hk-151109</td>
+							
+							<td nowrap align="left" title="アサヒ　保温電球　60W">アサヒ　保温電球　60W</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-2</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >7</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135892</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >a-lt-5oy-256391</td>
+							
+							<td nowrap align="left" title="黒瀬ペットフード 殻むきヒマワリの種 KP-39">黒瀬ペットフード 殻むきヒマワリの種 KP-39</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-9</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >8</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135893</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >z-az-5ke-000047gr</td>
+							
+							<td nowrap align="left" title="升箱　グリーン">升箱　グリーン</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-1</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >9</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135894</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >a-ai-5kb-402346</td>
+							
+							<td nowrap align="left" title="ＨＯＥＩ　４６５用　水漏れ防止枠（シャッター付き）">ＨＯＥＩ　４６５用　水漏れ防止枠（シャッター付き）</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-1</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >10</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135895</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >x-4573170133830</td>
+							
+							<td nowrap align="left" title="ペアライト2灯式蛍光灯+レプティサンUVB 5.0 20W+ネイチャーサン 20Wセット　50Hz用">ペアライト2灯式蛍光灯+レプティサンUVB 5.0 20W+ネイチャーサン 20Wセット　50Hz用</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-1</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >11</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135896</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >a-az-5es-777276</td>
+							
+							<td nowrap align="left" title="コバヤシ　経済エサ入れ">コバヤシ　経済エサ入れ</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-3</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >12</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135897</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >a-ae-5su-122212</td>
+							
+							<td nowrap align="left" title="カワイ　オハチ">カワイ　オハチ</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-4</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >13</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135898</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >a-ai-5tm-410358</td>
+							
+							<td nowrap align="left" title="ＨＯＥＩ　ケージ用止り木　ホールダー付１８０ｍｍ×２本入り">ＨＯＥＩ　ケージ用止り木　ホールダー付１８０ｍｍ×２本入り</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-9</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >14</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135899</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >a-ai-5tm-410365</td>
+							
+							<td nowrap align="left" title="ＨＯＥＩ　ケージ用止り木　ホールダー付２５０ｍｍ×２本入り">ＨＯＥＩ　ケージ用止り木　ホールダー付２５０ｍｍ×２本入り</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-7</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >15</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135900</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >k-4981336000307</td>
+							
+							<td nowrap align="left" title="ケージにロック5">ケージにロック5</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-3</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >16</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135901</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >a-ac-5fs-982248</td>
+							
+							<td nowrap align="left" title="P8224 セキセイの多穀ブレンド＋野菜　230g">P8224 セキセイの多穀ブレンド＋野菜　230g</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-2</td>
+							
+							<td nowrap align="left" title="葛西　正美">葛西　正美</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >17</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135902</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >sc-2015-c-aka</td>
+							
+							<td nowrap align="left" title="Ｃ-7　蝶尾 赤　（大きさ5～6cm)">Ｃ-7　蝶尾 赤　（大きさ5～6cm)</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							6</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >18</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135903</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >sc-2015-c-shiro</td>
+							
+							<td nowrap align="left" title="蝶尾 白 （大きさ約5cm)">蝶尾 白 （大きさ約5cm)</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							18</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >19</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135904</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >sc-seibun</td>
+							
+							<td nowrap align="left" title="国産金魚 青文魚 （5～6cm)">国産金魚 青文魚 （5～6cm)</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							9</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >20</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135905</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >k-ba-rd</td>
+							
+							<td nowrap align="left" title="中国産　バルーンオランダ　赤">中国産　バルーンオランダ　赤</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							10</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >21</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135906</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >sc-101-suiho01</td>
+							
+							<td nowrap align="left" title="水泡眼　SMサイズ　赤勝（5cm）">水泡眼　SMサイズ　赤勝（5cm）</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							10</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >22</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135907</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >sc-101-chouten-s</td>
+							
+							<td nowrap align="left" title="Ｃ-8　頂天眼　（大きさ4～5ｃｍ）　赤（オレンジ）単色">Ｃ-8　頂天眼　（大きさ4～5ｃｍ）　赤（オレンジ）単色</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							10</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >23</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135908</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >sc-101-hotoke-d</td>
+							
+							<td nowrap align="left" title="B-4ホトケドジョウ　1匹　（大きさ4～5cm）">B-4ホトケドジョウ　1匹　（大きさ4～5cm）</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							2</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >24</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135909</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >sc-101-hotoke-d3</td>
+							
+							<td nowrap align="left" title="B-4ホトケドジョウ　3匹　（大きさ4～5cm）">B-4ホトケドジョウ　3匹　（大きさ4～5cm）</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							1</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >25</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135910</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >sc-101-350-B</td>
+							
+							<td nowrap align="left" title="［廃番］Ａ10　ヒドジョウ　１匹　M（約5～6cm）">［廃番］Ａ10　ヒドジョウ　１匹　M（約5～6cm）</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							10</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >26</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135911</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >sc-101-350-B-3</td>
+							
+							<td nowrap align="left" title="［廃番］Ａ10　ヒドジョウ　3匹　Ｍ（約5～6cm）">［廃番］Ａ10　ヒドジョウ　3匹　Ｍ（約5～6cm）</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							3</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >27</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135912</td>
+							
+							<td nowrap align="left" title="調整入庫">調整入庫</td>
+							
+							<td nowrap align="left" >sc-101-350-b</td>
+							
+							<td nowrap align="left" title="◎ヒドジョウ 1匹 M（大きさ5～6cm)">◎ヒドジョウ 1匹 M（大きさ5～6cm)</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							10</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >28</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135913</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >sc-101-k-tancho-1</td>
+							
+							<td nowrap align="left" title="高頭丹頂（コウトウタンチョウ）SM　1匹（全長：5～6ｃｍ）">高頭丹頂（コウトウタンチョウ）SM　1匹（全長：5～6ｃｍ）</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-8</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >29</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135914</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >sc-101-kohaku-hikari</td>
+							
+							<td nowrap align="left" title="Ａ10　琥珀光メダカ　（コハクヒカリメダカ）１匹">Ａ10　琥珀光メダカ　（コハクヒカリメダカ）１匹</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-5</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 						
+ 						<tr>
+							
+							<td nowrap align="center" >30</td>
+							
+							<td nowrap align="center" >2018/09/01</td>
+							
+							<td nowrap align="left" >AD18090135915</td>
+							
+							<td nowrap align="left" title="調整出庫">調整出庫</td>
+							
+							<td nowrap align="left" >sc-101-kohaku-hikari-3</td>
+							
+							<td nowrap align="left" title="Ａ10　琥珀光メダカ　（コハクヒカリメダカ）３匹">Ａ10　琥珀光メダカ　（コハクヒカリメダカ）３匹</td>
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="通常品">通常品</td>
+							
+							<td nowrap align="center" ></td>
+							
+							<td nowrap align="right" >
+							-3</td>
+							
+							<td nowrap align="left" title="関根　正志">関根　正志</td>
+ 						</tr>
+ 					
+ 				</table>
+			
+			
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

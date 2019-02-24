@@ -1,0 +1,293 @@
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j" />
+		<title>
+			入荷予定CSV登録確認
+		</title>
+		
+		<script type="text/javascript">
+			
+			//登録する実行
+			function Submit(){
+				if(confirm("登録します。よろしいですか？")) {
+					$("#_processType").val("3");
+					$("#_Form").submit();
+					btnDisabled();	
+				}
+			}
+			//キャンセルする実行
+			function Cancel() {
+				window.location = "/easpro2/e_asproNyuka/IN090NyukaYoteiUp";
+			}
+		</script>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_nyuuka.gif' alt='' align='middle' border='0'>
+		<div class=pt>入荷予定CSV登録確認</div>
+		<br><br>
+		<b style="color:red" id="errMsg"></b>
+		
+		<form name="_From" id="_Form" action="/easpro2/e_asproNyuka/IN091NyukaYoteiUpTempList" method="post">
+			<input type="hidden" name="secToken" id="secToken" value="23B59D61DA1DACB599F29BDDF7DEA1C0"/>
+			<input type="hidden" name="processType" id="_processType">
+			<input type="hidden" name="uploadNo" value="190123009" />
+			<input type="hidden" name="patternNo" value="4" />
+			<input type="hidden" name="uuid" value="36ef8519905b450b93e5ad25453647ee" />
+			<div>
+				<table>
+					<tr>
+						
+						<td>
+							<a>1件の入荷予定を取り込みます。</a>
+							<br>
+							<a>宜しければ、[登録する]ボタンをクリックしてください。</a>
+						</td>
+						
+						<td align="center">
+							<input id="btnSubmit" value="登録する" type="button" onClick="Submit();" 
+								 
+							/>
+						</td>
+						
+						<td align="center">
+							<input id="btnSubmit" value="キャンセルする" type="button" onClick="Cancel();"
+								 
+							/>
+						</td>
+						
+					</tr>
+				</table>
+			</div>
+		</form>
+		
+		
+		
+		<span style="height:12px;"></span>
+			<table class="lt" style="width:2880px">
+				<colgroup>
+					<col width="30">
+					<col width="320">
+					<col width="120">
+					<col width="100">
+					<col width="120">
+					<col width="80">
+					<col width="120">
+					<col width="150">
+					<col width="150">
+					<col width="80">
+					<col width="150">
+					<col width="150">
+					<col width="150">
+					<col width="100">
+					<col width="100">
+					<col width="150">
+					<col width="150">
+					<col width="150">
+					<col width="80">
+					<col width="80">
+					<col width="100">
+					<col width="150">
+					<col width="100">
+					<col width="100">
+					<col width="100">
+				</colgroup>
+				<tr class="head">
+					<th>NO</th>
+					<th>エラー内容</th>
+					<th>発注番号</th>
+					<th>倉庫コード</th>
+					<th>倉庫名</th>
+					<th>入荷予定日</th>
+					<th>仕入先コード</th>
+					<th>仕入先名１</th>
+					<th>仕入先名２</th>
+					<th>仕入先<br>郵便番号</th>
+					<th>仕入先住所１</th>
+					<th>仕入先住所２</th>
+					<th>仕入先住所３</th>
+					<th>仕入先電話番号</th>
+					<th>仕入先FAX</th>
+					<th>仕入先担当<br>メールアドレス</th>
+					<th>商品コード</th>
+					<th>商品名</th>
+					<th>入荷予定数</th>
+					<th>賞味期限</th>
+					<th>在庫状態</th>
+					<th>作業指示</th>
+					<th>作業管理項目<br>コード</th>
+					<th>作業管理項目<br>コード2</th>
+					<th>作業管理項目<br>コード3</th>
+				</tr>
+			
+			<tr style="background-color:#FFFFFF">
+					
+					<td align="center">
+						1
+					</td>
+					
+					<td class="break"
+						title="">
+						
+					</td>
+					
+					<td title="TR1901250000000001">
+					TR1901250000000001</td>
+					
+					<td title="036410501">
+					036410501</td>
+					
+					<td title="アクアペット倉庫">
+					アクアペット倉庫</td>
+					
+					<td align="center"
+						title="2019/01/25">
+					2019/01/25</td>
+					
+					<td title="km">
+					km</td>
+					
+					<td title="神畑養魚（株）カミハタ">
+					神畑養魚（株）カミハタ</td>
+					
+					<td title="">
+					</td>
+					
+					<td title="">
+					</td>
+					
+					<td title="">
+					</td>
+					
+					<td title="">
+					</td>
+					
+					<td title="">
+					</td>
+					
+					<td title="">
+					</td>
+					
+					<td title="">
+					</td>
+					
+					<td title="">
+					</td>
+					
+					<td align="left" title="sc-102-1023">
+					sc-102-1023</td>
+					
+					<td align="left" title="Ｅ-3　金魚草　カモンバ　　３束">
+					Ｅ-3　金魚草　カモンバ　　３束</td>
+					
+					
+					<td align="right" title="5">
+					5</td>	
+					
+					<td align="center" title="">
+					</td>
+					
+					<td align="left" title="">
+					</td>
+					
+					<td align="left" title="">
+					</td>
+					
+					<td align="left" title="">
+					</td>
+					
+					<td align="left" title="">
+					</td>
+					
+					<td align="left" title="1">
+					1</td>
+				</tr>
+			
+			</table>
+		
+		
+		
+	<script type='text/javascript'>$(document).ready(function(){_PageInit('0','1','1','1','1','1');})</script>
+	</body>
+</html>

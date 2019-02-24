@@ -1,0 +1,614 @@
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?rx79AZ4iTx" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j" />
+		<title>
+			入荷予実照会・修正
+		</title>
+		<style type="text/css">
+			.readonly{background-color: #eeeeee;}
+		</style>
+		
+		<script type="text/javascript">		
+
+			// 検索ボタン押下,検索を行う
+			function Search() {
+				$$("_processType").value = 2;
+				$$("_Form").action = "/easpro2/e_asproNyuka/IN070NyukaYojituList";
+				$$("_Form").submit();
+				btnDisabled();	
+			}
+
+			// 明細のステータスを押下する時、画面遷移
+			function statusLink(_no,_flg){
+				//未入荷時processKbn=1；以外場合processKbn=2
+				if (_flg == 0){
+					$$("_Form").action = "IN020NyukaEntry.html?pageId=IN070&processKbn=1&nyukaCd=" + _no;
+				} else {
+					$$("_Form").action = "IN020NyukaEntry.html?pageId=IN070&processKbn=2&nyukaCd=" + _no;
+				}
+				$$("_processType").value = "";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+			// 明細の入荷番号を押下する時、画面遷移
+			function nyukaCdLink(_no){
+				$$("_Form").action = "IN080NyukaYoteiEntry.html?processKbn=2&nyukaCd="+_no;
+				$$("_processType").value = "";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+
+			// CSV出力ボタンを押下する時、画面処理
+			function DownLoad(csv_down_kbn) {
+				if (csv_down_kbn == '38') {
+					$$("_headerCsvOut").value = $$("_headerCsvOutNoform").value;
+				}
+				if (csv_down_kbn == '39') {
+					$$("_listCsvOut").value = $$("_listCsvOutNoform").value;
+				}
+				$$("_processType").value = "7";
+				$$("_csvDownKbn").value = csv_down_kbn;
+				$$("_Form").action = "IN070NyukaYojituList.html";
+				$$("_Form").submit();
+				
+				$$("_btnDownload1").disabled = true;
+				$$("_btnDownload2").disabled = true;
+				
+				setTimeout('enableDownLoad()', '3000');
+			}
+
+			// CSV出力処理を実行するとき、3秒以降有効になる
+			function enableDownLoad(){
+			if ("" == "") {
+					$$("_btnDownload1").disabled = false;
+				}
+			if ("" == "") {
+					$$("_btnDownload2").disabled = false;
+				}
+			}
+
+			// 共通の仕入検索画面を呼び出して、仕入情報を検索
+			function dispSearchSiireCd(vThis){
+				var url = "CC034SearchSiire.html?callsSrciptFuncName=setSearchSiireCd";
+				_searchWin = window.open(url,"CC034","width=750,height=500,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+				_searchWin.focus();
+			}
+
+			// 仕入先コード検索ウィンドウ戻り
+			function setSearchSiireCd(_siireCd,_siireNm1,_siireNm2,_siireZip,
+					_siireAddr1,_siireAddr2,_siireAddr3,
+					_siireTel,_siireFax,_siireTanto,_syanaiTanto,
+					_index){
+				//$$("_search_siire_cd").value = _siireCd;
+				$("[name=searchSiireCd]").val(_siireCd);
+			}
+
+			// 共通の在庫商品検索ウィンドウを呼び出して、在庫商品情報を検索
+			function dispSearchZaiko(vThis){
+				var _idx = vThis.id.replace("_zaikoItemCdSearch_","");
+				var url = "CC031SearchZaiko.html?callsSrciptFuncName=setSearchZaiko&index="
+					  +_idx;
+				_searchWin = window.open(url,"CC031","width=700,height=500,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+				_searchWin.focus();
+			}
+
+			// 検索された商品情報よりAjaxを呼び出して、関連情報を検索
+			function setSearchZaiko(_cd,_color,_size,nm1,_idx){
+				 if (_idx == "0") {
+						//$$("_search_zaiko_item_no_s").value = _cd + _color + _size ;
+						$("[name=searchZaikoItemNoS]").val(_cd + _color + _size);
+				 } else {
+						//$$("_search_zaiko_item_no_e").value = _cd + _color + _size ;
+						$("[name=searchZaikoItemNoE]").val(_cd + _color + _size);
+				 }
+			}
+		</script>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_nyuuka.gif' alt='' align='middle' border='0'>
+		<div class=pt>入荷予実照会・修正</div>
+		<br>
+		<b style="color:red"></b>
+		<br>
+		<form method="post" id="_Form">
+			<input type="hidden" name="strForwordFlg" value = "2">
+			<input type="hidden" name="processType" id="_processType" value = "">
+			<input type="hidden" name="csvDownKbn" id="_csvDownKbn">
+			<input type="hidden" name="headerCsvOut" id="_headerCsvOut">
+			<input type="hidden" name="listCsvOut" id="_listCsvOut">
+			
+			<div ID='div1' style='display:block;'>
+				<table class="nb">
+					<tr>
+						<td>
+							<table class = "sf" style = "width:840px">
+								<colgroup>
+									<col width="100">
+									<col width="320">
+									<col width="100">
+									<col width="320">
+								</colgroup>
+								<tr>
+									<th>表示区分</th>
+									<td colspan = "3">	
+										<SELECT name='searchHyojiKbn' id='_searchHyojiKbn' style='width:300px' tabindex=null > <OPTION VALUE='0' >ヘッダー一覧</OPTION><OPTION VALUE='1' SELECTED>明細一覧</OPTION> </SELECT>
+									</td>
+								</tr>
+								<tr>
+									<th align = "center" class = "must">入荷予定日</th>
+									<td nowrap>
+										<input type='text' name='searchNyukaYoDateS' style='width:82px;'  maxlength=10 value='2018/10/10' class='ymd' onkeypress='_chkInp();' id='_searchNyukaYoDateS' onblur='_formateDate(this,"入荷予定日は日付を入力して下さい。");' /><a href='#' id='_searchNyukaYoDateS_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchNyukaYoDateS',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchNyukaYoDateS_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='searchNyukaYoDateE' style='width:82px;'  maxlength=10 value='2019/01/10' class='ymd' onkeypress='_chkInp();' id='_searchNyukaYoDateE' onblur='_formateDate(this,"入荷予定日は日付を入力して下さい。");' /><a href='#' id='_searchNyukaYoDateE_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchNyukaYoDateE',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchNyukaYoDateE_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+									<th align="center">入荷実績日</th>
+									<td nowrap>
+										<input type='text' name='searchNyukaDateS' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_search_nyuka_date_s' onblur='_formateDate(this,"入荷実績日は日付を入力して下さい。");' /><a href='#' id='_search_nyuka_date_s_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_search_nyuka_date_s',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_search_nyuka_date_s_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='searchNyukaDateE' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_search_nyuka_date_e' onblur='_formateDate(this,"入荷実績日は日付を入力して下さい。");' /><a href='#' id='_search_nyuka_date_e_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_search_nyuka_date_e',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_search_nyuka_date_e_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+								<tr>
+									<th align="center">入荷番号</th>
+									<td >
+										<input type='text' name='searchNyukaCd' id='_searchNyukaCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='20' style='width:148.64px;'> </input>
+										(前方一致)
+									</td>
+									<th align="center">ステータス</th>
+									<td nowrap>
+										<SELECT name='searchNyukaFlg' id='_searchNyukaFlg' style='width:300px' tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='0' SELECTED>未入荷</OPTION><OPTION VALUE='1' >入荷済</OPTION><OPTION VALUE='2' >一部入荷</OPTION> </SELECT>
+									</td>
+								</tr>
+								<tr>
+									<th align="center">倉庫名</th>
+									<td nowrap>
+										
+											<SELECT name='searchWhCd' id='_searchWhCd' style='width:300px' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='036410501' >アクアペット倉庫</OPTION><OPTION VALUE='039010000' >新越谷ソリューションセンター</OPTION> </SELECT>
+										
+									</td>
+									<th align="center"></th>
+									<td nowrap>
+									</td>
+								<tr>
+									<th align="center">仕入先コード</th>
+									<td nowrap>
+										<input type='text' name='searchSiireCd' id='_searchSiireCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='code' maxlength='20' style='width:148.64px;'> </input>
+										<a onclick="dispSearchSiireCd(this);" 
+										id="_subSearch_siire_cd" HREF="#" 
+										tabindex="-1"><img src="../ecsdocs2/img/hatena2.gif" 
+										alt="" align="middle" border="0"></a>
+										(前方一致)
+									</td>
+									<th align="center">仕入先名</th>
+									<td nowrap>
+										<input type='text' name='searchSiireNm' id='_searchSiireNm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='multi' maxlength='40' style='width:182.00px;'> </input>
+										(部分一致)
+									</td>
+								<tr>
+									<th align="center">発注番号</th>
+									<td nowrap>
+										<input type='text' name='searchHatyuCd' id='js_search_hatyu_cd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='20' style='width:148.64px;'> </input>
+										(前方一致)
+									</td>
+									<th align="center">発注日</th>
+									<td nowrap>
+										<input type='text' name='searchHatyuDateS' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_search_hatyu_date_s' onblur='_formateDate(this,"発注日は日付を入力して下さい。");' /><a href='#' id='_search_hatyu_date_s_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_search_hatyu_date_s',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_search_hatyu_date_s_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='searchHatyuDateE' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_search_hatyu_date_e' onblur='_formateDate(this,"発注日は日付を入力して下さい。");' /><a href='#' id='_search_hatyu_date_e_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_search_hatyu_date_e',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_search_hatyu_date_e_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+								</tr>
+								<tr>
+									<th align="center">商品コード</th>
+									<td nowrap style="width:320px;">
+										<input type='text' name='searchZaikoItemNoS' id='_searchZaikoItemNoS' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='code' maxlength='70' style='width:104.16px;'> </input>
+												<a onclick="dispSearchZaiko(this);" id="_zaikoItemCdSearch_0" 
+													href="#" tabindex="-1"><font size = "2"><img src="../ecsdocs2/img/hatena2.gif" 
+													alt="" align="middle" border="0" width="17" height="17"></font></a>
+										～
+										<input type='text' name='searchZaikoItemNoE' id='_searchZaikoItemNoE' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='code' maxlength='70' style='width:104.16px;'> </input>
+												<a onclick="dispSearchZaiko(this);" id="_zaikoItemCdSearch_1" 
+													href="#" tabindex="-1"><font size = "2"><img src="../ecsdocs2/img/hatena2.gif" 
+													alt="" align="middle" border="0" width="17" height="17"></font></A>
+									</td>
+									
+									<th align="center">商品名</th>
+									<td nowrap>
+										<input type='text' name='searchZaikoItemNm1' id='_searchZaikoItemNm1' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='multi' maxlength='100' style='width:182.00px;'> </input>
+										(部分一致)
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td valign="bottom">
+							<table>
+								<tr>
+									<td>
+										<input type="button" onClick="Search();" value="検索"
+											
+										/>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=840px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=840px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+			</form>
+		<!-- 検索一覧表示 -->	
+		
+			
+			
+			<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>5件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1</SELECT>/1</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='/easpro2/e_asproNyuka/IN070NyukaYojituList' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="1"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="5"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value="2"><input type='hidden' name='searchHyojiKbn' value="1"><input type='hidden' name='searchHatyuCd' value=""><input type='hidden' name='searchNyukaFlg' value="0"><input type='hidden' name='searchNyukaCd' value=""><input type='hidden' name='searchNyukaYoDateS' value="2018/10/10"><input type='hidden' name='searchNyukaYoDateE' value="2019/01/10"><input type='hidden' name='searchHatyuDateS' value=""><input type='hidden' name='searchHatyuDateE' value=""><input type='hidden' name='searchNyukaDateS' value=""><input type='hidden' name='searchNyukaDateE' value=""><input type='hidden' name='searchWhCd' value=""><input type='hidden' name='searchSiireCd' value=""><input type='hidden' name='searchSiireNm' value=""><input type='hidden' name='searchZaikoItemNoS' value=""><input type='hidden' name='searchZaikoItemNoE' value=""><input type='hidden' name='searchZaikoItemNm1' value=""><input type='hidden' name='coNo' value="2535"><input type='hidden' name='_fromMenu' value=""></form>							
+			<table>
+					<tr>
+						<td align="center" width="350" bgcolor="#ffff66">
+							<SELECT name='headerCsvOutNoform' id='_headerCsvOutNoform' style='width:200px;' tabindex=null > <OPTION VALUE='0' ></OPTION><OPTION VALUE='1' >入荷ヘッダー</OPTION> </SELECT>
+							<input type="button"  onClick="DownLoad('38');" value="ヘッダCSV出力" 
+								
+							id="_btnDownload1"/>
+
+						</td>
+						<td align="center" width="350" bgcolor="#CCFF66">
+							<SELECT name='listCsvOutNoform' id='_listCsvOutNoform' style='width:200px;' tabindex=null > <OPTION VALUE='0' ></OPTION><OPTION VALUE='1' >入荷明細</OPTION><OPTION VALUE='2' >仕入用一覧</OPTION> </SELECT>
+							<input type="button"  onClick="DownLoad('39');" value="明細CSV出力" 
+								
+							id="_btnDownload2"/>
+						</td>
+					</tr>
+				</table>
+			
+				<table class="lt" style="width:1490">
+					<colgroup>
+						<col width="30">
+						<col width="80">
+						<col width="80">
+						<col width="140">
+						<col width="80">
+						<col width="140">
+						<col width="100">
+						<col width="80">
+						<col width="100">
+						<col width="180">
+						<col width="100">
+						<col width="140">
+						<col width="80">
+						<col width="80">
+						<col width="80">
+					</colgroup>
+					<tr class="head">
+						<th>No</th>
+						<th>入荷予定日</th>
+						<th>入荷実績日</th>
+						<th>入荷番号</th>
+						<th>ステータス</th>
+						<th>倉庫名</th>
+						<th>発注番号</th>
+						<th>発注日</th>
+						<th>仕入先コード</th>
+						<th>仕入先名</th>
+						<th>商品コード</th>
+						<th>商品名</th>
+						<th>予定数</th>
+						<th>実績数</th>
+						<th>取消数</th>
+					</tr>
+					
+						
+						<tr>
+							
+							<td nowrap align="center" >1</td>
+							
+							<td nowrap align="center" title="2018/11/16">2018/11/16</td>
+							
+							<td nowrap align="center" title=""></td>
+							
+							
+								<td nowrap align="left" title="NY18111317851">
+								<a href='javascript:nyukaCdLink("NY18111317851")'>NY18111317851</a></td>
+							
+							
+							
+								<td nowrap align="left" title="未入荷">
+								<a href='javascript:statusLink("NY18111317851","0")'>未入荷</a></td>
+							
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="NY91111111">NY91111111</td>
+							
+							<td nowrap align="center" title="2018/11/13">2018/11/13</td>
+							
+							<td nowrap align="left" title="ap">ap</td>
+							
+							<td nowrap align="left" title="アペックス（有）アペックス">アペックス（有）アペックス</td>
+							
+							<td nowrap align="left" title="028822">028822</td>
+							
+							<td nowrap align="left" title="ＧＥＸ　キュービーコロン　ブルー">ＧＥＸ　キュービーコロン　ブルー</td>
+							
+							
+							<td align="right" title="10" >
+							10</td>
+							
+							
+							<td align="right" title="" >
+							</td>	
+							
+							
+							<td align="right" title="" >
+							</td>
+							
+						</tr>
+					
+						
+						<tr>
+							
+							<td nowrap align="center" >2</td>
+							
+							<td nowrap align="center" title="2018/11/15">2018/11/15</td>
+							
+							<td nowrap align="center" title=""></td>
+							
+							
+								<td nowrap align="left" title="NY18111317853">
+								<a href='javascript:nyukaCdLink("NY18111317853")'>NY18111317853</a></td>
+							
+							
+							
+								<td nowrap align="left" title="未入荷">
+								<a href='javascript:statusLink("NY18111317853","0")'>未入荷</a></td>
+							
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="NY91111113">NY91111113</td>
+							
+							<td nowrap align="center" title="2018/11/13">2018/11/13</td>
+							
+							<td nowrap align="left" title="ai">ai</td>
+							
+							<td nowrap align="left" title="(株）相関鳥獣店アイゼキチョウジュウテン">(株）相関鳥獣店アイゼキチョウジュウテン</td>
+							
+							<td nowrap align="left" title="028822">028822</td>
+							
+							<td nowrap align="left" title="ＧＥＸ　キュービーコロン　ブルー">ＧＥＸ　キュービーコロン　ブルー</td>
+							
+							
+							<td align="right" title="20" >
+							20</td>
+							
+							
+							<td align="right" title="" >
+							</td>	
+							
+							
+							<td align="right" title="" >
+							</td>
+							
+						</tr>
+					
+						
+						<tr>
+							
+							<td nowrap align="center" >3</td>
+							
+							<td nowrap align="center" title="2018/11/15">2018/11/15</td>
+							
+							<td nowrap align="center" title=""></td>
+							
+							
+								<td nowrap align="left" title="NY18111317852">
+								<a href='javascript:nyukaCdLink("NY18111317852")'>NY18111317852</a></td>
+							
+							
+							
+								<td nowrap align="left" title="未入荷">
+								<a href='javascript:statusLink("NY18111317852","0")'>未入荷</a></td>
+							
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="NY91111112">NY91111112</td>
+							
+							<td nowrap align="center" title="2018/11/13">2018/11/13</td>
+							
+							<td nowrap align="left" title="ai">ai</td>
+							
+							<td nowrap align="left" title="(株）相関鳥獣店アイゼキチョウジュウテン">(株）相関鳥獣店アイゼキチョウジュウテン</td>
+							
+							<td nowrap align="left" title="028822">028822</td>
+							
+							<td nowrap align="left" title="ＧＥＸ　キュービーコロン　ブルー">ＧＥＸ　キュービーコロン　ブルー</td>
+							
+							
+							<td align="right" title="10" >
+							10</td>
+							
+							
+							<td align="right" title="" >
+							</td>	
+							
+							
+							<td align="right" title="" >
+							</td>
+							
+						</tr>
+					
+						
+						<tr>
+							
+							<td nowrap align="center" >4</td>
+							
+							<td nowrap align="center" title="2018/11/15">2018/11/15</td>
+							
+							<td nowrap align="center" title=""></td>
+							
+							
+								<td nowrap align="left" title="NY18111317850">
+								<a href='javascript:nyukaCdLink("NY18111317850")'>NY18111317850</a></td>
+							
+							
+							
+								<td nowrap align="left" title="未入荷">
+								<a href='javascript:statusLink("NY18111317850","0")'>未入荷</a></td>
+							
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="NY43434343">NY43434343</td>
+							
+							<td nowrap align="center" title="2018/11/13">2018/11/13</td>
+							
+							<td nowrap align="left" title="ap">ap</td>
+							
+							<td nowrap align="left" title="アペックス（有）アペックス">アペックス（有）アペックス</td>
+							
+							<td nowrap align="left" title="028198">028198</td>
+							
+							<td nowrap align="left" title="ＧＥＸ　キュービーコロン　ピンク">ＧＥＸ　キュービーコロン　ピンク</td>
+							
+							
+							<td align="right" title="20" >
+							20</td>
+							
+							
+							<td align="right" title="" >
+							</td>	
+							
+							
+							<td align="right" title="" >
+							</td>
+							
+						</tr>
+					
+						
+						<tr>
+							
+							<td nowrap align="center" >5</td>
+							
+							<td nowrap align="center" title="2018/11/15">2018/11/15</td>
+							
+							<td nowrap align="center" title=""></td>
+							
+							
+								<td nowrap align="left" title="NY18111317850">
+								<a href='javascript:nyukaCdLink("NY18111317850")'>NY18111317850</a></td>
+							
+							
+							
+								<td nowrap align="left" title="未入荷">
+								<a href='javascript:statusLink("NY18111317850","0")'>未入荷</a></td>
+							
+							
+							<td nowrap align="left" title="アクアペット倉庫">アクアペット倉庫</td>
+							
+							<td nowrap align="left" title="NY43434343">NY43434343</td>
+							
+							<td nowrap align="center" title="2018/11/13">2018/11/13</td>
+							
+							<td nowrap align="left" title="ap">ap</td>
+							
+							<td nowrap align="left" title="アペックス（有）アペックス">アペックス（有）アペックス</td>
+							
+							<td nowrap align="left" title="0003">0003</td>
+							
+							<td nowrap align="left" title="商品C">商品C</td>
+							
+							
+							<td align="right" title="5" >
+							5</td>
+							
+							
+							<td align="right" title="" >
+							</td>	
+							
+							
+							<td align="right" title="" >
+							</td>
+							
+						</tr>
+					
+				</table>
+			
+			
+			
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

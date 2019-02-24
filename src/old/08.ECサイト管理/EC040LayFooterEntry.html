@@ -1,0 +1,396 @@
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+		<link href="../ecsdocs2/css/system.css" rel="stylesheet" type="text/css" media="all">
+		<style type="text/css">  
+			<!-- 
+			.txt01 {color:#666; font-size:11px; line-height:1.4em;}
+			.btn_box {width:750px; text-align:center;margin:10px;padding:10px;}
+			table {font-size:12px;}
+			.btn_p {border-style:double solid #09F;padding:inheri}
+			.h4_s { font-weight:bold; color:#000; margin:10px 0 10px 0; background-color:#FFFFFF;padding:5px; width:750px;}
+			-->  
+		</style> 
+		<script type="text/javascript">
+		<!--
+			//プレビュー実行
+			function doInsUpdWT() {
+				$$("_form1").action="/easpro2/e_asproKanri/EC040LayFooterEntry"
+				$$("_form1").processType.value = 10;
+				$$("_form1").submit();
+				btnDisabled();
+			}
+			
+			//更新実行
+			function doInsUpdMT() {
+				if(confirm("更新します。よろしいですか？")){
+					$$("_form1").action="/easpro2/e_asproKanri/EC040LayFooterEntry"
+					$$("_form1").processType.value=4;
+					$$("_form1").submit();
+					btnDisabled();
+				}
+			}
+			
+			//ロゴをチェックイン実行
+			function setObjLogoEnable(_objID1,_objID2,_objID3,_objID4,_objID5) {
+				$$(_objID1).disabled = false;
+				$$(_objID2).disabled = true;
+				$$(_objID3).disabled = true;
+				$$(_objID4).style.display="none";
+				$$(_objID5).style.display="";
+			}
+			
+			//文字をチェックイン実行
+			function setObjMojiEnable(_objID1,_objID2,_objID3,_objID4,_objID5) {
+				$$(_objID1).disabled = true;
+				$$(_objID2).disabled = false;
+				$$(_objID3).disabled = false;
+				$$(_objID4).style.display="";
+				$$(_objID5).style.display="none";
+			}
+			
+			//表示しないをチェックイン実行
+			function setObjDisEnable(_objID1,_objID2,_objID3,_objID4,_objID5) {
+				$$(_objID1).disabled = true;
+				$$(_objID2).disabled = true;
+				$$(_objID3).disabled = true;
+				$$(_objID4).style.display="none";
+				$$(_objID5).style.display="";
+			}
+			
+			//カラーパレットリンクをチェックイン実行
+			function doSearchColor(_objid) {
+				var lvCol = encodeURIComponent($$(_objid).value);
+				window.open("/easpro2/e_asproLogin/CC023SearchColor?callsSrciptFuncName=setColor&selColor="+lvCol, "CC023", "width=262,height=610,resizable=yes");
+			}
+			
+			//背景色実行
+			function setColor(_color) {
+				$$("_backColor").value = _color;
+			}
+			//カラーパレットリンクをチェックイン実行
+			function doSearchColorLeft(_objid) {
+				var lvCol = encodeURIComponent($$(_objid).value);
+				window.open("/easpro2/e_asproLogin/CC023SearchColor?callsSrciptFuncName=setColorLeft&selColor="+lvCol, "CC023", "width=262,height=610,resizable=yes");
+			}
+			//背景色実行
+			function setColorLeft(_color) {
+				$$("_leftParamColor").value = _color;
+			}
+			//カラーパレットリンクをチェックイン実行
+			function doSearchColorCenter(_objid) {
+				var lvCol = encodeURIComponent($$(_objid).value);
+				window.open("/easpro2/e_asproLogin/CC023SearchColor?callsSrciptFuncName=setColorCenter&selColor="+lvCol, "CC023", "width=262,height=610,resizable=yes");
+			}
+			//背景色実行
+			function setColorCenter(_color) {
+				$$("_centerParamColor").value = _color;
+			}
+			//カラーパレットリンクをチェックイン実行
+			function doSearchColorRight(_objid) {
+				var lvCol = encodeURIComponent($$(_objid).value);
+				window.open("/easpro2/e_asproLogin/CC023SearchColor?callsSrciptFuncName=setColorRight&selColor="+lvCol, "CC023", "width=262,height=610,resizable=yes");
+			}
+			//背景色実行
+			function setColorRight(_color) {
+				$$("_rightParamColor").value = _color;
+			}
+			//カラーパレットリンクをチェックイン実行
+			function doSearchColorTop(_objid) {
+				var lvCol = encodeURIComponent($$(_objid).value);
+				window.open("/easpro2/e_asproLogin/CC023SearchColor?callsSrciptFuncName=setColorTop&selColor="+lvCol, "CC023", "width=262,height=610,resizable=yes");
+			}
+			//背景色実行
+			function setColorTop(_color) {
+				$$("_pageTopParamColor").value = _color;
+			}
+			
+			//プレビュー実行
+			function openSubWinFunc() {
+				window.open("null/PG010TopPage.act?coNo="+$$("_coNo").value+"&tenpoCd="+$$("_tenpoCd").value+"&moDo=5&sessionId="+$$("_sessionId").value, "", 
+					"width=1020,height=600,menubar=yes,location=yes,status=yes,resizable=yes,scrollbars=yes");
+			}
+			
+			//初期処理実行
+			$(document).ready(function(){
+				var leftRadio = "0";
+				var centerRadio = "2";
+				var rightRadio = "0";
+				if (leftRadio == 1){
+					$$("_leftParamColor").disabled = true;
+					$$("_leftParamMultiMoji").disabled = true;
+					$$("_spanLeftColor").style.display="none";
+					$$("_spanLeftColorD").style.display="";
+				} else if (leftRadio == 2){
+					$$("_leftParamMultiLogo").disabled = true;
+					$$("_spanLeftColor").style.display="";
+					$$("_spanLeftColorD").style.display="none";
+				} else {
+					$$("_leftParamColor").disabled = true;
+					$$("_leftParamMultiMoji").disabled = true;
+					$$("_leftParamMultiLogo").disabled = true;
+					$$("_spanLeftColor").style.display="none";
+					$$("_spanLeftColorD").style.display="";
+				}
+				if (centerRadio == 1){
+					$$("_centerParamMultiMoji").disabled = true;
+					$$("_centerParamColor").disabled = true;
+					$$("_spanCenterColor").style.display="none";
+					$$("_spanCenterColorD").style.display="";
+				} else if (centerRadio == 2){
+					$$("_centerParamMultiLogo").disabled = true;
+					$$("_spanCenterColor").style.display="";
+					$$("_spanCenterColorD").style.display="none";
+				} else {
+					$$("_centerParamMultiMoji").disabled = true;
+					$$("_centerParamColor").disabled = true;
+					$$("_centerParamMultiLogo").disabled = true;
+					$$("_spanCenterColor").style.display="none";
+					$$("_spanCenterColorD").style.display="";
+				}
+				if (rightRadio == 1){
+					$$("_rightParamMultiMoji").disabled = true;
+					$$("_rightParamColor").disabled = true;
+					$$("_spanRightColor").style.display="none";
+					$$("_spanRightColorD").style.display="";
+				} else if (rightRadio == 2){
+					$$("_rightParamMultiLogo").disabled = true;
+					$$("_spanRightColor").style.display="";
+					$$("_spanRightColorD").style.display="none";
+				} else {
+					$$("_rightParamMultiMoji").disabled = true;
+					$$("_rightParamColor").disabled = true;
+					$$("_rightParamMultiLogo").disabled = true;
+					$$("_spanRightColor").style.display="none";
+					$$("_spanRightColorD").style.display="";
+				}
+				var colorful = new ColorfulInput;
+				colorful.set();
+			});
+		// -->
+		</script>
+		<title></title>
+	</head>
+
+	<body bgcolor="#ffffff" onload="">
+	<form name="form1" id="_form1" method="post">
+		<input type="hidden" name="secToken" id="secToken" value="ABEEEE12513934D16CA8D664B9698779"/>
+		<input TYPE="hidden" name="processType" id="_processType">
+		<input type="hidden" name="coNo" id="_coNo" value="2625"/>
+		<input type="hidden" name="tenpoCd" id="_tenpoCd" value="1"/>
+		<input type="hidden" name="exclCnt" id="_exclCnt" value="1" />
+		<input type="hidden" name="sessionId" id="_sessionId" value="xDGrc3vV7CJ21yzp1NQhCcWLzPYlDG7L!-166925779!1547174733841"/>
+		<input type="hidden" name="userNo" id="_userNo" value="2"/>
+		<input type="hidden" name="ecPartsNo" id="_ecPartsNo" value="14"/>
+		<input type="hidden" name="ecPartsSize" id="_ecPartsSize" value="PC"/>
+		<input type="hidden" name="mode" id="_mode" value=""/>
+		<img src='../ecsdocs2/img/head_master.gif' alt='' align='middle' border='0'>
+		<b>フッター設定（フッターパーツ）</b>
+		<p class="txt01">ここではECサイトの基本設定を行います</p>
+		<b style="color:red"></b>
+		<table width="588" border="1"  cellspacing="0" class="list">
+			<tr>
+				<th width="145" nowrap bgcolor="#CCCCCC">パーツ</th>
+				<td nowrap bgcolor="white" width="140">フッター</td>
+				<th width="145" nowrap bgcolor="#CCCCCC">表示端末</th>
+				<td width="140" nowrap bgcolor="white">
+					
+						パソコン用
+					
+				</td>
+			</tr>
+		</table>
+		<h4 class="h4_s">■表示設定</h4>
+		<table width="735" border="1" cellpadding="0" cellspacing="0" class="list">
+			<tr>
+				<td width="121" nowrap bgcolor="#CCCCCC"><strong>背景色</strong></td>
+				<td nowrap>
+					<input type='text' name='backColor' id='_backColor' value='#CCCCCC' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='color' maxlength='7' style='width:70.80px;'> </input>
+				<a href="#" onClick="doSearchColor('_backColor');">カラーパレット</a>
+				</td>
+			</tr>
+			<tr>
+				<td nowrap bgcolor="#CCCCCC"><strong>左サイド表示内容</strong></td>
+				<td>
+					
+					<input type="radio" name="leftParamRadio" id="_leftRadioLogo" value="1"  onclick="setObjLogoEnable('_leftParamMultiLogo','_leftParamMultiMoji','_leftParamColor','_spanLeftColor','_spanLeftColorD')">ロゴ 
+						<input type='text' name='leftParamMultiLogo' id='_leftParamMultiLogo' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='500' style='width:237.60px;'> </input>
+					<br>
+					<input type="radio" name="leftParamRadio" id="_leftRadioMoji" value="2"  onclick="setObjMojiEnable('_leftParamMultiLogo','_leftParamMultiMoji','_leftParamColor','_spanLeftColor','_spanLeftColorD')">文字
+					<label>
+						<input type='text' name='leftParamMultiMoji' id='_leftParamMultiMoji' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='50' style='width:237.60px;'> </input>
+							
+						<span class="normal">文字色
+							<input type='text' name='leftParamColor' id='_leftParamColor' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='color' maxlength='7' style='width:70.80px;'> </input>
+						</span>
+					</label>
+					<span id="_spanLeftColor" class="normal">
+					<a href="#" onClick="doSearchColorLeft('_leftParamColor');">カラーパレット</a></span>
+	                <span id="_spanLeftColorD" style="display:none;"><label disabled="true">カラーパレット</label></span><br>
+					<input type="radio" name="leftParamRadio" id="_leftRadioHyoji" value="0" checked onclick="setObjDisEnable('_leftParamMultiLogo','_leftParamMultiMoji','_leftParamColor','_spanLeftColor','_spanLeftColorD')">表示しない
+				</td>
+			</tr>
+			<tr>
+				<td nowrap bgcolor="#CCCCCC"><strong>中央サイド表示内容</strong></td>
+				<td>
+				
+				<input type="radio" name="centerParamRadio" id="_centerRadioLogo" value="1"  onclick="setObjLogoEnable('_centerParamMultiLogo','_centerParamMultiMoji','_centerParamColor','_spanCenterColor','_spanCenterColorD')">ロゴ 
+				<input type='text' name='centerParamMultiLogo' id='_centerParamMultiLogo' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='500' style='width:237.60px;'> </input> 
+				<br>	
+				<input type="radio" name="centerParamRadio" id="_centerRadioMoji" value="2" checked onclick="setObjMojiEnable('_centerParamMultiLogo','_centerParamMultiMoji','_centerParamColor','_spanCenterColor','_spanCenterColorD')">文字
+				<label>
+					<input type='text' name='centerParamMultiMoji' id='_centerParamMultiMoji' value='copyright (c) 2015 All rights reserved. ' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='50' style='width:237.60px;'> </input>
+						<span class="normal">文字色
+					<input type='text' name='centerParamColor' id='_centerParamColor' value='#000000' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='color' maxlength='7' style='width:70.80px;'> </input>
+					</span>
+				</label>
+				<span id="_spanCenterColor" class="normal">
+				<a href="#" onClick="doSearchColorCenter('_centerParamColor');">カラーパレット</a></span>
+				<span id="_spanCenterColorD" style="display:none;"><label disabled="true">カラーパレット</label></span><br>
+				<input type="radio" name="centerParamRadio" id="_centerRadioHyoji" value="0"  onclick="setObjDisEnable('_centerParamMultiLogo','_centerParamMultiMoji','_centerParamColor','_spanCenterColor','_spanCenterColorD')">表示しない</td>
+			</tr>
+			<tr>
+				<td nowrap bgcolor="#CCCCCC"><strong>右サイド表示内容</strong></td>
+				<td>
+				
+				<input type="radio" name="rightParamRadio" id="_rightRadioLogo" value="1"  onclick="setObjLogoEnable('_rightParamMultiLogo','_rightParamMultiMoji','_rightParamColor','_spanRightColor','_spanRightColorD')">ロゴ 
+				<input type='text' name='rightParamMultiLogo' id='_rightParamMultiLogo' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='500' style='width:237.60px;'> </input> 
+					<br>
+				<input type="radio" name="rightParamRadio" id="_rightRadioMoji" value="2"  onclick="setObjMojiEnable('_rightParamMultiLogo','_rightParamMultiMoji','_rightParamColor','_spanRightColor','_spanRightColorD')">文字
+				<label>
+					<input type='text' name='rightParamMultiMoji' id='_rightParamMultiMoji' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='50' style='width:237.60px;'> </input>
+					<span class="normal">文字色
+						<input type='text' name='rightParamColor' id='_rightParamColor' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='color' maxlength='7' style='width:70.80px;'> </input>
+					</span>
+				</label>
+				<span  id="_spanRightColor" class="normal">
+				<a href="#"  onClick="doSearchColorRight('_rightParamColor');">カラーパレット</a></span>
+				<span id="_spanRightColorD" style="display:none;"><label disabled="true">カラーパレット</label></span><br>
+				<input type="radio" name="rightParamRadio" id="_rightRadioHyoji" value="0" checked onclick="setObjDisEnable('_rightParamMultiLogo','_rightParamMultiMoji','_rightParamColor','_spanRightColor','_spanRightColorD')">表示しない</td>
+			</tr>
+			<tr>
+				<td width="121" nowrap bgcolor="#CCCCCC"><strong>ページTOP部<BR>背景色</strong></td>
+				<td width="608"><span class="normal">
+				<input type='text' name='pageTopParamColor' id='_pageTopParamColor' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='color' maxlength='7' style='width:70.80px;'> </input>
+				<a href="#" onClick="doSearchColorTop('_pageTopParamColor');">カラーパレット</a> </span></td>
+			</tr>
+		</table>
+		<br>
+		<br>
+		<h4 class="h4_s">■リンクBOX設定</h4>
+		<table width="735" border="1" cellpadding="0" cellspacing="0" class="list">
+			<tr>
+				<td nowrap bgcolor="#CCCCCC"><strong>リンク表示内容</strong></td>
+				<td width="608">
+				
+					<input type="radio" name="linkParamRadio" id="_linkParamRadioLe" value="1" >左表示
+					<input type="radio" name="linkParamRadio" id="_linkParamRadioCe" value="2" >中央
+					<input type="radio" name="linkParamRadio" id="_linkParamRadioRi" value="3" checked>右表示
+					<input type="radio" name="linkParamRadio" id="_linkParamRadioMu" value="4" >表示しない
+				</td>
+			</tr>
+			<tr>
+				<td nowrap bgcolor="#CCCCCC"><strong>ご利用ガイド</strong></td>
+				<td width="608">
+				
+					<input type="radio" name="gaiduParamRadio" id="_linkParamRadioSu" value="1" checked>表示する
+					<input type="radio" name="gaiduParamRadio" id="_linkParamRadioMu" value="0" >表示しない
+				</td>  
+			</tr>
+			<tr>
+				<td nowrap bgcolor="#CCCCCC"><strong>会社案内</strong></td>
+				<td width="608">
+				
+					<input type="radio" name="kaisyaParamRadio" id="_kaisyaParamRadioSu" value="1" checked>表示する
+					<input type="radio" name="kaisyaParamRadio" id="_kaisyaParamRadioMu" value="0" >表示しない
+				</td>
+			</tr>
+		</table>
+	
+		<table width="700" border="0" cellspacing="0" cellpadding="1">
+			<tr>
+				<td align="center">
+					<input  type="image" onClick="doInsUpdWT();return false;" src="../ecsdocs2/img/btpv.gif"/>
+					<input  type="image" onClick="doInsUpdMT();return false;" src="../ecsdocs2/img/bt_kosin.gif"/>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

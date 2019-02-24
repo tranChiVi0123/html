@@ -1,0 +1,144 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="/ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="/ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="/ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="/ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="/ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="/ecsdocs2/js/ecs.js?mCa4m7pyaL" charset="UTF-8"></script>
+
+<link href="/ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="/ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+
+
+</script>
+
+
+
+<HTML LANG="ja">
+	<SCRIPT LANGUAGE="JavaScript">
+
+	
+	function login(){	
+		$$("_Form").action = "https://auth.login.yahoo.co.jp/yconnect/v1/authorization";
+		$$("_Form").submit();
+
+		setTimeout('enableDownLoad()', '20000');
+	}
+	
+
+	</SCRIPT>
+	<HEAD>
+		<TITLE>Yahooログイン</TITLE>
+		<link rel="stylesheet" href="https://s.yimg.jp/images/login/pc/css/oauth/1.0.0/common.css" type="text/css" media="all">
+		<link rel="stylesheet" href="https://s.yimg.jp/images/login/pc/css/oauth/1.0.0/segment.css" type="text/css" media="all">
+		<!--[if lt IE 6]>
+		<link rel="stylesheet" href="https://s.yimg.jp/yui/jp/tmpl/1.1.0/yjTmplIE5-min.css" type="text/css" media="all">
+		<![endif]-->
+	 </HEAD>
+	
+		<BODY ONLOAD="" style="margin:35px">
+	
+	
+		yahoo!API認証キーが前回の更新から15日以上経過している為、更新して下さい。<BR>
+		<form action="" id="_Form" target="_self">
+		1002:アクアペットサービス ヤフー店<BR>
+			
+			<br>
+			<br>
+			<img src="http://i.yimg.jp/images/login/btn/btnXSYid.gif" width="241" height="28" alt="Yahoo! JAPAN IDでログイン" border="0"  onclick="login();">
+			<input type="hidden" name="response_type" id="_response_type" value="code id_token">
+			<input type="hidden" name="client_id" id="_client_id" value="dj0zaiZpPWZRNUM2Vm5xejMzQiZzPWNvbnN1bWVyc2VjcmV0Jng9M2E-">
+			<input type="hidden" name="redirect_uri" id="_redirect_uri" value="https://verify19.e-shop.co.jp/easpro2/e_asproLogin/CC080YahooLogin?processType=20">
+			<input type="hidden" name="state" id="_state" value="tHYpjMyxqVuUkfxUOoVtAGYjldJGmAdqwcJduvSFzjXs">
+			<input type="hidden" name="display" id="_display" value="page">
+			<input type="hidden" name="nonce" id="_nonce" value="DHAosvesCsrYOTvIzfyoLNlxehaTdtYTXptV">
+		</form>
+	
+	
+    </BODY>
+</HTML>
