@@ -1,0 +1,154 @@
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?8G7hWyvCjn" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+ 
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+		<title>
+			サイト用商品マスタ（商品情報削除）
+		</title>
+		<script type="text/javascript">
+		var vConfirmMsg = "登録します。よろしいですか？";
+		function uploadCsv(){
+			if (confirm(vConfirmMsg)){
+				$$("_processType").value = "11";
+				$$("_Form1").action = "/easpro2/e_asproMaster/MS047MallDelItemUp";
+				$$("_Form1").submit();
+				btnDisabled();	
+			}
+		}
+		</script>
+	</head>
+	<body>
+		<img src="../ecsdocs2/img/head_btn99.gif" alt="" align="absmiddle" border="0">
+		<div class=pt>サイト用商品マスタ（商品情報削除）</div>
+		<br>
+		<b style="color: red" id="js_errMsg"></b><BR>
+		<form name="Form1" id="_Form1" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="secToken" id="secToken" value="ABEEEE12513934D16CA8D664B9698779"/>
+			<input type="hidden" name="strForwordFlg" value="2"/>
+			<input type="hidden" name="processType" id="_processType"/>
+			<br>
+			<table style="width:400" class="nb">
+				<tr >
+					<td>
+						<table class="sf" style="width:400">
+							<tr>
+								<th width="100" class="must" style="background-color:#FAFAD2">登録情報</th>
+								<td>
+									<input type="file" name="touRokuFile" size="30">
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<hr style="border-style: 1px solid #A0A0A0; width:400px;margin-top:7px;margin-bottom:7px;"/>
+					</td>
+				</tr>
+				<tr bgcolor="#ffcccc">
+					<td align="center">
+						<input  type="button" onClick="uploadCsv();" value="登録する"/>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<br>
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

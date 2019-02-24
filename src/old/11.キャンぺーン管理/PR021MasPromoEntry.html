@@ -1,0 +1,881 @@
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+	<meta http-equiv = "Pragma" content="no-cache">																	
+	<meta http-equiv = "Cache-control" content="no-cache">
+	<TITLE>キャンペーンマスタ</TITLE>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+	
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+	<script type="text/javascript">
+
+		//特典「購入金額値引き」ラジオボタン変更時処理
+		function chg_radio_toku_kounyu(){
+			//「適用する」が選択されている場合
+			if($$("kounyu_tokuten_tekikbn_1").checked==true)
+			{
+				$$("kounyu_tokuten_tani_1").disabled = false;
+				$$("kounyu_tokuten_tani_2").disabled = false;
+				
+				$$("kounyu_tokuten_kingaku").disabled = false;
+				$$("kounyu_tokuten_kingaku").style.backgroundColor="#FFFFFF";
+				
+				$$("kounyu_tokuten_tani_1").checked=true;
+				chg_radio_toku_kounyu_tani();
+								
+				//「適用しない」が選択されている場合
+			}else{
+				$$("kounyu_tokuten_tani_1").disabled = true;
+				$$("kounyu_tokuten_tani_2").disabled = true;
+								
+				$$("kounyu_tokuten_kingaku").disabled = true;
+				$$("kounyu_tokuten_kingaku").style.backgroundColor="#C0C0C0";
+				$$("kounyu_tokuten_kingaku").value = "";
+			}
+		}
+		//特典「購入金額値引き_単位」ラジオボタン変更時処理
+		function chg_radio_toku_kounyu_tani(){
+			//「率」が選択されている場合
+			if($$("kounyu_tokuten_tani_1").checked==true)
+			{	
+				$$("kounyu_tokuten_kingaku").maxLength = "3";
+				$$("kounyu_tokuten_kingaku").value = "";
+				$$("kounyu_tokuten_memori").innerText = "%";
+			//「金額」が選択されている場合
+			}else{
+				$$("kounyu_tokuten_kingaku").maxLength = "9";
+				$$("kounyu_tokuten_kingaku").value = "";				
+				$$("kounyu_tokuten_memori").innerText = "円";
+			}
+		}
+		
+		//特典ポイント付与ラジオボタン変更時処理
+		function chg_radio_toku_point(){
+			//「適用する」が選択されている場合
+			if($$("point_tokuten_tekikbn_1").checked==true)
+			{
+				$$("point_tokuten_tani_1").disabled = false;
+				$$("point_tokuten_tani_2").disabled = false;
+				
+				$$("point_tokuten_atai").disabled = false;
+				$$("point_tokuten_atai").style.backgroundColor="#FFFFFF";
+				
+				$$("point_tokuten_tani_1").checked=true;
+				chg_radio_toku_point_tani();
+								
+				//「適用しない」が選択されている場合
+			}else{
+				$$("point_tokuten_tani_1").disabled = true;
+				$$("point_tokuten_tani_2").disabled = true;
+								
+				$$("point_tokuten_atai").disabled = true;
+				$$("point_tokuten_atai").style.backgroundColor="#C0C0C0";
+				$$("point_tokuten_atai").value = "";
+			}
+		}
+		//特典「ポイント_単位」ラジオボタン変更時処理
+		function chg_radio_toku_point_tani(){
+			//「率」が選択されている場合
+			if($$("point_tokuten_tani_1").checked==true)
+			{	
+				$$("point_tokuten_atai").maxLength = "3";
+				$$("point_tokuten_atai").value = "";
+				$$("point_tokuten_memori").innerText = "%";
+			//「金額」が選択されている場合
+			}else{
+				$$("point_tokuten_atai").maxLength = "9";
+				$$("point_tokuten_atai").value = "";				
+				$$("point_tokuten_memori").innerText = "P";
+			}
+		}
+		//特典「販売単価値引き」ラジオボタン変更時処理
+		function chg_radio_toku_hanbai(){
+			//「適用する」が選択されている場合
+			if($$("hanbai_tokuten_tekikbn_1").checked==true)
+			{
+				$$("hanbai_tokuten_tani_1").disabled = false;
+				$$("hanbai_tokuten_tani_2").disabled = false;
+				
+				$$("hanbai_tokuten_kingaku").disabled = false;
+				$$("hanbai_tokuten_kingaku").style.backgroundColor="#FFFFFF";
+				
+				$$("hanbai_tokuten_tani_1").checked=true;
+				chg_radio_toku_hanbai_tani();
+								
+				//「適用しない」が選択されている場合
+			}else{
+				$$("hanbai_tokuten_tani_1").disabled = true;
+				$$("hanbai_tokuten_tani_2").disabled = true;
+								
+				$$("hanbai_tokuten_kingaku").disabled = true;
+				$$("hanbai_tokuten_kingaku").style.backgroundColor="#C0C0C0";
+				$$("hanbai_tokuten_kingaku").value = "";
+			}
+		}
+		//特典「販売単価値引き_単位」ラジオボタン変更時処理
+		function chg_radio_toku_hanbai_tani(){
+			//「率」が選択されている場合
+			if($$("hanbai_tokuten_tani_1").checked==true)
+			{	
+				$$("hanbai_tokuten_kingaku").maxLength = "3";
+				$$("hanbai_tokuten_kingaku").value = "";
+				$$("hanbai_tokuten_memori").innerText = "%";
+			//「金額」が選択されている場合
+			}else{
+				$$("hanbai_tokuten_kingaku").maxLength = "9";
+				$$("hanbai_tokuten_kingaku").value = "";				
+				$$("hanbai_tokuten_memori").innerText = "円";
+			}
+		}
+		
+		//特典「プレゼント」ラジオボタン変更時処理
+		function chg_radio_toku_present(){
+			//「適用する」が選択されている場合
+			if($$("present_tokuten_tekikbn_1").checked==true)
+			{
+				$$("_present_tokuten_itemcd").disabled = false;
+				$$("_present_tokuten_itemcd").style.backgroundColor="#FFFFFF";
+			//「適用しない」が選択されている場合
+			}else{				
+				$$("_present_tokuten_itemcd").disabled = true;
+				$$("_present_tokuten_itemcd").style.backgroundColor="#C0C0C0";
+				$$("_present_tokuten_itemcd").value = "";
+				$$("_h_present_tokuten_itemnm").innerHTML = "";
+				$$("_present_tokuten_itemnm").value = "";
+			}
+		}
+		
+		//キャンペーン該当条件「対象商品」ラジオボタン変更時処理
+		function chg_radio_jyo_item(){
+			//「適用する」が選択されている場合
+			if($$("item_tekikbn_1").checked==true)
+			{
+				$$("btn_item_subwin").disabled = false;
+				$$("_item_count_hyoji").style.display = "inline";
+				$$("kounyu_tokuten_tekikbn_0").disabled= true;
+				$$("kounyu_tokuten_tekikbn_1").disabled= true;
+				$$("kounyu_tokuten_tani_1").disabled = true;
+				$$("kounyu_tokuten_tani_2").disabled = true;
+				$$("kounyu_tokuten_kingaku").disabled = true;
+				$$("kounyu_tokuten_kingaku").style.backgroundColor="#C0C0C0";
+				$$("hanbai_tokuten_tekikbn_0").disabled= false;
+				$$("hanbai_tokuten_tekikbn_1").disabled= false;
+				if($$("hanbai_tokuten_tekikbn_1").checked==true){
+				$$("hanbai_tokuten_tani_1").disabled = false;
+				$$("hanbai_tokuten_tani_2").disabled = false;
+				$$("hanbai_tokuten_kingaku").disabled = false;
+				$$("hanbai_tokuten_kingaku").style.backgroundColor="#FFFFFF";
+				}
+				
+			//「適用しない」が選択されている場合
+			}else{
+				$$("btn_item_subwin").disabled = true;
+				$$("_item_count_hyoji").style.display = "none";
+				$$("kounyu_tokuten_tekikbn_0").disabled= false;
+				$$("kounyu_tokuten_tekikbn_1").disabled= false;
+				if($$("kounyu_tokuten_tekikbn_1").checked==true){
+				$$("kounyu_tokuten_tani_1").disabled = false;
+				$$("kounyu_tokuten_tani_2").disabled = false;
+				$$("kounyu_tokuten_kingaku").disabled = false;
+				$$("kounyu_tokuten_kingaku").style.backgroundColor="#FFFFFF";
+				}
+				$$("hanbai_tokuten_tekikbn_0").disabled= true;
+				$$("hanbai_tokuten_tekikbn_1").disabled= true;
+				$$("hanbai_tokuten_tani_1").disabled = true;
+				$$("hanbai_tokuten_tani_2").disabled = true;
+				$$("hanbai_tokuten_kingaku").disabled = true;
+				$$("hanbai_tokuten_kingaku").style.backgroundColor="#C0C0C0";
+			}
+		}
+
+		//キャンペーン該当条件「対象会員」ラジオボタン変更時処理
+		function chg_radio_jyo_kaiin(){
+			//「適用する」が選択されている場合
+			if($$("kaiin_jouken_flg_1").checked==true)
+			{
+				$$("btn_kaiin_subwin").disabled = false;
+				$$("_kokyaku_count_hyoji").style.display = "inline";
+			//「適用しない」が選択されている場合
+			}else{
+				$$("btn_kaiin_subwin").disabled = true;
+				$$("_kokyaku_count_hyoji").style.display = "none";
+			}
+		}
+	
+		//「登録」ボタン押下時処理
+		function Insert(){
+			//登録時の確認メッセージ
+				if(confirm("登録します。よろしいですか？")){
+
+				//使用不可にチェックが付いている場合
+				if($$("chk_del_flg").checked==true)
+				{
+					$$("del_flg").value="1";		//使用停止
+				}else{
+					$$("del_flg").value="0";		//使用中
+				}
+				//誕生月重複不可にチェックが付いている場合
+				if($$("chk_birth_jouken_ng").checked==true)
+				{
+					$$("birth_jouken_ng").value="1";		//誕生月不可
+				}else{
+					$$("birth_jouken_ng").value="0";		//誕生月可
+				}
+				//対象商品が適用するの場合
+				if($$("item_tekikbn_1").checked==true) {
+					$$("kounyu_tokuten_tekikbn2").value="0";		//適用しない
+					$$("kounyu_tokuten_tekikbn_0").checked=true;	//適用しない を on
+					$$("kounyu_tokuten_tekikbn_1").checked=false;	//適用する をoff
+				}
+			$$("_processType").value="1";
+			$$("_Form").action="PR021MasPromoEntry.html";
+			$$("_Form").submit();
+			btnDisabled();
+				}
+		}
+		//「更新」ボタン押下時処理
+		function Update(){
+			//更新時の確認メッセージ
+			if(confirm("更新します。よろしいですか？")){
+				//使用不可にチェックが付いている場合
+				if($$("chk_del_flg").checked == true) {
+					$$("del_flg").value = "1";	//使用停止
+				}else{
+					$$("del_flg").value = "0";	//使用中
+				}
+				//誕生月重複不可にチェックが付いている場合
+				if($$("chk_birth_jouken_ng").checked==true) {
+					$$("birth_jouken_ng").value="1";		//誕生月不可
+				}else{
+					$$("birth_jouken_ng").value="0";		//誕生月可
+				}
+				//対象商品が適用するの場合
+				if($$("item_tekikbn_1").checked==true) {
+					$$("kounyu_tokuten_tekikbn2").value="0";		//適用しない
+					$$("kounyu_tokuten_tekikbn_0").checked=true;	//適用しない を on
+					$$("kounyu_tokuten_tekikbn_1").checked=false;	//適用する をoff
+				
+				}
+				$$("_processType").value="2";				
+				$$("_Form").action="PR021MasPromoEntry.html";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+		}
+		//「削除」ボタン押下時処理
+		function do_Delete(obj){
+			//削除時の確認メッセージ			
+			if(confirm("削除します。よろしいですか？")){
+				$$("_processType").value="3";				
+				$$("_Form").action="PR021MasPromoEntry.html";
+				$$("_Form").submit();
+				btnDisabled();
+			}	
+		}
+		//2014/10/09 chg motoyama-----------start
+		//対象商品登録サブウインドウ
+		function CC026(_disMode) {
+			var url;
+			var promo_cd = "";
+			//ポイントorキャンペーンかの判定フラグ
+			var hantei_flg = "1";
+			if($$("_promo_cd").value==""){
+				promo_cd = $$("_promo_cd_kari").value;
+			}else{
+				promo_cd = $$("_promo_cd").value;
+			}
+			url = "CC026ProductEntry.html?callsSrciptFuncName=setFromCC026";
+			url = url + "&processType=" + 1;
+			url = url + "&point_cd=" + promo_cd;
+			url = url + "&dispMode=" + _disMode;
+			url = url + "&update_hyoji_kbn=" + $$("update_hyoji_kbn").value;
+			url = url + "&callcenterFlg=" + $$("callcenterFlg").value;
+			url = url + "&masta_goods_get_flg=" + $$("masta_goods_get_flg").value;
+			url = url + "&hantei_flg=" + hantei_flg;
+			_searchWin = window.open(url,"CC026","width=700,height=400,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+
+		}
+		//商品登録サブウインドウからの戻り値をセット
+		function setFromCC026(_qty,_flg){
+			$$("_item_count").innerHTML = _qty;
+			$$("_h_item_count").value = _qty;
+			$$("masta_goods_get_flg").value = _flg;
+		}
+		
+		//対象会員登録サブウインドウ
+		function CC027(_disMode) {
+			var url;
+			var promo_cd = "";
+			if($$("_promo_cd").value==""){
+				promo_cd = $$("_promo_cd_kari").value;
+			}else{
+				promo_cd = $$("_promo_cd").value;
+			}
+			url = "CC027CustEntry.html?callsSrciptFuncName=setFromCC027";
+			url = url + "&processType=" + 1;
+			url = url + "&point_cd=" + promo_cd;
+			url = url + "&dispMode=" + _disMode;
+			url = url + "&update_hyoji_kbn=" + $$("update_hyoji_kbn").value;
+			url = url + "&callcenterFlg=" + $$("callcenterFlg").value;
+			url = url + "&masta_kokyaku_get_flg=" + $$("masta_kokyaku_get_flg").value;
+			_searchWin = window.open(url,"CC027","width=700,height=400,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+			_searchWin.focus();
+		}
+		//会員登録サブウインドウからの戻り値をセット
+		function setFromCC027(_qty,_flg){
+			$$("_kokyaku_count").innerHTML = _qty;
+			$$("_h_kokyaku_count").value = _qty;
+			$$("masta_kokyaku_get_flg").value = _flg;
+		}
+		
+		//商品コード onchange ajax
+		function itemChange(This){
+			var itemcd = This.value;
+			if(itemcd == ""){
+				$$("_h_present_tokuten_itemnm").innerHTML = "";
+				return;
+			}
+			//Ajaxを起動させる
+			var url = "PR021MasPromoEntry.html";
+			var parms = "processType="+6;
+				parms = parms+"&itemCd="+itemcd;
+				parms = parms+"&ajaxKbn=1";
+			_SendByAjax(url,parms,'',false);
+		}
+		//Ajaxから受け取った値をセットする(商品名をセット)
+		function setItemInfo(_itemCd,_itemNm,_check){
+			if(_check == "1" || _check == "9"){
+				if(_check == "1"){
+					alert('入力した商品コードは商品マスタに登録されていません。');
+				}
+				$$("_present_tokuten_itemcd").value = "";
+				$$("_h_present_tokuten_itemnm").innerHTML = "";
+				$$("_present_tokuten_itemnm").value = "";
+				$$("_present_tokuten_itemcd").focus();
+			}else{
+				$$("_present_tokuten_itemcd").value = _itemCd;
+				$$("_h_present_tokuten_itemnm").innerHTML = _itemNm;
+				$$("_present_tokuten_itemnm").value = _itemNm;
+			}
+		}
+		
+		// 商品検索Link subWindow
+		function CC021() {
+			var url;
+			if($$("present_tokuten_tekikbn_1").checked==false){
+				return;
+			}
+			url = "/easpro2/e_asproLogin/CC021SearchProduct?callsSrciptFuncName=setGoodsFromPR021";
+			url = url + "&processType=";
+			_searchWin = window.open(url,"CC021","width=670,height=620,menubar=no,location=no,status=yes,resizable=no,scrollbars=yes");
+			_searchWin.focus();
+		}
+		// 商品検索 openWindow to client(画面にセット)
+		function setGoodsFromPR021(productNo,colorCd,sizeCd,productNm,std_zei_k_tnk,sale_zei_k_tnk){
+			//productNo,colorCd,sizeCd,psroductNm
+			$$("_present_tokuten_itemcd").value = productNo + colorCd + sizeCd;
+			$$("_h_present_tokuten_itemnm").innerHTML = productNm;
+			$$("_present_tokuten_itemnm").value = productNm;				
+			$$("_std_zei_k_tnk").value = stdPrice;
+			$$("_sale_zei_k_tnk").value = salePrice;
+		}
+	</script>
+	</head>
+	<BODY >
+		<img src='../ecsdocs2/img/head_bt_project.gif' alt='' align='middle' border='0'>
+		<div class=pt>キャンペーンマスタ<br><A href='PR020MasPromoList.html?backUrlKey=&intPageNo=1&intPageCount=1&intPageSize=30&intRecordCount=1&strToolbarX=&strToolbarY=&strSpaceHeight=50px&processType=2&co_no=2625&searchKbn=2&promoBunruiNmSearch=&promoCdSearch=&promoNmSearch=&promoSyuruiSearch=&orderDateFromSearch=&orderDateToSearch=&delFlgSearch=&toku_kounyu_kbn_Search=&toku_kounyu_tani_Search=&toku_kounyu_from_Search=&toku_kounyu_to_Search=&toku_present_kbn_Search=&toku_present_itemcd_Search=&toku_present_itemnm_Search=&toku_present_hukuflg_Search=&jyo_item_kbn_Search=&jyo_item_itemcd_Search=&jyo_item_itemnm_Search=&callcenterFlg=&catalog_cd_Search=&chk_jyo_item_kbn_Search=&chk_jyo_sencyaku_kbn_Search=&chk_toku_present_hukuflg_Search=&chk_toku_present_kbn_Search=' tabindex="1" ><img src="../ecsdocs2/img/return.gif"></A></div>
+		<form id="_Form" method="post" action="PR021MasPromoEntry.html">
+			<input type="hidden" name="processType" id="_processType"/>
+			<input type="hidden" name="secToken" id="secToken" value="595FFF67E483B30FF250971ED7B427F9"/>
+			<!-- 画面処理区分 -->
+			<input type="hidden" name="processKbn" id="_processKbn" value="1"/>
+			<input type="hidden" name="excl_cnt" id="_excl_cnt" value="1"/>
+			<input type="hidden" name="promo_cd" id="_promo_cd" value="PR000001"/>
+			<input type="hidden" name="promo_cd_kari" id="_promo_cd_kari" value="10000"/>
+			<input type="hidden" name="dispFlg" id="_dispFlg" value=""/>
+			<input type="hidden" name="strFromPageId" value="">
+			<input type="hidden" name="del_flg" id="del_flg" value=""/>
+			<input type="hidden" name="birth_jouken_ng" id="birth_jouken_ng" value=""/>
+			<input type="hidden" name="kounyu_tokuten_tekikbn2" id="kounyu_tokuten_tekikbn2" value="0"/>
+			<input type="hidden" name="update_hyoji_kbn" id="update_hyoji_kbn" value="">
+			<input type="hidden" name="present_tokuten_hukuflg" id="present_tokuten_hukuflg" value="">
+			<input type="hidden" name="callcenterFlg" id="callcenterFlg" value="">		
+			<input type="hidden" name="item_gokeikbn" id="item_gokeikbn" value="">		
+			<input type="hidden" name="promo_sub_cd" id="promo_sub_cd" value="">
+			<input type="hidden" name="masta_goods_get_flg" id="masta_goods_get_flg" value="0">
+			<input type="hidden" name="masta_kokyaku_get_flg" id="masta_kokyaku_get_flg" value="0">
+			<br>
+			<b style="color: red" id="js_errMsg"></b>
+			<br>
+			<TABLE>
+				<TR>
+					<TD>
+						<TABLE>
+							<TR>
+								<TD>
+									<TABLE CLASS="ft" style="width:800">
+										<col style="width:180"><col style="width:620">
+										
+										<TR>
+											<TH ALIGN="center" style="width:180" ><FONT SIZE="2">キャンペーンコード</FONT></TH>
+											<TD>
+												
+													PR000001
+												
+											</TD>
+										</TR>
+										<TR>
+											<TH ALIGN="center" style="width:180" class="MUST"><FONT SIZE="2">キャンペーン名</FONT></TH>
+											<TD NOWRAP>
+											
+												<input type='text' name='promo_nm' id='promo_nm' value='キャンペーン' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='40' style='width:348.80px;'> </input> 
+												
+											
+											</TD>
+										</TR>
+										<TR>
+											<TH ALIGN="center" style="width:180" class="MUST"><FONT SIZE="2">対象期間</FONT></TH>
+											<TD>
+											
+												<input type='text' name='order_date_from' style='width:82px;'  maxlength=10 value='2018/12/02' class='ymd' onkeypress='_chkInp();' id='order_date_from' onblur='_formateDate(this,"対象期間(FROM)は日付を入力して下さい。");' /><a href='#' id='order_date_from_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'order_date_from',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'order_date_from_calendar_link_id',singleClick : true,step:1});</script>～
+												<input type='text' name='order_date_to' style='width:82px;'  maxlength=10 value='2018/12/02' class='ymd' onkeypress='_chkInp();' id='order_date_to' onblur='_formateDate(this,"対象期間(TO)は日付を入力して下さい。");' /><a href='#' id='order_date_to_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'order_date_to',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'order_date_to_calendar_link_id',singleClick : true,step:1});</script>
+											
+											</TD>
+										</TR>
+										<TR>
+											<TH ALIGN="center" style="width:180"><FONT SIZE="2">説明</FONT></TH>
+											<TD>
+											
+												<textarea name="promo_memo" class="multi"cols="60" rows="3"></textarea>
+											
+											</TD>
+										</TR>
+									</TABLE>
+								</TD>
+							</TR>
+						</TABLE>
+						<BR>
+						<FONT SIZE="2" COLOR="#ff9900">■</FONT><FONT SIZE="2">該当条件</FONT><BR>
+						<TABLE>
+							<TR>
+								<TD>
+									<TABLE CLASS="ft" style="width:800">
+										<col width="180">
+										<col width="620">
+										<TR>
+											<TH ALIGN="center" style="width:180"><FONT SIZE="2">サイト名</FONT></TH>
+											<TD>
+												<select name="site_cd" id="js_site_cd" style="width: 150px">
+													
+													
+																<option value="" selected></option>
+													
+																<option value="0000000001">HTBオンラインショップ</option>
+													
+																<option value="100">BtoC受注</option>
+													
+																<option value="101">BtoB受注</option>
+													
+												</select>
+											</TD>
+										</TR>
+										<TR>
+											<TH ALIGN="center" style="width:180" title="購入金額"><FONT SIZE="2">購入金額</FONT></TH>
+											<TD NOWRAP>
+											
+												<input type='text' name='kounyu_jouken_kingaku' id='kounyu_jouken_kingaku' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='9' style='width:81.92px;text-align:right;'> </input>円以上
+											
+											</TD>
+										</TR>
+										<TR>
+											<TH ALIGN="center" style="width:180"><FONT SIZE="2">対象商品</FONT></TH>
+											<TD>
+											
+											
+											
+												
+													
+													
+													<INPUT TYPE="radio" NAME="item_tekikbn" id="item_tekikbn_0" VALUE="0" checked onclick="chg_radio_jyo_item();">適用しない
+													<INPUT TYPE="radio" NAME="item_tekikbn" id="item_tekikbn_1" VALUE="1" onclick="chg_radio_jyo_item();">適用する
+												
+																								
+											&nbsp;
+												<INPUT TYPE="button" 
+													NAME="submitButtonName" 
+													id="btn_item_subwin" 
+													disabled
+													VALUE="対象商品登録" 
+													ONCLICK="CC026(0);"
+													>
+												&nbsp;&nbsp;&nbsp;
+												
+												<span id="_item_count_hyoji" style="display:'none';">
+													対象商品数:<span id="_item_count">0</span>個
+												</span>
+												
+												<input type="hidden" 
+													name="item_count" 
+													id="_h_item_count" 
+													value="0">
+											</TD>
+										</TR>
+										<TR>
+											<TH ALIGN="center" style="width:180"><FONT SIZE="2">誕生月</FONT></TH>
+											<TD>
+											
+												
+													<INPUT TYPE="radio" NAME="birth_jouken_flg" id="birth_jouken_flg_0" VALUE="0" checked>適用しない
+													<INPUT TYPE="radio" NAME="birth_jouken_flg" id="birth_jouken_flg_1" VALUE="1">適用する
+												
+																								
+											&nbsp;
+											
+												
+													<INPUT TYPE="checkbox" NAME="chk_birth_jouken_ng" id="chk_birth_jouken_ng" value="">
+												重複付与不可
+											
+										
+											</TD>
+										</TR>
+										<TR>
+											<TH ALIGN="center" style="width:180"><FONT SIZE="2">対象会員</FONT></TH>
+											<TD>
+											
+											
+											
+												
+													<INPUT TYPE="radio" NAME="kaiin_jouken_flg" id="kaiin_jouken_flg_0" VALUE="0" onclick="chg_radio_jyo_kaiin();">適用しない
+													<INPUT TYPE="radio" NAME="kaiin_jouken_flg" id="kaiin_jouken_flg_1" VALUE="1" checked onclick="chg_radio_jyo_kaiin();">適用する
+												
+																								
+											&nbsp;
+												<INPUT TYPE="button" 
+													NAME="submitButtonName" 
+													id="btn_kaiin_subwin" 
+													 
+													VALUE="対象会員登録" 
+													ONCLICK="CC027(0);"
+													>
+												&nbsp;&nbsp;&nbsp;
+												
+												<span id="_kokyaku_count_hyoji" >
+													対象会員数:<span id="_kokyaku_count">2</span>人
+												</span>
+												
+												<input type="hidden" 
+													name="kokyaku_count" 
+													id="_h_kokyaku_count" 
+													value="2">
+											</TD>
+										</TR>
+									</TABLE>
+								</TD>
+							</TR>
+						</TABLE>
+						<TABLE CLASS="ft" style="width:800;border-style: none;" >
+							<tr style="border-style: none;">
+								<td style="width: 180;border-style: none;">
+								</td>
+								<td style="border-style: none;">
+									※ポイント付与の計算は対象商品選択時は販売単価、それ以外は購入金額を元に計算をおこないます。
+								</td>
+							</tr>
+						</TABLE>
+						<BR>
+						<FONT SIZE="2" COLOR="#ff9900">■</FONT><FONT SIZE="2">特典</FONT><BR>
+						<TABLE>
+							<TR>
+								<TD>
+									<TABLE CLASS="ft" style="width:800">
+										<col width="180"><col width="620">
+										<TR>
+											<TH ALIGN="center" style="width:180" title="購入金額値引き"><FONT SIZE="2">購入金額値引き</FONT></TH>
+											<TD nowrap>
+											
+											
+											
+											
+											
+												
+													
+													
+													<INPUT TYPE="radio" NAME="kounyu_tokuten_tekikbn" id="kounyu_tokuten_tekikbn_0" VALUE="0"  checked onclick="chg_radio_toku_kounyu();">適用しない
+													<INPUT TYPE="radio" NAME="kounyu_tokuten_tekikbn" id="kounyu_tokuten_tekikbn_1" VALUE="1"  onclick="chg_radio_toku_kounyu();">適用する
+												
+												
+													<INPUT TYPE="radio" NAME="kounyu_tokuten_tani" id="kounyu_tokuten_tani_1" VALUE="0" disabled checked onclick="chg_radio_toku_kounyu_tani();">率
+													<INPUT TYPE="radio" NAME="kounyu_tokuten_tani" id="kounyu_tokuten_tani_2" VALUE="1" disabled onclick="chg_radio_toku_kounyu_tani();">金額
+												
+												
+											
+											
+												<INPUT TYPE="text" 
+													NAME="kounyu_tokuten_kingaku" 
+													id="kounyu_tokuten_kingaku" 
+													class="num" onkeypress="_chkInp();"													
+													SIZE="12" 
+													maxlength="9"
+													disabled
+													
+													VALUE=""													
+													onblur="this.value=toComma(this.value);" onfocus="this.value=reComma(this.value);;this.select();" 
+													style="width:80px;text-align:right;background-color:'#C0C0C0';">
+													
+													<span id="kounyu_tokuten_memori">%</span>
+													
+											
+											</TD>
+										</TR>
+										<TR>
+											<TH ALIGN="center" style="width:180" title="販売単価値引き"><FONT SIZE="2">販売単価値引き</FONT></TH>
+											<TD nowrap>
+											
+											
+											
+											
+												
+												
+																							
+											
+											
+											
+												
+													
+													
+													<INPUT TYPE="radio" NAME="hanbai_tokuten_tekikbn" id="hanbai_tokuten_tekikbn_0" VALUE="0" disabled checked onclick="chg_radio_toku_hanbai();">適用しない
+													<INPUT TYPE="radio" NAME="hanbai_tokuten_tekikbn" id="hanbai_tokuten_tekikbn_1" VALUE="1" disabled onclick="chg_radio_toku_hanbai();">適用する
+												
+												
+													<INPUT TYPE="radio" NAME="hanbai_tokuten_tani" id="hanbai_tokuten_tani_1" VALUE="0" disabled checked onclick="chg_radio_toku_hanbai_tani();">率
+													<INPUT TYPE="radio" NAME="hanbai_tokuten_tani" id="hanbai_tokuten_tani_2" VALUE="1" disabled onclick="chg_radio_toku_hanbai_tani();">金額
+												
+												
+												
+											
+												<INPUT TYPE="text" 
+													NAME="hanbai_tokuten_kingaku" 
+													id="hanbai_tokuten_kingaku" 
+													class="num" onkeypress="_chkInp();"
+													SIZE="12" 
+													maxlength="9"
+													disabled
+													VALUE=""													
+													onblur="this.value=toComma(this.value);" onfocus="this.value=reComma(this.value);;this.select();" 
+													style="width:80px;text-align:right;background-color:'#C0C0C0';">
+													
+													<span id="hanbai_tokuten_memori">%</span>
+													
+											
+											</TD>
+										</TR>
+										<TR>
+											<TH ALIGN="center" style="width:180"><FONT SIZE="2">プレゼント</FONT></TH>
+											<TD>
+											
+											
+												
+													
+														<INPUT TYPE="radio" NAME="present_tokuten_tekikbn" id="present_tokuten_tekikbn_0" VALUE="0" onclick="chg_radio_toku_present();">適用しない
+														<INPUT TYPE="radio" NAME="present_tokuten_tekikbn" id="present_tokuten_tekikbn_1" VALUE="1" checked onclick="chg_radio_toku_present();">適用する
+													
+												
+												&nbsp;&nbsp;&nbsp;商品コード
+												
+													<INPUT TYPE="text" 
+														NAME="present_tokuten_itemcd" 
+														id="_present_tokuten_itemcd" 
+														SIZE="25" 
+														maxlength="70" 
+														
+														class="code"
+														onkeypress="_chkInp();"
+														value="0001"
+														style="width:152px;"
+														onchange="itemChange(this);">
+													<A id="lnk" disabled ONCLICK="CC021();">
+														<IMG SRC="../ecsdocs2/img/hatena2.gif" ALT="" WIDTH="17" HEIGHT="17" BORDER="0">
+													</A>
+												
+												&nbsp;&nbsp;
+												<span id="_h_present_tokuten_itemnm" style="width:200px;">
+													商品A更新
+												</span>
+												<input type="hidden" 
+													name="present_tokuten_itemnm" 
+													id="_present_tokuten_itemnm" 
+													value="商品A更新">
+											</TD>
+										</TR>
+										<TR>
+											<TH ALIGN="center" style="width:180"><FONT SIZE="2">ポイント付与</FONT></TH>
+											<TD nowrap>
+											
+											
+											
+											
+												
+													
+													
+													<INPUT TYPE="radio" NAME="point_tokuten_tekikbn" id="point_tokuten_tekikbn_0" VALUE="0" checked onclick="chg_radio_toku_point();">適用しない
+													<INPUT TYPE="radio" NAME="point_tokuten_tekikbn" id="point_tokuten_tekikbn_1" VALUE="1" onclick="chg_radio_toku_point();">適用する
+												
+												
+													<INPUT TYPE="radio" NAME="point_tokuten_tani" id="point_tokuten_tani_1" VALUE="0" disabled checked onclick="chg_radio_toku_point_tani();">率
+													<INPUT TYPE="radio" NAME="point_tokuten_tani" id="point_tokuten_tani_2" VALUE="1"disabled	onclick="chg_radio_toku_point_tani();">数
+												
+												
+											
+											
+												<INPUT TYPE="text" 
+													NAME="point_tokuten_atai" 
+													id="point_tokuten_atai" 
+													class="num" onkeypress="_chkInp();"
+													SIZE="12" 
+													maxlength="9"
+													disabled
+													VALUE=""
+													onblur="this.value=toComma(this.value);" onfocus="this.value=reComma(this.value);;this.select();" 
+													style="width:80px;text-align:right;background-color:'#C0C0C0';">
+													
+													<span id="point_tokuten_memori">%</span>
+													
+											
+											</TD>
+										</TR>
+									</TABLE>
+								</TD>
+							</TR>
+						</TABLE>
+						<TABLE CLASS="ft" style="width:800;border-style: none;" >
+							<tr style="border-style: none;">
+								<td style="width: 180;border-style: none;">
+								</td>
+								<td style="border-style: none;">
+									※特典は１キャンペーンにつき１つのみ設定を可能とします。
+								</td>
+							</tr>
+						</TABLE>
+						<BR>
+						<TABLE>
+							<TR>
+								<TD>
+									<TABLE CLASS="ft" style="width:800">
+										<col width="180">
+										<col width="620">				
+										<TR>
+											<TH ALIGN="center" style="width:180"><FONT SIZE="2">使用不可</FONT></TH>
+											<TD>
+											
+												
+													<INPUT TYPE="checkbox" NAME="chk_del_flg" id="chk_del_flg" value="">
+												
+												
+											</TD>
+										</TR>
+									</TABLE>
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE>			
+				<TR>
+					<TD>
+						
+						<TABLE class="nb" style="width: 800">
+							<TR BGCOLOR="#ffcccc">
+								
+									
+										<TD align="center" width="50%">
+											<input  type="button" onClick="Update();" value="更新する"/>
+										</TD>
+										<TD align="center" width="50%">
+											<input  type="button" onClick="do_Delete();" value="削除する"/>
+										</TD>
+									
+								
+							</TR>
+						</TABLE>
+						
+					</TD>
+				</TR>
+			</TABLE>
+			<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+		</form>
+	</BODY>
+</html>

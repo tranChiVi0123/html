@@ -1,0 +1,256 @@
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?mCa4m7pyaL" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+
+
+</script>
+
+
+
+
+
+
+<html>
+    <head>
+    	<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+        <TITLE>
+        	ポイント履歴
+        </TITLE>
+	    <SCRIPT type="text/javascript">
+		    function Close(){
+				window.close();
+		    }
+		</SCRIPT>
+	</head>
+<BODY>
+
+	<TABLE>
+    	<TR>
+        	<TD ALIGN="left" BGCOLOR="white">
+       			
+        			<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>2件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1</SELECT>/1</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='/easpro2/e_asproLogin/CC064PointHistory' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="1"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="2"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value=""><input type='hidden' name='co_no' value="2535"><input type='hidden' name='kokyakuCd' value="0000000004"><input type='hidden' name='searchKbn' value=""><input type='hidden' name='callsSrciptFuncName' value=""><input type='hidden' name='index' value=""><input type='hidden' name='dispMode' value="1"></form>
+	                <TABLE CLASS="lt" width=980 style="border-width: 2px 2px 0px 2px;">
+                    	<COL width="30">
+                        <COL width="90">
+                        <COL width="90">
+                        <COL width="100">
+                        <COL width="150">
+                        <COL width="80">
+                        <COL width="90">
+                        <COL width="90">
+                        <COL width="100">
+                        <COL width="160">
+                        <TR CLASS="head">
+					   		<TH>No</TH>
+					   		<TH>ポイント変更日</TH>
+					   		<TH>注文日</TH>
+					   		<TH>注文番号</TH>
+					   		<TH>ポイント付与種別名</TH>
+					   		<TH>履歴種別</TH>
+					   		<TH>減算<BR>ポイント数</TH>
+					   		<TH>加算<BR>ポイント数</TH>
+					   		<TH>ポイント変更状況</TH>
+					   		<TH>ポイント変更理由</TH>
+						</TR>
+					</TABLE>
+					<div id="_pageDivId" style="width:1002" class="listdiv">
+	                <TABLE CLASS="lt" width="980" style="border-width:0px 2px 2px 2px;">
+                    	<COL width="30">
+                        <COL width="90">
+                        <COL width="90">
+                        <COL width="100">
+                        <COL width="150">
+                        <COL width="80">
+                        <COL width="90">
+                        <COL width="90">
+                        <COL width="100">
+                        <COL width="160">
+						
+	                		
+	                        <TR>
+	                        	<!--No-->
+	                            <TD align="center" title="1">
+	                             	<nobr>1</nobr>
+	                            </TD>
+	                        	<!--ポイント変更日-->
+	                            <TD align="center" title="2018/10/04">
+	                             	<nobr>2018/10/04</nobr>
+	                             </TD>
+	                             <!--注文日-->
+	                             <TD align="center" title="">
+	                             	<nobr></nobr>
+	                             </TD>
+	                             <!--注文番号-->
+	                             <TD align="left" title="">
+	                             	<nobr></nobr>
+	                             </TD>
+	                             <!--ポイント付与種別名-->
+	                             <TD align="left" title="">
+	                             	<nobr></nobr>
+	                             </TD>
+	                             <!--履歴種別-->
+	                             <TD align="center" title="ポイント変更">
+	                             	<nobr>ポイント変更</nobr>
+	                             </TD>
+	                             <!--減算ポイント数-->
+	                             <TD align="right" title="1">
+	                             	
+	                             	<nobr>1</nobr>
+	                             </TD>
+	                             <!--加算ポイント数-->
+	                             <TD align="right" title="">
+	                             	
+	                             	<nobr></nobr>
+	                             </TD>
+	                             <!--ポイント変更状況-->
+	                             <TD align="center" title="処理済">
+	                             	<nobr>処理済</nobr>
+	                             </TD>
+	                             <!--ポイント変更理由-->
+	                             <TD align="left" title="間違えたため">
+	                             	<nobr>間違えたため</nobr>
+	                             </TD>
+	                         </TR>
+     					
+	                		
+	                        <TR>
+	                        	<!--No-->
+	                            <TD align="center" title="2">
+	                             	<nobr>2</nobr>
+	                            </TD>
+	                        	<!--ポイント変更日-->
+	                            <TD align="center" title="2018/10/04">
+	                             	<nobr>2018/10/04</nobr>
+	                             </TD>
+	                             <!--注文日-->
+	                             <TD align="center" title="">
+	                             	<nobr></nobr>
+	                             </TD>
+	                             <!--注文番号-->
+	                             <TD align="left" title="">
+	                             	<nobr></nobr>
+	                             </TD>
+	                             <!--ポイント付与種別名-->
+	                             <TD align="left" title="">
+	                             	<nobr></nobr>
+	                             </TD>
+	                             <!--履歴種別-->
+	                             <TD align="center" title="ポイント変更">
+	                             	<nobr>ポイント変更</nobr>
+	                             </TD>
+	                             <!--減算ポイント数-->
+	                             <TD align="right" title="">
+	                             	
+	                             	<nobr></nobr>
+	                             </TD>
+	                             <!--加算ポイント数-->
+	                             <TD align="right" title="1">
+	                             	
+	                             	<nobr>1</nobr>
+	                             </TD>
+	                             <!--ポイント変更状況-->
+	                             <TD align="center" title="処理済">
+	                             	<nobr>処理済</nobr>
+	                             </TD>
+	                             <!--ポイント変更理由-->
+	                             <TD align="left" title="還元のため">
+	                             	<nobr>還元のため</nobr>
+	                             </TD>
+	                         </TR>
+     					
+	                </TABLE>
+                    </div>
+				
+				 
+	    		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	        </TD>
+        </TR>
+    </TABLE>
+ 
+</BODY>
+</html>

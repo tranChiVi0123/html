@@ -1,0 +1,2816 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?8G7hWyvCjn" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+	<meta http-equiv = "Pragma" content="no-cache">
+	<meta http-equiv = "Cache-control" content="no-cache">
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+	<title>サイト用商品マスタ</title>
+	<style type="text/css">
+		#spanpoint select{
+			width:200px
+		}
+		.readonly{background-color: #eeeeee;}
+		.mallStatus {
+			width:170px;
+		}
+		#linkCaution{
+			color:blue;
+			font-size:11pt;
+		}
+		.must {
+			border-color:black;
+		}
+	</style>
+	</head>
+	<body bgcolor="#ffffff" link="#000066" vlink="#000066" style="display:none;" onload="F_Display();">
+
+	<form id="_Form" method="post" enctype="multipart/form-data" name="Form">
+		<input type="hidden" name="secToken" id="secToken" value="ABEEEE12513934D16CA8D664B9698779"/>
+		<input type="hidden" name="processType" id="_processType" value="0"/>
+		<input type="hidden" name="processKbn" id="_processKbn" value=""/>
+		<input type="hidden" name="itemNo" id="_itemNo" value="0001"/>
+		<input type="hidden" name="sItemNo" id="_sItemNo" value="0001"/>
+		<input type="hidden" name="siteCd" id="siteCd" value="0000000001"/>
+		<input type="hidden" name="exclCnt" id="_exclCnt" value="" />
+		<input type="hidden" name="cPictPath" id="pictPath" value="jp_filedir\2625\image_folder\" />
+		<input type="hidden" name="uploadFlg" id="_uploadFlg2" value=""/>
+		<input type="hidden" name="extensionList" id="_extensionList" value=".GIF.JPG.JPEG.PNG."/>
+		<input type="hidden" name="tnkDspFlg" id="_tnkDspFlg" value="1"/>
+		<input type="hidden" name="color_size_chk" id="_color_size_chk" value="0"/>
+		<input type="hidden" name="color_chk" id="_color_chk" value="0"/>
+		<input type="hidden" name="color_chk" id="_size_chk" value="0"/>
+		<input type="hidden" name="itemSite" id="_itemSite" value=""/>
+		<input type="hidden" name="colorList" id="colorList" value="[{DISP_LINE=1, M010_CD=null, SITE_CD=null, VALUE=null, USE_FLG=0, KEY=null}, {DISP_LINE=99, M010_CD=null, SITE_CD=null, VALUE=null, USE_FLG=0, KEY=null}]"/>
+		<input type="hidden" name="sizeList" id="sizeList" value="[{DISP_LINE=1, M010_CD=null, SITE_CD=null, VALUE=null, USE_FLG=0, KEY=null}, {DISP_LINE=99, M010_CD=null, SITE_CD=null, VALUE=null, USE_FLG=0, KEY=null}]"/>
+		<input type="hidden" name="colorListY" id="colorListY" value="[{DISP_LINE=1, M010_CD=null, SITE_CD=null, VALUE=null, USE_FLG=0, KEY=null}, {DISP_LINE=99, M010_CD=null, SITE_CD=null, VALUE=null, USE_FLG=0, KEY=null}]"/>
+		<input type="hidden" name="sizeListY" id="sizeListY" value="[{DISP_LINE=1, M010_CD=null, SITE_CD=null, VALUE=null, USE_FLG=0, KEY=null}, {DISP_LINE=99, M010_CD=null, SITE_CD=null, VALUE=null, USE_FLG=0, KEY=null}]"/>
+		<input type="hidden" name="uketoriServerDispFlg" id="_uketoriServerDispFlg" value="0"/>
+		<input type="hidden" name="conveniUkeFlg" id="_conveniUkeFlg" value="1"/>
+		<input type="hidden" name="yuubinkyokuUkeFlg" id="_yuubinkyokuUkeFlg" value="1"/>
+		<input type="hidden" name="hakopostUkeFlg" id="_hakopostUkeFlg" value="1"/>
+		<input type="hidden" name="conveniUkeNm" id="_conveniUkeNm" value="コンビニ受取（100サイズ）"/>
+		<input type="hidden" name="yuubinkyokuUkeNm" id="_yuubinkyokuUkeNm" value="郵便局窓口受取（170サイズ）"/>
+		<input type="hidden" name="hakopostUkeNm" id="_hakopostUkeNm" value="はこぽす受取（100サイズ）"/>
+		<input type="hidden" name="uploadKbn" id="_uploadKbn" value="0"/>
+		<input type="hidden" name="editUser" id="_editUser" value=""/>
+		<input type="hidden" name="itemTaniKbn" id="_itemTaniKbn" value="2"/>
+		<input type="hidden" name="setKbn" id="_setKbn" value="0"/>
+		<input type="hidden" name="copyItemNo" id="_copyItemNo" value="" />
+		<input type="hidden" name="copyItemSiteKbn" id="_copyItemSiteKbn"/>
+		<input type="hidden" name="copyItemSiteCd" id="_copyItemSiteCd"/>
+		<input type="hidden" name="currentTab" id="_currentTab"/>
+		<input type="hidden" name="rakutenJson" id="_rakutenJson" value="null"/>
+		<input type="hidden" name="yahooJson" id="_yahooJson" value="null"/>
+		<input type="hidden" name="insertKbn" id="_insertKbn" value="0"/>
+		<input type="hidden" id="_listIdError" value="null"/>
+		<input type="hidden" id="_listIdErrorEC" value="null"/>
+		<input type="hidden" id="_listIdErrorECB" value="null"/>
+		<input type="hidden" id="_listIdErrorR" value="null"/>
+		<input type="hidden" id="_listIdErrorY" value="null"/>
+		<input type="hidden" id="_listIdErrorA" value="null"/>
+
+		
+			<input type="hidden" name="inColorNoList" value="1">
+			<input type="hidden" name="yInColorNoList" value="1">
+		
+		
+			<input type="hidden" name="inSizeNoList" value="1">
+			<input type="hidden" name="yInSizeNoList" value="1">
+		
+
+		<img src='../ecsdocs2/img/head_master.gif' alt='' align='middle' border='0'>
+		<div class="pt">サイト用商品マスタ<br><A href='/easpro2/e_asproMaster/MS040MallItemList?backUrlKey=&intPageNo=1&intPageCount=15&intPageSize=30&intRecordCount=440&strToolbarX=&strToolbarY=&strSpaceHeight=50px&fromPage=&processType=2&searchKbn=&uploadNo=&siteKbn=&siteCd=&tanto=&syupinFlg=&mallSyupinFlg=&mItemCodeFrom=&mItemCodeTo=&mItemName=&searchBunruiBigCd=&searchBunruiMiddleCd=&searchBunruiSmallCd=&ftpFrom=&ftpTo=&userName=-1&repDateFrom=&repDateTo=' tabindex="1" ><img src="../ecsdocs2/img/return.gif"></A></div>
+		<br />
+		
+		<br />
+		<b style="color: red" id="js_errMsg"></b>
+		<div>
+			<br />
+			<font size="2" color="#ff9900">■</font>
+			<font size="2"><B>基本情報</B></font>
+			<span style="margin-left:630px;" id="linkCaution">【画面説明】</span>
+			<br />
+			<table style="width:788px; border:0px; background-color:#FFFFFF; border-collapse:collapse; border-color:#111111; cellpadding:0px;">
+				<tr>
+					<td bgcolor="#FFFFFF">
+						<table class="ft" style="border-collapse: collapse; cellpadding:2px; border-color:#111111;">
+							<tr>
+								<th align="center" nowrap style="background-color:#FFFBD6" width="100">
+									<font size="2">大分類</font>
+								</th>
+								<td nowrap bgcolor="#FFFFFF" width="275">
+									<font size="2">2：onちゃん&nbsp;</font>
+									<input type="hidden" name="itemBigBunruiNm" id="itemBigBunruiNm" value="2：onちゃん">
+									<input type="hidden" name="itemBigBunruiCd" id="itemBigBunruiCd" value="2">
+								</td>
+								<th align="center" nowrap style="background-color:#FFFBD6" width="100">
+									<font size="2">中分類</font>
+								</th>
+								<td nowrap bgcolor="#FFFFFF" width="275">
+									<font size="2">1201：衣類&nbsp;</font>
+									<input type="hidden" name="itemMidBunruiNm" id="itemMidBunruiNm" value="1201：衣類">
+									<input type="hidden" name="itemMidBunruiCd" id="itemMidBunruiCd" value="1201">
+								</td>
+							</tr>
+							<tr>
+								<th align="center" nowrap style="background-color:#FFFBD6" width="100">
+									<font size="2">小分類</font>
+								</th>
+								<td nowrap bgcolor="#FFFFFF" width="275">
+									<font size="2">100101：一般&nbsp;</font>
+									<input type="hidden" name="itemSmallBunruiNm" id="itemSmallBunruiNm" value="100101：一般">
+									<input type="hidden" name="itemSmallBunruiCd" id="itemSmallBunruiCd" value="100101">
+								</td>
+								<th align="center" nowrap style="background-color:#FFFBD6" width="100">
+									<font size="2">商品名</font>
+								</th>
+								<td nowrap bgcolor="#FFFFFF" width="275">
+									<font size="2">商品A更新</font>
+									<input type="hidden" name="itemNm" id="zaikoItemNm1" value="商品A更新"/>
+								</td>
+							</tr>
+							<tr>
+								<th align="center" nowrap style="background-color:#FFFBD6" width="100">
+									<font size="2">売価</font>
+								</th>
+								<td nowrap bgcolor="#FFFFFF" width="275" colspan="3">
+									<font size="2">3,000円</font>
+									<input type="hidden" name="saleTnk" id="saleTnk" value="3000"/>
+								</td>
+							</tr>
+							
+								<tr>
+									<th align="center" nowrap style="background-color:#FFFBD6" width="100">
+										<font size="2">受取サービス可否</font>
+									</th>
+									<td nowrap bgcolor="#FFFFFF" width="275" colspan="3">
+										<font size="2">
+											
+												コンビニ受取（100サイズ）: ○ &nbsp;&nbsp;
+											
+											
+												郵便局窓口受取（170サイズ）: ○ &nbsp;&nbsp;
+											
+											
+												はこぽす受取（100サイズ）: ○ 
+											
+										</font>
+									</td>
+								</tr>
+							
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<br />
+		
+		<table style="width:790px; border:0px; background-color:#D0FDD2; border-collapse:collapse; cellpadding:1px;">
+			<tr >
+				<td valign="top">
+					<font size="2" color="#990000">
+						<b>&nbsp;出品状況</b>
+					</font>
+				</td>
+				<td>
+					<table style="width:600px; border:0px; border-collapse:collapse; cellpadding:1px;">
+						
+							<tr >
+							
+							
+								<td align="right">
+									<font size="2"><b>EC情報(BtoC)</b></font>
+									<input type="hidden" name="ecflag" id="ecflg" value="1"/>
+								</td>
+								<td align="left" >
+									<select name="ecMallStatus" id="ecMallStatus" class="mallStatus">
+										
+											
+											
+												<option value="0" >出品前</option>
+											
+										
+											
+											
+										
+											
+											
+										
+											
+											
+										
+											
+											
+												<option value="3" selected>出品中</option>
+											
+										
+											
+											
+												<option value="4" >出品キャンセル</option>
+											
+										
+											
+											
+										
+									</select>
+								</td>
+							
+							
+							
+							</tr>
+						
+						
+						
+						
+						
+						
+						<tr>
+							
+						</tr>
+					</table>
+				</td>
+				<td>
+					
+						
+							<div style="white-space: normal;">
+								<input type="button"  onClick="Update();" value="更新する" style="margin-bottom: 3px; margin-top: 3px;">
+							</div>
+						
+					
+				</td>
+			</tr>
+		</table>
+
+		<table style="width:790px; border:0px; background-color:#D0FDD2; border-collapse:collapse; cellpadding:1px;margin-top:2px;">
+			<tr bgcolor="#ffcccc">
+			
+				<td align="center" width="20%"></td>
+				<td align="center" width="20%"></td>
+			
+			
+				
+					<td align="center" width="20%">
+						<input  type="button" onClick="updateAndNavigateMS022();" value="更新後商品マスタへ">
+					</td>
+					
+						<td align="center" width="20%"></td>
+					
+				
+			
+			</tr>
+		</table>
+		
+		
+		<br />
+		<div style="background-color:#ffcc66;width:788px;padding:1px;margin-bottom:2px;" >
+			<input type='text' name='sItemNoCopy' id='_txtItemNoCopy' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp()' class='code' maxlength='30' style='width:204.24px;'> </input>
+			<a href="javascript:void(0)" onclick='helpSearch()'>
+				<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="middle" border="0" /></a>
+			<input	type="button" onClick="copy();" value="この商品をコピーする " />
+			<span style="font-size:14px;">　※選択中のサイトにコピーされます</span>
+		</div>
+		
+		
+		
+			
+		
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr height="22">
+				
+				
+					<td id="tab1" nowrap align="center" width="125" height="22" background="../ecsdocs2/img/tab_s.gif">
+						<font size="2">
+							<a href="JavaScript:change1(1, '3');" id='3'>EC情報(BtoC)</a>
+						</font>
+					</td>
+				
+				
+				
+				
+				
+					
+				
+				
+				
+					
+				
+				
+				
+			</tr>
+		</table>
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	$(function () {
+		//画面表示時にdisabled処理を行う
+		changeZaikoMessage();
+		changeZaikoMessageDisplay();
+		buyRimitEc();
+		var intCommNo = 1;
+		change1(intCommNo, '3');
+	});
+
+	//在庫表示方法
+	function changeZaikoMessage(){
+		//BtoCのタブがある場合チェックを行う
+		
+			
+			//在庫数表示の場合
+			if ($("#toCZaikoDispWayKbn").val() == 2) {
+				$$("ecMessage1").disabled = true;
+				if( document.getElementById("ecMessage2")) {
+					$$("ecMessage2").disabled = true;
+				}
+				$$("ecMessage3").disabled = true;
+			} else {
+				$$("ecMessage1").disabled = false;
+				if( document.getElementById("ecMessage2")) {
+					$$("ecMessage2").disabled = false;
+				}
+				$$("ecMessage3").disabled = false;
+			}
+		
+	}
+	//在庫表示方法閾値の表示
+	function changeZaikoMessageDisplay(){
+		
+			var zaikosu = $("#ecZaikos").val();
+			if (zaikosu <= 1) {
+				$$("zaiko_message2").style.display = "none";
+			} else {
+				$$("zaikosu").innerText = zaikosu -1;
+				$$("zaiko_message2").style.display = "block";
+			}
+		
+	}
+	//購入制限
+	function buyRimitEc(){
+		//BtoCのタブがある場合チェックを行う
+		
+			//無制限の場合
+			if ($("#ecBuyLimitFlg").val() == 0) {
+				$$("ecBuyLimitMax").disabled = true;
+				$$("ecBuyLimitMin").disabled = true;
+			} else {
+				$$("ecBuyLimitMax").disabled = false;
+				$$("ecBuyLimitMin").disabled = false;
+			}
+		
+	}
+</script>
+		
+		
+			
+			<div ID="div1" style="display:none;">
+				<table border="0" cellspacing="0" cellpadding="0" width="500" bgcolor="#FFFFFF" style="border-collapse: collapse" bordercolor="#111111">
+					<tr>
+						<td bgcolor="#FFFFFF" width="1057">
+							<table class="inp1" border="1" cellspacing="0" cellpadding="2" style="border-collapse: collapse" bordercolor="#111111">
+								
+								<tr bgcolor="white">
+									<th align="center" nowrap id="th_mItemNo" class="must">
+										商品コード
+									</th>
+									<td nowrap colspan="3" id="td_btoc_mItemNo">
+										<font size="2">0001</font>
+										<input type="hidden" name="mItemNo" id="mItemNo" value="0001" >
+									</td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap id="th_ecItemUrl">
+										商品サイト
+									</th>
+									<td nowrap colspan="3" id="td_btoc_ecItemUrl">
+										<font size="2">
+											<a href="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=0001" target="blank">
+												https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=0001
+											</a>
+										</font>
+										<input type="hidden" name="ecItemUrl" id="ecItemUrl" value="https://verify19.e-shop.co.jp/htb/PG030ProductDtlPage.act?sItemNo=0001" >
+									</td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap id="th_ecSYmd" class="must">
+										販売期間
+									</th>
+									<td nowrap colspan="3" id="td_btoc_ecSYmd">
+										<input type='text' name='ecSYmd' style='width:82px;'  maxlength=10 value='2018/09/01' class='ymd' onkeypress='_chkInp();' id='ecSYmd' onblur='_formateDate(this,"販売期間開始日は日付を入力して下さい。");' /><a href='#' id='ecSYmd_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'ecSYmd',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'ecSYmd_calendar_link_id',singleClick : true,step:1});</script>&nbsp;
+										<SELECT name='ecSHh' id='ecSHh'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='00' SELECTED>00</OPTION><OPTION VALUE='01' >01</OPTION><OPTION VALUE='02' >02</OPTION><OPTION VALUE='03' >03</OPTION><OPTION VALUE='04' >04</OPTION><OPTION VALUE='05' >05</OPTION><OPTION VALUE='06' >06</OPTION><OPTION VALUE='07' >07</OPTION><OPTION VALUE='08' >08</OPTION><OPTION VALUE='09' >09</OPTION><OPTION VALUE='10' >10</OPTION><OPTION VALUE='11' >11</OPTION><OPTION VALUE='12' >12</OPTION><OPTION VALUE='13' >13</OPTION><OPTION VALUE='14' >14</OPTION><OPTION VALUE='15' >15</OPTION><OPTION VALUE='16' >16</OPTION><OPTION VALUE='17' >17</OPTION><OPTION VALUE='18' >18</OPTION><OPTION VALUE='19' >19</OPTION><OPTION VALUE='20' >20</OPTION><OPTION VALUE='21' >21</OPTION><OPTION VALUE='22' >22</OPTION><OPTION VALUE='23' >23</OPTION> </SELECT>時&nbsp;
+										<SELECT name='ecSSs' id='ecSSs'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='00' SELECTED>00</OPTION><OPTION VALUE='01' >01</OPTION><OPTION VALUE='02' >02</OPTION><OPTION VALUE='03' >03</OPTION><OPTION VALUE='04' >04</OPTION><OPTION VALUE='05' >05</OPTION><OPTION VALUE='06' >06</OPTION><OPTION VALUE='07' >07</OPTION><OPTION VALUE='08' >08</OPTION><OPTION VALUE='09' >09</OPTION><OPTION VALUE='10' >10</OPTION><OPTION VALUE='11' >11</OPTION><OPTION VALUE='12' >12</OPTION><OPTION VALUE='13' >13</OPTION><OPTION VALUE='14' >14</OPTION><OPTION VALUE='15' >15</OPTION><OPTION VALUE='16' >16</OPTION><OPTION VALUE='17' >17</OPTION><OPTION VALUE='18' >18</OPTION><OPTION VALUE='19' >19</OPTION><OPTION VALUE='20' >20</OPTION><OPTION VALUE='21' >21</OPTION><OPTION VALUE='22' >22</OPTION><OPTION VALUE='23' >23</OPTION><OPTION VALUE='24' >24</OPTION><OPTION VALUE='25' >25</OPTION><OPTION VALUE='26' >26</OPTION><OPTION VALUE='27' >27</OPTION><OPTION VALUE='28' >28</OPTION><OPTION VALUE='29' >29</OPTION><OPTION VALUE='30' >30</OPTION><OPTION VALUE='31' >31</OPTION><OPTION VALUE='32' >32</OPTION><OPTION VALUE='33' >33</OPTION><OPTION VALUE='34' >34</OPTION><OPTION VALUE='35' >35</OPTION><OPTION VALUE='36' >36</OPTION><OPTION VALUE='37' >37</OPTION><OPTION VALUE='38' >38</OPTION><OPTION VALUE='39' >39</OPTION><OPTION VALUE='40' >40</OPTION><OPTION VALUE='41' >41</OPTION><OPTION VALUE='42' >42</OPTION><OPTION VALUE='43' >43</OPTION><OPTION VALUE='44' >44</OPTION><OPTION VALUE='45' >45</OPTION><OPTION VALUE='46' >46</OPTION><OPTION VALUE='47' >47</OPTION><OPTION VALUE='48' >48</OPTION><OPTION VALUE='49' >49</OPTION><OPTION VALUE='50' >50</OPTION><OPTION VALUE='51' >51</OPTION><OPTION VALUE='52' >52</OPTION><OPTION VALUE='53' >53</OPTION><OPTION VALUE='54' >54</OPTION><OPTION VALUE='55' >55</OPTION><OPTION VALUE='56' >56</OPTION><OPTION VALUE='57' >57</OPTION><OPTION VALUE='58' >58</OPTION><OPTION VALUE='59' >59</OPTION> </SELECT>分&nbsp;～&nbsp;<input type='text' name='ecEYmd' style='width:82px;'  maxlength=10 value='2018/09/30' class='ymd' onkeypress='_chkInp();' id='ecEYmd' onblur='_formateDate(this,"販売期間終了日は日付を入力して下さい。");' /><a href='#' id='ecEYmd_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'ecEYmd',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'ecEYmd_calendar_link_id',singleClick : true,step:1});</script>&nbsp;
+										<SELECT name='ecEHh' id='ecEHh'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='00' SELECTED>00</OPTION><OPTION VALUE='01' >01</OPTION><OPTION VALUE='02' >02</OPTION><OPTION VALUE='03' >03</OPTION><OPTION VALUE='04' >04</OPTION><OPTION VALUE='05' >05</OPTION><OPTION VALUE='06' >06</OPTION><OPTION VALUE='07' >07</OPTION><OPTION VALUE='08' >08</OPTION><OPTION VALUE='09' >09</OPTION><OPTION VALUE='10' >10</OPTION><OPTION VALUE='11' >11</OPTION><OPTION VALUE='12' >12</OPTION><OPTION VALUE='13' >13</OPTION><OPTION VALUE='14' >14</OPTION><OPTION VALUE='15' >15</OPTION><OPTION VALUE='16' >16</OPTION><OPTION VALUE='17' >17</OPTION><OPTION VALUE='18' >18</OPTION><OPTION VALUE='19' >19</OPTION><OPTION VALUE='20' >20</OPTION><OPTION VALUE='21' >21</OPTION><OPTION VALUE='22' >22</OPTION><OPTION VALUE='23' >23</OPTION> </SELECT>時<SELECT name='ecESs' id='ecESs'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='00' SELECTED>00</OPTION><OPTION VALUE='01' >01</OPTION><OPTION VALUE='02' >02</OPTION><OPTION VALUE='03' >03</OPTION><OPTION VALUE='04' >04</OPTION><OPTION VALUE='05' >05</OPTION><OPTION VALUE='06' >06</OPTION><OPTION VALUE='07' >07</OPTION><OPTION VALUE='08' >08</OPTION><OPTION VALUE='09' >09</OPTION><OPTION VALUE='10' >10</OPTION><OPTION VALUE='11' >11</OPTION><OPTION VALUE='12' >12</OPTION><OPTION VALUE='13' >13</OPTION><OPTION VALUE='14' >14</OPTION><OPTION VALUE='15' >15</OPTION><OPTION VALUE='16' >16</OPTION><OPTION VALUE='17' >17</OPTION><OPTION VALUE='18' >18</OPTION><OPTION VALUE='19' >19</OPTION><OPTION VALUE='20' >20</OPTION><OPTION VALUE='21' >21</OPTION><OPTION VALUE='22' >22</OPTION><OPTION VALUE='23' >23</OPTION><OPTION VALUE='24' >24</OPTION><OPTION VALUE='25' >25</OPTION><OPTION VALUE='26' >26</OPTION><OPTION VALUE='27' >27</OPTION><OPTION VALUE='28' >28</OPTION><OPTION VALUE='29' >29</OPTION><OPTION VALUE='30' >30</OPTION><OPTION VALUE='31' >31</OPTION><OPTION VALUE='32' >32</OPTION><OPTION VALUE='33' >33</OPTION><OPTION VALUE='34' >34</OPTION><OPTION VALUE='35' >35</OPTION><OPTION VALUE='36' >36</OPTION><OPTION VALUE='37' >37</OPTION><OPTION VALUE='38' >38</OPTION><OPTION VALUE='39' >39</OPTION><OPTION VALUE='40' >40</OPTION><OPTION VALUE='41' >41</OPTION><OPTION VALUE='42' >42</OPTION><OPTION VALUE='43' >43</OPTION><OPTION VALUE='44' >44</OPTION><OPTION VALUE='45' >45</OPTION><OPTION VALUE='46' >46</OPTION><OPTION VALUE='47' >47</OPTION><OPTION VALUE='48' >48</OPTION><OPTION VALUE='49' >49</OPTION><OPTION VALUE='50' >50</OPTION><OPTION VALUE='51' >51</OPTION><OPTION VALUE='52' >52</OPTION><OPTION VALUE='53' >53</OPTION><OPTION VALUE='54' >54</OPTION><OPTION VALUE='55' >55</OPTION><OPTION VALUE='56' >56</OPTION><OPTION VALUE='57' >57</OPTION><OPTION VALUE='58' >58</OPTION><OPTION VALUE='59' >59</OPTION> </SELECT>分
+									</td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap id="th_ecKSYmd">
+										掲載期間
+									</th>
+									<td nowrap colspan="3" id="td_btoc_ecKSYmd">
+										<input type='text' name='ecKSYmd' style='width:82px;'  maxlength=10 value='2018/09/01' class='ymd' onkeypress='_chkInp();' id='ecKSYmd' onblur='_formateDate(this,"掲載期間開始日は日付を入力して下さい。");' /><a href='#' id='ecKSYmd_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'ecKSYmd',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'ecKSYmd_calendar_link_id',singleClick : true,step:1});</script>&nbsp;
+										<SELECT name='ecKSHh' id='ecKSHh'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='00' SELECTED>00</OPTION><OPTION VALUE='01' >01</OPTION><OPTION VALUE='02' >02</OPTION><OPTION VALUE='03' >03</OPTION><OPTION VALUE='04' >04</OPTION><OPTION VALUE='05' >05</OPTION><OPTION VALUE='06' >06</OPTION><OPTION VALUE='07' >07</OPTION><OPTION VALUE='08' >08</OPTION><OPTION VALUE='09' >09</OPTION><OPTION VALUE='10' >10</OPTION><OPTION VALUE='11' >11</OPTION><OPTION VALUE='12' >12</OPTION><OPTION VALUE='13' >13</OPTION><OPTION VALUE='14' >14</OPTION><OPTION VALUE='15' >15</OPTION><OPTION VALUE='16' >16</OPTION><OPTION VALUE='17' >17</OPTION><OPTION VALUE='18' >18</OPTION><OPTION VALUE='19' >19</OPTION><OPTION VALUE='20' >20</OPTION><OPTION VALUE='21' >21</OPTION><OPTION VALUE='22' >22</OPTION><OPTION VALUE='23' >23</OPTION> </SELECT>時&nbsp;
+										<SELECT name='ecKSSs' id='ecKSSs'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='00' SELECTED>00</OPTION><OPTION VALUE='01' >01</OPTION><OPTION VALUE='02' >02</OPTION><OPTION VALUE='03' >03</OPTION><OPTION VALUE='04' >04</OPTION><OPTION VALUE='05' >05</OPTION><OPTION VALUE='06' >06</OPTION><OPTION VALUE='07' >07</OPTION><OPTION VALUE='08' >08</OPTION><OPTION VALUE='09' >09</OPTION><OPTION VALUE='10' >10</OPTION><OPTION VALUE='11' >11</OPTION><OPTION VALUE='12' >12</OPTION><OPTION VALUE='13' >13</OPTION><OPTION VALUE='14' >14</OPTION><OPTION VALUE='15' >15</OPTION><OPTION VALUE='16' >16</OPTION><OPTION VALUE='17' >17</OPTION><OPTION VALUE='18' >18</OPTION><OPTION VALUE='19' >19</OPTION><OPTION VALUE='20' >20</OPTION><OPTION VALUE='21' >21</OPTION><OPTION VALUE='22' >22</OPTION><OPTION VALUE='23' >23</OPTION><OPTION VALUE='24' >24</OPTION><OPTION VALUE='25' >25</OPTION><OPTION VALUE='26' >26</OPTION><OPTION VALUE='27' >27</OPTION><OPTION VALUE='28' >28</OPTION><OPTION VALUE='29' >29</OPTION><OPTION VALUE='30' >30</OPTION><OPTION VALUE='31' >31</OPTION><OPTION VALUE='32' >32</OPTION><OPTION VALUE='33' >33</OPTION><OPTION VALUE='34' >34</OPTION><OPTION VALUE='35' >35</OPTION><OPTION VALUE='36' >36</OPTION><OPTION VALUE='37' >37</OPTION><OPTION VALUE='38' >38</OPTION><OPTION VALUE='39' >39</OPTION><OPTION VALUE='40' >40</OPTION><OPTION VALUE='41' >41</OPTION><OPTION VALUE='42' >42</OPTION><OPTION VALUE='43' >43</OPTION><OPTION VALUE='44' >44</OPTION><OPTION VALUE='45' >45</OPTION><OPTION VALUE='46' >46</OPTION><OPTION VALUE='47' >47</OPTION><OPTION VALUE='48' >48</OPTION><OPTION VALUE='49' >49</OPTION><OPTION VALUE='50' >50</OPTION><OPTION VALUE='51' >51</OPTION><OPTION VALUE='52' >52</OPTION><OPTION VALUE='53' >53</OPTION><OPTION VALUE='54' >54</OPTION><OPTION VALUE='55' >55</OPTION><OPTION VALUE='56' >56</OPTION><OPTION VALUE='57' >57</OPTION><OPTION VALUE='58' >58</OPTION><OPTION VALUE='59' >59</OPTION> </SELECT>分&nbsp;～&nbsp;<input type='text' name='ecKEYmd' style='width:82px;'  maxlength=10 value='2018/10/31' class='ymd' onkeypress='_chkInp();' id='ecKEYmd' onblur='_formateDate(this,"掲載期間終了日は日付を入力して下さい。");' /><a href='#' id='ecKEYmd_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'ecKEYmd',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'ecKEYmd_calendar_link_id',singleClick : true,step:1});</script>&nbsp;
+										<SELECT name='ecKEHh' id='ecKEHh'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='00' SELECTED>00</OPTION><OPTION VALUE='01' >01</OPTION><OPTION VALUE='02' >02</OPTION><OPTION VALUE='03' >03</OPTION><OPTION VALUE='04' >04</OPTION><OPTION VALUE='05' >05</OPTION><OPTION VALUE='06' >06</OPTION><OPTION VALUE='07' >07</OPTION><OPTION VALUE='08' >08</OPTION><OPTION VALUE='09' >09</OPTION><OPTION VALUE='10' >10</OPTION><OPTION VALUE='11' >11</OPTION><OPTION VALUE='12' >12</OPTION><OPTION VALUE='13' >13</OPTION><OPTION VALUE='14' >14</OPTION><OPTION VALUE='15' >15</OPTION><OPTION VALUE='16' >16</OPTION><OPTION VALUE='17' >17</OPTION><OPTION VALUE='18' >18</OPTION><OPTION VALUE='19' >19</OPTION><OPTION VALUE='20' >20</OPTION><OPTION VALUE='21' >21</OPTION><OPTION VALUE='22' >22</OPTION><OPTION VALUE='23' >23</OPTION> </SELECT>時<SELECT name='ecKESs' id='ecKESs'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='00' SELECTED>00</OPTION><OPTION VALUE='01' >01</OPTION><OPTION VALUE='02' >02</OPTION><OPTION VALUE='03' >03</OPTION><OPTION VALUE='04' >04</OPTION><OPTION VALUE='05' >05</OPTION><OPTION VALUE='06' >06</OPTION><OPTION VALUE='07' >07</OPTION><OPTION VALUE='08' >08</OPTION><OPTION VALUE='09' >09</OPTION><OPTION VALUE='10' >10</OPTION><OPTION VALUE='11' >11</OPTION><OPTION VALUE='12' >12</OPTION><OPTION VALUE='13' >13</OPTION><OPTION VALUE='14' >14</OPTION><OPTION VALUE='15' >15</OPTION><OPTION VALUE='16' >16</OPTION><OPTION VALUE='17' >17</OPTION><OPTION VALUE='18' >18</OPTION><OPTION VALUE='19' >19</OPTION><OPTION VALUE='20' >20</OPTION><OPTION VALUE='21' >21</OPTION><OPTION VALUE='22' >22</OPTION><OPTION VALUE='23' >23</OPTION><OPTION VALUE='24' >24</OPTION><OPTION VALUE='25' >25</OPTION><OPTION VALUE='26' >26</OPTION><OPTION VALUE='27' >27</OPTION><OPTION VALUE='28' >28</OPTION><OPTION VALUE='29' >29</OPTION><OPTION VALUE='30' >30</OPTION><OPTION VALUE='31' >31</OPTION><OPTION VALUE='32' >32</OPTION><OPTION VALUE='33' >33</OPTION><OPTION VALUE='34' >34</OPTION><OPTION VALUE='35' >35</OPTION><OPTION VALUE='36' >36</OPTION><OPTION VALUE='37' >37</OPTION><OPTION VALUE='38' >38</OPTION><OPTION VALUE='39' >39</OPTION><OPTION VALUE='40' >40</OPTION><OPTION VALUE='41' >41</OPTION><OPTION VALUE='42' >42</OPTION><OPTION VALUE='43' >43</OPTION><OPTION VALUE='44' >44</OPTION><OPTION VALUE='45' >45</OPTION><OPTION VALUE='46' >46</OPTION><OPTION VALUE='47' >47</OPTION><OPTION VALUE='48' >48</OPTION><OPTION VALUE='49' >49</OPTION><OPTION VALUE='50' >50</OPTION><OPTION VALUE='51' >51</OPTION><OPTION VALUE='52' >52</OPTION><OPTION VALUE='53' >53</OPTION><OPTION VALUE='54' >54</OPTION><OPTION VALUE='55' >55</OPTION><OPTION VALUE='56' >56</OPTION><OPTION VALUE='57' >57</OPTION><OPTION VALUE='58' >58</OPTION><OPTION VALUE='59' >59</OPTION> </SELECT>分
+									</td>
+								</tr>
+								<tr >
+									<th align="center" nowrap id="th_ecWebCatchCopyPre">
+										WEB商品名<br/>キャッチコピー前
+									</th>
+									<td nowrap colspan="3" id="td_btoc_catchCopyPre">
+										<input type="text" name="ecWebCatchCopyPre" id="ecWebCatchCopyPre"
+											size="62" maxlength="250"
+											class="multi"
+											value="キャッチ前">
+									</td>
+								</tr>
+								<tr >
+									<th align="center" nowrap id="th_ecWebItemNm" class="must">
+										WEB商品名
+									</th>
+									<td nowrap colspan="3" id="td_btoc_ecWebItemNm">
+									<input type="text" name="ecWebItemNm" id="ecWebItemNm"
+										size=62 maxlength="255"
+										class="multi"
+										value="商品A">
+									</td>
+								</tr>
+								<tr >
+									<th align="center" nowrap id="th_ecWebCatchCopySuf">
+										WEB商品名<br/>キャッチコピー後
+									</th>
+									<td nowrap colspan="3" id="td_btoc_catchCopySuf">
+										<input type="text" name="ecWebCatchCopySuf" id="ecWebCatchCopySuf"
+											size="62" maxlength="250"
+											class="multi"
+											value="キャッチ後">
+									</td>
+								</tr>
+								<tr >
+									<th align="center" nowrap id="th_ecZeiKbn" class="must">
+										課税対象
+									</th>
+									<td nowrap colspan="3" id="td_btoc_js_ecZeiKbn">
+										<SELECT name='ecZeiKbn' id='ecZeiKbn' style='width:250px;' tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='0' SELECTED>課税</OPTION><OPTION VALUE='2' >非課税</OPTION> </SELECT>
+									</td>
+								</tr>
+								<tr >
+									<th align="center" nowrap id="th_ecStdTnk">
+										標準単価(税抜)
+									</th>
+									<td nowrap id="td_btoc_ecStdTnk">
+										<input type="text" name="ecStdTnk" id="ecStdTnk"
+											style="width:115.28px;TEXT-align: right;"
+											value="2,500"
+											size="18" maxlength="9"
+											onblur="this.value=_toComma(this.value)"
+											onfocus="this.value=_reComma(this.value)"
+											class="num">円
+									</td>
+									<th align="center" nowrap id="th_ecSaleTnk" class="must">
+										販売価格(税抜)
+									</th>
+									<td nowrap id="td_btoc_ecSaleTnk">
+										<input type="text" name="ecSaleTnk" id="ecSaleTnk"
+											style="width:115.28px;TEXT-align: right;"
+											value="3,000"
+											size="18" maxlength="9"
+											onblur="this.value=_toComma(this.value)"
+											onfocus="this.value=_reComma(this.value)"
+											class="num">円
+									</td>
+								</tr>
+								<tr>
+									<th align="center" nowrap id="th_ecZeiKomiStdTnk">
+										標準単価(税込)
+									</th>
+									<td nowrap id="td_btoc_ecZeiKomiStdTnk">
+										<input type="text" name="ecZeiKomiStdTnk" id="ecZeiKomiStdTnk"
+											style="width:115.28px;TEXT-align: right;"
+											value="2,700"
+											size="18" maxlength="9"
+											onblur="this.value=_toComma(this.value)"
+											onfocus="this.value=_reComma(this.value)"
+											class="num">円
+									</td>
+									<th align="center" nowrap id="th_ecZeiKomiSaleTnk" class="must">
+										販売価格(税込)
+									</th>
+									<td nowrap id="td_btoc_ecZeiKomiSaleTnk">
+										<input type="text" name="ecZeiKomiSaleTnk" id="ecZeiKomiSaleTnk"
+											style="width:115.28px;TEXT-align: right;"
+											value="3,240"
+											size="18" maxlength="9"
+											onblur="this.value=_toComma(this.value)"
+											onfocus="this.value=_reComma(this.value)"
+											class="num">円
+									</td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap id="th_ecCategoryCd1" class="must">
+										ECサイト表示<br>カテゴリ
+									</th>
+									<td nowrap colspan="3" id="td_btoc_js_ecCategoryCd1">
+										<SELECT name='ecCategoryCd1' id='ecCategoryCd1' style='width:250px;' tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='0000000001' SELECTED>新グッズ情報</OPTION><OPTION VALUE='0000000002' >onちゃん</OPTION><OPTION VALUE='0000000003' >水曜どうでしょう　DVD関連</OPTION><OPTION VALUE='0000000004' >水曜どうでしょう　グッズ</OPTION><OPTION VALUE='0000000006' >水曜どうでしょう　キャラバン</OPTION><OPTION VALUE='0000000007' >おにぎりあたためますか</OPTION><OPTION VALUE='0000000008' >ハナタレナックス</OPTION><OPTION VALUE='0000000009' >FFFFF</OPTION><OPTION VALUE='0000000010' >ドラバラ鈴井の巣</OPTION><OPTION VALUE='0000000011' >Yumechika Records</OPTION><OPTION VALUE='0000000012' >藤村・嬉野プロデュース</OPTION><OPTION VALUE='0000000014' >ヒゲマラソン部</OPTION><OPTION VALUE='0000000015' >ビジービー</OPTION><OPTION VALUE='0000000016' >ギフトバッグ</OPTION><OPTION VALUE='0000000020' >カテゴリ名</OPTION> </SELECT><br>
+										<SELECT name='ecCategoryCd2' id='ecCategoryCd2' style='width:250px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='0000000001' >新グッズ情報</OPTION><OPTION VALUE='0000000002' >onちゃん</OPTION><OPTION VALUE='0000000003' >水曜どうでしょう　DVD関連</OPTION><OPTION VALUE='0000000004' >水曜どうでしょう　グッズ</OPTION><OPTION VALUE='0000000006' >水曜どうでしょう　キャラバン</OPTION><OPTION VALUE='0000000007' >おにぎりあたためますか</OPTION><OPTION VALUE='0000000008' >ハナタレナックス</OPTION><OPTION VALUE='0000000009' >FFFFF</OPTION><OPTION VALUE='0000000010' >ドラバラ鈴井の巣</OPTION><OPTION VALUE='0000000011' >Yumechika Records</OPTION><OPTION VALUE='0000000012' >藤村・嬉野プロデュース</OPTION><OPTION VALUE='0000000014' >ヒゲマラソン部</OPTION><OPTION VALUE='0000000015' >ビジービー</OPTION><OPTION VALUE='0000000016' >ギフトバッグ</OPTION><OPTION VALUE='0000000020' >カテゴリ名</OPTION> </SELECT><br>
+										<SELECT name='ecCategoryCd3' id='ecCategoryCd3' style='width:250px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='0000000001' >新グッズ情報</OPTION><OPTION VALUE='0000000002' >onちゃん</OPTION><OPTION VALUE='0000000003' >水曜どうでしょう　DVD関連</OPTION><OPTION VALUE='0000000004' >水曜どうでしょう　グッズ</OPTION><OPTION VALUE='0000000006' >水曜どうでしょう　キャラバン</OPTION><OPTION VALUE='0000000007' >おにぎりあたためますか</OPTION><OPTION VALUE='0000000008' >ハナタレナックス</OPTION><OPTION VALUE='0000000009' >FFFFF</OPTION><OPTION VALUE='0000000010' >ドラバラ鈴井の巣</OPTION><OPTION VALUE='0000000011' >Yumechika Records</OPTION><OPTION VALUE='0000000012' >藤村・嬉野プロデュース</OPTION><OPTION VALUE='0000000014' >ヒゲマラソン部</OPTION><OPTION VALUE='0000000015' >ビジービー</OPTION><OPTION VALUE='0000000016' >ギフトバッグ</OPTION><OPTION VALUE='0000000020' >カテゴリ名</OPTION> </SELECT><br>
+										<SELECT name='ecCategoryCd4' id='ecCategoryCd4' style='width:250px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='0000000001' >新グッズ情報</OPTION><OPTION VALUE='0000000002' >onちゃん</OPTION><OPTION VALUE='0000000003' >水曜どうでしょう　DVD関連</OPTION><OPTION VALUE='0000000004' >水曜どうでしょう　グッズ</OPTION><OPTION VALUE='0000000006' >水曜どうでしょう　キャラバン</OPTION><OPTION VALUE='0000000007' >おにぎりあたためますか</OPTION><OPTION VALUE='0000000008' >ハナタレナックス</OPTION><OPTION VALUE='0000000009' >FFFFF</OPTION><OPTION VALUE='0000000010' >ドラバラ鈴井の巣</OPTION><OPTION VALUE='0000000011' >Yumechika Records</OPTION><OPTION VALUE='0000000012' >藤村・嬉野プロデュース</OPTION><OPTION VALUE='0000000014' >ヒゲマラソン部</OPTION><OPTION VALUE='0000000015' >ビジービー</OPTION><OPTION VALUE='0000000016' >ギフトバッグ</OPTION><OPTION VALUE='0000000020' >カテゴリ名</OPTION> </SELECT><br>
+										<SELECT name='ecCategoryCd5' id='ecCategoryCd5' style='width:250px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='0000000001' >新グッズ情報</OPTION><OPTION VALUE='0000000002' >onちゃん</OPTION><OPTION VALUE='0000000003' >水曜どうでしょう　DVD関連</OPTION><OPTION VALUE='0000000004' >水曜どうでしょう　グッズ</OPTION><OPTION VALUE='0000000006' >水曜どうでしょう　キャラバン</OPTION><OPTION VALUE='0000000007' >おにぎりあたためますか</OPTION><OPTION VALUE='0000000008' >ハナタレナックス</OPTION><OPTION VALUE='0000000009' >FFFFF</OPTION><OPTION VALUE='0000000010' >ドラバラ鈴井の巣</OPTION><OPTION VALUE='0000000011' >Yumechika Records</OPTION><OPTION VALUE='0000000012' >藤村・嬉野プロデュース</OPTION><OPTION VALUE='0000000014' >ヒゲマラソン部</OPTION><OPTION VALUE='0000000015' >ビジービー</OPTION><OPTION VALUE='0000000016' >ギフトバッグ</OPTION><OPTION VALUE='0000000020' >カテゴリ名</OPTION> </SELECT>
+									</td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap id="th_toCZaikoDispWayKbn">
+										在庫表示方法
+									</th>
+									<td nowrap colspan="3" id="td_btoc_js_toCZaikoDispWayKbn">
+										<div style="float: left; width: 40%;margin-top: 20px;">
+											<SELECT name='toCZaikoDispWayKbn' id='toCZaikoDispWayKbn' onchange='changeZaikoMessage()' tabindex=null > <OPTION VALUE='0' >表示なし</OPTION><OPTION VALUE='1' SELECTED>在庫状態表示</OPTION><OPTION VALUE='2' >在庫数表示</OPTION><OPTION VALUE='3' >両方表示</OPTION> </SELECT>
+										</div>
+										<div style="float: left; width: 30%;">
+											<div class="BoxMethod">
+												<div class="BoxMethodC1">
+													<input type="text" name="ecZaikos" id="ecZaikos" class="num" size="20" maxlength="10"
+														   onchange='javascript:changeZaikoMessageDisplay();' value="4" style="width: 20px;" />
+												</div>
+												<div class="BoxMethodC2">
+													<span>個以上</span>
+													<span>：</span>
+												</div>
+												<div class="BoxMethodC3">
+													<input type="text" name="ecMessage1" id="ecMessage1" class="multi" size="20" maxlength="10" value="在庫有り" style="width:200px;">
+												</div>
+											</div>
+
+											<div class="BoxMethod" id="zaiko_message2" style="display:none;">
+												<div class="BoxMethodC1">
+													<span id="zaikosu">
+														3
+													</span>
+												</div>
+												<div class="BoxMethodC2">
+														<span>
+																個～1個
+														</span>
+														<span>：</span>
+												</div>
+												<div class="BoxMethodC3">
+														<input type="text" name="ecMessage2" id="ecMessage2" class="multi" size="20" maxlength="10" value="残りわずか" style="width:200px;">
+												</div>
+											</div>
+
+											<div class="BoxMethod">
+												<div class="BoxMethodC1">
+													0
+												</div>
+												<div class="BoxMethodC2">
+													<span>
+														個以下
+													</span>
+													<span>：</span>
+												</div>
+												<div class="BoxMethodC3">
+													<input type="text" name="ecMessage3" id="ecMessage3" class="multi" size="20" maxlength="10" value="在庫無し" style="width:200px;">
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap id="th_toCZaikoDispPlaceKbn">
+										在庫表示箇所
+									</th>
+									<td nowrap colspan="3" id="td_btoc_js_toCZaikoDispPlaceKbn">
+										<SELECT name='toCZaikoDispPlaceKbn' id='toCZaikoDispPlaceKbn'  tabindex=null > <OPTION VALUE='0' SELECTED>両方に表示</OPTION><OPTION VALUE='1' >商品一覧に表示</OPTION><OPTION VALUE='2' >商品詳細に表示</OPTION> </SELECT>
+									</td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap id="th_ecZaiKoLostFlg">
+										在庫切れの<br>注文
+									</th>
+									<td nowrap colspan="3" id="td_btoc_ecZaiKoLostFlg">
+										<SELECT name='ecZaiKoLostFlg' id='ecZaiKoLostFlg'  tabindex=null > <OPTION VALUE='' ></OPTION><OPTION VALUE='0' SELECTED>受け付けない</OPTION><OPTION VALUE='1' >受け付ける</OPTION><OPTION VALUE='9' >設定なし</OPTION> </SELECT>
+									</td>
+								</tr>
+								
+								<tr>
+									<th align="center" id="th_ecBuyLimit">
+										購入制限数
+									</th>
+									<td colspan="3" id="td_btoc_ecBuyLimit">
+										<SELECT name='ecBuyLimitFlg' id='ecBuyLimitFlg' onchange='buyRimit(this.value,"ecBuyLimitMax","ecBuyLimitMin")'style='width:200px;' tabindex=null > <OPTION VALUE='0' >無制限</OPTION><OPTION VALUE='1' SELECTED>制限あり</OPTION> </SELECT>
+										<br />
+										<input style="width: 200px;" type="text"
+												id="ecBuyLimitMax"
+												name="ecBuyLimitMax"
+												size="15" maxlength="8"
+												class="num"
+												value="2">
+										購入制限数（上限）
+										<br />
+										<input style="width: 200px;" type="text"
+												id="ecBuyLimitMin"
+												name="ecBuyLimitMin"
+												size="15" maxlength="8"
+												class="num"
+												value="">
+										購入制限数（下限）
+									</td>
+								</tr>
+								
+								
+									<tr >
+									<th align="center" nowrap id="th_reservedItemFlg">
+										予約受付数
+									</th>
+									<td nowrap colspan="3" valign="top" dir="ltr" id="td_btoc_reservedItemFlg">
+										予約数：100個&nbsp;&nbsp;受付済数：0個&nbsp;&nbsp;残数：100個
+									</td>
+								</tr>
+								
+								
+								<tr >
+									<th align="center" nowrap id="th_ecCatchCopy">
+										キャッチコピー<br>（商品詳細上）
+									</th>
+									<td nowrap colspan="3" valign="top" dir="ltr" id="td_btoc_ecCatchCopy">
+										<font size="-1">
+										<textarea name="ecCatchCopy" id="ecCatchCopy"
+											rows="5" cols="80"
+											class="multi">キャッチコピー</textarea>
+										</font>
+									</td>
+								</tr>
+								<tr >
+									<th align="center" nowrap id="th_ecDetailMemoP1">
+										PC用<br>商品説明文
+									</th>
+									<td nowrap colspan="3" valign="top" dir="ltr" id="td_btoc_ecDetailMemoP1">
+										<font size="-1">
+											<textarea name="ecDetailMemoP1" id="ecDetailMemoP1"
+												rows="10" cols="80"
+												class="multi">商品説明文</textarea>
+										</font>
+									</td>
+								</tr>
+								<tr >
+									<th align="center" nowrap id="th_ecDetailMemos">
+										スマートフォン用<br>商品説明文
+									</th>
+									<td nowrap colspan="3" valign="top" dir="ltr" id="td_btoc_ecDetailMemos">
+										<font size="-1">
+											<textarea name="ecDetailMemos" id="ecDetailMemos"
+												rows="10" cols="80"
+												class="multi">スマホ用説明文</textarea>
+										</font>
+									</td>
+								</tr>
+								<tr >
+									<th align="center" nowrap id="th_ecDetailMemoP2">
+										PC用<br>販売説明
+									</th>
+									<td nowrap colspan="3" valign="top" dir="ltr" id="td_btoc_ecDetailMemoP2">
+										<font size="-1">
+											<textarea name="ecDetailMemoP2" id="ecDetailMemoP2"
+												rows="10" cols="80"
+												class="multi">販売説明</textarea>
+										</font>
+									</td>
+								</tr>
+								<tr >
+									<th id="th_ecImgFolderNm1">
+										商品画像1<br>メイン画像<br>（130 x 130）
+									</th>
+									<td colspan="3" id="td_btoc_ec_method1">
+										<div class="BoxImg">
+											<div>
+												<span id="ec_method1">
+													
+														<img src="../ecsdocs2/jp_filedir\2625\image_folder\/2625/2017dotv.jpg" width="100" height="100">
+													
+												</span>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">フォルダ名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_path1" class="code"
+														name="ecImgFolderNm1"
+														size="40" maxlength="24"
+														value="2625"
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<input type="button" onClick="searchItemPicture('id_ec_uploadFile0','ec_method1','0','0','0');" value="商品選択">
+												</div>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">ファイル名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_file1" class="half"
+														name="ecImgFileNm1"
+														value="2017dotv.jpg"
+														size="40" maxlength="24"
+														onblur="getItemPict('ec_method1','0',this.value,'0');"
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<span id="ec_btn1">
+														
+															<input type="button" value="解　除" onclick="fileKaijo(ec_method1,'0','0')" id="ec_btn0">
+														
+													</span>
+												</div>
+											</div>
+										</div>
+										<input type="hidden" name="ecImgKbn0" id="id_ecImgKbn0" value="1">
+										<input type="hidden" name="ecUploadFile0" id="id_ecUploadFile0" value="">
+									</td>
+								</tr>
+								<tr >
+									<th id="th_ecImgFolderNm2">
+										商品画像1<br>メイン画像<br>（260 x 260）
+									</th>
+									<td colspan="3" id="td_btoc_ec_method2">
+										<div class="BoxImg">
+											<div>
+												<span id="ec_method2">
+													
+												</span>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">フォルダ名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_path2" class="code"
+														name="ecImgFolderNm2"
+														size="40" maxlength="24"
+														value=""
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<input type="button" onClick="searchItemPicture('id_ec_uploadFile1','ec_method2','1','0','0');" value="商品選択">
+												</div>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">ファイル名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_file2" class="half"
+														name="ecImgFileNm2"
+														value=""
+														size="40" maxlength="24"
+														onblur="getItemPict('ec_method2','1',this.value,'0');"
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<span id="ec_btn2">
+														
+													</span>
+												</div>
+											</div>
+										</div>
+										<input type="hidden" name="ecImgKbn1" id="id_ecImgKbn1" value="1">
+										<input id="id_ecUploadFile1" type="hidden" name="ecUploadFile1" value="">
+									</td>
+								</tr>
+								<tr >
+									<th id="th_ecImgFolderNm3">
+										商品画像1<br>メイン拡大画像<br>（500 x 500）
+									</th>
+									<td colspan="3" id="td_btoc_ec_method3">
+										<div class="BoxImg">
+											<div>
+												<span id="ec_method3">
+													
+												</span>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">フォルダ名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+															id="ec_path3" class="code"
+															name="ecImgFolderNm3"
+															size="40" maxlength="24"
+															value=""
+															style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<input type="button" onClick="searchItemPicture('id_ec_uploadFile2','ec_method3','2','0','0');" value="商品選択">
+												</div>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">ファイル名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+															id="ec_file3" class="half"
+															name="ecImgFileNm3"
+															value=""
+															size="40" maxlength="24"
+															onblur="getItemPict('ec_method3','2',this.value,'0');"
+															style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<span id="ec_btn3">
+														
+													</span>
+												</div>
+											</div>
+										</div>
+										<input type="hidden" name="ecImgKbn2" id="id_ecImgKbn2" value="1">
+										<input id="id_ecUploadFile2" type="hidden" name="ecUploadFile2" value="">
+									</td>
+								</tr>
+								<tr >
+									<th id="th_ecImgFolderNm4">
+										商品画像2<br>（260 x 260）
+									</th>
+									<td colspan="3" id="td_btoc_ec_method4">
+										<div class="BoxImg">
+											<div>
+												<span id="ec_method4">
+													
+												</span>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">フォルダ名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_path4" class="code"
+														name="ecImgFolderNm4"
+														size="40" maxlength="24"
+														value=""
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<input type="button" onClick="searchItemPicture('id_ec_uploadFile3','ec_method4','3','0','0');" value="商品選択">
+												</div>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">ファイル名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_file4" class="half"
+														name="ecImgFileNm4"
+														value=""
+														size="40" maxlength="24"
+														onblur="getItemPict('ec_method4','3',this.value,'0');"
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<span id="ec_btn4">
+														
+													</span>
+												</div>
+											</div>
+										</div>
+										<input type="hidden" name="ecImgKbn3" id="id_ecImgKbn3" value="1">
+										<input id="id_ecUploadFile3" type="hidden" name="ecUploadFile3" value="">
+									</td>
+								</tr>
+								<tr >
+									<th id="th_ecImgFolderNm5">
+										商品画像3<br>（260 x 260）
+									</th>
+									<td colspan="3" id="td_btoc_ec_method5">
+										<div class="BoxImg">
+											<div>
+												<span id="ec_method5">
+													
+												</span>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">フォルダ名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_path5" class="code"
+														name="ecImgFolderNm5"
+														size="40" maxlength="24"
+														value=""
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<input type="button" onClick="searchItemPicture('id_ec_uploadFile4','ec_method5','4','0','0');" value="商品選択">
+												</div>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">ファイル名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_file5" class="half"
+														name="ecImgFileNm5"
+														value=""
+														size="40" maxlength="24"
+														onblur="getItemPict('ec_method5','4',this.value,'0');"
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<span id="ec_btn5">
+														
+													</span>
+												</div>
+											</div>
+										</div>
+										<input type="hidden" name="ecImgKbn4" id="id_ecImgKbn4" value="1">
+										<input id="id_ecUploadFile4" type="hidden" name="ecUploadFile4" value="">
+									</td>
+								</tr>
+								<tr >
+									<th id="th_ecImgFolderNm6">
+										商品画像4<br>（260 x 260）
+									</th>
+									<td colspan="3" id="td_btoc_ec_method6">
+										<div class="BoxImg">
+											<div>
+												<span id="ec_method6">
+													
+												</span>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">フォルダ名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_path6"
+														class="code"
+														name="ecImgFolderNm6"
+														size="40" maxlength="24"
+														value=""
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<input type="button" onClick="searchItemPicture('id_ec_uploadFile5','ec_method6','5','0','0');" value="商品選択">
+												</div>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">ファイル名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_file6" class="half"
+														name="ecImgFileNm6"
+														value=""
+														size="40" maxlength="24"
+														onblur="getItemPict('ec_method6','5',this.value,'0');"
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<span id="ec_btn6">
+														
+													</span>
+												</div>
+											</div>
+										</div>
+										<input type="hidden" name="ecImgKbn5" id="id_ecImgKbn5" value="1">
+										<input id="id_ecUploadFile5" type="hidden" name="ecUploadFile5" value="">
+									</td>
+								</tr>
+								<tr >
+									<th id="th_ecImgFolderNm7">
+										商品画像5<br>（260 x 260）
+									</th>
+									<td colspan="3" id="td_btoc_ec_method7">
+										<div class="BoxImg">
+											<div>
+												<span id="ec_method7">
+													
+												</span>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">フォルダ名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_path7" class="code"
+														name="ecImgFolderNm7"
+														size="40" maxlength="24"
+														value=""
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<input type="button" onClick="searchItemPicture('id_ec_uploadFile6','ec_method7','6','0','0');" value="商品選択">
+												</div>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">ファイル名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_file7" class="half"
+														name="ecImgFileNm7"
+														value=""
+														size="40" maxlength="24"
+														onblur="getItemPict('ec_method7','6',this.value,'0');"
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<span id="ec_btn7">
+														
+													</span>
+												</div>
+											</div>
+										</div>
+										<input type="hidden" name="ecImgKbn6" id="id_ecImgKbn6" value="1">
+										<input id="id_ecUploadFile6" type="hidden" name="ecUploadFile6" value="">
+									</td>
+								</tr>
+								<tr >
+									<th id="th_ecImgFolderNm8">
+										商品画像6<br>（260 x 260）
+									</th>
+									<td colspan="3" id="td_btoc_ec_method8">
+										<div class="BoxImg">
+											<div>
+												<span id="ec_method8">
+													
+												</span>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">フォルダ名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+													id="ec_path8" class="code"
+													name="ecImgFolderNm8"
+													size="40" maxlength="24"
+													value=""
+													style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<input type="button" onClick="searchItemPicture('id_ec_uploadFile7','ec_method8','7','0','0');" value="商品選択">
+												</div>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">ファイル名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+													id="ec_file8" class="half"
+													name="ecImgFileNm8"
+													value=""
+													size="40" maxlength="24"
+													onblur="getItemPict('ec_method8','7',this.value,'0');"
+													style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<span id="ec_btn8">
+														
+													</span>
+												</div>
+											</div>
+										</div>
+										<input type="hidden" name="ecImgKbn7" id="id_ecImgKbn7" value="1">
+										<input id="id_ecUploadFile7" type="hidden" name="ecUploadFile7" value="">
+									</td>
+								</tr>
+								<tr bgcolor="white">
+									<th id="th_ecImgFolderNm9">
+										商品画像7<br>（260 x 260）
+									</th>
+									<td colspan="3" id="td_btoc_ec_method9">
+										<div class="BoxImg">
+											<div>
+												<span id="ec_method9">
+													
+												</span>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">フォルダ名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_path9" class="code"
+														name="ecImgFolderNm9"
+														size="40" maxlength="24"
+														value=""
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<input type="button" onClick="searchItemPicture('id_ec_uploadFile8','ec_method9','8','0','0');" value="商品選択">
+												</div>
+											</div>
+											<div>
+												<div class="BoxImgC1">
+													<font size="2">ファイル名</font>
+												</div>
+												<div class="BoxImgC2">
+													<input type="text"
+														id="ec_file9" class="half"
+														name="ecImgFileNm9"
+														value=""
+														size="40" maxlength="24"
+														onblur="getItemPict('ec_method9','8',this.value,'0');"
+														style="width:450px;">
+												</div>
+												<div class="BoxImgC3">
+													<span id="ec_btn9">
+														
+													</span>
+												</div>
+											</div>
+										</div>
+										<input type="hidden" name="ecImgKbn8" id="id_ecImgKbn8" value="1">
+										<input id="id_ecUploadFile8" type="hidden" name="ecUploadFile8" value="">
+									</td>
+								</tr>
+								<tr>
+									<th align="center" nowrap id="th_ecKanrenItemNo1">
+										関連商品コード
+									</th>
+									<td nowrap colspan="3" id="td_btoc_ecKanrenItemNo1">　１．
+									<input type="text"
+										name="ecKanrenItemNo1"
+										id="ecKanrenItemNo1"
+										size="30" onchange= "getItemNm(this.value,'1','0','ecKanrenItemNo1','ecKanrenItemNm1')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo1','ecKanrenItemNm1','3');">
+										<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm1" id="ecKanrenItemNm1" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>　２．
+									<input type="text"
+										name="ecKanrenItemNo2"
+										id="ecKanrenItemNo2"
+										size="30" maxlength="70"
+										class="code" onchange= "getItemNm(this.value,'2','0','ecKanrenItemNo2','ecKanrenItemNm2')"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo2','ecKanrenItemNm2','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm2" id="ecKanrenItemNm2" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>　３．
+									<input type="text"
+										name="ecKanrenItemNo3"
+										id="ecKanrenItemNo3"
+										size="30" onchange= "getItemNm(this.value,'3','0','ecKanrenItemNo3','ecKanrenItemNm3')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;"/>
+									<a href="javascript:SearchYItem('ecKanrenItemNo3','ecKanrenItemNm3','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm3" id="ecKanrenItemNm3" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>　４．
+									<input type="text"
+										name="ecKanrenItemNo4"
+										id="ecKanrenItemNo4"
+										size="30" onchange= "getItemNm(this.value,'4','0','ecKanrenItemNo4','ecKanrenItemNm4')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo4','ecKanrenItemNm4','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm4" id="ecKanrenItemNm4" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>　５．
+									<input type="text"
+										name="ecKanrenItemNo5"
+										id="ecKanrenItemNo5"
+										size="30" onchange= "getItemNm(this.value,'5','0','ecKanrenItemNo5','ecKanrenItemNm5')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo5','ecKanrenItemNm5','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm5" id="ecKanrenItemNm5" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>　６．
+									<input type="text"
+										name="ecKanrenItemNo6"
+										id="ecKanrenItemNo6"
+										size="30" onchange= "getItemNm(this.value,'6','0','ecKanrenItemNo6','ecKanrenItemNm6')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo6','ecKanrenItemNm6','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm6" id="ecKanrenItemNm6" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>　７．
+									<input type="text"
+										name="ecKanrenItemNo7"
+										id="ecKanrenItemNo7"
+										size="30" onchange= "getItemNm(this.value,'7','0','ecKanrenItemNo7','ecKanrenItemNm7')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo7','ecKanrenItemNm7','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm7" id="ecKanrenItemNm7" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>　８．
+									<input type="text"
+										name="ecKanrenItemNo8"
+										id="ecKanrenItemNo8"
+										size="30" onchange= "getItemNm(this.value,'8','0','ecKanrenItemNo8','ecKanrenItemNm8')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo8','ecKanrenItemNm8','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm8" id="ecKanrenItemNm8" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>　９．
+									<input type="text"
+										name="ecKanrenItemNo9"
+										id="ecKanrenItemNo9"
+										size="30" onchange= "getItemNm(this.value,'9','0','ecKanrenItemNo9','ecKanrenItemNm9')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo9','ecKanrenItemNm9','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm9" id="ecKanrenItemNm9" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>１０．
+									<input type="text"
+										name="ecKanrenItemNo10"
+										id="ecKanrenItemNo10"
+										size="30" onchange= "getItemNm(this.value,'10','0','ecKanrenItemNo10','ecKanrenItemNm10')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo10','ecKanrenItemNm10','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm10" id="ecKanrenItemNm10" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>１１．
+									<input type="text"
+										name="ecKanrenItemNo11"
+										id="ecKanrenItemNo11"
+										size="30"  onchange= "getItemNm(this.value,'11','0','ecKanrenItemNo11','ecKanrenItemNm11')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo11','ecKanrenItemNm11','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm11" id="ecKanrenItemNm11" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>１２．
+									<input type="text"
+										name="ecKanrenItemNo12"
+										id="ecKanrenItemNo12"
+										size="30"  onchange= "getItemNm(this.value,'12','0','ecKanrenItemNo12','ecKanrenItemNm12')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo12','ecKanrenItemNm12','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="osusum_syo_nm12" id="ecKanrenItemNm12" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>１３．
+									<input type="text"
+										name="ecKanrenItemNo13"
+										id="ecKanrenItemNo13"
+										size="30"  onchange= "getItemNm(this.value,'13','0','ecKanrenItemNo13','ecKanrenItemNm13')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo13','ecKanrenItemNm13','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm13" id="ecKanrenItemNm13" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>１４．
+									<input type="text"
+										name="ecKanrenItemNo14"
+										id="ecKanrenItemNo14"
+										size="30"  onchange= "getItemNm(this.value,'14','0','ecKanrenItemNo14','ecKanrenItemNm14')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo14','ecKanrenItemNm14','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm14" id="ecKanrenItemNm14" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>１５．
+									<input type="text"
+										name="ecKanrenItemNo15"
+										id="ecKanrenItemNo15"
+										size="30"  onchange= "getItemNm(this.value,'15','0','ecKanrenItemNo15','ecKanrenItemNm15')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo15','ecKanrenItemNm15','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="oecKanrenItemNm15" id="ecKanrenItemNm15" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									<br>１６．
+									<input type="text"
+										name="ecKanrenItemNo16"
+										id="ecKanrenItemNo16"
+										size="30"  onchange= "getItemNm(this.value,'16','0','ecKanrenItemNo16','ecKanrenItemNm16')"
+										maxlength="70"
+										class="code"
+										value=""
+										style="width:182.00px;">
+									<a href="javascript:SearchYItem('ecKanrenItemNo16','ecKanrenItemNm16','3');">
+									<img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="absmiddle" border="0"></a>
+									<input type="text" name="ecKanrenItemNm16" id="ecKanrenItemNm16" size="60" value="" border="0" readonly="readonly" style="border-style: groove; background-color: #f0f0f0;width: 343.5px">
+									</td>
+								</tr>
+								<tr>
+									<th align="center" nowrap id="th_ecKeyword1">
+										キーワード
+									</th>
+									<td nowrap colspan="3" id="td_btoc_ecKeyword1">
+										&nbsp;１．<input type="text"
+												name="ecKeyword1"
+												id="ecKeyword1"
+												size="15"
+												maxlength="30"
+												class="multi"
+												value=""
+												style="width:98.60px;"
+										>&nbsp;２．<input type="text"
+												name="ecKeyword2"
+												id="ecKeyword2"
+												size="15"
+												maxlength="30"
+												class="multi"
+												value=""
+												style="width:98.60px;"
+										>&nbsp;３．<input type="text"
+												name="ecKeyword3"
+												id="ecKeyword3"
+												size="15"
+												maxlength="30"
+												class="multi"
+												value=""
+												style="width:98.60px;"
+										>&nbsp;４．<input type="text"
+												name="ecKeyword4"
+												id="ecKeyword4"
+												size="15"
+												maxlength="30"
+												class="multi"
+												value=""
+												style="width:98.60px;"
+										>&nbsp;５．<input type="text"
+												name="ecKeyword5"
+												id="ecKeyword5"
+												size="15"
+												maxlength="30"
+												class="multi"
+												value=""
+												style="width:98.60px;"
+										>
+									</td>
+								</tr>
+								<tr>
+									<th align="center" nowrap id="th_ecItemStatus1">
+										商品ステータス
+									</th>
+									<td nowrap colspan="3" id="td_btoc_ecItemStatus">
+										<table border="0" cellSpacing="2" cellPadding="0">
+											<tr>
+												
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+		
+
+		<style type="text/css">
+			.BoxMethod{
+				width: 300px;
+			}
+			.BoxMethod, .BoxMethod div{
+				float: left;
+			}
+			.BoxMethod .BoxMethodC1{
+				width:10%;
+			}
+			.BoxMethod .BoxMethodC2{
+				width:26%;
+			}
+			.BoxMethod .BoxMethodC3{
+				width:50%;
+			}
+			.BoxMethod div span{
+				display:block;
+				float: left;
+			}
+			.BoxMethod div span:first-child {
+				width:75% !important;
+			}
+			#toCZaikoDispWayKbn, #toCZaikoDispPlaceKbn, #ecZaiKoLostFlg{
+				width: 250px;
+			}
+			.BoxImg div .BoxImgC1 {
+				float: left;
+				width:15%;
+			}
+			.BoxImg div .BoxImgC2{
+				float: left;
+				width:70%;
+				padding-bottom: 2px;
+			}
+			.BoxImg div .BoxImgC3{
+				float: right;
+				width:15%;
+				text-align: right;
+			}
+			.BoxImg div {
+				float: left;
+				width: 650px;
+			}
+			.BoxImg div:first-child > span {
+				margin-left: 15%;
+			}
+			.tbForm, .inp1 {
+				width: 790px !important;
+			}
+
+			.inp1 > tbody > tr > th {
+				width: 118 !important;
+				background-color: #cccccc;
+				font-size: 13px;
+			}
+			.tb_yahoo > tbody > tr > th {
+				background-color: #cccccc;
+				font-size: 13px;
+			}
+
+			.inp1 > tbody > tr > td {
+				width: 265px !important;
+			}
+			.inp1 > tbody > tr > td input {
+				max-width: 90%;
+			}
+			.inp1 > tbody > tr > td table {
+				max-width: 268px;
+			}
+			.note{
+				padding-top: 5px;
+			}
+			.OpnItmInfo{
+				float: left;
+				padding: 3px 0 3px 0;
+				width: 100%;
+			}
+			.OpnItmInfo font {
+				float: left;
+				display: block;
+				width: 40%;
+			}
+			.OpnItmInfo select {
+				float: left;
+				display: block;
+				width: 50%;
+				padding: 0 0 1px 0;
+			}
+			.lineBlock{
+				width: 100%;
+				float: left;
+			}
+			.lineBlock font {
+				float: left;
+				display: block;
+				width: 93px;
+			}
+		</style>
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
+			
+		
+		
+		
+	</form>
+</body>
+	<script type="text/javascript">
+		var docRoot = "../ecsdocs2";
+		var urBase = "/easpro2";
+		var pageAjax="6";
+		var coNo = "2625";
+		var siteCnt = 0;
+		var intTabCnt = 1;
+
+		var displayedTabs = (function() {
+			var map = {};
+
+			
+				map['3'] = false;
+			
+			
+			
+				map['100'] = false;
+			
+			
+				map['101'] = false;
+			
+			
+
+			return map;
+		}());
+
+	</script>
+	<script type="text/javascript" src="../ecsdocs2/js/MS041.js?8G7hWyvCjn"></script>
+	<script type="text/javascript">
+
+		var arrayId = [ "yPcItemMemo", "ySpItemFree", "yPcItemFree1", "yPcItemFree2", "yPcItemFree3",
+		                "yWordMemo", "rPcCatchCopy", "rPcItemMemo", "rSpItemMemo", "rPcItemFree1",
+		                "rMbItemMemo", "rMedItemMemo", "rMedAttnItem" ];
+		var arrayName = [ "ecCatchCopy", "ecDetailMemoP1", "ecDetailMemos",
+		                  "ecBCatchCopy", "ecBDetailMemoP1", "ecBDetailMemos" ]
+
+		var myWindow = null;
+		var desWindow = null;
+
+		$(document).ready(function() {
+
+			//Draw button Preview
+			$("textarea").each(function(){
+				var name = $(this).attr('name');
+				var id = $(this).attr('id');
+				var button = $('<span style="float: right;margin-top: 5px;margin-left: 5px;margin-right: 5px;"><input onclick="previewClick(\''+name+'\',\''+id+'\')" type="button" value="プレビュー"/></span>');
+				if(jQuery.inArray( name, arrayId ) != -1 || jQuery.inArray( name, arrayName ) != -1){
+					$(this).after(button[0]);
+				}
+			});
+		});
+
+		//DBのより、レイアウトを変更
+		function updateDisplay(siteKbn) {
+			// 表示されたタブをマークする。
+			displayedTabs[siteKbn] = true;
+
+			//Draw button Help
+			siteKbn = 'MS041MallItemEntry' + siteKbn;
+			
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_mItemNo');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_mItemNo"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecItemUrl');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecItemUrl"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecWebCatchCopyPre');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecWebCatchCopyPre"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecWebItemNm');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecWebItemNm"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecWebCatchCopySuf');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecWebCatchCopySuf"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecZeiKbn');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecZeiKbn"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecZeiKomiStdTnk');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecZeiKomiStdTnk"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecStdTnk');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecStdTnk"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecZeiKomiSaleTnk');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecZeiKomiSaleTnk"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecSaleTnk');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecSaleTnk"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecSYmd');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecSYmd"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKSYmd');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKSYmd"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecCategoryCd1');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecCategoryCd1"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecCatchCopy');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecCatchCopy"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecDetailMemoP1');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecDetailMemoP1"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecDetailMemos');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecDetailMemos"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecDetailMemoP2');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecDetailMemoP2"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm1');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm1"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm2');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm2"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm3');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm3"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm4');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm4"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm5');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm5"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm6');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm6"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm7');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm7"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm8');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm8"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm9');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm9"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm10');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm10"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm11');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm11"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm12');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm12"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm13');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm13"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm14');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm14"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm15');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm15"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm16');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm16"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm17');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm17"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm18');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm18"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm19');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm19"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecImgFolderNm20');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecImgFolderNm20"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_toCZaikoDispWayKbn');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_toCZaikoDispWayKbn"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_toCZaikoDispPlaceKbn');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_toCZaikoDispPlaceKbn"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecZaiKoLostFlg');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecZaiKoLostFlg"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_reservedItemFlg');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_reservedItemFlg"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo1');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo1"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo2');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo2"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo3');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo3"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo4');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo4"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo5');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo5"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo6');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo6"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo7');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo7"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo8');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo8"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo9');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo9"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo10');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo10"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo11');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo11"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo12');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo12"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo13');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo13"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo14');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo14"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo15');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo15"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo16');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo16"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo17');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo17"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo18');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo18"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo19');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo19"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKanrenItemNo20');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKanrenItemNo20"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecKeyword1');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecKeyword1"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecItemStatus1');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecItemStatus1"></input>');
+							}
+						
+					}
+				
+
+					if (siteKbn == "MS041MallItemEntry3") {
+					
+							var headerId = $('#div1 #th_ecBuyLimit');
+	 						if(headerId != null && headerId.length > 0) {
+	 							headerId.append('<br><input type="button" value="HELP" class="helpbtn" id="btn_ecBuyLimit"></input>');
+							}
+						
+					}
+				
+			$(".helpbtn").click(function(){
+				showDes($(this).attr("id").replace("btn_",""));
+			});
+			// ヘルプボタン
+			$(".helpbtn").hover(helpOverFunc, helpOutFunc);
+			function helpOverFunc(){
+				$(this).css("background-color", "#333");
+				$(this).css("border-color", "#333");
+			}
+			function helpOutFunc(){
+				$(this).css("background-color", "#aaa");
+				$(this).css("border-color", "#aaa");
+			}
+
+			// 商品マスタ登録区分ごとにより、項目の背景色を設定する
+			
+		}
+
+		function showDes(col_id){
+			var url = urBase+"/e_asproMaster/MS041MallItemEntry";
+			var parms = "processType="+pageAjax;
+				parms = parms+"&ajaxKbn=itemDescription";
+				parms = parms+"&colId="+ col_id;
+			ExecuteAjax(url,parms);
+		}
+
+		function previewClick(name, id){
+			myWindow = window.open("", "プレビュー", "toolbar=yes, scrollbars=yes, resizable=yes, width=500, height=200");
+			myWindow.document.body.innerHTML="";
+			var selector = "";
+			var attribute = "";
+			var attribute1 = "";
+
+			if(jQuery.inArray( name , arrayId)){
+				selector = "id";
+				attribute = id;
+				attribute1 = name;
+			}else{
+				selector = "name";
+				attribute = name;
+				attribute1 = name;
+			}
+
+			//数値以外取り出す
+			var idx = attribute.replace(/[^0-9]/g, "");
+
+			if(idx == ""){
+				idx = 0;
+			}else{
+				//文字列の最後の１桁を取得
+				var idx = attribute.slice(-1);
+			}
+
+			//改行を反映するのチェックボックスのvalueの値を取得
+			var checkFlg = $('#js_'+attribute1+'Flg_'+idx).val();
+
+			//改行を反映する。（入力した通りに改行する） にチェックが入っていた場合
+			if(checkFlg ==1){
+				var change_text = ($("["+selector+"=\""+attribute+"\"]").val());
+				//テキストエリアで入力している改行コードを<br>タグに置き換え
+				var txt = change_text.replace( /\r?\n/g, '<br>' );
+			}else{
+				var txt = ($("["+selector+"=\""+attribute+"\"]").val());
+			}
+
+			myWindow.document.write('<html><head><title>プレビュー</title></head>');
+			myWindow.document.write(txt);
+
+			myWindow.document.close();
+			myWindow.focus();
+		}
+
+		function validate(){
+			var  msg = "在庫切れの注文を「受け付ける」に設定していますがよろしいですか？\n";
+			var error = false;
+			if($("[name=zaikoLost_flg][value=1]").length > 0){
+				error = true;
+				msg += "・共通情報\n";
+			}
+			$('div.rakutenTab').each(function(idx,obj){
+				if($(obj).find("[name=zaikoLost_flg_r][value=1]").length > 0){
+					error = true;
+					msg += "・" + $.trim($(obj).find("td.current").attr("title")) + "\n";
+				}
+			});
+			return error?confirm(msg):true;
+		}
+		//「登録」ボタン押下時処理
+		function Insert(){
+			if(!validate()){
+				return false;
+			}
+			$$("_processType").value=3;
+			$$("_Form").action="/easpro2/e_asproMaster/MS041MallItemEntry";
+			$$("_Form").submit();
+			btnDisabled();
+		}
+		var mapRakuten ={};
+		var mapYahoo ={};
+		//「更新」ボタン押下時処理
+		function Update(){
+			var colIdArr = "";
+			var colValArr= "";
+			$("textarea").each(function(){
+				var colId = $(this).attr("id");
+				var colVal = $(this).val();
+				if(colId.indexOf("r")==0){
+					mapRakuten[colId] = colVal;
+				}
+				if(colId.indexOf("y")==0){
+					mapYahoo[colId] = colVal;
+				}
+			});
+			var rakutenJson = JSON.stringify(mapRakuten);
+			var yahooJson = JSON.stringify(mapYahoo);
+			$$("_rakutenJson").value = rakutenJson;
+			$$("_yahooJson").value = yahooJson;
+			if(!validate()){
+				return false;
+			}
+			if(confirm("更新します。よろしいですか？")){
+				$$("_processType").value=4;
+				$$("_Form").action="/easpro2/e_asproMaster/MS041MallItemEntry";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+		}
+		//更新してアップロードする
+		function updateAndUpload(){
+			if(!validate()){
+				return false;
+			}
+			var count = 0;
+			// 楽天
+			var lengthR =  $('select[name="rMallStatus"]').length;
+			if( lengthR > 0) {
+				for(var i =0; i< lengthR; i++){
+					var rMallVal = $('select[name="rMallStatus"]')[i].value;
+					if(rMallVal != "2" && rMallVal != "6" && rMallVal != "4"){
+					} else {
+						count += 1;
+					}
+				}
+			}
+			// Yahooサイト
+			var lengthY =  $('select[name="yMallStatus"]').length;
+			if(lengthY > 0) {
+				for(var i =0; i< lengthY; i++){
+					var yMallVal = $('select[name="yMallStatus"]')[i].value;
+					if(yMallVal != "2" && yMallVal != "6" && yMallVal != "4"){
+					} else {
+						count += 1;
+					}
+				}
+			}
+			// Amazonサイト
+			var lengthA =  $('select[name="aMallStatus"]').length;
+			if(lengthA > 0) {
+				for(var i =0; i< lengthA; i++){
+					var aMallVal = $('select[name="aMallStatus"]')[i].value;
+					if(aMallVal != "2" && aMallVal != "6" && aMallVal != "4"){
+					} else {
+						count += 1;
+					}
+				}
+			}
+			if (count == 0) {
+				alert("いずれのサイトにも出品チェック完了のステータスがありません。");
+				return;
+			}
+			if(confirm("更新します。よろしいですか？")){
+				$$("_uploadKbn").value="1";
+				$('#_processType').val(4);
+				$$("_Form").action="/easpro2/e_asproMaster/MS041MallItemEntry";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+		}
+		//更新してアップロード画面に遷移
+		function updateAndNavigateMS043(){
+			if(!validate()){
+				return false;
+			}
+			if(confirm("更新します。よろしいですか？")){
+				$$("_uploadKbn").value="2";
+				$('#_processType').val(4);
+				$$("_Form").action="/easpro2/e_asproMaster/MS041MallItemEntry";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+		}
+		//更新して商品マスタに遷移
+		function updateAndNavigateMS022(){
+			if(!validate()){
+				return false;
+			}
+			if(confirm("更新します。よろしいですか？")){
+				$$("_uploadKbn").value="3";
+				$('#_processType').val(4);
+				$$("_Form").action="/easpro2/e_asproMaster/MS041MallItemEntry";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+		}
+
+		//更新してセット商品マスタ画面へ遷移
+		function updateAndNavigateMS461(){
+			if("3" != $$("_itemTaniKbn").value|| "0" == $$("_setKbn").value){
+				alert("セット商品マスタ登録時は単位でセットを選択し、セット区分を選択してください。");
+				return;
+			}
+			if(!validate()){
+				return false;
+			}
+			if(confirm("更新します。よろしいですか？")){
+				$$("_uploadKbn").value="4";
+				$('#_processType').val(4);
+				$$("_Form").action="/easpro2/e_asproMaster/MS041MallItemEntry";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+		}
+		function ExecuteAjax(url,parms){
+			_SendByAjax(url,parms,'',true);
+		}
+		//Ajaxの戻り値をセット
+		function setItemNm(itemNoId,_idx,kbn,cnt){
+			if (cnt==0) {
+				$$(itemNoId).select();
+				$$(itemNoId).focus();
+				if (kbn == "0") {
+					//ec
+					$$("js_errMsg").innerText = "X行目に入力され関連商品コードが商品マスタマスタに登録されていません。".replace("X",(eval(_idx)));
+					alert(eval(_idx)+"行目に入力された関連商品コードが商品マスタに登録されていません。");
+				}else if (kbn == "1") {
+					$$("js_errMsg").innerText = "X行目に入力されたおすすめ商品コードがYahoo商品情報マスタに登録されていません。".replace("X",(eval(_idx)));
+					alert(eval(_idx)+"行目に入力されたおすすめ商品コードがYahoo商品情報マスタに登録されていません。");
+				}else if (kbn == "2") {
+					$$("js_errMsg").innerText = "X行目に入力されたカート内関連商品コードがYahoo商品情報マスタに登録されていません。".replace("X",(eval(_idx)));
+					alert(eval(_idx)+"行目に入力されたカート内関連商品コードがYahoo商品情報マスタに登録されていません。");
+				}
+			}
+
+		}
+		//お勧め商品/カート内関連商品 Ajax
+		function getItemNm(_val,_idx,_kbn,_itemNoId,_itemNmId){
+			if( _val ==""){
+				$$(_itemNmId).value = "";
+				return;
+			}
+			var url = urBase+"/e_asproMaster/MS041MallItemEntry";
+			var parms = "processType="+pageAjax;
+				parms = parms+"&ajaxKbn=item";
+				parms = parms+"&itemNo="+_val;
+				parms = parms+"&itemNoId="+_itemNoId;
+				parms = parms+"&itemNmId="+_itemNmId;
+				parms = parms+"&index="+_idx;
+				parms = parms+"&kbn="+_kbn;
+				ExecuteAjax(url,parms);
+		}
+		function setEcItemCtl(_itemNo){
+			var formId1 = _itemNo;
+			var url= urBase+"/e_asproLogin/CC090EcSaleTokuisaki?itemNo="+formId1;
+			_searchWin = window.open(url,"CC090","width=720,height=700,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+			_searchWin.focus();
+		}
+		function F_Display(){
+			document.body.style.display="";
+		}
+		//Amazon取り寄せ商品チェック
+		function toriyoseCheck(){
+			obj =document.getElementsByName("toriyoseKbnGroup");
+			for (i=0; i<obj.length; i++){
+				if (obj[i].checked == true){
+					//対象外の場合
+					if (obj[i].value == 0) {
+						$$("aToriyoseQty").disabled = true;
+						$$("aToriyoseQty").value = "";
+				}else{
+						$$("aToriyoseQty").disabled = false;
+					}
+					return;
+				}
+			}
+		}
+		$(function() {
+			toriyoseCheck();
+			var tabId = "";
+			$("#tab1").find("a").each(function(){
+				tabId = this.id;
+			});
+			var splitId= tabId.split('_');
+			var siteKbn = splitId[0];
+			var siteCd="";
+			if(splitId.length > 1){
+				siteCd = splitId[1];
+			}
+			$("#_copyItemSiteKbn").val(siteKbn);
+			$("#_copyItemSiteCd").val(siteCd);
+
+			$("td[id*=tab] a").click(function(){
+				var splitId= this.id.split('_');
+				var siteKbn = splitId[0];
+				var siteCd="";
+				if(splitId.length > 1){
+					siteCd = splitId[1];
+				}
+				$("#_copyItemSiteKbn").val(siteKbn);
+				$("#_copyItemSiteCd").val(siteCd);
+				var activeTab = $(this).parent().parent()[0].id;
+				$("#_currentTab").val(activeTab.split('tab')[1]);
+			});
+		});
+		//Copy function
+		function copy(){
+			$$("_Form").action="/easpro2/e_asproMaster/MS041MallItemEntry"
+				$$("_processType").value="8";
+				if($$("_txtItemNoCopy").value == ''){
+					alert('コピー対象の商品コードを入力してください。');
+					return false;
+				}
+				$("input[name=copyItemNo]")[0].value = $$("_txtItemNoCopy").value;
+				$("#_insertKbn").val("2")
+				$$("_Form").submit();
+				btnDisabled();
+		}
+		//商品検索サブウインドウ呼び出し
+		function helpSearch(idx){
+			var url= "/easpro2/e_asproLogin/CC021SearchProduct?callsSrciptFuncName=itemSubWinSet";
+			url = url + "&index="+idx;
+			sWindow(url,"CC024","850","600");
+		}
+
+		function itemSubWinSet(itemNo) {
+			$$("_txtItemNoCopy").value = itemNo ;
+		}
+		// 【Amazon上での画面表示】
+		function MS041ReadTimeList() {
+			var url;
+			url = "/easpro2/e_asproLogin/CC800PopUpMessage";
+			url = url + "?programId=" + "MS051ReadTimeList";
+			sWindow(url,"CC800","600","550");
+		}
+
+		// Amazonセール開始日時チェック
+		function textCheckFrom(value) {
+			//開始日が空なら時間と分を削除
+			if (value == "") {
+				$("#aFromHour").val("");
+				$("#aFromMin").val("");
+			}
+		}
+		// Amazonセール終了日時チェック
+		function textCheckTo(value) {
+			//終了日が空なら時間と分を削除
+			if (value == "") {
+				$("#aToHour").val("");
+				$("#aToMin").val("");
+			}
+		}
+
+		var errorItemColor ="#FFCECE";
+		$( document ).ready(function() {
+			var listErrorId = $('#_listIdError').val();
+			if(listErrorId == null || listErrorId == undefined || listErrorId == ""){
+				return;
+			}
+			var arrId = listErrorId.split(',');
+			for(var i=0; i< arrId.length; i++){
+				$('#'+ arrId[i]).css("background-color", errorItemColor);
+			}
+
+			var listErrorIdEC = $('#_listIdErrorEC').val();
+			if(listErrorIdEC == null || listErrorIdEC == undefined || listErrorIdEC == ""){
+				return;
+			}
+			var arrIdEC = listErrorIdEC.split(',');
+			for(var i=0; i< arrIdEC.length; i++){
+				$('#'+ arrIdEC[i]).css("background-color", errorItemColor);
+			}
+
+			var listErrorIdECB = $('#_listIdErrorECB').val();
+			if(listErrorIdECB == null || listErrorIdECB == undefined || listErrorIdECB == ""){
+				return;
+			}
+			var arrIdECB = listErrorIdECB.split(',');
+			for(var i=0; i< arrIdECB.length; i++){
+				$('#'+ arrIdECB[i]).css("background-color", errorItemColor);
+			}
+
+			var listErrorIdR = $('#_listIdErrorR').val();
+			if(listErrorIdR == null || listErrorIdR == undefined || listErrorIdR == ""){
+				return;
+			}
+			var arrIdR = listErrorIdR.split(',');
+			for(var i=0; i< arrIdR.length; i++){
+				$('#'+ arrIdR[i]).css("background-color", errorItemColor);
+			}
+
+			var listErrorIdY = $('#_listIdErrorY').val();
+			if(listErrorIdY == null || listErrorIdY == undefined || listErrorIdY == ""){
+				return;
+			}
+			var arrIdY = listErrorIdY.split(',');
+			for(var i=0; i< arrIdY.length; i++){
+				$('#'+ arrIdY[i]).css("background-color", errorItemColor);
+			}
+
+			var listErrorIdA = $('#_listIdErrorA').val();
+			if(listErrorIdA == null || listErrorIdA == undefined || listErrorIdA == ""){
+				return;
+			}
+			var arrIdA = listErrorIdA.split(',');
+			for(var i=0; i< arrIdA.length; i++){
+				$('#'+ arrIdA[i]).css("background-color", errorItemColor);
+			}
+		});
+		function addItemPictureCopy(_mItemNo,_kbn,_site,_copyItemNo){
+			var url= urBase+"/e_asproMaster/MS041AddItemPicture?"+"kbn="+_kbn+"&siteCd="+_site+"&mItemNo="+_mItemNo + "&copyItemNo=" + _copyItemNo;
+			_searchWin = window.open(url,"MS041","width=800,height=700,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+			_searchWin.focus();
+
+		}
+		$(document).ready(function() {
+			 buyRimitEcB();
+			// display tab
+			
+				window.location.href = $("td[id=tab1] a").attr('href');
+			
+		});
+		function rakutenchecktoggle(index,idx){
+			if(index == 0){
+				$("#rakutenCheckboxList_"+idx+" input:checkbox")[1].checked = !$("#rakutenCheckboxList_"+idx+" input:checkbox")[0].checked;
+				$("#firstSetFlgR_"+idx).val("1");
+				$("#updateSetFlgR_"+idx).val("0");
+			}else{
+				$("#rakutenCheckboxList_"+idx+" input:checkbox")[0].checked = !$("#rakutenCheckboxList_"+idx+" input:checkbox")[1].checked;
+				$("#firstSetFlgR_"+idx).val("0");
+				$("#updateSetFlgR_"+idx).val("1");
+			}
+		}
+		function yahoochecktoggle(index,idx){
+			if(index == 0){
+				$("#yahooCheckboxList_"+idx+" input:checkbox")[1].checked = !$("#yahooCheckboxList_"+idx+" input:checkbox")[0].checked;
+				$("#yFirstUpFlg_"+idx).val("1");
+				$("#yUpdateSetFlg_"+idx).val("0");
+			}else{
+				$("#yahooCheckboxList_"+idx+" input:checkbox")[0].checked = !$("#yahooCheckboxList_"+idx+" input:checkbox")[1].checked;
+				$("#yFirstUpFlg_"+idx).val("0");
+				$("#yUpdateSetFlg_"+idx).val("1");
+			}
+		}
+		$(function(){
+			var cc800wind;
+			$("#linkCaution").click(function(){
+				var url = "/easpro2/e_asproLogin/CC800PopUpMessage";
+				url = url + "?programId=MS041MallItemEntry";
+				sWindow(url,"CC800","800","650");
+			});
+		});
+		//購入制限
+		function buyRimitEcB(){
+			//BtoCのタブがある場合チェックを行う
+			if (0 == 1){
+				//無制限の場合
+				if ($("#ecBBuyLimitFlg").val() == 0) {
+					$$("ecBBuyLimitMax").disabled = true;
+					$$("ecBBuyLimitMin").disabled = true;
+				} else {
+					$$("ecBBuyLimitMax").disabled = false;
+					$$("ecBBuyLimitMin").disabled = false;
+				}
+			}
+		}
+
+	</script>
+</html>
+	

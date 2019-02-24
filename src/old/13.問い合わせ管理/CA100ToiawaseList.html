@@ -1,0 +1,575 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+		
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+		<title>問合せ照会</title>
+		<LINK HREF="system.css" TYPE="text/css" REL="stylesheet" MEDIA="all">
+		<style type="text/css">
+			.POP_DIV {
+				background-color: #666666;
+				text-align: center;
+				line-height: 40px;
+				font-size: 12px;
+				font-weight: bold;
+				z-index:999;
+				width: 150px;
+				height: 120px;
+				left:500px;
+				top:40%;
+				margin-left:-150px!important;	/*FF IE7  */
+				margin-top:-60px!important;		/*FF IE7*/
+				margin-top:0px;
+				position:fixed!important;		/* FF IE7*/
+				position:absolute;				/*IE6*/
+				_top:		expression(eval(document.compatMode &&
+							document.compatMode=='CSS1Compat') ?
+							documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 :/*IE6*/
+							document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2);/*IE5 IE5.5*/
+			}
+		</style>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_bt_uke.gif' alt='' align='middle' border='0'>
+		<div class=pt>問合せ照会
+		</div>
+		<br>
+		<b style="color:red"></b>
+		<br>
+		<form action="/easpro2/CA100ToiawaseList" id="_Form" method="post">
+			<input type="hidden" name="strForwordFlg" value="2">
+			<input type="hidden" name="processKbn" id="_processKbn" value="2">
+			<input type="hidden" name="processType" id="_processType" value="2">
+			<input type="hidden" name="csv_out" id="_csv_out">
+			<input type="hidden" name="csv_down_kbn" id="_csv_down_kbn">
+			<input type="hidden" name="strFromPageId" value="">
+
+			<div ID='div1' style='display:block;'>
+				<table class="nb" style="width:850">
+					<tr>
+						<td>
+							<table CLASS="sf" style="width:800px;">
+								<col style="width:140px;"><col style="width:250px;">
+								<col style="width:140px;"><col style="width:250px;">
+								<tr>
+									<th class="must">問合せ日</TH>
+									<td>
+										<input type='text' name='toi_date_from' style='width:82px;'  maxlength=10 value='2018/09/01' class='ymd' onkeypress='_chkInp();' id='toi_date_from_calendar_link_id' onblur='_formateDate(this,"問合せ日(開始日)は日付を入力して下さい。");' /><a href='#' id='toi_date_from_calendar_link_id_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'toi_date_from_calendar_link_id',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'toi_date_from_calendar_link_id_calendar_link_id',singleClick : true,step:1});</script>
+										～
+										<input type='text' name='toi_date_to' style='width:82px;'  maxlength=10 value='2019/01/11' class='ymd' onkeypress='_chkInp();' id='toi_date_to_calendar_link_id' onblur='_formateDate(this,"問合せ日(終了日)は日付を入力して下さい。");' /><a href='#' id='toi_date_to_calendar_link_id_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'toi_date_to_calendar_link_id',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'toi_date_to_calendar_link_id_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+									<th class="must">対応状況</TH>
+									<td>
+										
+											<INPUT TYPE="checkbox" name="taiou_sts" id="taiou_sts1" value="1" checked />未対応
+										
+											<INPUT TYPE="checkbox" name="taiou_sts" id="taiou_sts2" value="2" checked />対応中
+										
+											<INPUT TYPE="checkbox" name="taiou_sts" id="taiou_sts3" value="3" checked />完了
+										
+									</td>
+								</tr>
+								<tr>
+									<th >顧客電話番号</th>
+									<td>
+										<input type='text' name='kokyakuTel' id='kokyakuTel' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();_chkInp();' class='code' maxlength='13' style='width:109.72px;'> </input>
+										(前方一致)
+									</td>
+									<th >顧客番号</th>
+									<td>
+										<input type='text' name='search_kokyaku_cd' id='search_kokyaku_cd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();_chkInp();' class='code' maxlength='10' style='width:109.72px;'> </input>
+										(前方一致)
+									</td>
+								</tr>
+								<tr >
+									<th >顧客名</TH>
+									<td colspan="3">
+										<input type='text' name='kokyaku_nm' id='kokyaku_nm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();_chkInp();' class='multi' maxlength='10' style='width:109.72px;'> </input>
+										(部分一致)
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td VALIGN="bottom">
+							<input  type="button" onClick="Search();" value="検索" />
+						</td>
+					</tr>
+				</table>
+				<div id="title_div" class="POP_DIV" style="display:none;">
+					<TABLE border="0" cellspacing="1" cellpadding="1" bgcolor="#cccccc">
+						<TR>
+							<TH align="center" nowrap bgcolor="#cccccc"><FONT size="2">問合せ内容</FONT></TH>
+						</TR>
+						<TR>
+							<TD nowrap bgcolor="#ffffff">
+								<TEXTAREA id="_toi_naiyo" rows="15" cols="35" readonly="readonly"></TEXTAREA>
+							</TD>
+						</TR>
+						<TR>
+							<TD align="center" style="text-align:center;">
+								<a href="javascript:javascript:closeTitleDiv();">・・・閉じる・・・</a>
+							</TD>
+						</TR>
+					</TABLE>
+				</div>
+			<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=850px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=850px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+		</form>
+
+		
+			
+				
+					<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>48件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  selected  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1<OPTION   VALUE='2'>2<OPTION   VALUE='3'>3<OPTION   VALUE='4'>4<OPTION   VALUE='5'>5</SELECT>/5</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(2)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(5)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='/easpro2/e_asproCallCenter/CA100ToiawaseList' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="5"><input type='hidden' name='intPageSize' value="10"><input type='hidden' name='intRecordCount' value="48"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value="2"><input type='hidden' name='processKbn' value="2"><input type='hidden' name='kokyakuTel' value=""><input type='hidden' name='toi_no' value=""><input type='hidden' name='search_kokyaku_cd' value=""><input type='hidden' name='kokyaku_nm' value=""><input type='hidden' name='kokyaku_kana' value=""><input type='hidden' name='toi_date_from' value="2018/09/01"><input type='hidden' name='toi_date_to' value="2019/01/11"><input type='hidden' name='toi_user_no' value=""><input type='hidden' name='toi_user_cd' value=""><input type='hidden' name='toi_user_nm' value=""><input type='hidden' name='tai_user_cd' value=""><input type='hidden' name='tai_user_nm' value=""><input type='hidden' name='toiTypeList' value=""><input type='hidden' name='taiou_List' value="1,2,3,"><input type='hidden' name='toi_way' value=""><input type='hidden' name='taiou_category' value=""><input type='hidden' name='sort_kbn' value="2"><input type='hidden' name='_fromMenu' value=""><input type='hidden' name='strFromPageId' value=""></form>
+					<table class="lt" width="1000">
+						<colgroup>
+							<col width="30">
+							<col width="100">
+							<col width="80">
+							<col width="100">
+							<col width="100">
+							<col width="70">
+							<col width="200">
+							<col width="300">
+						</colgroup>
+						<tr class="head">
+							<th>No</th>
+							<th>問合せ管理番号</th>
+							<th>顧客番号</th>
+							<th>顧客名</th>
+							<th>顧客電話番号</th>
+							<th>対応状況</th>
+							<th>タイトル</th>
+							<th>問合せ内容</th>
+						</tr>
+						
+							
+								
+									
+									<tr>
+										
+										<td nowrap align="center" >1</td>
+										
+										<td nowrap align="center" title="180913000686">
+										<a href="javascript:pushLink('180913000686','509114');"><nobr>180913000686</nobr></a></td>
+										
+										<td nowrap align="center" title="0000509114">0000509114</td>
+										
+										<td nowrap align="left" title="矢野忠治">矢野忠治</td>
+										
+										<td nowrap align="left" title="0550780631">0550780631</td>
+										
+										<td nowrap align="center" title="未対応">未対応</td>
+										
+										<td nowrap align="left" title="出荷について">出荷について</td>
+										
+										<td nowrap align="left" title="地震で大変いそがしいところすいません。
+
+G00697	水曜どうでしょうDVD第24弾「ユーコン川160キロ～地獄の6日間～」1	4,298円
+G01108	水曜どうでしょうDVD第28弾「ヨーロッパ20ヵ国完全制覇　完結編」　1	4,298円
+
+上記2つを注文したのですが、G00697	水曜どうでしょうDVD第24弾「ユーコン川160キロ～地獄の6日間～」
+だけ先に発送してもらうことはできませんか？
+
+送料がそれぞれ掛かってしまうのは納得のうえの相談です。
+">地震で大変いそがしいところすいません。
+
+G00697	水曜どうでしょうDVD第24弾「ユーコン川160キロ～地獄の6日間～」1	4,298円
+G01108	水曜どうでしょうDVD第28弾「ヨーロッパ20ヵ国完全制覇　完結編」　1	4,298円
+
+上記2つを注文したのですが、G00697	水曜どうでしょうDVD第24弾「ユーコン川160キロ～地獄の6日間～」
+だけ先に発送してもらうことはできませんか？
+
+送料がそれぞれ掛かってしまうのは納得のうえの相談です。
+</td>
+									</tr>
+								
+									
+									<tr>
+										
+										<td nowrap align="center" >2</td>
+										
+										<td nowrap align="center" title="180913000687">
+										<a href="javascript:pushLink('180913000687','40641');"><nobr>180913000687</nobr></a></td>
+										
+										<td nowrap align="center" title="0000040641">0000040641</td>
+										
+										<td nowrap align="left" title="緒方俊介">緒方俊介</td>
+										
+										<td nowrap align="left" title="080-1707-4853">080-1707-4853</td>
+										
+										<td nowrap align="center" title="未対応">未対応</td>
+										
+										<td nowrap align="left" title="注文商品キャンセル">注文商品キャンセル</td>
+										
+										<td nowrap align="left" title=" 注文番号	OD18091364036 
+間違えて注文しました。
+キャンセルをお願いします。
+"> 注文番号	OD18091364036 
+間違えて注文しました。
+キャンセルをお願いします。
+</td>
+									</tr>
+								
+									
+									<tr>
+										
+										<td nowrap align="center" >3</td>
+										
+										<td nowrap align="center" title="180902000648">
+										<a href="javascript:pushLink('180902000648','999999999');"><nobr>180902000648</nobr></a></td>
+										
+										<td nowrap align="center" title=""></td>
+										
+										<td nowrap align="left" title="池田智子">池田智子</td>
+										
+										<td nowrap align="left" title="090-6320-4390">090-6320-4390</td>
+										
+										<td nowrap align="center" title="対応中">対応中</td>
+										
+										<td nowrap align="left" title="購入を取り止めたい商品を発送しました">購入を取り止めたい商品を発送しました</td>
+										
+										<td nowrap align="left" title="ご担当者様
+
+G00181の商品の購入を取り止めたいという内容で
+本日兵庫県より商品を返送しました
+ヤマト運輸の宅急便コンパクトで
+発送しています
+問い合わせ番号は762412457402
+です
+
+返金先の案内をいたします
+＝＝＝＝＝＝＝＝＝
+金融機関： 三井住友銀行
+店 名：    長田支店
+店 番：
+預金種目： 普通
+口座番号： 3762344
+口座名義： イケダ ノリコ
+＝＝＝＝＝＝＝＝＝
+
+
+どうぞよろしくお願いいたします
+">ご担当者様
+
+G00181の商品の購入を取り止めたいという内容で
+本日兵庫県より商品を返送しました
+ヤマト運輸の宅急便コンパクトで
+発送しています
+問い合わせ番号は762412457402
+です
+
+返金先の案内をいたします
+＝＝＝＝＝＝＝＝＝
+金融機関： 三井住友銀行
+店 名：    長田支店
+店 番：
+預金種目： 普通
+口座番号： 3762344
+口座名義： イケダ ノリコ
+＝＝＝＝＝＝＝＝＝
+
+
+どうぞよろしくお願いいたします
+</td>
+									</tr>
+								
+									
+									<tr>
+										
+										<td nowrap align="center" >4</td>
+										
+										<td nowrap align="center" title="180901000640">
+										<a href="javascript:pushLink('180901000640','999999999');"><nobr>180901000640</nobr></a></td>
+										
+										<td nowrap align="center" title=""></td>
+										
+										<td nowrap align="left" title="佐々木和夫">佐々木和夫</td>
+										
+										<td nowrap align="left" title="045-711-1448">045-711-1448</td>
+										
+										<td nowrap align="center" title="完了">完了</td>
+										
+										<td nowrap align="left" title="商品届け先変更について">商品届け先変更について</td>
+										
+										<td nowrap align="left" title="注文済の商品届け先の変更は可能ですか？
+変更可能の場合の手順について教えてください。">注文済の商品届け先の変更は可能ですか？
+変更可能の場合の手順について教えてください。</td>
+									</tr>
+								
+									
+									<tr>
+										
+										<td nowrap align="center" >5</td>
+										
+										<td nowrap align="center" title="180901000641">
+										<a href="javascript:pushLink('180901000641','174179');"><nobr>180901000641</nobr></a></td>
+										
+										<td nowrap align="center" title="0000174179">0000174179</td>
+										
+										<td nowrap align="left" title="三浦知子">三浦知子</td>
+										
+										<td nowrap align="left" title="09047059892">09047059892</td>
+										
+										<td nowrap align="center" title="完了">完了</td>
+										
+										<td nowrap align="left" title="購入キャンセルについて">購入キャンセルについて</td>
+										
+										<td nowrap align="left" title="先日予約した商品を購入キャンセルさせていただきたいのですが、どのようにすればよいでしょうか？">先日予約した商品を購入キャンセルさせていただきたいのですが、どのようにすればよいでしょうか？</td>
+									</tr>
+								
+									
+									<tr>
+										
+										<td nowrap align="center" >6</td>
+										
+										<td nowrap align="center" title="180901000642">
+										<a href="javascript:pushLink('180901000642','508803');"><nobr>180901000642</nobr></a></td>
+										
+										<td nowrap align="center" title="0000508803">0000508803</td>
+										
+										<td nowrap align="left" title="芳賀紀江">芳賀紀江</td>
+										
+										<td nowrap align="left" title="044-577-3938">044-577-3938</td>
+										
+										<td nowrap align="center" title="完了">完了</td>
+										
+										<td nowrap align="left" title="注文のキャンセル">注文のキャンセル</td>
+										
+										<td nowrap align="left" title="注文をキャンセルしたいのですが、可能でしようか？">注文をキャンセルしたいのですが、可能でしようか？</td>
+									</tr>
+								
+									
+									<tr>
+										
+										<td nowrap align="center" >7</td>
+										
+										<td nowrap align="center" title="180901000643">
+										<a href="javascript:pushLink('180901000643','506631');"><nobr>180901000643</nobr></a></td>
+										
+										<td nowrap align="center" title="0000506631">0000506631</td>
+										
+										<td nowrap align="left" title="久保塚翼">久保塚翼</td>
+										
+										<td nowrap align="left" title="0277746693">0277746693</td>
+										
+										<td nowrap align="center" title="完了">完了</td>
+										
+										<td nowrap align="left" title="注文の問い合わせ">注文の問い合わせ</td>
+										
+										<td nowrap align="left" title="8月13日(月)21:40にＨＴＢオンラインショップにてDVDを注文しました。その際に商品の手配をするという内容のメールを頂いたのですが、進捗のほうはどうなっているのかを確認したく問い合わせて頂きました。
+また、商品を発送した際にはメール等が届くのでしょうか？">8月13日(月)21:40にＨＴＢオンラインショップにてDVDを注文しました。その際に商品の手配をするという内容のメールを頂いたのですが、進捗のほうはどうなっているのかを確認したく問い合わせて頂きました。
+また、商品を発送した際にはメール等が届くのでしょうか？</td>
+									</tr>
+								
+									
+									<tr>
+										
+										<td nowrap align="center" >8</td>
+										
+										<td nowrap align="center" title="180901000644">
+										<a href="javascript:pushLink('180901000644','999999999');"><nobr>180901000644</nobr></a></td>
+										
+										<td nowrap align="center" title=""></td>
+										
+										<td nowrap align="left" title="武方奈美">武方奈美</td>
+										
+										<td nowrap align="left" title="080-5186-5502">080-5186-5502</td>
+										
+										<td nowrap align="center" title="完了">完了</td>
+										
+										<td nowrap align="left" title="注文状況確認希望">注文状況確認希望</td>
+										
+										<td nowrap align="left" title="8月31日0時05分頃、以下の商品を注文し、ご注文を承りましたという画面が表示されましたが、注文確認メールが届きません。
+注文できていないのでしょうか。
+ご確認をお願いします。
+
+ありがとう南平岸キーホルダー
+onちゃんクッキー
+onちゃん生地
+onちゃんポストカード">8月31日0時05分頃、以下の商品を注文し、ご注文を承りましたという画面が表示されましたが、注文確認メールが届きません。
+注文できていないのでしょうか。
+ご確認をお願いします。
+
+ありがとう南平岸キーホルダー
+onちゃんクッキー
+onちゃん生地
+onちゃんポストカード</td>
+									</tr>
+								
+									
+									<tr>
+										
+										<td nowrap align="center" >9</td>
+										
+										<td nowrap align="center" title="180901000645">
+										<a href="javascript:pushLink('180901000645','999999999');"><nobr>180901000645</nobr></a></td>
+										
+										<td nowrap align="center" title=""></td>
+										
+										<td nowrap align="left" title="東明宏">東明宏</td>
+										
+										<td nowrap align="left" title="043-312-3770">043-312-3770</td>
+										
+										<td nowrap align="center" title="完了">完了</td>
+										
+										<td nowrap align="left" title="注文の件について">注文の件について</td>
+										
+										<td nowrap align="left" title="先程（9/1 23時ごろ）ハナタレナックスの小樽（最新）をよやくしたのですが、メールの返信がこないのですが、予約はできているでしょうか？いつもなら、すぐにメールが届くので気になって メールをしました！">先程（9/1 23時ごろ）ハナタレナックスの小樽（最新）をよやくしたのですが、メールの返信がこないのですが、予約はできているでしょうか？いつもなら、すぐにメールが届くので気になって メールをしました！</td>
+									</tr>
+								
+									
+									<tr>
+										
+										<td nowrap align="center" >10</td>
+										
+										<td nowrap align="center" title="180901000646">
+										<a href="javascript:pushLink('180901000646','999999999');"><nobr>180901000646</nobr></a></td>
+										
+										<td nowrap align="center" title=""></td>
+										
+										<td nowrap align="left" title="山本公司">山本公司</td>
+										
+										<td nowrap align="left" title="0756455993">0756455993</td>
+										
+										<td nowrap align="center" title="完了">完了</td>
+										
+										<td nowrap align="left" title="確認メール不着">確認メール不着</td>
+										
+										<td nowrap align="left" title="9月1日にゲストで注文をしたのですが、メールアドレスを誤入力をしたのか、確認メールが受信出来ませんでした。
+info@htbshop.jpで指定受信の設定はしていたのですが、どうしら良いでしょうか。">9月1日にゲストで注文をしたのですが、メールアドレスを誤入力をしたのか、確認メールが受信出来ませんでした。
+info@htbshop.jpで指定受信の設定はしていたのですが、どうしら良いでしょうか。</td>
+									</tr>
+								
+							
+					</table>
+				
+			
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+		<SCRIPT type="text/javascript">
+			$(document).ready(function(){
+				$("[id^='tdToiawaseText']").click(function () {
+					if($("input",this).val()==""){
+						return;
+					}
+					closeTitleDiv();
+					$('#_toi_naiyo').val($("input",this).val());
+					$('#title_div').show();
+				});
+			});
+			function closeTitleDiv(){
+				$('#_toi_naiyo').val('');
+				$('#title_div').hide();
+			}
+
+			// 検索
+			function Search() {
+				$$("_processType").value = 2;
+				$$("_Form").action = "/easpro2/e_asproCallCenter/CA100ToiawaseList";
+				$$("_Form").submit();
+
+				btnDisabled();
+			}
+			// 問い合わせ番号のリンク押下
+			function pushLink(toi_no,kokyaku_no) {
+				location.href = "/easpro2/e_asproCallCenter/CA090ToiawaseEntry?processType=1&dispFlg=&toi_no="+toi_no+"&kokyaku_no="+kokyaku_no+"&strFromPageId=";
+			}
+
+			//「CSV出力」ボタン押下時処理
+			function Download(){
+				$("#_Form").prop("action","/easpro2/e_asproCallCenter/CA100ToiawaseList");
+				$("#_processType").val("7");
+				$("#_csv_out").val($("#pattern_no").val());
+				$("#_Form").submit();
+				$("#_btnDownload1").prop("disabled","true");
+				setTimeout('enableDownLoad()', '3000');
+			}
+			function enableDownLoad(){
+				$("#_btnDownload1").prop("disabled","false");
+			}
+
+		</SCRIPT>
+	</body>
+</html>

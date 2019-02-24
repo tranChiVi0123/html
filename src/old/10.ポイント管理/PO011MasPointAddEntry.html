@@ -1,0 +1,579 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			var allcookies = document.cookie;
+			var pos = allcookies.indexOf("compString=");
+			var v_compValue= "0000000000";
+			if (pos!=-1){
+				var start = pos + 11;
+				var end = allcookies.indexOf(";",start);
+				if (end == -1){
+					end = allcookies.length;
+				}
+				v_compValue = allcookies.substring(start, end);
+			}
+
+			if(top.opener != null){
+		    	try{
+		    		var parentWindow = null;
+		    		parentWindow = getOpenParentWin(top);
+		    		parentWindow.location = "/easpro2/e_asproLogin/login?compString="+v_compValue;
+		    	}catch(e){
+		    		top.close();
+		    	}
+
+		    }else{
+		    	top.location = "/easpro2/e_asproLogin/login?compString="+v_compValue;
+		    }
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+<html>
+	<head>
+	<meta http-equiv = "Pragma" content="no-cache">																	
+	<meta http-equiv = "Cache-control" content="no-cache">
+	<META http-equiv="content-type" content="text/html; charset=windows-31j">
+		
+		<TITLE>
+			ポイント付与種別マスタ
+		</TITLE>
+	<script type="text/javascript">
+		//画面ロード時処理
+		function set_gamen(){
+
+			//付与ポイント数
+			//「率」が選択されている場合
+			if($$("addpoint_tani_1").checked==true)
+			{
+				$$("addpoint").maxLength="3";
+				$$("addpoint_memori").innerHTML = "%";
+			//「数」が選択されている場合
+			}else{
+				$$("addpoint").maxLength="9";
+				$$("addpoint_memori").innerHTML = "P";
+			}
+
+			//「ポイント付与該当条件」購入金額合計
+			if($$("buy_kin_flg_0").checked==true){
+				$$("buy_kin").disabled = true;
+				$$("buy_kin").style.backgroundColor="#C0C0C0";
+			}else{
+				$$("buy_kin").disabled = false;
+				$$("buy_kin").style.backgroundColor="#FFFFFF";
+			}
+
+			//「ポイント付与該当条件」対象商品
+			if($$("item_flg_0").checked==true){
+				$$("btn_item_subwin").disabled = true;
+				$$("_item_count_hyoji").style.display="none";
+			}else{
+				//onload時、更新画面の場合の処理を追加
+				
+					$$("btn_item_subwin").disabled = false;
+					$$("_item_count_hyoji").style.display="inline";
+				
+			}
+			//「ポイント付与該当条件」会員種別
+			//「適用しない」にチェックがついている場合
+			if($$("rank_flg_0").checked==true){
+				var kaiinlist_size = $$("kaiinlist_size").value;
+				for(var i=1;i<kaiinlist_size;i++){
+					$$("chk_kaiinrank_"+i).disabled = true;
+					$$("chk_kaiinrank_"+i).style.backgroundColor="#C0C0C0";
+				}
+			}else{
+				//onload時、更新画面の場合の処理を追加
+				
+					var kaiinlist_size = $$("kaiinlist_size").value;
+					for(var i=1;i<kaiinlist_size;i++){
+						$$("chk_kaiinrank_"+i).disabled = false;
+						$$("chk_kaiinrank_"+i).style.backgroundColor="#FFFFFF";
+					}
+				
+			}
+
+		}
+
+		
+		//ポイント付与該当条件「購入金額合計」ラジオボタン変更時処理
+		function chg_radio_jyo_kounyu(){
+			//「適用する」が選択されている場合
+			if($$("buy_kin_flg_1").checked==true)
+			{
+				$$("buy_kin").disabled = false;
+				$$("buy_kin").style.backgroundColor="#FFFFFF";				
+			//「適用しない」が選択されている場合
+			}else{
+				$$("buy_kin").disabled = true;
+				$$("buy_kin").style.backgroundColor="#C0C0C0";
+				$$("buy_kin").value = "";
+			}
+		}
+
+		//ポイント付与該当条件該当条件「会員種別」ラジオボタン変更時処理
+		function chg_radio_jyo_syubetu(){
+			//「適用する」が選択されている場合
+			if($$("rank_flg_1").checked==true)
+			{
+				var kaiinlist_size = $$("kaiinlist_size").value;
+				for(var i=1;i<kaiinlist_size;i++){
+					$$("chk_kaiinrank_"+i).disabled = false;
+					$$("chk_kaiinrank_"+i).style.backgroundColor="#FFFFFF";
+				}
+			//「適用しない」が選択されている場合
+			}else{
+				var kaiinlist_size = $$("kaiinlist_size").value;
+				for(var i=1;i<kaiinlist_size;i++){
+					$$("chk_kaiinrank_"+i).checked = false;
+					$$("chk_kaiinrank_"+i).disabled = true;
+					$$("chk_kaiinrank_"+i).style.backgroundColor="#C0C0C0";
+				}
+			}
+		}
+		//ポイント付与該当条件「対象商品」ラジオボタン変更時処理
+		function chg_radio_jyo_item(){
+			//「適用する」が選択されている場合
+			if($$("item_flg_1").checked==true)
+			{
+				$$("btn_item_subwin").disabled = false;
+				$$("_item_count_hyoji").style.display="inline";
+			//「適用しない」が選択されている場合
+			}else{
+				$$("btn_item_subwin").disabled = true;
+				$$("_item_count_hyoji").style.display="none";
+			}
+		}
+			
+		//ポイント付与該当条件「購入金額合計」ラジオボタン変更時処理
+		function chg_radio_jyo_sinki(){
+			//「適用する」が選択されている場合
+			if($$("sinki_flg_1").checked==true)
+			{
+				$$("sinki_flg").disabled = false;
+				$$("sinki_flg").style.backgroundColor="#FFFFFF";				
+			//「適用しない」が選択されている場合
+			}else{
+				$$("sinki_flg").disabled = true;
+				$$("sinki_flg").style.backgroundColor="#C0C0C0";
+				$$("sinki_flg").value = "";
+			}
+		}
+		
+		//「付与ポイント数_単位」ラジオボタン変更時処理
+		function chg_radio_addpoint(){
+			//「率」が選択されている場合
+			if($$("addpoint_tani_1").checked==true)
+			{
+				$$("addpoint").maxLength="3";
+				$$("addpoint").value="";
+				$$("addpoint_memori").innerHTML = "%";
+			//「数」が選択されている場合
+			}else{
+				$$("addpoint").maxLength="9";
+				$$("addpoint").value="";				
+				$$("addpoint_memori").innerHTML = "P";
+			}
+		}
+		//「登録」ボタン押下時処理
+		function Insert(){
+			//登録時の確認メッセージ
+			if(confirm("登録します。よろしいですか？")){
+				
+				if($$("chk_kaiinrank_1").checked==true)
+				{
+					$$("kaiinrank_1").value="1";
+				}else{
+					$$("kaiinrank_1").value="0";
+				}
+
+				//会員
+				var kaiinlist_size = $$("kaiinlist_size").value;
+				for(var i=1;i<kaiinlist_size;i++){
+					if($$("chk_kaiinrank_"+i).checked==true)
+					{
+						$$("kaiinrank_"+i).value="1";
+					}else{
+						$$("kaiinrank_"+i).value="0";
+					}
+				}
+
+				//使用不可にチェックが付いている場合
+				if($$("chk_siyou_kahi_flg").checked==true)
+				{
+					$$("siyou_kahi_flg").value="1";		//使用不可
+				}else{
+					$$("siyou_kahi_flg").value="0";		//使用中
+				}
+				
+				$$("_processType").value="1";
+				$$("_Form").action="/easpro2/e_asproPoint/PO011MasPointAddEntry";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+		}
+		//「更新」ボタン押下時処理
+		function Update(){
+			//更新時の確認メッセージ
+			if(confirm("更新します。よろしいですか？")){
+
+				//会員
+				var kaiinlist_size = $$("kaiinlist_size").value;
+				for(var i=1;i<kaiinlist_size;i++){
+					if($$("chk_kaiinrank_"+i).checked==true)
+					{
+						$$("kaiinrank_"+i).value="1";
+					}else{
+						$$("kaiinrank_"+i).value="0";
+					}
+				}
+
+				//使用不可にチェックが付いている場合
+				if($$("chk_siyou_kahi_flg").checked == true)
+				{
+					$$("siyou_kahi_flg").value = "1";		//使用不可
+				}else{
+					$$("siyou_kahi_flg").value = "0";		//使用中
+				}
+				$$("_processType").value="2";				
+				$$("_Form").action="/easpro2/e_asproPoint/PO011MasPointAddEntry";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+		}
+		//「削除」ボタン押下時処理
+		function do_Delete(obj){
+			//削除時の確認メッセージ			
+			if(confirm("削除します。よろしいですか？")){
+				$$("_processType").value="3";
+				$$("_Form").action="/easpro2/e_asproPoint/PO011MasPointAddEntry";
+				$$("_Form").submit();
+				btnDisabled();
+			}	
+		}
+
+		//対象商品登録サブウインドウ
+		function CC026(_disMode) {
+			var url;
+			var point_cd = "";
+			//ポイントorキャンペーンかの判定フラグ
+			var hantei_flg = "0";
+			if($$("_point_cd").value==""){
+				point_cd = $$("_point_cd_kari").value;
+			}else{
+				point_cd = $$("_point_cd").value;
+			}
+			url = "/easpro2/e_asproLogin/CC026ProductEntry?callsSrciptFuncName=setFromCC026";
+			url = url + "&processType=" + 1;
+			url = url + "&point_cd=" + point_cd;
+			url = url + "&dispMode=" + _disMode;
+			url = url + "&update_hyoji_kbn=" + $$("update_hyoji_kbn").value;
+			url = url + "&callcenterFlg=" + $$("callcenterFlg").value;
+			url = url + "&masta_goods_get_flg=" + $$("masta_goods_get_flg").value;
+			url = url + "&hantei_flg=" + hantei_flg;
+			_searchWin = window.open(url,"CC026","width=700,height=400,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+
+		}
+		//商品登録サブウインドウからの戻り値をセット
+		function setFromCC026(_qty,_flg){
+			$$("_item_count").innerHTML = _qty;
+			$$("_h_item_count").value = _qty;
+			$$("masta_goods_get_flg").value = _flg;
+		}
+
+		//「CSV出力」ボタン押下時処理(対象顧客設定)
+		function CSVDownload_kokyaku(){
+			$$("_Form").action="/easpro2/e_asproPoint/PO011MasPointAddEntry";
+			$$("_processType").value="7";
+			$$("_Form").submit();
+		}
+		
+		$(document).ready(function(){
+			set_gamen();
+		});
+	</script>
+	</head>
+	<BODY>
+		<img src='../ecsdocs2/img/head_bt_keiri.gif' alt='' align='middle' border='0'>
+		<div class=pt>ポイント付与種別マスタ<br><A href='/easpro2/e_asproPoint/PO010MasPointAddList?backUrlKey=&intPageNo=1&intPageCount=1&intPageSize=30&intRecordCount=1&strToolbarX=&strToolbarY=&strSpaceHeight=50px&processType=2&co_no=2625&searchKbn=2&pointAddSyubetuCdSearch=&pointAddSyubetuNmSearch=&orderDateFromSearch=&orderDateToSearch=&delFlgSearch=&callcenterFlg=' tabindex="1" ><img src="../ecsdocs2/img/return.gif"></A></div>
+		<form id="_Form" method="post" action="/easpro2/e_asproPoint/PO011MasPointAddEntry">
+		<input type="hidden" name="secToken" id="secToken" value="595FFF67E483B30FF250971ED7B427F9"/>
+			<input type="hidden" name="processType" id="_processType"/>
+			<!-- 画面処理区分 -->
+			<input type="hidden" name="processKbn" id="_processKbn" value="1"/>
+			<input type="hidden" name="excl_cnt" id="_excl_cnt" value="1"/>
+			<input type="hidden" name="point_cd" id="_point_cd" value="PO000001"/>
+			<input type="hidden" name="point_cd_kari" id="_point_cd_kari" value="10000"/>
+			<input type="hidden" name="dispFlg" id="_dispFlg" value=""/>			
+			<input type="hidden" name="uuid" id="_uuid" value="KgvTc4JGqgwfyPQmjVbFbFSnk2LyzVBd!-166925779!1547184950112">
+			<input type="hidden" name="strFromPageId" value="">			
+			<input type="hidden" name="kaiinrank_1" id="kaiinrank_1" value=""/>
+			<input type="hidden" name="kaiinrank_2" id="kaiinrank_2" value=""/>
+			<input type="hidden" name="kaiinrank_3" id="kaiinrank_3" value=""/>
+			<input type="hidden" name="kaiinrank_4" id="kaiinrank_4" value=""/>
+			<input type="hidden" name="kaiinrank_5" id="kaiinrank_5" value=""/>
+			<input type="hidden" name="kaiinrank_6" id="kaiinrank_6" value=""/>
+			<input type="hidden" name="siyou_kahi_flg" id="siyou_kahi_flg" value=""/>
+			<input type="hidden" name="update_hyoji_kbn" id="update_hyoji_kbn" value="">
+			<input type="hidden" name="masta_goods_get_flg" id="masta_goods_get_flg" value="0">
+			<input type="hidden" name="masta_kokyaku_get_flg" id="masta_kokyaku_get_flg" value="0">
+			<input type="hidden" name="callcenterFlg" id="callcenterFlg" value="">
+			<BR>
+			<b style="color: red" id="js_errMsg"></b>
+			<BR>
+			<TABLE>
+				<TR>
+					<TD>
+						<TABLE CLASS="ft" style="width:800">
+							<col width="180"><col width="620">
+							<TR>
+								<TH ALIGN="center" style="width:180">
+									<FONT SIZE="2">ポイント付与種別コード</FONT>
+								</TH>
+								<TD>
+									
+										PO000001
+									
+								</TD>
+							</TR>
+							<TR>
+								<TH ALIGN="center" class="MUST" style="width:180">
+									<FONT SIZE="2">ポイント付与種別名</FONT>
+								</TH>
+								<TD>
+								
+									<input type='text' name='point_nm' id='point_nm' value='ポイント付与種別名 ' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='40' style='width:571.20px;'> </input>
+								
+								</TD>
+							</TR>
+							<TR>
+								<TH ALIGN="center" class="MUST" style="width:180"><FONT SIZE="2">対象期間</FONT></TH>
+								<TD>
+								
+									<input type='text' name='order_date_from' style='width:82px;'  maxlength=10 value='2019/01/01' class='ymd' onkeypress='_chkInp();' id='js_order_date_from' onblur='_formateDate(this,"対象期間は日付を入力して下さい。");' /><a href='#' id='js_order_date_from_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_order_date_from',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_order_date_from_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='order_date_to' style='width:82px;'  maxlength=10 value='2019/01/31' class='ymd' onkeypress='_chkInp();' id='js_order_date_to' onblur='_formateDate(this,"対象期間は日付を入力して下さい。");' /><a href='#' id='js_order_date_to_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'js_order_date_to',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'js_order_date_to_calendar_link_id',singleClick : true,step:1});</script>
+								
+								</TD>
+							</TR>
+							<TR>
+								<TH ALIGN="center" style="width:180"><FONT SIZE="2">説明</FONT></TH>
+								<TD>
+								
+									<textarea name="point_setumei" cols="70" rows="3"class="multi">説明</textarea>
+								
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+			</TABLE>
+			<BR>
+			<FONT SIZE="2" COLOR="#ff9900">■</FONT><FONT SIZE="2">該当条件(AND条件)</FONT><BR>
+			<TABLE>
+				<TR>
+					<TD>
+						<TABLE CLASS="ft" style="width:800">
+							<col width="180"><col width="620">
+							<TR>
+								<TH ALIGN="center" style="width:180"　title="購入金額(小計金額-割引金額  - プロモ値引)合計"><FONT SIZE="2">購入金額</FONT></TH>
+								<TD>
+								
+									
+										<INPUT TYPE="radio" NAME="buy_kin_flg" id="buy_kin_flg_0" VALUE="0" checked onclick="chg_radio_jyo_kounyu();">適用しない
+										<INPUT TYPE="radio" NAME="buy_kin_flg" id="buy_kin_flg_1" VALUE="1" onclick="chg_radio_jyo_kounyu();">適用する
+									
+																					
+								&nbsp;
+								
+									<input type='text' name='buy_kin' id='buy_kin' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='8' style='width:81.92px;text-align:right;'> </input>円以上
+								
+								</TD>
+							</TR>
+							<TR>
+								<TH ALIGN="center" style="width:180"><FONT SIZE="2">会員</FONT></TH>
+								<TD>
+								
+									
+										<INPUT TYPE="radio" NAME="rank_flg" id="rank_flg_0" VALUE="0" onclick="chg_radio_jyo_syubetu();">適用しない
+										<INPUT TYPE="radio" NAME="rank_flg" id="rank_flg_1" VALUE="1" checked onclick="chg_radio_jyo_syubetu();">適用する
+									
+																					
+								&nbsp;
+								
+								<input type="hidden" 
+									name="kaiinlist_size" 
+									id="kaiinlist_size" 
+									value="3">
+								
+								
+										<INPUT TYPE="checkbox" NAME="chk_kaiinrank" id="chk_kaiinrank_1" value="C" 
+										checked  />BtoC
+								
+										<INPUT TYPE="checkbox" NAME="chk_kaiinrank" id="chk_kaiinrank_2" value="B" 
+										  />BtoB
+								
+								</TD>
+							</TR>
+							<TR>
+								<TH ALIGN="center" style="width:180"><FONT SIZE="2">対象商品</FONT></TH>
+								<TD>
+								
+									
+										<INPUT TYPE="radio" NAME="item_flg" id="item_flg_0" VALUE="0" checked onclick="chg_radio_jyo_item();">適用しない
+										<INPUT TYPE="radio" NAME="item_flg" id="item_flg_1" VALUE="1" onclick="chg_radio_jyo_item();">適用する
+									
+								
+								&nbsp;
+								<INPUT TYPE="button" 
+									NAME="submitButtonName" 
+									id="btn_item_subwin" 
+									VALUE="対象商品登録" 
+									ONCLICK="CC026(0);">
+								&nbsp;&nbsp;&nbsp;
+								<div id="_item_count_hyoji">
+									対象商品数:<span id="_item_count">0</span>個
+								</div>
+								<input type="hidden" 
+									name="item_count" 
+									id="_h_item_count" 
+									value="0">
+								</TD>
+							</TR>
+						</TABLE>
+						<FONT SIZE="2">　　　　　　　　　　　　　　　　　※ポイント付与の計算は対象商品を選択時は販売価格、それ以外は購入金額を元に計算を行います。</FONT>
+			
+						<BR>
+						<FONT SIZE="2" COLOR="#ff9900">■</FONT><FONT SIZE="2">入会特典</FONT><BR>
+						<TABLE CLASS="ft" style="width:800">
+						<col width="180"><col width="620">
+							<TR>
+								<TH ALIGN="center" class="MUST" style="width:180"><FONT SIZE="2">入会特典</FONT></TH>
+								<TD>
+									
+										
+											<INPUT TYPE="radio" NAME="sinki_flg" id="sinki_flg_0" VALUE="0" checked onclick="chg_radio_jyo_sinki();">適用しない
+											<INPUT TYPE="radio" NAME="sinki_flg" id="sinki_flg_1" VALUE="1" onclick="chg_radio_jyo_sinki();">適用する
+										
+									
+								</TD>
+							</TR>
+						</TABLE>
+						<BR>
+						<FONT SIZE="2" COLOR="#ff9900">■</FONT><FONT SIZE="2">ポイント付与内容</FONT><BR>
+							<TABLE CLASS="ft" style="width:800">
+							<col width="180"><col width="620">
+								<TR>
+									<TH ALIGN="center" class="MUST" style="width:180"><FONT SIZE="2">付与ポイント数</FONT></TH>
+									<TD>
+									
+										
+											<INPUT TYPE="radio" NAME="addpoint_tani" id="addpoint_tani_1" VALUE="0" checked onclick="chg_radio_addpoint();">率
+											<INPUT TYPE="radio" NAME="addpoint_tani" id="addpoint_tani_2" VALUE="1" onclick="chg_radio_addpoint();">数
+										
+									
+									
+										<input type='text' name='addpoint' id='addpoint' value='10' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='9' style='width:81.92px;text-align:right;'> </input>
+											<span id="addpoint_memori"></span>
+									
+									</TD>
+								</TR>
+							</TABLE>
+							<BR>
+							<TABLE CLASS="ft" style="width:800">
+								<col width="180"><col width="620">
+								<TR>
+									<TH ALIGN="center" style="width:180"><FONT SIZE="2">使用不可</FONT></TH>
+									<TD>
+																				
+										
+											<INPUT TYPE="checkbox" NAME="chk_siyou_kahi_flg" id="chk_siyou_kahi_flg" value="0">
+										
+										
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+					</TR>
+				</TABLE>
+				<TABLE>
+					<TR>
+						<TD>
+						
+							<TABLE class="nb" style="width: 800">
+								<TR BGCOLOR="#ffcccc">
+									
+										
+											<TD align="center" width="50%">
+												<input  type="button" onClick="Update();" value="更新する"/>
+											</TD>
+											<TD align="center" width="50%">
+												<input  type="button" onClick="do_Delete();" value="削除する"/>
+											</TD>
+										
+									
+								</TR>
+							</TABLE>
+						
+						</TD>
+					</TR>
+				</TABLE>
+		</form>
+	<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</BODY>
+</html>

@@ -1,0 +1,318 @@
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?rx79AZ4iTx" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+	<meta http-equiv = "Pragma" content="no-cache">																	
+	<meta http-equiv = "Cache-control" content="no-cache">
+	<meta http-equiv="content-type" content="text/html; charset=windows-31j">
+		
+		<TITLE>
+		入荷実績入力
+		</TITLE>
+		<style type="text/css">
+		.readonly{background-color: #eeeeee;}
+		</style>
+	<script type="text/javascript">
+		
+		// 「登録する」ボタン押下,登録を行う
+		function Insert(){
+			if(confirm("登録します。よろしいですか？")) {
+				$$("_processType").value="3";
+				$$("_Form").action="IN020NyukaEntry.html";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+		}
+
+		// 「更新する」ボタン押下,更新を行う
+		function Update(){
+			if(confirm("更新します。よろしいですか？")) {
+				$$("_processType").value="4";
+				$$("_Form").action="IN020NyukaEntry.html";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+		}
+		
+	</script>
+
+	</head>
+	<body >
+		<img src='../ecsdocs2/img/head_nyuuka.gif' alt='' align='middle' border='0'>
+		<div class=pt>入荷実績入力<br><A href='IN070NyukaYojituList.html?backUrlKey=&intPageNo=1&intPageCount=1&intPageSize=30&intRecordCount=5&strToolbarX=&strToolbarY=&strSpaceHeight=50px&processType=2&searchHyojiKbn=1&searchHatyuCd=&searchNyukaFlg=0&searchNyukaCd=&searchNyukaYoDateS=2018%2F10%2F10&searchNyukaYoDateE=2019%2F01%2F10&searchHatyuDateS=&searchHatyuDateE=&searchNyukaDateS=&searchNyukaDateE=&searchWhCd=&searchSiireCd=&searchSiireNm=&searchZaikoItemNoS=&searchZaikoItemNoE=&searchZaikoItemNm1=&coNo=2535&_fromMenu=' tabindex="1" ><img src="../ecsdocs2/img/return.gif"></A></div>
+
+		<form id="_Form" method="post" action="IN020NyukaEntry.html">
+			<input type="hidden" name="secToken" id="secToken" value="2B582A818F6890EF7A6667B77F1AF3EF"/>
+			<input type="hidden" name="processType" id="_processType"/>
+			<input type="hidden" name="processKbn" id="_processKbn" value="1"/>
+			<input type="hidden" name="exclCntH" id="_exclCntH" value="1"/>
+			<input type="hidden" name="pageId" id="_pageId" value="IN070"/>
+			<input type="hidden" name="nyukaFlg" id="_nyukaFlg" value="0"/>
+			<input type="hidden" name="wmsFlg" id="_wmsFlg" value="0"/>
+
+			<b style="color: red" id="js_errMsg"></b>
+			<br>
+			<table>
+				<tr>
+					<td>
+						<table class="lt" style="width:860px">
+							<colgroup>
+								<col width="130">
+								<col width="80">
+								<col width="110">
+								<col width="150">
+								<col width="150">
+								<col width="80">
+								<col width="160">
+							</colgroup>
+							<tr class="head">
+								<th>入荷番号</th>
+								<th>入荷予定日</th>
+								<th class="must">入荷日</th>
+								<th>倉庫名</th>
+								<th>仕入先名</th>
+								<th>発注日</th>
+								<th>発注番号</th>	 
+							</tr>
+							<tr>
+											
+								<td nowrap title="NY18111317851">
+									NY18111317851
+									<input type="hidden" name="nyukaCd" id="_nyukaCd" value="NY18111317851"/>
+								</td>
+								
+								<td nowrap align="center" title="2018/11/16">
+									2018/11/16
+									<input type="hidden" name="nyukaYoYmd" id="_nyukaYoYmd" value="2018/11/16"/>
+								</td>	
+								
+								<td nowrap align="center">
+								 
+									<input type='text' name='inYmd' tabIndex='1' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='inYmd' onblur='_formateDate(this,"入荷日は日付を入力して下さい。");' /><a href='#' id='inYmd_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'inYmd',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'inYmd_calendar_link_id',singleClick : true,step:1});</script>
+								
+								</td>
+								
+								<td nowrap title="アクアペット倉庫" >
+									アクアペット倉庫
+									<input type="hidden" name="whCd" id="_whCd" value="036410501"/>	
+									<input type="hidden" name="whNm1" id="_whNm1" value="アクアペット倉庫"/>
+									<input type="hidden" name="whNm2" id="_whNm2" value=""/>
+								</td>
+									
+								<td nowrap title="アペックス（有）アペックス">
+									アペックス（有）アペックス 
+									<input type="hidden" name="siireCd" id="_siireCd" value="ap"/>
+									<input type="hidden" name="siireNm1" id="_siireNm1" value="アペックス（有）"/>
+									<input type="hidden" name="siireNm2" id="_siireNm2" value="アペックス"/>
+								</td>
+								
+								<td nowrap align="center" title="2018/11/13">
+									2018/11/13
+									<input type="hidden" name="hatyuDate" id="_hatyuDate" value="2018/11/13"/>
+								</td>	
+								
+								<td nowrap title="NY91111111">
+									NY91111111 
+									<input type="hidden" name="hatyuCd" id="_hatyuCd" value="NY91111111"/>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<hr align="left" width="860">
+			<table>
+				<tr>
+					<td>
+						<table class="lt" style="width:980px" id="itemTable">
+							<colgroup>
+								<col width="140">
+								<col width="220">
+								<col width="80">
+								<col width="60">
+								<col width="90">
+								<col width="90">
+								<col width="90">
+								<col width="110">
+								<col width="100">
+							</colgroup>
+							<tr class="head">
+								<th>商品コード</th>
+								<th>商品名</th>
+								<th>入数</th>
+								<th>単位</th>
+								<th>予定数</th>
+								<th>実績数</th>
+								<th>取消数</th>
+								<th>賞味期限</th>
+								<th>在庫状態</th>
+							</tr>
+							
+							
+								<tr>
+									
+									<td title="028822">
+										028822
+										<input type="hidden" name="sZaikoItemNo" id="_sZaikoItemNo_0" value="028822"/>
+										<input type="hidden" name="zaikoItemNo" id="_zaikoItemNo_0" value="028822"/>
+										<input type="hidden" name="colorCd" id="_colorCd_0" value=""/>
+										<input type="hidden" name="sizeCd" id="_sizeCd_0" value=""/>	
+										<input type="hidden" name="nyukaLineNo" id="_nyukaLineNo_0" value="1"/>
+										<input type="hidden" name="nyukaFlgDtl" id="_nyukaFlgDtl_0" value="0"/>	
+									</td>	
+									
+									<td  title="ＧＥＸ　キュービーコロン　ブルー" >
+										ＧＥＸ　キュービーコロン　ブルー
+										<input type="hidden" name="zaikoItemNm1" id="_zaikoItemNm1_0" value="ＧＥＸ　キュービーコロン　ブルー"/>
+										<input type="hidden" name="zaikoItemNm2" id="_zaikoItemNm2_0" value=""/>		
+									</td>
+									
+									<td align="right" title="0">
+										0
+										<input type="hidden" name="irisuu" id="_irisuu_0" value="0"/>
+									</td>
+									
+									<td title="単品">
+										単品
+										<input type="hidden" name="itemTani" id="_itemTani_0" value="単品"/>
+									</td>
+									
+									<td align="right" title="10">
+										10
+										<input type="hidden" name="yoQty" id="_yoQty_0" value="10"/>
+									</td>
+									
+									
+										<td align="right">
+										
+											<input type='text' name='qty' id='qty_0' value='0' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='7' style='width:76.36px;' tabindex=10> </input>
+										</td>
+									
+									
+									
+									<td align="right">
+										
+											<input type='text' name='keppinQty' id='keppinQty_0' value='0' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' onblur='this.value=_toComma(this.value);' onfocus='this.value=_reComma(this.value); this.select();' class='num' maxlength='7' style='width:76.36px;' tabindex=11> </input>
+										
+									</td>
+									
+									<td align="center" title="" >
+											
+											<input type='text' name='syokigen' tabIndex='12' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='syokigen_0' onblur='_formateDate(this,"賞味期限は日付を入力して下さい。");' /><a href='#' id='syokigen_0_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'syokigen_0',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syokigen_0_calendar_link_id',singleClick : true,step:1});</script>
+										
+									</td>
+									
+									<td align="left">
+										<input type="hidden" name="zaikoJoutaiNm" id="_zaikoJoutaiNm_0" value=""/>
+										
+											
+											<SELECT name='zaikoJoutaiKbn' id='zaikoJoutaiKbn_0' style='width:80px;' tabindex=13 > <OPTION VALUE='' ></OPTION><OPTION VALUE='100' SELECTED>通常品</OPTION><OPTION VALUE='200' >アウトレット品</OPTION><OPTION VALUE='300' >中古品</OPTION><OPTION VALUE='500' >保留品</OPTION><OPTION VALUE='900' >不良品</OPTION><OPTION VALUE='400' >通常品400</OPTION> </SELECT>
+										 
+									</td>
+								</tr>
+							
+						</table>
+					</td>
+				</tr>
+			</table>
+			
+			<table>
+				<tr style="background-color:#ffcccc;">
+					<td>
+						<table class="nb" style="width:980px">
+							<tr>
+								
+								<td align="center">
+									<input id="btnInsert" type="button" onClick="Insert();" value="登録する" tabindex="19"
+										 
+									/>
+								</td>
+								
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+				
+		</form>
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

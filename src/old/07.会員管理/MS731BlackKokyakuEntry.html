@@ -1,0 +1,291 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?8G7hWyvCjn" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+		<TITLE>
+			ブラック顧客マスタ
+		</TITLE>
+		<SCRIPT type="text/javascript">
+			function Insert(){
+				if(confirm("登録します。よろしいですか？")){
+					$$("_Form").action="/easpro2/e_asproMaster/MS731BlackKokyakuEntry";
+					$$("_processType").value="1";
+					$$("_Form").submit();
+					btnDisabled();
+				}
+			}
+			function Update(){
+				if(confirm("更新します。よろしいですか？")){
+					$$("_Form").action="/easpro2/e_asproMaster/MS731BlackKokyakuEntry";
+					$$("_processType").value="2";
+					$$("_Form").submit();
+					btnDisabled();
+				}
+			}
+			function do_Delete(){
+				if(confirm("削除します。よろしいですか？")){
+					$$("_Form").action="/easpro2/e_asproMaster/MS731BlackKokyakuEntry";
+					$$("_processType").value="3";
+					$$("_Form").submit();
+					btnDisabled();
+				}
+			}
+			
+			function CC900() {
+				var kokyakuZip1 = $("#_zip1").val();
+				var kokyakuZip2 = $("#_zip2").val();
+				var url = "/easpro2" + "/e_asproLogin/CC900PostalCheck";
+				var parms = "processType="+"6";
+					parms += "&kbn=0";
+					parms += "&tdk_zip1="+kokyakuZip1;
+					parms += "&tdk_zip2="+kokyakuZip2;
+					parms += "&idx=";
+					_SendByAjax(url,parms,'',true);
+			}
+			
+			function setAddr(addr1,addr2,addr3,data,ken_cd, addr_cd){
+				$$("_dispAddr1").value=addr1;
+				$$("_dispAddr2").value=addr2;
+				$$("_dispAddr3").value=addr3;
+			}
+			
+			function CC901(flg){
+				var url= "/easpro2/e_asproLogin/CC901SearchAddress?jsName=getCC901&giveYourIndex=" + flg;
+			    _searchWin = window.open(url,"CC901","width=700,height=500,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+		        _searchWin.focus();
+			}
+			function getCC901(pstno,addr_cd_bc,addr_name,index){
+				var strLength = pstno.length;
+				var strlength2 = addr_name.length;
+				var pst1 = pstno.substring(0,3);
+				var pst2 = pstno.substring(3,strLength);
+				var pst3 = "";
+				var pst4 = "";
+				var pst5 = "";
+				$$("_zip1").value=pst1;
+				$$("_zip2").value=pst2;				
+				if (strlength2 < 41) {
+					$$("_dispAddr1").value=addr_name;
+				} else if(strlength2 > 40 && strlength2 < 61){
+					pst3 = addr_name.substring(0,40);
+					pst4 = addr_name.substring(40,strlength2);
+					$$("_dispAddr1").value=pst3;
+					$$("_dispAddr2").value=pst4;
+				}else{
+					pst3 = addr_name.substring(0,40);
+					pst4 = addr_name.substring(40,60);
+					pst5 = addr_name.substring(60,strlength2);
+					$$("_dispAddr1").value=pst3;
+					$$("_dispAddr2").value=pst4;
+					$$("_dispAddr3").value=pst5;
+				}
+			}
+		</SCRIPT>
+	</head>
+	<body>
+		<form id="_Form" name="Form" method="post" action="/easpro2/e_asproMaster/MS731BlackKokyakuEntry">
+		<input type="hidden" name="secToken" id="secToken" value="588C4E965D9695A81FD9F24F2DA2A587"/>
+		<img src='../ecsdocs2/img/head_kokyaku.gif' alt='' align='middle' border='0'>
+		<div class="pt">ブラック顧客マスタ</div>
+		<br><A href='/easpro2/e_asproMaster/MS730BlackKokyakuList?backUrlKey=&intPageNo=1&intPageCount=1&intPageSize=30&intRecordCount=1&strToolbarX=&strToolbarY=&strSpaceHeight=50px&processType=&searchKbn=2&blackentryNo=&kokyakuNm=&kokyakuKana=&kokyakuZip=&kokyakuAddr=&kokyakuTel1=&kokyakuMail1=&tekiyouKbn=&coNo=2535' tabindex="1" ><img src="../ecsdocs2/img/return.gif"></A><br>
+			<input type="hidden" name="processType" id="_processType"/>
+			<input type="hidden" name="processKbn" id="_processKbn" value="2"/>
+			<input type="hidden" name="userNo" id="_userNo" value=""/>
+			<input type="hidden" name="exclCnt" id="_exclCnt" value="1"/>
+			<input type="hidden" name="wv_hidden_blackEntryNo" id="_hidden_blackEntryNo" value="4"/>
+			<b style="color: red" id="js_errMsg"></b>
+			<br>
+			<TABLE>
+				<TR>
+					<TD>
+						<br>
+						<TABLE class="sf" style="width:550">
+						<col width="140">
+						<col width="410">
+							<TR>
+								<TH style="width:150">登録番号</TH>
+								<TD style="width:auto;">
+									
+										4
+										<input type="hidden" name="blackEntryNo" value="4"/>
+									
+								</TD>
+							</TR>
+							<TR>
+								<TH style="width:150">会員名</TH>
+								<TD style="width:auto;">
+									　1：
+									<input type='text' name='kokyakuNm1' id='_kokyakuNm1' value='会員' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='25' style='width:126.40px;'> </input>
+									　2：
+									<input type='text' name='kokyakuNm2' id='_kokyakuNm2' value='太郎' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='25' style='width:126.40px;'> </input>
+								</TD>
+							</TR>
+							<TR>
+								<TH style="width:150">会員カナ</TH>
+								<TD style="width:auto;">
+									　1：
+									<input type='text' name='kokyakuKana1' id='_kokyakuKana1' value='カイイン' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='25' style='width:126.40px;'> </input>
+									　2：
+									<input type='text' name='kokyakuKana2' id='_kokyakuKana2' value='タロウ' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='25' style='width:126.40px;'> </input>
+								</TD>
+							</TR>
+							<TR>
+								<TH style="width:150;height:auto;min-height:auto" align="center">住所</TH>
+								<TD style="width:auto;">
+									〒
+									<input type='text' name='kokyakuZip1' id='_zip1' value='410' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='zip1' maxlength='3' style='width:37.44px;'> </input>
+									-
+									<input type='text' name='kokyakuZip2' id='_zip2' value='0021' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='zip2' maxlength='4' style='width:43.00px;'> </input>
+									<INPUT TYPE="button" VALUE="住所反映" style="width:64px;padding-left:1px;padding-right:1px;" onclick="CC900();">
+									<INPUT TYPE="button" VALUE="検索" style="width:32px;padding-left:1px;padding-right:1px;" onclick="CC901();"><BR>
+									　住所1：
+									<input type='text' name='kokyakuAddr1' id='_dispAddr1' value='静岡県沼津市小林台' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='40' style='width:265.40px;'> </input><BR>
+									　住所2：
+									<input type='text' name='kokyakuAddr2' id='_dispAddr2' value='住所2' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='20' style='width:265.40px;'> </input><BR>
+									　住所3：
+									<input type='text' name='kokyakuAddr3' id='_dispAddr3' value='住所3' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='20' style='width:265.40px;'> </input>
+								</TD>
+							</TR>
+							<TR>
+								<th style="width:150">電話番号</th>
+								<td style="width:auto;">
+									<input type='text' name='kokyakuTel' id='_kokyakuTel' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='tel' maxlength='25' style='width:176.44px;'> </input>
+								</TD>
+							</TR>
+							<TR>
+								<TH nowrap style="width:150">メールアドレス</TH>
+								<TD style="width:auto;">
+									<input type='text' name='kokyakuMail' id='_kokyakuMail' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='mail' maxlength='50' style='width:315.44px;'> </input>
+								</TD>
+							</TR>
+							<TR>
+								<TH style="width:150;height:auto;min-height:auto">メモ欄</TH>
+								<TD style="width:auto;" align="left">
+									<textarea  name="kokyakuMemo" cols="50" rows="20" class="multi" ></textarea>
+								</TD>
+							</TR>
+							<TR>
+								<TH style="width:150">適用区分</TH>
+								<TD style="width:auto;">
+									<input type="radio" name="tekiyouKbn" id="tekiyouKbn1" value="1" checked/>適用
+									<input type="radio" name="tekiyouKbn" id="tekiyouKbn2" value="0" />停止
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+			</TABLE>
+			<br>
+			<TABLE WIDTH="550" BORDER="0" CELLSPACING="0" CELLPADDING="1">
+				<TR BGCOLOR="#ffcccc">
+					
+						<TD ALIGN="center" WIDTH="50%">
+							<input  type="button" onClick="Update();" value="更新"/>
+						</TD>
+						<TD ALIGN="center" WIDTH="50%">
+							<input  type="button" onClick="do_Delete();" value="削除"/>
+						</TD>
+					
+				</TR>
+			</TABLE>
+		</form>
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

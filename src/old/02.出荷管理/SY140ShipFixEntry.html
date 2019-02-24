@@ -1,0 +1,664 @@
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?tz5JEgZK6N" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?tz5JEgZK6N" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<title>
+			
+				出荷実績確定[JP]
+			
+		</title>
+		
+		<style type="text/css">
+		span.binSyu{width:135px;}
+		</style>
+		<script type="text/javascript">
+		
+			//「検索」ボタン押下時処理
+			function Search() {
+				//検索実行時はpdfFlgを空白に設定する
+				$$("_pdfFlg").value="";
+				$$("_processType").value = "2";
+				$$("_Form").action = "/easpro2/e_asproShip/SY140ShipFixEntry";
+				$$("_Form").submit();
+				btnDisabled();	
+			}
+			
+			//「出荷実績確定」ボタン押下時処理
+			function Kakutei() {
+				var kakuteiConfirmMsg = "出荷の実績確定を行います。よろしいですか？";
+				if(confirm(kakuteiConfirmMsg)){
+					//chromeの場合はpdfFlgを1に設定する。
+					if (navigator.userAgent.indexOf("Chrome") >= 0){
+						$$("_pdfFlg").value="1";
+					}
+					$$("_rePrintName").value = "";
+					$$("_processType").value = "4";
+					$$("_maxKakuteiNo").value = "3257";
+					$$("_Form").action = "/easpro2/e_asproShip/SY140ShipFixEntry";
+					$$("_Form").submit();
+					btnDisabled();
+				}
+			}
+			
+			//「荷物受渡書再印刷」ボタン押下時処理
+			function PrintNimotu(_val) {
+				var printConfirmMsg = "印刷を行います。よろしいですか？";
+				if(confirm(printConfirmMsg)){
+					//chromeの場合はpdfFlgを1に設定する。
+					if (navigator.userAgent.indexOf("Chrome") >= 0){
+						$$("_pdfFlg").value="1";
+						setTimeout(enableDownLoad,3000);
+					}
+					$$("_rePrintName").value = "NIUKE";
+					$$("_processType").value = "99";
+					$$("_kakuteiNo").value = _val;
+					$$("_printYoutoKbn").value = "99";
+					$$("_Form").action = "/easpro2/e_asproShip/SY140ShipFixEntry";
+					$$("_Form").submit();
+					btnDisabled();
+				}
+			}
+			
+			//「貨物発送リスト再印刷」ボタン押下時処理
+			function PrintKamotu(_val) {
+				var printConfirmMsg = "印刷を行います。よろしいですか？";
+				if(confirm(printConfirmMsg)){
+					//chromeの場合はpdfFlgを1に設定する。
+					if (navigator.userAgent.indexOf("Chrome") >= 0){
+						$$("_pdfFlg").value="1";
+						setTimeout(enableDownLoad,3000);
+					}
+					$$("_rePrintName").value = "HASSOU_LIST";
+					$$("_processType").value = "98";
+					$$("_kakuteiNo").value = _val;
+					$$("_printYoutoKbn").value = "98";
+					$$("_Form").action = "/easpro2/e_asproShip/SY140ShipFixEntry";
+					$$("_Form").submit();
+					btnDisabled();
+				}
+			}
+			
+			//「実績CSV ダウンロード」ボタン押下時処理
+			function Download(kakuteiNo,csvBinSyu,transCoKbn) {
+				$$("_processType").value = "20";
+				$$("_kakuteiNo").value = kakuteiNo;
+				$$("_csvBinSyu").value = csvBinSyu;
+				$$("_transCoKbn").value = transCoKbn;
+				$$("_Form").action = "/easpro2/e_asproShip/SY140ShipFixEntry";
+				$$("_Form").submit();
+				btnDisabled();
+				setTimeout(enableDownLoad,3000);
+			}
+			
+			//CSV出力ボタン押下3秒後に処理
+			function enableDownLoad(){
+				var mikakuteiCnt = $$("_miKakuteiSyukaJiseki").value;
+				$("input[@type=button]").removeAttr("disabled");
+				if (mikakuteiCnt=="0") {
+					$$("_kakuteiBtn").disabled ="disabled";
+				}
+			}
+			//ロード完了
+			$(document).ready(function(){
+				if("1"==""){
+					/*CC052画面を呼び出す処理を記述*/
+					var url;
+					var _width = 740;
+					var _hight = 160;
+					/*表示する画面位置の設定*/
+					var _dispWidth = (window.screen.width - _width)/2 ;
+					var _dispHight = (window.screen.height - _hight)/2;
+					url = "/easpro2/e_asproLogin/CC052PrintPdfWindow";
+					url = url + "?seqNo=" + "";
+					url = url + "&previewType=" + "2";
+					url = url + "&processKbn=" + "1";
+					url = url + "&printFlg=" + "0";
+					url = url + "&printNo=" + "null";
+					url = url + "&autoPrint=" + "0";
+					url = url + "&printTypeNo=" + "";
+					url = url + "&binsyuCd=" + "";
+					url = url + "&nouhinsyoFlg=" + "0";
+					url = url + "&pdfFlg=" + "";
+					url = url + "&wrfPath=" + "e_asproShip/reports/";
+					_searchWin = window.open(url,"CC052","width="+_width+",height="+_hight+",menubar=0,location=0,status=yes,resizable=1,scrollbars=1,directories=0,status=0,left="+_dispWidth+",top="+_dispHight);
+					_searchWin.focus();
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_syuturyoku.gif' alt='' align='middle' border='0'>
+		<div class=pt>
+			
+				出荷実績確定[JP]
+			
+			</div>
+		<br>
+		<div style="clear:both;">
+			<b style="color:red;"></b>
+		</div>
+		<br>
+		<form action="" id="_Form" NAME="_Form" method="post">
+			<input type="hidden" name="secToken" id="secToken" value="F39E22B797D57BFC88FA7DC91C51CE3C"/>
+			<input type="hidden" name="postBackFlg" value="1" />
+			<input type="hidden" name="strForwordFlg" value="2" />
+			<input type="hidden" name="processType" id="_processType" value="2" />
+			<input type="hidden" name="jpFlg" id="_jpFlg" value="1" />
+			<input type="hidden" name="kakuteiNo" id="_kakuteiNo" value="" />
+			<input type="hidden" name="csvBinSyu" id="_csvBinSyu" value="" />
+			<input type="hidden" name="transCoKbn" id="_transCoKbn" value="" />
+			<input type="hidden" name="printYoutoKbn" id="_printYoutoKbn" value="" />
+			<input type="hidden" name="maxKakuteiNo" id="_maxKakuteiNo" value="0" />
+			<input type="hidden" name="miKakuteiSyukaJiseki" id="_miKakuteiSyukaJiseki" value="3" />
+			<input type="hidden" name="rePrintName" id="_rePrintName" value="0" />
+			
+			<input type="hidden" name="pdfFlg" id="_pdfFlg" value="" />
+			<div ID='div1' style='display:block;'>
+				<table class="nb">
+					<tr>
+						<td>
+							<table class="sf" style="width:845px">
+								<col width="120"/>
+								<col width="300"/>
+								<col width="120"/>
+								<col width="300"/>
+								
+								<tr>
+									<th align="left">顧客指定作業区分</th>
+									<td>
+										<SELECT name='sagyoKbn' id='_sagyoKbn' style='width:282px' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='01' >午前出荷</OPTION><OPTION VALUE='02' >12時出荷</OPTION><OPTION VALUE='03' >14時出荷</OPTION><OPTION VALUE='04' >15時出荷</OPTION><OPTION VALUE='05' >17時出荷</OPTION><OPTION VALUE='06' >17時以降(臨時1）</OPTION><OPTION VALUE='07' >17時以降(臨時2）</OPTION><OPTION VALUE='08' >17時以降(臨時3）</OPTION><OPTION VALUE='09' >17時以降(臨時4）</OPTION><OPTION VALUE='10' >17時以降(臨時5）</OPTION><OPTION VALUE='11' >17時以降(臨時6）</OPTION><OPTION VALUE='12' >17時以降(臨時7）</OPTION><OPTION VALUE='13' >17時以降(臨時8）</OPTION><OPTION VALUE='14' >17時以降(臨時9）</OPTION><OPTION VALUE='15' >17時以降(臨時10）</OPTION><OPTION VALUE='99' >当日中出荷</OPTION> </SELECT>
+									</td>
+									<th align="left">当日配達</th>
+									<td align="left">
+									
+									
+									<input type="checkbox" 
+										name="toujituHaitatu" 
+										id= "_toujituHaitatu" 
+										value="1"
+										
+										/>
+									</td>
+								</tr>
+								
+								<tr>
+									<th class="must">倉庫名</th>
+									<td>
+										
+											<select name="whCd" id="whCd" SIZE="1" style="width:282px">
+												
+												
+													<option value="" ></option>
+												
+													<option value="036410501" selected>アクアペット倉庫</option>
+												
+											</select>
+										
+									</td>
+									<th>出荷予定日</th>
+									<td>
+										<input type='text' name='syukkaYoteYmds' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='syukkaYoteYmds' onblur='_formateDate(this,"出荷予定日(開始日)は日付を入力して下さい。");' /><a href='#' id='syukkaYoteYmds_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'syukkaYoteYmds',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syukkaYoteYmds_calendar_link_id',singleClick : true,step:1});</script>～
+										<input type='text' name='syukkaYoteYmde' style='width:82px;'  maxlength=10 value='2019/01/10' class='ymd' onkeypress='_chkInp();' id='syukkaYoteYmde' onblur='_formateDate(this,"出荷予定日(終了日)は日付を入力して下さい。");' /><a href='#' id='syukkaYoteYmde_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'syukkaYoteYmde',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'syukkaYoteYmde_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+								</tr>
+								<tr>
+									<th style="min-height:auto;">商品種別</th>
+									<td colspan="3" style="width:auto;">
+										
+										
+												<span class="binSyu">
+													<input checked="checked" TYPE="checkbox" id="searchBinSyu_0" name="searchBinSyu" value="01"/>
+													<label for="searchBinSyu_0">ゆうパック</label>
+												</span>
+												
+											
+												<span class="binSyu">
+													<input checked="checked" TYPE="checkbox" id="searchBinSyu_1" name="searchBinSyu" value="02"/>
+													<label for="searchBinSyu_1">ゆうパック（チルド）</label>
+												</span>
+												
+											
+												<span class="binSyu">
+													<input checked="checked" TYPE="checkbox" id="searchBinSyu_2" name="searchBinSyu" value="03"/>
+													<label for="searchBinSyu_2">ゆうパック（冷凍）</label>
+												</span>
+												
+											
+												<span class="binSyu">
+													<input checked="checked" TYPE="checkbox" id="searchBinSyu_3" name="searchBinSyu" value="12"/>
+													<label for="searchBinSyu_3">ゆうパケット</label>
+												</span>
+												
+											
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td valign="bottom">
+							<table>
+								<tr>
+									<td>
+										<input type="button" onClick="Search();" value="検索"
+										
+										/>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=845px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=845px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+			
+			
+					<table class="sf" style="width:390px;">
+						<col width="120"/>
+						<col width="270"/>
+						<tr>
+							<th>未確定出荷実績</th>
+							
+							<td style="text-align:right;">
+								3件
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align:center;width:auto;" align="center" BGCOLOR="#ffcccc">
+								<input  
+														id="_kakuteiBtn"
+														type="button" onClick="Kakutei();"
+														
+														value="出荷実績確定"/>
+							</TD>
+						</tr>
+					</table>
+					<br>
+				
+					<table class="lt">
+	 					<col width="120">
+	 					<col width="120">
+	 					<col width="150">
+	 					
+	 					<col width="200">
+						<tr class="head">
+							<th>確定日時</th>
+							<th>出荷実績件数</th>	
+							<th>商品種別</th>
+							
+								<th>荷物受渡書</th>
+								
+							
+						</tr>
+						
+							
+							<tr>
+								
+								
+								<td align="center" title="2019/01/08 20:00">
+									2019/01/08 20:00</td>
+									
+								
+								<td align="left" title="1" style="text-align:right;">
+									1</td>
+										
+								
+								<td align="left" title="ゆうパック">
+									ゆうパック</td>
+								
+									
+									<td align="center">
+										
+										<input type="button" onClick="PrintNimotu(3257);" value="再印刷"
+										
+										/>
+									</td>
+									
+									
+								
+							</tr>
+						
+							
+							<tr>
+								
+								
+								<td align="center" title="2018/09/13 13:52">
+									2018/09/13 13:52</td>
+									
+								
+								<td align="left" title="30" style="text-align:right;">
+									30</td>
+										
+								
+								<td align="left" title="ゆうパック">
+									ゆうパック</td>
+								
+									
+									<td align="center">
+										
+										<input type="button" onClick="PrintNimotu(3254);" value="再印刷"
+										
+										/>
+									</td>
+									
+									
+								
+							</tr>
+						
+							
+							<tr>
+								
+								
+								<td align="center" title="2018/09/12 15:29">
+									2018/09/12 15:29</td>
+									
+								
+								<td align="left" title="46" style="text-align:right;">
+									46</td>
+										
+								
+								<td align="left" title="ゆうパック">
+									ゆうパック</td>
+								
+									
+									<td align="center">
+										
+										<input type="button" onClick="PrintNimotu(3252);" value="再印刷"
+										
+										/>
+									</td>
+									
+									
+								
+							</tr>
+						
+							
+							<tr>
+								
+								
+								<td align="center" title="2018/09/11 16:06">
+									2018/09/11 16:06</td>
+									
+								
+								<td align="left" title="39" style="text-align:right;">
+									39</td>
+										
+								
+								<td align="left" title="ゆうパック">
+									ゆうパック</td>
+								
+									
+									<td align="center">
+										
+										<input type="button" onClick="PrintNimotu(3249);" value="再印刷"
+										
+										/>
+									</td>
+									
+									
+								
+							</tr>
+						
+							
+							<tr>
+								
+								
+								<td align="center" title="2018/09/10 14:55">
+									2018/09/10 14:55</td>
+									
+								
+								<td align="left" title="59" style="text-align:right;">
+									59</td>
+										
+								
+								<td align="left" title="ゆうパック">
+									ゆうパック</td>
+								
+									
+									<td align="center">
+										
+										<input type="button" onClick="PrintNimotu(3246);" value="再印刷"
+										
+										/>
+									</td>
+									
+									
+								
+							</tr>
+						
+							
+							<tr>
+								
+								
+								<td align="center" title="2018/09/08 12:43">
+									2018/09/08 12:43</td>
+									
+								
+								<td align="left" title="32" style="text-align:right;">
+									32</td>
+										
+								
+								<td align="left" title="ゆうパック">
+									ゆうパック</td>
+								
+									
+									<td align="center">
+										
+										<input type="button" onClick="PrintNimotu(3243);" value="再印刷"
+										
+										/>
+									</td>
+									
+									
+								
+							</tr>
+						
+							
+							<tr>
+								
+								
+								<td align="center" title="2018/09/07 14:52">
+									2018/09/07 14:52</td>
+									
+								
+								<td align="left" title="41" style="text-align:right;">
+									41</td>
+										
+								
+								<td align="left" title="ゆうパック">
+									ゆうパック</td>
+								
+									
+									<td align="center">
+										
+										<input type="button" onClick="PrintNimotu(3241);" value="再印刷"
+										
+										/>
+									</td>
+									
+									
+								
+							</tr>
+						
+							
+							<tr>
+								
+								
+								<td align="center" title="2018/09/06 15:57">
+									2018/09/06 15:57</td>
+									
+								
+								<td align="left" title="33" style="text-align:right;">
+									33</td>
+										
+								
+								<td align="left" title="ゆうパック">
+									ゆうパック</td>
+								
+									
+									<td align="center">
+										
+										<input type="button" onClick="PrintNimotu(3238);" value="再印刷"
+										
+										/>
+									</td>
+									
+									
+								
+							</tr>
+						
+							
+							<tr>
+								
+								
+								<td align="center" title="2018/09/05 16:49">
+									2018/09/05 16:49</td>
+									
+								
+								<td align="left" title="43" style="text-align:right;">
+									43</td>
+										
+								
+								<td align="left" title="ゆうパック">
+									ゆうパック</td>
+								
+									
+									<td align="center">
+										
+										<input type="button" onClick="PrintNimotu(3235);" value="再印刷"
+										
+										/>
+									</td>
+									
+									
+								
+							</tr>
+						
+							
+							<tr>
+								
+								
+								<td align="center" title="2018/09/04 16:49">
+									2018/09/04 16:49</td>
+									
+								
+								<td align="left" title="1" style="text-align:right;">
+									1</td>
+										
+								
+								<td align="left" title="ゆうパック">
+									ゆうパック</td>
+								
+									
+									<td align="center">
+										
+										<input type="button" onClick="PrintNimotu(3232);" value="再印刷"
+										
+										/>
+									</td>
+									
+									
+								
+							</tr>
+						
+					</table>
+				
+		</form>
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>
