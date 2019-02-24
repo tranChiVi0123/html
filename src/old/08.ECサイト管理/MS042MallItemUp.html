@@ -1,0 +1,246 @@
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?8G7hWyvCjn" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+		<title>
+			サイト用商品マスタCSV登録
+		</title>
+		<script type="text/javascript">
+			var vConfirmMsg = "登録します。よろしいですか？";
+			function uploadCsv(){
+				if (confirm(vConfirmMsg)){
+					$$("processType").value = "11";
+					$$("Form1").action = "/easpro2/e_asproMaster/MS042MallItemUp";
+					$$("Form1").submit();
+					btnDisabled();
+				}
+			}
+
+			function getSiteList(){
+				var kbn = $("#js_syubetu").val();
+				if(kbn == "10" || kbn == "11" || kbn == "15" || kbn == "606" || kbn == "607" || kbn == "18"|| kbn == "19"){
+					var url = "/easpro2/e_asproMaster/MS042MallItemUp";
+					var parms = "processType="+6;
+					parms = parms+"&ajaxKbn=site";
+					parms = parms+"&syubetu="+ kbn;
+					_SendByAjax(url,parms,'',false);
+				}else{
+					setSite("1","");
+				}
+			}
+
+			function setSite(disable,options){
+				if(disable == "1"){
+					$("#siteCd").attr("disabled",true);
+				}else{
+					$("#siteCd").removeAttr("disabled");
+				}
+				$("#siteCd").html(options);
+			}
+			//初期表示
+			$(function() {
+				var syubetu = $("#js_syubetu").val();
+				getPatternItem(syubetu);
+				getSiteList();
+			});
+			//Ajax検索　パターン選択
+			function getPatternItem(_val){
+				if( _val ==""){
+					return;
+				}
+				if (_val == "10") {
+					$("#iKouFlg").removeAttr("disabled");
+				} else {
+					$("#iKouFlg").attr("disabled","disabled");
+					$("#iKouFlg").removeAttr("checked");
+				}
+				var url = "/easpro2/e_asproMaster/MS042MallItemUp";
+				var parms = "processType="+6;
+					parms = parms+"&coNo="+$$("coNo").value;
+					parms = parms+"&syubetu="+_val;
+					_SendByAjax(url,parms,'',false);
+			}
+
+			//Ajaxの戻り値をセット
+			function setPatternItem(str){
+				$("#js_patternNo").html(str);
+			}
+
+			$(function(){
+				$("#js_syubetu").change(getSiteList);
+				var kbn = $("#js_syubetu").val();
+				if(kbn != "10" && kbn != "11" && kbn != "15" && kbn != "606" && kbn != "607" && kbn != "18"&& kbn != "19"){
+					setSite("1","");
+				}
+				if (kbn == "10") {
+					$("#iKouFlg").removeAttr("disabled");
+				} else {
+					$("#iKouFlg").attr("disabled","disabled");
+					$("#iKouFlg").removeAttr("checked");
+				}
+			});
+			// 【楽天チェック】
+			function MS042ReadTimeList() {
+				var url;
+				url = "/easpro2/e_asproLogin/CC800PopUpMessage";
+				url = url + "?programId=" + "MS042Check";
+				window.open(url,"CC800","width=600,height=200,scrollbars=1,resizable=1,toolbar=0,menubar=0,location=0,directories=0,status=0");
+			}
+		</script>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_master.gif' alt='' align='middle' border='0'>
+		<div class=pt>サイト用商品マスタCSV登録</div>
+		<br>
+		<b style="color: red" id="js_errMsg"></b><BR>
+		<form name="Form1" id="Form1" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="secToken" id="secToken" value="ABEEEE12513934D16CA8D664B9698779"/>
+			<input type="hidden" name="coNo" id="coNo" value="2625"/>
+			<input type="hidden" name="strForwordFlg" value="2"/>
+			<input type="hidden" name="processType" id="processType"/>
+			<br>
+			<table style="width:400" border="0" cellspacing="0" cellpadding="0">
+				<tr >
+					<td>
+						<table class="sf" style="width:400">
+							<tr>
+								<th width="100" class="must">種別</th>
+								<td>
+									<SELECT name='syubetu' id='js_syubetu' onchange='getPatternItem(this.value)' tabindex=null > <OPTION VALUE='10' >サイト用楽天情報</OPTION><OPTION VALUE='11' >サイト用Yahoo!情報</OPTION><OPTION VALUE='12' >サイト用項目選択肢（サイズ・カラー）</OPTION><OPTION VALUE='13' >サイト用オプション項目</OPTION><OPTION VALUE='15' >サイト用Amazon情報</OPTION><OPTION VALUE='16' >サイト用EC(BtoC)情報</OPTION><OPTION VALUE='17' >サイト用EC(BtoB)情報</OPTION><OPTION VALUE='35' >ECサイト販売対象外得意先選択</OPTION><OPTION VALUE='18' >楽天ダウンロードファイル</OPTION><OPTION VALUE='19' >Yahoo!ダウンロードファイル</OPTION><OPTION VALUE='607' >Amazon出品詳細レポート</OPTION> </SELECT>
+								</td>
+							</tr>
+							<tr>
+								<th width="100" class="must">パターン選択</th>
+								<td>
+									<span>
+										<SELECT name='patternNo' id='js_patternNo'  tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='1' >全項目</OPTION> </SELECT>
+									</span>
+								</td>
+							</tr>
+                            <tr>
+                                <th width="100">サイト</th>
+                                <td>
+									<span>
+										<SELECT name='siteCd' id='siteCd'  tabindex=null >  </SELECT>
+									</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th width="100">マスタ移行</th>
+                                <td>
+									<span>
+										<input type="checkbox" name="iKouFlg" id="iKouFlg" value="1" >
+										<a href="javascript:;" onclick="MS042ReadTimeList();">【マスタ移行チェックの説明】</a></font>
+									</span>
+                                </td>
+                            </tr>
+							<tr>
+								<th class="must">登録情報</th>
+								<td><input type="file" name="touRokuFile" size="30"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr bgcolor="#ffcccc">
+					<td align="center">
+						<input  type="button" onClick="uploadCsv();" value="登録する"/>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<br>
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

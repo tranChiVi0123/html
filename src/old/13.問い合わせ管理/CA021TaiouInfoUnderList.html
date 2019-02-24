@@ -1,0 +1,222 @@
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.11.3.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?d=201004" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?d=201004" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/caspro/c_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/caspro/c_asproLogin/login";
+			}
+		}catch(e){}
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+	<head>
+		<title>問合せ対応照会</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j" />
+	</head>
+	<body bgcolor="#ffffff" bgcolor="#ffffff" link="#000066" vlink="#000066">
+		<form action="/caspro/CA021TaiouInfoUnderList" id="_Form" name="Form" method="post">
+			<input type="hidden" name="strForwordFlg" value="2">
+			<input type="hidden" name="processKbn" id="_processKbn" value="2">
+			<input type="hidden" name="processType" id="_processType" value="2">
+			<input TYPE="hidden" name="kokyaku_no" id="_kokyakuNo" value="52">
+			<input TYPE="hidden" name="kokyaku_cd" id="_kokyakuCd" value="0000000010">
+			<input TYPE="hidden" name="kokyaku_tab" id="_kokyakutab" value="0">
+			<input TYPE="hidden" name="btobKbn" id="_btobKbn" value="0">
+			<input type="hidden" name="salesCd" id="_salesCd">
+			<table	border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td nowrap>
+						<table border="0" CELLSPACING="1" CELLPADDING="1">
+							<tr>
+								<td nowrap>
+								
+								
+									<input type="button" onclick="visibleToi();" value="問合せ新規">&nbsp;
+								
+								
+									<input type="button" onclick="visibleOrd('');" value="受注新規">&nbsp;
+								
+								
+									<input type="button" onclick="visibleOrd('30');" value="サンプル新規">
+								
+								</td>
+								<td>
+									<span style="vertical-align : middle; font-size: 13px;">期間：</span>
+									<input type='text' name='kikan_from' size="12" maxlength=10 value='2019/01/06' class='ymd' onkeypress='_chkInp();' onblur='_formateDate(this,"期間は日付を入力して下さい。");' /><a href='#' id='kikan_from_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'kikan_from',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'kikan_from_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='kikan_to' size="12" maxlength=10 value='2019/01/13' class='ymd' onkeypress='_chkInp();' onblur='_formateDate(this,"期間は日付を入力して下さい。");' /><a href='#' id='kikan_to_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'kikan_to',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'kikan_to_calendar_link_id',singleClick : true,step:1});</script>
+									&nbsp;
+									<span style="vertical-align : middle; font-size: 13px;">商品コード：</span><input type="text" name="hin_cd" id="_hin_cd" size="10"
+										   maxlength="16" class="code" value="">
+									<span style="vertical-align : middle; font-size: 13px;">(前方一致)</span>
+									&nbsp;
+									<span style="vertical-align : middle; font-size: 13px;">商品名：</span><input type="text" name="hin_nm" id="_hin_nm"  size="10"
+										   maxlength="40" class="multi"value="">
+									<span style="vertical-align : middle; font-size: 13px;">(部分一致)</span>
+									&nbsp;
+									<span style="vertical-align : middle; font-size: 13px;">注文番号：</span>
+										<input type="text"
+											name="order_cd"
+											id="_order_cd"
+											size="10"
+											maxlength="14"
+											class="code"
+											value="">
+									<span style="vertical-align : middle; font-size: 13px;">(前方一致)</span>
+									<input type="button" onclick="Search();" value="検索">
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr HEIGHT="22">
+				
+				<td nowrap align="center" id="_td0" bgcolor='#cccccc' width="125" HEIGHT="22" BACKGROUND="../ecsdocs2/img/tab_s.gif">
+					<font size="2"><a HREF="#" onClick="tab_chg('0');">問合せ</a></font>
+				</td>
+				<td nowrap align="center" id="_td1"  width="125" HEIGHT="22" BACKGROUND="../ecsdocs2/img/tab_s.gif">
+					<font size="2"><a HREF="#" onClick="tab_chg('1');">受注</a></font>
+				</td>
+				<td nowrap align="center" id="_td2"  width="125" HEIGHT="22" BACKGROUND="../ecsdocs2/img/tab_s.gif">
+					<font size="2"><a HREF="#" onClick="tab_chg('2');">出荷</a></font>
+				</td>
+				<!-- <td nowrap align="center" id="_td6"  width="125" HEIGHT="22" BACKGROUND="../ecsdocs2/img/tab_s.gif">
+					<font size="2"><a HREF="#" onClick="tab_chg('6');">返品履歴</a></font>
+				</td> -->
+				<td align="center" nowrap HEIGHT="22"></td>
+			</tr>
+		</table>
+
+		
+		
+		
+			
+			<span style="height:12px;"></span>
+			<table class="lt" width="1690"><col style="width:80px;"><col style="width:100px;"><col style="width:60px;"><col style="width:100px;"><col style="width:80px;"><col style="width:220px;"><col style="width:80px;"><col style="width:220px;"><col style="width:150px;"><col style="width:150px;"><col style="width:150px;"><col style="width:100px;"><col style="width:100px;"><col style="width:100px;">
+<tr class="head"><th style="">問合せ日</th><th style="">問合せ番号</th><th style="">対応状況</th><th style="">対応状況カテゴリ</th><th style="">クレーム有無</th><th style="">問合せ分類</th><th style="">問合せ方法</th><th style="">問合せ内容</th><th style="">問合せ商品1</th><th style="">問合せ商品2</th><th style="">問合せ商品3</th><th style="">注文番号</th><th style="">受付番号</th><th style="">出荷番号</th></tr>
+<tr style=""><td style="text-align:center;" title="2019/01/13" ><nobr>2019/01/13</nobr></td><td style="text-align:center;" title="190113000005" ><nobr><a href="javascript:visibleToiUpd('190113000005');">190113000005</a></nobr></td><td style="text-align:center;" title="未対応" ><nobr>未対応</nobr></td><td style="text-align:center;" title="TEL継続１" ><nobr>TEL継続１</nobr></td><td style="text-align:center;" title="通常" ><nobr>通常</nobr></td><td style="text-align:left;" title="商品" ><nobr>商品</nobr></td><td style="text-align:center;" title="要回答" ><nobr>要回答</nobr></td><td style="text-align:center;" title="商品お問い合わせ。
+問い合わせ対象商品１に対象商品を記載。
+問い合わせ内容を記載。
+
+1.対応マニュアルにある質問
+　⇒その場で回答するし完了。
+
+2.対応マニュアルにない質問
+　⇒お客様の連絡先を伺い、後日回答。
+　　荷主管理者にエスカレーション。
+
+問い合わせ先：●●●●●●●様
+対応マニュアル：【あり・なし】
+問い合わせ内容：
+" ><nobr>商品お問い合わせ。
+問い合わせ対象商品１に対象商品を記載。
+問い合わせ内容を記載。
+
+1.対応マニュアルにある質問
+　⇒その場で回答するし完了。
+
+2.対応マニュアルにない質問
+　⇒お客様の連絡先を伺い、後日回答。
+　　荷主管理者にエスカレーション。
+
+問い合わせ先：●●●●●●●様
+対応マニュアル：【あり・なし】
+問い合わせ内容：
+</nobr></td><td style="text-align:left;" title="" ><nobr></nobr></td><td style="text-align:left;" title="" ><nobr></nobr></td><td style="text-align:left;" title="" ><nobr></nobr></td><td style="text-align:center;" title="" ><nobr></nobr></td><td style="text-align:center;" title="" ><nobr></nobr></td><td style="text-align:center;" title="" ><nobr></nobr></td></tr>
+</table>
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+		<script type="text/javascript">
+			//タブ押下時処理
+			function tab_chg(js_tab_no){
+				$("#_processType").val("2");
+				$("#_kokyakutab").val(js_tab_no);
+				$("#_Form").prop("action","/caspro/c_asproCallCenter/CA021TaiouInfoUnderList");
+				$("#_Form").submit();
+				btnDisabled();
+			}
+			//検索ボタン押下時処理
+			function Search(){
+				$("#_processType").val("3");
+				$("#_kokyakutab").val($("#_kokyakutab").val());
+				$("#_Form").prop("action","/caspro/c_asproCallCenter/CA021TaiouInfoUnderList");
+				$("#_Form").submit();
+				btnDisabled();
+			}
+			function AjaxUpdateKokyaku(kokyakuNo,kokyakuCd){
+				$("#_kokyakuNo").val(kokyakuNo);
+				$("#_kokyakuCd").val(kokyakuCd);
+			}
+
+			// 問合せ新規
+			function visibleToi() {
+				var _kokyaku = $("#_kokyakuNo").val();
+				parent.toiawase.location.href = "/caspro/c_asproCallCenter/CA090ToiawaseEntry?processKbn=2&kokyaku_no="+_kokyaku;
+			}
+
+			// 受注新規
+			
+			function visibleOrd(p) {
+				var _kokyaku = $("#_kokyakuNo").val();
+				var _kokyakuCd = $("#_kokyakuCd").val();
+				parent.order.location.href = "/caspro/c_asproOrder/OD010OrdersNew?kokyakuNo="+_kokyaku+"&kokyakuCd="+_kokyakuCd+"&orderNo=&callcenterFlg=1&sksjType=S020&processType="+p;
+			}
+			// 問合せ.問合せ番号押下時
+			function visibleToiUpd(_toiNo) {
+				var _kokyaku = $("#_kokyakuNo").val();
+				//問合せ入力表示
+				parent.toiawase.location.href = "/caspro/c_asproCallCenter/CA090ToiawaseEntry?processType=1&processKbn=2&toi_no="+_toiNo+"&kokyaku_no="+_kokyaku;
+			}
+			function orderCdLink(_ordCd) {
+				parent.order.location.href = "/caspro/c_asproOrder/OD010OrdersNew?processType=&callcenterFlg=2&orderCd="+_ordCd;
+			}
+			function orderNoLink(_ordNo) {
+				parent.order.location.href = "/caspro/c_asproOrder/OD010OrdersNew?processType=&callcenterFlg=2&orderNo="+_ordNo;
+			}
+		</script>
+	</body>
+</html>

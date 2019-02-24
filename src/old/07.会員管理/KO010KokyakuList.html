@@ -1,0 +1,2314 @@
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+		<title>会員マスタ</title>
+		<script type="text/javascript">
+
+			/**
+			* [概 要]:検索ボタン押下時処理
+			* [説 明]:検索ボタン押下時処理<br>
+			* [備 考]:
+			*/
+			function Search() {
+				$$("_processType").value = "2";
+				$$("_Form").action = "/easpro2/e_asproKokyaku/KO010KokyakuList";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+
+			/**
+			* [概 要]:新規登録ボタン押下時処理
+			* [説 明]:新規登録ボタン押下時処理<br>
+			* [備 考]:
+			*/
+			function Insert(){
+				$$("_Form").action="KO011KokyakuEntry.html?callCenterFlg=0";
+				$$("_processType").value="";
+				$$("_searchKbn").value="";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+
+			/**
+			* [概 要]:CSV出力ボタン押下時処理
+			* [説 明]:CSV出力ボタン押下時処理<br>
+			* [備 考]:
+			*/
+			function DownLoad() {
+				$$("_processType").value = "7";
+				$$("_patternNo").value = $$("_csvPatternNo").value;
+				$$("_Form").action = "/easpro2/e_asproKokyaku/KO010KokyakuList";
+				$$("_Form").submit();
+				btnDisabled();
+				//CSV出力ボタン  3秒後に利用可能
+				setTimeout('enableDownLoad()', '3000');
+			}
+
+			/**
+			* [概 要]:CSV出力ボタン押下3秒後に処理
+			* [説 明]:CSV出力ボタン押下3秒後に処理<br>
+			* [備 考]:
+			* @param processType
+			*/
+			function enableDownLoad(){
+				$$("_btnDownload").disabled = false;
+				$$("_update").disabled = false;
+				$$("_search").disabled = false;
+				$$("_insert").disabled = false;
+			}
+
+			/**
+			* [概 要]:ランク変更ボタン押下時処理
+			* [説 明]:ランク変更ボタン押下時処理<br>
+			* [備 考]:
+			*/
+			function Update(){
+				$$("_processType2").value="4";
+				$$("_Form2").action = "/easpro2/e_asproKokyaku/KO010KokyakuList";
+				$$("_Form2").submit();
+				btnDisabled();
+			}
+
+			/**
+			* [概 要]:購入履歴画面
+			* [説 明]:購入履歴画面<br>
+			* [備 考]:
+			* @param disMode
+			* @param kokyakuNo
+			*/
+			function CC060(disMode, kokyakuNo) {
+				var url;
+				url = "CC060KounyuHistory.html?";
+				url = url + "processType=" + 1;
+				url = url + "&kokyakuNo=" + kokyakuNo;
+				url = url + "&dispMode=" + disMode;
+				_searchWin = window.open(url,"CC060","width=1050,height=620,menubar=no,location=no,status=yes,resizable=yes,scrollbars=yes");
+				_searchWin.focus();
+			}
+		</script>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_kokyaku.gif' alt='' align='middle' border='0'>
+		<div class=pt>会員マスタ</div>
+		<br>
+		<b style="color:red"></b>
+		<br>
+		<form action="../ecsdocs2/KO010KokyakuList" name="Form" id="_Form" method="post">
+			<input type="hidden" name="strForwordFlg" value="2">
+			<input type="hidden" name="searchKbn" id="_searchKbn" value="2">
+			<input type="hidden" name="processType" id="_processType" value="">
+			<input type="hidden" name="patternNo" id="_patternNo">
+			<input type="hidden" name="kokyakuRankKbn" id="_kokyakuRankKbn" value="">
+			<div ID='div1' style='display:block;'>
+				<table class="nb">
+					<tr>
+						<td>
+							<table class="sf">
+								<tr>
+									<th nowrap width="100">会員番号</th>
+									<td nowrap width="214">
+										<input type='text' name='searchKokyakuCd' id='_searchKokyakuCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='10' style='width:81.92px;'> </input>
+										(前方一致)
+									</td>
+									<th nowrap width="100">会員名</th>
+									<td nowrap width="214">
+										<input type='text' name='searchKokyakuNm' id='_searchKokyakuNm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='20' style='width:193.12px;'> </input>
+										(前方一致)
+									</td>
+								</tr>
+								<tr>
+									<th nowrap width="100">外部コード</th>
+									<td nowrap width="214">
+										<input type='text' name='searchGaibuCd' id='_searchGaibuCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='15' style='width:120.84px;'> </input>
+										(前方一致)
+									</td>
+									<th nowrap width="100">住所</th>
+									<td nowrap >
+										<input type='text' name='searchKokyakuAddr' id='_searchKokyakuAddr' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='75' style='width:193.12px;'> </input>
+										(部分一致)
+									</td>
+								</tr>
+								<tr>
+									<th nowrap width="100">電話番号</th>
+									<td nowrap width="214">
+										<input type='text' name='searchKokyakuTel' id='_searchKokyakuTel' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='tel' maxlength='15' style='width:120.84px;'> </input>
+										(前方一致)
+									</td>
+									<th nowrap width="100">FAX</th>
+									<td nowrap >
+										<input type='text' name='searchKokyakuFax' id='_searchKokyakuFax' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='tel' maxlength='15' style='width:120.84px;'> </input>
+										(前方一致)
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td valign="bottom">
+							<input  type="button" onClick="Search();" value="検索" id="_search"/>
+						</td>
+						<td valign="bottom">
+							<input  type="button" onClick="Insert();" value="新規登録" id="_insert"/>
+						</td>
+					</tr>
+
+				</table>
+			<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=850px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=850px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+		</form>
+		
+		
+			
+			
+			<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>421件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1<OPTION   VALUE='2'>2<OPTION   VALUE='3'>3<OPTION   VALUE='4'>4<OPTION   VALUE='5'>5<OPTION   VALUE='6'>6<OPTION   VALUE='7'>7<OPTION   VALUE='8'>8<OPTION   VALUE='9'>9<OPTION   VALUE='10'>10<OPTION   VALUE='11'>11<OPTION   VALUE='12'>12<OPTION   VALUE='13'>13<OPTION   VALUE='14'>14<OPTION   VALUE='15'>15</SELECT>/15</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(2)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(15)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='/easpro2/e_asproKokyaku/KO010KokyakuList' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="15"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="421"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value="2"><input type='hidden' name='searchKokyakuCd' value=""><input type='hidden' name='searchKokyakuNm' value=""><input type='hidden' name='searchGaibuCd' value=""><input type='hidden' name='searchKokyakuAddr' value=""><input type='hidden' name='searchKokyakuTel' value=""><input type='hidden' name='searchKokyakuFax' value=""><input type='hidden' name='_fromMenu' value=""><input type='hidden' name='coNo' value="2535"></form>
+			<form action="../ecsdocs2/KO010KokyakuList" name="Form2" id="_Form2" method="post">
+				<input type="hidden" name="secToken" id="secToken" value="588C4E965D9695A81FD9F24F2DA2A587"/>
+				<input type="hidden" name="processType" id="_processType2" value="">
+				<input type="hidden" name="userNo" id="_userNo" value="42">
+				<input type="hidden" name="searchKokyakuCd" id="_searchKokyakuCd" value="">
+				<input type="hidden" name="searchKokyakuNm" id="_searchKokyakuNm" value="">
+				<input type="hidden" name="searchGaibuCd" id="_searchGaibuCd" value="">
+				<input type="hidden" name="searchKokyakuAddr" id="_searchKokyakuAddr" value="">
+				<input type="hidden" name="searchKokyakuTel" id="_searchKokyakuTel" value="">
+				<input type="hidden" name="searchKokyakuFax" id="_searchKokyakuFax" value="">
+					<table>
+						<tr>
+							<td align="center" width="300" bgcolor="#ffff66">
+								<SELECT name='csvPatternNo' id='_csvPatternNo'  tabindex=null > <OPTION VALUE='0' ></OPTION><OPTION VALUE='1' >全項目</OPTION><OPTION VALUE='99999' >標準：会員マスタ</OPTION> </SELECT>
+								<input type="button"  onClick="DownLoad();" value="CSV出力"
+								 id="_btnDownload"/>
+							</td>
+							<td align="center" width="150" bgcolor="#ffcccc">
+								<input type="button"  onClick="Update();" value="ランク変更"
+								 id="_update"/>
+							</td>
+						</tr>
+					</table>
+					<table class="lt" width="1040">
+							<col width="50">
+							<col width="100">
+							<col width="200">
+							<col width="340">
+							<col width="110">
+							<col width="80">
+							<col width="80">
+							<col width="80">
+						<tr class="head">
+							<th>No</th>
+							<th>会員番号</th>
+							<th>会員名</th>
+							<th>住所</th>
+							<th>電話番号</th>
+							<th>会員ランク</th>
+							<th>最終購入日</th>
+							<th>購入履歴</th>
+						</tr>
+							
+							
+							<tr>
+								
+								<td align="center">
+									1</td>
+								
+								
+								<td align="left" title="0000000001">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=1&callCenterFlg=0">
+										0000000001
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="木野雅子">
+									木野 雅子
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="神奈川県横浜市青葉区松風台9-9">
+									神奈川県横浜市青葉区松風台9-9
+								</td>
+								
+								
+								<td align="left" title="045-983-9999">
+									045-983-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_1" style="width: 70px;">
+										
+										
+											      <option value=",1,1,5"></option>
+										
+											      <option value="1,1,1,5" selected>一般</option>
+										
+											      <option value="2,1,1,5">ゴールド</option>
+										
+											      <option value="3,1,1,5">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="">
+									
+								</td>
+								
+								
+								<td align="right" title="0">
+									0回
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									2</td>
+								
+								
+								<td align="left" title="0000000002">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=2&callCenterFlg=0">
+										0000000002
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="有限会社三浦重機">
+									有限会社三浦重機 
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="神奈川県三浦市南下浦町上宮田9999-9">
+									神奈川県三浦市南下浦町上宮田9999-9
+								</td>
+								
+								
+								<td align="left" title="046-888-9999">
+									046-888-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_2" style="width: 70px;">
+										
+										
+											      <option value=",2,1,1"></option>
+										
+											      <option value="1,2,1,1" selected>一般</option>
+										
+											      <option value="2,2,1,1">ゴールド</option>
+										
+											      <option value="3,2,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/01/30">
+									2015/01/30
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,2);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									3</td>
+								
+								
+								<td align="left" title="0000000003">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=3&callCenterFlg=0">
+										0000000003
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="藤井美惠子">
+									藤井 美惠子
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="岡山県岡山市中区高島9-9-9　D999-9">
+									岡山県岡山市中区高島9-9-9　D999-9
+								</td>
+								
+								
+								<td align="left" title="086-275-9999">
+									086-275-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_3" style="width: 70px;">
+										
+										
+											      <option value=",3,1,2"></option>
+										
+											      <option value="1,3,1,2" selected>一般</option>
+										
+											      <option value="2,3,1,2">ゴールド</option>
+										
+											      <option value="3,3,1,2">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/01/31">
+									2015/01/31
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,3);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									4</td>
+								
+								
+								<td align="left" title="0000000004">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=4&callCenterFlg=0">
+										0000000004
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="尾崎ﾔｽｼﾞ">
+									尾崎 ﾔｽｼﾞ
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="東京都西東京市向台町9-99-99">
+									東京都西東京市向台町9-99-99
+								</td>
+								
+								
+								<td align="left" title="042-458-9999">
+									042-458-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_4" style="width: 70px;">
+										
+										
+											      <option value=",4,1,5"></option>
+										
+											      <option value="1,4,1,5" selected>一般</option>
+										
+											      <option value="2,4,1,5">ゴールド</option>
+										
+											      <option value="3,4,1,5">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2019/01/08">
+									2019/01/08
+								</td>
+								
+								
+								<td align="right" title="2">
+									2回
+									
+										<a onclick="CC060(0,4);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									5</td>
+								
+								
+								<td align="left" title="0000000005">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=5&callCenterFlg=0">
+										0000000005
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="増田尚美">
+									増田 尚美
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="和歌山県東牟婁郡串本町串本9999">
+									和歌山県東牟婁郡串本町串本9999
+								</td>
+								
+								
+								<td align="left" title="">
+									
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_5" style="width: 70px;">
+										
+										
+											      <option value=",5,1,2"></option>
+										
+											      <option value="1,5,1,2" selected>一般</option>
+										
+											      <option value="2,5,1,2">ゴールド</option>
+										
+											      <option value="3,5,1,2">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/05">
+									2015/02/05
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,5);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									6</td>
+								
+								
+								<td align="left" title="0000000006">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=6&callCenterFlg=0">
+										0000000006
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="高橋まなぶ">
+									高橋 まなぶ
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="埼玉県川口市領家9-9-9">
+									埼玉県川口市領家9-9-9
+								</td>
+								
+								
+								<td align="left" title="048-223-9999">
+									048-223-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_6" style="width: 70px;">
+										
+										
+											      <option value=",6,1,2"></option>
+										
+											      <option value="1,6,1,2" selected>一般</option>
+										
+											      <option value="2,6,1,2">ゴールド</option>
+										
+											      <option value="3,6,1,2">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/03">
+									2015/02/03
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,6);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									7</td>
+								
+								
+								<td align="left" title="0000000007">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=7&callCenterFlg=0">
+										0000000007
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="たかはしかずあき">
+									たかはし かずあき
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="神奈川県川崎市多摩区宿河原9-99-9プレインハウス999">
+									神奈川県川崎市多摩区宿河原9-99-9プレインハウス999
+								</td>
+								
+								
+								<td align="left" title="044-911-9999">
+									044-911-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_7" style="width: 70px;">
+										
+										
+											      <option value=",7,1,3"></option>
+										
+											      <option value="1,7,1,3" selected>一般</option>
+										
+											      <option value="2,7,1,3">ゴールド</option>
+										
+											      <option value="3,7,1,3">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/04/16">
+									2015/04/16
+								</td>
+								
+								
+								<td align="right" title="2">
+									2回
+									
+										<a onclick="CC060(0,7);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									8</td>
+								
+								
+								<td align="left" title="0000000008">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=8&callCenterFlg=0">
+										0000000008
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="青山涼日">
+									青山 涼日
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="三重県四日市市室山町99-9">
+									三重県四日市市室山町99-9
+								</td>
+								
+								
+								<td align="left" title="080-5236-9999">
+									080-5236-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_8" style="width: 70px;">
+										
+										
+											      <option value=",8,1,1"></option>
+										
+											      <option value="1,8,1,1" selected>一般</option>
+										
+											      <option value="2,8,1,1">ゴールド</option>
+										
+											      <option value="3,8,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/04">
+									2015/02/04
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,8);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									9</td>
+								
+								
+								<td align="left" title="0000000009">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=9&callCenterFlg=0">
+										0000000009
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="飯沼　寿充">
+									飯沼　 寿充
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="大分県津久見市上青江9999-9">
+									大分県津久見市上青江9999-9
+								</td>
+								
+								
+								<td align="left" title="0972-82-9999">
+									0972-82-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_9" style="width: 70px;">
+										
+										
+											      <option value=",9,1,3"></option>
+										
+											      <option value="1,9,1,3" selected>一般</option>
+										
+											      <option value="2,9,1,3">ゴールド</option>
+										
+											      <option value="3,9,1,3">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/04">
+									2015/02/04
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,9);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									10</td>
+								
+								
+								<td align="left" title="0000000010">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=10&callCenterFlg=0">
+										0000000010
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="渡辺剛樹">
+									渡辺 剛樹
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="神奈川県逗子市池子9-9-9">
+									神奈川県逗子市池子9-9-9
+								</td>
+								
+								
+								<td align="left" title="046-8736-9999">
+									046-8736-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_10" style="width: 70px;">
+										
+										
+											      <option value=",10,1,1"></option>
+										
+											      <option value="1,10,1,1" selected>一般</option>
+										
+											      <option value="2,10,1,1">ゴールド</option>
+										
+											      <option value="3,10,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="">
+									
+								</td>
+								
+								
+								<td align="right" title="0">
+									0回
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									11</td>
+								
+								
+								<td align="left" title="0000000011">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=11&callCenterFlg=0">
+										0000000011
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="杉崎仁樹">
+									杉崎 仁樹
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="千葉県船橋市丸山9-9-9">
+									千葉県船橋市丸山9-9-9
+								</td>
+								
+								
+								<td align="left" title="08011939999">
+									08011939999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_11" style="width: 70px;">
+										
+										
+											      <option value=",11,1,1"></option>
+										
+											      <option value="1,11,1,1" selected>一般</option>
+										
+											      <option value="2,11,1,1">ゴールド</option>
+										
+											      <option value="3,11,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/06">
+									2015/02/06
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,11);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									12</td>
+								
+								
+								<td align="left" title="0000000012">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=12&callCenterFlg=0">
+										0000000012
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="伊佐公">
+									伊佐 公
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="福井県越前市大手町9-9-9仁愛大学　Ｇ館事務室">
+									福井県越前市大手町9-9-9仁愛大学　Ｇ館事務室
+								</td>
+								
+								
+								<td align="left" title="0778-27-9999">
+									0778-27-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_12" style="width: 70px;">
+										
+										
+											      <option value=",12,1,2"></option>
+										
+											      <option value="1,12,1,2" selected>一般</option>
+										
+											      <option value="2,12,1,2">ゴールド</option>
+										
+											      <option value="3,12,1,2">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/05">
+									2015/02/05
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,12);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									13</td>
+								
+								
+								<td align="left" title="0000000013">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=13&callCenterFlg=0">
+										0000000013
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="内田恵美">
+									内田 恵美
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="東京都文京区小石川9-99-9">
+									東京都文京区小石川9-99-9
+								</td>
+								
+								
+								<td align="left" title="">
+									
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_13" style="width: 70px;">
+										
+										
+											      <option value=",13,1,1"></option>
+										
+											      <option value="1,13,1,1" selected>一般</option>
+										
+											      <option value="2,13,1,1">ゴールド</option>
+										
+											      <option value="3,13,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/06">
+									2015/02/06
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,13);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									14</td>
+								
+								
+								<td align="left" title="0000000014">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=14&callCenterFlg=0">
+										0000000014
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="今由佳">
+									今 由佳
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="青森県青森市富田9-9-99">
+									青森県青森市富田9-9-99
+								</td>
+								
+								
+								<td align="left" title="090-7331-9999">
+									090-7331-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_14" style="width: 70px;">
+										
+										
+											      <option value=",14,1,2"></option>
+										
+											      <option value="1,14,1,2" selected>一般</option>
+										
+											      <option value="2,14,1,2">ゴールド</option>
+										
+											      <option value="3,14,1,2">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/06/02">
+									2015/06/02
+								</td>
+								
+								
+								<td align="right" title="2">
+									2回
+									
+										<a onclick="CC060(0,14);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									15</td>
+								
+								
+								<td align="left" title="0000000015">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=15&callCenterFlg=0">
+										0000000015
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="丸田伸夫">
+									丸田 伸夫
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="千葉県四街道市和良比999-99">
+									千葉県四街道市和良比999-99
+								</td>
+								
+								
+								<td align="left" title="09034339999">
+									09034339999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_15" style="width: 70px;">
+										
+										
+											      <option value=",15,1,1"></option>
+										
+											      <option value="1,15,1,1" selected>一般</option>
+										
+											      <option value="2,15,1,1">ゴールド</option>
+										
+											      <option value="3,15,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/06">
+									2015/02/06
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,15);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									16</td>
+								
+								
+								<td align="left" title="0000000016">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=16&callCenterFlg=0">
+										0000000016
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="大野さと子">
+									大野 さと子
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="埼玉県入間郡毛呂山町前久保南9-99-99">
+									埼玉県入間郡毛呂山町前久保南9-99-99
+								</td>
+								
+								
+								<td align="left" title="">
+									
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_16" style="width: 70px;">
+										
+										
+											      <option value=",16,1,3"></option>
+										
+											      <option value="1,16,1,3" selected>一般</option>
+										
+											      <option value="2,16,1,3">ゴールド</option>
+										
+											      <option value="3,16,1,3">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="">
+									
+								</td>
+								
+								
+								<td align="right" title="0">
+									0回
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									17</td>
+								
+								
+								<td align="left" title="0000000017">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=17&callCenterFlg=0">
+										0000000017
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="大野さと美">
+									大野 さと美
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="埼玉県入間郡毛呂山町前久保北9-99-99">
+									埼玉県入間郡毛呂山町前久保北9-99-99
+								</td>
+								
+								
+								<td align="left" title="">
+									
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_17" style="width: 70px;">
+										
+										
+											      <option value=",17,1,2"></option>
+										
+											      <option value="1,17,1,2" selected>一般</option>
+										
+											      <option value="2,17,1,2">ゴールド</option>
+										
+											      <option value="3,17,1,2">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="">
+									
+								</td>
+								
+								
+								<td align="right" title="0">
+									0回
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									18</td>
+								
+								
+								<td align="left" title="0000000018">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=18&callCenterFlg=0">
+										0000000018
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="大野さと子">
+									大野 さと子
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="埼玉県入間郡毛呂山町前久保南9-99-99">
+									埼玉県入間郡毛呂山町前久保南9-99-99
+								</td>
+								
+								
+								<td align="left" title="">
+									
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_18" style="width: 70px;">
+										
+										
+											      <option value=",18,1,2"></option>
+										
+											      <option value="1,18,1,2" selected>一般</option>
+										
+											      <option value="2,18,1,2">ゴールド</option>
+										
+											      <option value="3,18,1,2">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="">
+									
+								</td>
+								
+								
+								<td align="right" title="0">
+									0回
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									19</td>
+								
+								
+								<td align="left" title="0000000019">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=19&callCenterFlg=0">
+										0000000019
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="大野さと子">
+									大野 さと子
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="埼玉県入間郡毛呂山町前久保南9-99-99">
+									埼玉県入間郡毛呂山町前久保南9-99-99
+								</td>
+								
+								
+								<td align="left" title="">
+									
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_19" style="width: 70px;">
+										
+										
+											      <option value=",19,1,2"></option>
+										
+											      <option value="1,19,1,2" selected>一般</option>
+										
+											      <option value="2,19,1,2">ゴールド</option>
+										
+											      <option value="3,19,1,2">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/07">
+									2015/02/07
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,19);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									20</td>
+								
+								
+								<td align="left" title="0000000020">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=20&callCenterFlg=0">
+										0000000020
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="大河原さとみ">
+									大河原 さとみ
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="東京都福生市南田園9-9福生団地99-999">
+									東京都福生市南田園9-9福生団地99-999
+								</td>
+								
+								
+								<td align="left" title="">
+									
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_20" style="width: 70px;">
+										
+										
+											      <option value=",20,1,2"></option>
+										
+											      <option value="1,20,1,2" selected>一般</option>
+										
+											      <option value="2,20,1,2">ゴールド</option>
+										
+											      <option value="3,20,1,2">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/09">
+									2015/02/09
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,20);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									21</td>
+								
+								
+								<td align="left" title="0000000021">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=21&callCenterFlg=0">
+										0000000021
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="田中満信">
+									田中 満信
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="福岡県福岡市東区松島９丁目99-99株式会社 長山フーズファクトリー">
+									福岡県福岡市東区松島９丁目99-99株式会社 長山フーズファクトリー
+								</td>
+								
+								
+								<td align="left" title="092-612-9999">
+									092-612-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_21" style="width: 70px;">
+										
+										
+											      <option value=",21,1,1"></option>
+										
+											      <option value="1,21,1,1" selected>一般</option>
+										
+											      <option value="2,21,1,1">ゴールド</option>
+										
+											      <option value="3,21,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/10">
+									2015/02/10
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,21);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									22</td>
+								
+								
+								<td align="left" title="0000000022">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=22&callCenterFlg=0">
+										0000000022
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="若月昭紀">
+									若月 昭紀
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="広島県呉市焼山宮ケ迫一丁目99番99号">
+									広島県呉市焼山宮ケ迫一丁目99番99号
+								</td>
+								
+								
+								<td align="left" title="09068479999">
+									09068479999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_22" style="width: 70px;">
+										
+										
+											      <option value=",22,1,1"></option>
+										
+											      <option value="1,22,1,1" selected>一般</option>
+										
+											      <option value="2,22,1,1">ゴールド</option>
+										
+											      <option value="3,22,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/12">
+									2015/02/12
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,22);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									23</td>
+								
+								
+								<td align="left" title="0000000023">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=23&callCenterFlg=0">
+										0000000023
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="増田尚美">
+									増田 尚美
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="和歌山県東牟婁郡串本町串本9999">
+									和歌山県東牟婁郡串本町串本9999
+								</td>
+								
+								
+								<td align="left" title="0735-62-9999">
+									0735-62-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_23" style="width: 70px;">
+										
+										
+											      <option value=",23,1,23"></option>
+										
+											      <option value="1,23,1,23" selected>一般</option>
+										
+											      <option value="2,23,1,23">ゴールド</option>
+										
+											      <option value="3,23,1,23">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2017/10/19">
+									2017/10/19
+								</td>
+								
+								
+								<td align="right" title="23">
+									23回
+									
+										<a onclick="CC060(0,23);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									24</td>
+								
+								
+								<td align="left" title="0000000024">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=24&callCenterFlg=0">
+										0000000024
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="宇田川久美">
+									宇田川 久美
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="新潟県小千谷市若葉9-999-9サンコーポラス若葉9-999">
+									新潟県小千谷市若葉9-999-9サンコーポラス若葉9-999
+								</td>
+								
+								
+								<td align="left" title="0258-83-9999">
+									0258-83-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_24" style="width: 70px;">
+										
+										
+											      <option value=",24,1,1"></option>
+										
+											      <option value="1,24,1,1" selected>一般</option>
+										
+											      <option value="2,24,1,1">ゴールド</option>
+										
+											      <option value="3,24,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/12">
+									2015/02/12
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,24);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									25</td>
+								
+								
+								<td align="left" title="0000000025">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=25&callCenterFlg=0">
+										0000000025
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="大石美和">
+									大石 美和
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="宮城県岩沼市吹上9-99-99">
+									宮城県岩沼市吹上9-99-99
+								</td>
+								
+								
+								<td align="left" title="090-3983-9999">
+									090-3983-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_25" style="width: 70px;">
+										
+										
+											      <option value=",25,1,2"></option>
+										
+											      <option value="1,25,1,2" selected>一般</option>
+										
+											      <option value="2,25,1,2">ゴールド</option>
+										
+											      <option value="3,25,1,2">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/14">
+									2015/02/14
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,25);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									26</td>
+								
+								
+								<td align="left" title="0000000026">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=26&callCenterFlg=0">
+										0000000026
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="豊岡信子">
+									豊岡 信子
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="新潟県妙高市中央町9-99">
+									新潟県妙高市中央町9-99
+								</td>
+								
+								
+								<td align="left" title="0255-72-9999">
+									0255-72-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_26" style="width: 70px;">
+										
+										
+											      <option value=",26,1,1"></option>
+										
+											      <option value="1,26,1,1" selected>一般</option>
+										
+											      <option value="2,26,1,1">ゴールド</option>
+										
+											      <option value="3,26,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/16">
+									2015/02/16
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,26);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									27</td>
+								
+								
+								<td align="left" title="0000000027">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=27&callCenterFlg=0">
+										0000000027
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="ムラセ　マコト">
+									ムラセ　 マコト
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="東京都練馬区貫井9-99-99富士見台第二ファミリーマンション999号室">
+									東京都練馬区貫井9-99-99富士見台第二ファミリーマンション999号室
+								</td>
+								
+								
+								<td align="left" title="090-2434-9999">
+									090-2434-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_27" style="width: 70px;">
+										
+										
+											      <option value=",27,1,2"></option>
+										
+											      <option value="1,27,1,2" selected>一般</option>
+										
+											      <option value="2,27,1,2">ゴールド</option>
+										
+											      <option value="3,27,1,2">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/19">
+									2015/02/19
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,27);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									28</td>
+								
+								
+								<td align="left" title="0000000028">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=28&callCenterFlg=0">
+										0000000028
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="ミツイソウ">
+									ミツイ ソウ
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="長野県上田市中央9-99-99">
+									長野県上田市中央9-99-99
+								</td>
+								
+								
+								<td align="left" title="080-4332-9999">
+									080-4332-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_28" style="width: 70px;">
+										
+										
+											      <option value=",28,1,1"></option>
+										
+											      <option value="1,28,1,1" selected>一般</option>
+										
+											      <option value="2,28,1,1">ゴールド</option>
+										
+											      <option value="3,28,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/21">
+									2015/02/21
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,28);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									29</td>
+								
+								
+								<td align="left" title="0000000029">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=29&callCenterFlg=0">
+										0000000029
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="飛田">
+									飛田 
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="神奈川県横浜市栄区若竹町99-9">
+									神奈川県横浜市栄区若竹町99-9
+								</td>
+								
+								
+								<td align="left" title="045-892-9999">
+									045-892-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_29" style="width: 70px;">
+										
+										
+											      <option value=",29,1,1"></option>
+										
+											      <option value="1,29,1,1" selected>一般</option>
+										
+											      <option value="2,29,1,1">ゴールド</option>
+										
+											      <option value="3,29,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/24">
+									2015/02/24
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,29);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+							
+							<tr>
+								
+								<td align="center">
+									30</td>
+								
+								
+								<td align="left" title="0000000030">
+									<a href="KO011KokyakuEntry.html?processType=2&kokyakuNo=30&callCenterFlg=0">
+										0000000030
+									</a>
+
+								</td>
+								
+								
+								
+								
+								
+								
+								<td align="left" title="東ﾘｮｳｲﾁ">
+									東 ﾘｮｳｲﾁ
+								</td>
+								
+								
+								
+								
+								
+								<td align="left" title="兵庫県尼崎市浜9-9-99">
+									兵庫県尼崎市浜9-9-99
+								</td>
+								
+								
+								<td align="left" title="06-4965-9999">
+									06-4965-9999
+								</td>
+								
+								
+								<td>
+									<select name="kokyakuRankKbn" id="_kokyakuRankKbn_30" style="width: 70px;">
+										
+										
+											      <option value=",30,1,1"></option>
+										
+											      <option value="1,30,1,1" selected>一般</option>
+										
+											      <option value="2,30,1,1">ゴールド</option>
+										
+											      <option value="3,30,1,1">シルバー</option>
+										
+									</select>
+								</td>
+								
+								
+								<td align="center" title="2015/02/25">
+									2015/02/25
+								</td>
+								
+								
+								<td align="right" title="1">
+									1回
+									
+										<a onclick="CC060(0,30);">
+											<img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17" align="middle" border="0">
+										</a>
+									
+								</td>
+							</tr>
+						
+					</table>
+				
+				
+			
+			<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+			</form>
+	</body>
+</html>

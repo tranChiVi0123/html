@@ -1,0 +1,207 @@
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?n5bFtZUmbL" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?n5bFtZUmbL" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+
+
+</script>
+
+
+
+
+
+
+
+<html>
+	<head>
+		<meta http-equiv = "Pragma" content="no-cache">
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<TITLE>
+			作業管理項目選択
+		</TITLE>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+		<SCRIPT type="text/javascript">
+		
+		//search
+			function Search(){
+				$$("CC037Form").action="/easpro2/e_asproLogin/CC037SearchSagyo";
+				$$("CC037Form").processType.value = 2;
+				$$("CC037Form").submit();
+				btnDisabled();
+			}
+
+			function SetValue(sagyoCd,sagyoNm,sagyoKbn,index) {
+				try{
+					var strRun;
+					var str_calls_name= $$("js_calls").value;
+					strRun = "window.parent.opener." +  str_calls_name + "('"+ sagyoCd +"','"+ sagyoNm +"','"+ sagyoKbn +"','" + index +"');";
+					if (window.parent.opener) {
+						eval(strRun);
+						window.close();
+					}
+				}catch(e){window.close();}
+			}
+
+			function SetValue2(sagyoCd,sagyoNm,sagyoKbn) {
+				try{
+					var strRun;
+					var str_calls_name= $$("js_calls").value;
+					strRun = "window.parent.opener." +  str_calls_name + "('"+ sagyoCd +"','"+ sagyoNm +"','"+ sagyoKbn + "');";
+					if (window.parent.opener) {
+						eval(strRun);
+						window.close();
+					}
+				}catch(e){
+					window.close();
+				}
+			}
+						
+			function Close(){
+				window.close();
+			}
+		</SCRIPT>
+	</head>
+<BODY>
+	<TABLE style="margin:10px;">
+		<TR>
+			<TD BGCOLOR="white">
+				<form action="e_asproLogin/CC037SearchSagyo" method="post" id="CC037Form">
+				<input type="hidden" name="processType" value=""/>
+				<input type="hidden" name="callsSrciptFuncName" id="js_calls" value="setSagyoInfo"/>
+				<input type="hidden" name="index" id="_index" value="1"/>
+				<input type="hidden" name="sagyoKbn" id="_sagyoKbn" value="1"/>
+					<TABLE BORDER="0" CELLSPACING="2" CELLPADDING="2" width="600">
+						<TR>
+							<TD>
+								<TABLE CLASS="sf" style="width:540px;">
+									<COL width="120">
+									<COL width="140">
+									<COL width="120">
+									<COL width="160">
+									<TR>
+										<TH>作業指示区分</TH>
+										<TD colspan="3">
+											梱包作業指示(のし)
+										</TD>
+									</TR>
+									<TR style="height:40px;">
+										<TH>作業管理項目コード</TH>
+										<TD>
+											<input type='text' name='sagyoCd' id='_sagyoCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='code' maxlength='10' style='width:93.04px;'> </input>
+											<br/>(前方一致)
+										</TD>
+										<TH align="center">作業指示内容</TH>
+										<TD>
+											<input type='text' name='sagyoNm' id='_sagyoNm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='255' style='width:148.64px;'> </input>
+											<br/>(部分一致)
+										</TD>
+									</TR>
+								</TABLE>
+							</TD>
+							<TD ROWSPAN="3" NOWRAP ALIGN="left" VALIGN="bottom">
+								<input type="button" value="検索" onclick="Search();"/>
+							</TD>
+						</TR>
+					</TABLE>
+				</form>
+			<hr align="left" width="600">	
+				
+				 
+				<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+			</TD>
+		</TR>
+	</TABLE>
+	<TABLE width="600">
+		<COL width="600">
+		<TR>
+			<TD align="center">
+				<input type="button" value="閉じる" onclick="Close()">
+			</TD>
+		</TR>
+	</TABLE>
+</BODY>
+</html>

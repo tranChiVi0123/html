@@ -1,0 +1,819 @@
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<HTML>
+
+	<HEAD>
+		<meta http-equiv = "Pragma" content="no-cache">																	
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<LINK HREF="../ecsdocs2/css/system.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+        <style type="text/css">  
+  		<!-- 
+ 		.txt01 {color:#666; font-size:11px; line-height:1.4em;}
+		.site_design1 {margin:5px;}
+		-->  
+        </style>  
+		<TITLE></TITLE>
+        <SCRIPT Language="JavaScript">
+      	//検索ボタン押下時
+		function js_search() {
+			$$("_form1").action="/easpro2/e_asproKanri/EC020LayPageList"
+			$$("_form1").processType.value = "1";
+			$$("_form1").submit();
+			btnDisabled();
+		}
+		function js_insert(){
+			$$("_form1").action="/easpro2/e_asproKanri/EC021LayPageEntry?processType=2&searchKbn=1"
+			$$("_form1").submit();
+		}
+		//コピーボタン押下時
+		function js_copy(obj){
+			$$("_form1").action="/easpro2/e_asproKanri/EC020LayPageList"
+			$$("_form1").processType.value = "3";
+			$$("_form1").ec_page_no.value = obj.value;
+			$$("_form1").submit();
+		}
+		</SCRIPT>
+	</HEAD>
+
+	<BODY BGCOLOR="#ffffff">
+	<FORM name="form1" id="_form1" method="post">
+		<input type="hidden" name="secToken" id="secToken" value="ABEEEE12513934D16CA8D664B9698779"/>
+		<INPUT TYPE="hidden" name="processType" id="_processType">
+		<INPUT TYPE="hidden" name="ec_page_no" id="_ec_page_no">
+		<input type="hidden" name="tenpoCd" id="_tenpoCd" value=""/>
+		<input type="hidden" name="login_user_no" id="_loginUserNo" value="2"/>
+		<img src='../ecsdocs2/img/head_master.gif' alt='' align='middle' border='0'>
+		<B>ページ設定　【登録ページ一覧】</B>
+		<p class="txt01">ここではECサイトの各ページの編集を行います。</p>
+	    <table CLASS="list" width="600"  cellspacing="0">
+	      <col width="165"/>
+	      <col width="435"/>
+	      <tr>
+	        <th BGCOLOR="#cccccc" nowrap>表示端末</th>
+	        <td nowrap>
+	        	<select name="dispSize" id="_dispSize">
+				
+							<option value="PC" selected> パソコン用</option>
+				
+							<option value="SP"> スマートフォン用</option>
+				
+				</select>
+
+
+
+			</td>
+	      </tr>
+   	      <TR>
+			<TH BGCOLOR="#cccccc" nowrap>ページ名</TH>
+			<TD nowrap>
+				<input type="text" 
+					value=""
+					name="search_page_nm"
+					size="30"
+					maxlength="200" 
+					Class="multi" 
+					onkeypress="_chkInp()">
+				(部分一致)
+   			</TD>
+   		  </TR>
+ 	      <TR>
+			<TH BGCOLOR="#cccccc" nowrap>表示開始日</TH>
+			<TD nowrap>
+			  	<input type='text' name='search_disp_from' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='search_disp_from' onblur='_formateDate(this,"表示開始日は日付を入力して下さい。");' /><a href='#' id='search_disp_from_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'search_disp_from',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'search_disp_from_calendar_link_id',singleClick : true,step:1});</script>
+   			</TD>
+		　　</TR>
+ 	      <TR>
+			<TH BGCOLOR="#cccccc" nowrap>表示終了日</TH>
+			<TD nowrap>
+			  	<input type='text' name='search_disp_to' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='search_disp_to' onblur='_formateDate(this,"表示終了日は日付を入力して下さい。");' /><a href='#' id='search_disp_to_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'search_disp_to',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'search_disp_to_calendar_link_id',singleClick : true,step:1});</script>
+   			</TD>
+		　　</TR>
+	    </table>
+	    <table width="600"  cellspacing="0">
+	    <tr>
+	        <td align=right>
+	        	<input  type="button" onClick="js_search();" value="検索"/>
+	        	<input  type="button" onClick="js_insert();" value="新規登録"/>
+	    	</td>
+	      </tr>
+	    </table>
+	    </FORM>
+	    <br>
+		
+		
+			<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>33件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1<OPTION   VALUE='2'>2</SELECT>/2</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(2)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(2)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='/easpro2/e_asproKanri/EC020LayPageList' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="2"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="33"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value="3"><input type='hidden' name='searchKbn' value=""><input type='hidden' name='coNo' value="2625"><input type='hidden' name='tenpoCd' value=""><input type='hidden' name='dispSize' value="PC"><input type='hidden' name='search_page_nm' value=""><input type='hidden' name='search_disp_from' value=""><input type='hidden' name='search_disp_to' value=""></form>
+	    	<TABLE CLASS="lt" width="1030" style="border-width: 2px 2px 0px 2px;">
+	    	  <col width="170"/>
+	    	  <col width="50"/>
+	    	  <col width="120"/>
+	    	  <col width="80"/>
+	    	  <col width="400"/>
+	    	  <col width="80"/>
+	    	  <col width="80"/>
+	    	  <col width="50"/>
+	          <TR>
+	            <TH nowrap bgcolor="#ccccff"><strong>ページ名</strong></TH>
+	            <TD nowrap bgcolor="#ccccff"><strong>ページ<br>No</strong></TD>
+	            <TD nowrap bgcolor="#ccccff"><strong>ページ種類</strong></TD>
+	            <TD nowrap bgcolor="#ccccff"><strong>端末</strong></TD>
+	            <TD nowrap bgcolor="#ccccff"><strong>URL</strong></TD>
+	            <TH nowrap bgcolor="#ccccff"><strong>表示開始日</strong></TH>
+	            <TH nowrap bgcolor="#ccccff"><strong>表示終了日</strong></TH>
+	            <TH nowrap bgcolor="#ccccff"><strong>コピー</strong></TH>
+	      	  </TR>
+	      	</TABLE>
+			<TABLE CLASS="lt" style="width:1030;border-width:0px 2px 2px 2px;">
+	    	  <col width="170"/>
+	    	  <col width="50"/>
+	    	  <col width="120"/>
+	    	  <col width="80"/>
+	    	  <col width="400"/>
+	    	  <col width="80"/>
+	    	  <col width="80"/>
+	    	  <col width="50"/>
+			
+					
+	          <TR>
+	            <TH align="left" nowrap title="TOPページ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=1&dispSize=PC&tenpoCd=1">
+	            TOPページ</a></nobr>
+	            </TH>
+	            <TD nowrap title="1"><nobr>1</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG010TopPage.act"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG010TopPage.act" target="_blank">https://www.htbshop.jp/htb/PG010TopPage.act</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="商品一覧ページ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=2&dispSize=PC&tenpoCd=1">
+	            商品一覧ページ</a></nobr>
+	            </TH>
+	            <TD nowrap title="2"><nobr>2</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG020ProductListPage.act"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG020ProductListPage.act" target="_blank">https://www.htbshop.jp/htb/PG020ProductListPage.act</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="商品詳細ページ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=3&dispSize=PC&tenpoCd=1">
+	            商品詳細ページ</a></nobr>
+	            </TH>
+	            <TD nowrap title="3"><nobr>3</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG030ProductDtlPage.act"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG030ProductDtlPage.act" target="_blank">https://www.htbshop.jp/htb/PG030ProductDtlPage.act</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="メール問合せ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=4&dispSize=PC&tenpoCd=1">
+	            メール問合せ</a></nobr>
+	            </TH>
+	            <TD nowrap title="4"><nobr>4</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=4"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=4" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=4</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="クイックオーダー"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=6&dispSize=PC&tenpoCd=1">
+	            クイックオーダー</a></nobr>
+	            </TH>
+	            <TD nowrap title="6"><nobr>6</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=6"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=6" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=6</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="MYページ（お気に入り）"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=7&dispSize=PC&tenpoCd=1">
+	            MYページ（お気に入り）</a></nobr>
+	            </TH>
+	            <TD nowrap title="7"><nobr>7</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=7"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=7" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=7</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="MYページ（会員情報）"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=8&dispSize=PC&tenpoCd=1">
+	            MYページ（会員情報）</a></nobr>
+	            </TH>
+	            <TD nowrap title="8"><nobr>8</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=8"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=8" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=8</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="MYページ（購入履歴）"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=9&dispSize=PC&tenpoCd=1">
+	            MYページ（購入履歴）</a></nobr>
+	            </TH>
+	            <TD nowrap title="9"><nobr>9</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=9"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=9" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=9</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="MYページ（購入履歴詳細）"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=10&dispSize=PC&tenpoCd=1">
+	            MYページ（購入履歴詳細）</a></nobr>
+	            </TH>
+	            <TD nowrap title="10"><nobr>10</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=10"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=10" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=10</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="MYページ（退会）"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=11&dispSize=PC&tenpoCd=1">
+	            MYページ（退会）</a></nobr>
+	            </TH>
+	            <TD nowrap title="11"><nobr>11</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=11"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=11" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=11</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="登録完了ページ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=12&dispSize=PC&tenpoCd=1">
+	            登録完了ページ</a></nobr>
+	            </TH>
+	            <TD nowrap title="12"><nobr>12</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=12"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=12" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=12</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="商品詳細検索ページ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=13&dispSize=PC&tenpoCd=1">
+	            商品詳細検索ページ</a></nobr>
+	            </TH>
+	            <TD nowrap title="13"><nobr>13</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=13"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=13" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=13</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="パスワード忘れた方へページ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=14&dispSize=PC&tenpoCd=1">
+	            パスワード忘れた方へページ</a></nobr>
+	            </TH>
+	            <TD nowrap title="14"><nobr>14</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=14"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=14" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=14</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="秘密の質問ページ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=15&dispSize=PC&tenpoCd=1">
+	            秘密の質問ページ</a></nobr>
+	            </TH>
+	            <TD nowrap title="15"><nobr>15</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=15"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=15" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=15</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="ショッピングカート"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=16&dispSize=PC&tenpoCd=1">
+	            ショッピングカート</a></nobr>
+	            </TH>
+	            <TD nowrap title="16"><nobr>16</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=16"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=16" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=16</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="ポイント照会"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=17&dispSize=PC&tenpoCd=1">
+	            ポイント照会</a></nobr>
+	            </TH>
+	            <TD nowrap title="17"><nobr>17</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=17"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=17" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=17</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="ログイン"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=18&dispSize=PC&tenpoCd=1">
+	            ログイン</a></nobr>
+	            </TH>
+	            <TD nowrap title="18"><nobr>18</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=18"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=18" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=18</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="お届先指定"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=19&dispSize=PC&tenpoCd=1">
+	            お届先指定</a></nobr>
+	            </TH>
+	            <TD nowrap title="19"><nobr>19</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=19"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=19" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=19</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="お届先指定（複数配送先）"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=20&dispSize=PC&tenpoCd=1">
+	            お届先指定（複数配送先）</a></nobr>
+	            </TH>
+	            <TD nowrap title="20"><nobr>20</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=20"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=20" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=20</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="お支払方法指定"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=21&dispSize=PC&tenpoCd=1">
+	            お支払方法指定</a></nobr>
+	            </TH>
+	            <TD nowrap title="21"><nobr>21</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=21"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=21" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=21</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="ご注文内容確認"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=22&dispSize=PC&tenpoCd=1">
+	            ご注文内容確認</a></nobr>
+	            </TH>
+	            <TD nowrap title="22"><nobr>22</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=22"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=22" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=22</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="注文完了"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=23&dispSize=PC&tenpoCd=1">
+	            注文完了</a></nobr>
+	            </TH>
+	            <TD nowrap title="23"><nobr>23</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=23"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=23" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=23</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="ご利用ガイド（個人情報保護方針）"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=70&dispSize=PC&tenpoCd=1">
+	            ご利用ガイド（個人情報保護方針）</a></nobr>
+	            </TH>
+	            <TD nowrap title="70"><nobr>70</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=70"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=70" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=70</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="会社概要"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=71&dispSize=PC&tenpoCd=1">
+	            会社概要</a></nobr>
+	            </TH>
+	            <TD nowrap title="71"><nobr>71</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=71"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=71" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=71</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="配送先一覧ページ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=77&dispSize=PC&tenpoCd=1">
+	            配送先一覧ページ</a></nobr>
+	            </TH>
+	            <TD nowrap title="77"><nobr>77</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=77"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=77" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=77</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="配送先変更ページ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=78&dispSize=PC&tenpoCd=1">
+	            配送先変更ページ</a></nobr>
+	            </TH>
+	            <TD nowrap title="78"><nobr>78</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=78"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=78" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=78</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="Myページ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=81&dispSize=PC&tenpoCd=1">
+	            Myページ</a></nobr>
+	            </TH>
+	            <TD nowrap title="81"><nobr>81</nobr></TD>
+	            <TD nowrap title=" システム専用"><nobr> システム専用</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=81"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=81" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=81</a></nobr></TD>
+	            <TD nowrap title="2011/04/01"><nobr>2011/04/01</nobr></TD>
+	            <TD nowrap title="2099/12/31"><nobr>2099/12/31</nobr></TD>
+	            
+	            <TD></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="初めての方へ"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=1004&dispSize=PC&tenpoCd=1">
+	            初めての方へ</a></nobr>
+	            </TH>
+	            <TD nowrap title="1004"><nobr>1004</nobr></TD>
+	            <TD nowrap title=" ユーザー定義"><nobr> ユーザー定義</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntryactpageNo1004"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntryactpageNo1004" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntryactpageNo1004</a></nobr></TD>
+	            <TD nowrap title="2017/05/01"><nobr>2017/05/01</nobr></TD>
+	            <TD nowrap title="2099/05/10"><nobr>2099/05/10</nobr></TD>
+	            
+	            <TD nowrap title="コピー"><nobr>
+	            <a href="EC020LayPageList?processType=3&ec_page_no=1004&dispSize=PC">コピー</a></nobr></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="お支払い方法について "><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=1005&dispSize=PC&tenpoCd=1">
+	            お支払い方法について </a></nobr>
+	            </TH>
+	            <TD nowrap title="1005"><nobr>1005</nobr></TD>
+	            <TD nowrap title=" ユーザー定義"><nobr> ユーザー定義</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=1005"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=1005" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=1005</a></nobr></TD>
+	            <TD nowrap title="2017/05/11"><nobr>2017/05/11</nobr></TD>
+	            <TD nowrap title="2099/05/11"><nobr>2099/05/11</nobr></TD>
+	            
+	            <TD nowrap title="コピー"><nobr>
+	            <a href="EC020LayPageList?processType=3&ec_page_no=1005&dispSize=PC">コピー</a></nobr></TD>
+	            
+	          </TR>
+	    	
+					
+	          <TR>
+	            <TH align="left" nowrap title="配達について"><nobr>
+
+
+	            <a href="EC021LayPageEntry?processType=2&searchKbn=2&ecPageNo=1006&dispSize=PC&tenpoCd=1">
+	            配達について</a></nobr>
+	            </TH>
+	            <TD nowrap title="1006"><nobr>1006</nobr></TD>
+	            <TD nowrap title=" ユーザー定義"><nobr> ユーザー定義</nobr></TD>
+	            <TD nowrap title=" パソコン用"><nobr> パソコン用</nobr></TD>
+	            <TD nowrap title="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=1006"><nobr>
+	            <a href="https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=1006" target="_blank">https://www.htbshop.jp/htb/PG040MyPageEntry.act?pageNo=1006</a></nobr></TD>
+	            <TD nowrap title="2017/05/11"><nobr>2017/05/11</nobr></TD>
+	            <TD nowrap title="2099/05/11"><nobr>2099/05/11</nobr></TD>
+	            
+	            <TD nowrap title="コピー"><nobr>
+	            <a href="EC020LayPageList?processType=3&ec_page_no=1006&dispSize=PC">コピー</a></nobr></TD>
+	            
+	          </TR>
+	    	
+				</TABLE>
+		
+		
+	    <script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</BODY>
+
+</HTML>

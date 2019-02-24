@@ -1,0 +1,1953 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+	<head>
+	<meta http-equiv = "Pragma" content="no-cache">
+	<meta http-equiv = "Cache-control" content="no-cache">
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css?rx79AZ4iTx" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<meta name="format-detection" content="telephone=no"/>
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+		<title>
+			返品予実照会・修正
+		</title>
+		<script type="text/javascript">
+			//検索
+			function search(seaKbn){
+				$$("_processType").value = "2";
+				if (seaKbn == "0") {
+					$$("_saiPrintFlg").value = "";
+				}
+				if (seaKbn == "1") {
+					if($$("_printFlg").checked){
+						$$("_saiPrintFlg").value = "1";
+					} else {
+						$$("_saiPrintFlg").value = "0";
+					}
+				}
+				$$("_csvDownKbn").value = "";
+				$$("_Form").action="HE030HenpinList.html";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+			// CSV出力
+			function downLoad(csv_down_kbn) {
+				$$("_btnDownload1").disabled=true;
+				$$("_btnDownload2").disabled=true;
+				$$("_btnDownload3").disabled=true;
+				setTimeout('enableDownLoad()', '3000');
+				$$("_processType").value = "7";
+				$$("_csvDownKbn").value = csv_down_kbn;
+				$$("_Form").action = "HE030HenpinList.html";
+				$$("_Form").submit();
+			}
+			// 明細の返品番号を押下する時、画面遷移
+			function henpinCdLink(_no,_seqno){
+				var url = "";
+				
+				url = "HE011HenpinYoteiEntry.html?henpinCd="+_no;
+				
+				$$("_Form").action = url;
+				$$("_processType").value = "";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+			// 明細の返品状態を押下する時、画面遷移
+			function joutaiLink(_no){
+				$$("_Form").action = "HE040HenpinFixEntry.html?henpin_Cd="+_no;
+				$$("_processType").value = "";
+				$$("_Form").submit();
+				btnDisabled();
+			}
+			function enableDownLoad(){
+				$$("_btnDownload1").disabled = false;
+				$$("_btnDownload2").disabled = false;
+				$$("_btnDownload3").disabled = false;
+
+			}
+			// 印刷
+			function print(csv_down_kbn){
+				//Chromeの場合とそれ以外で処理を分岐
+				if (navigator.userAgent.indexOf("Chrome") >= 0){
+					$$("_btnDownload1").disabled=true;
+					$$("_btnDownload2").disabled=true;
+					$$("_btnDownload3").disabled=true;
+					setTimeout('enableDownLoad()', '3000');
+					$$("_csvDownKbn").value = csv_down_kbn;
+					$$("_pdfFlg").value = "1";
+					pdfDownload();
+				}else{
+				$$("_btnDownload1").disabled=true;
+				$$("_btnDownload2").disabled=true;
+				$$("_btnDownload3").disabled=true;
+				setTimeout('enableDownLoad()', '3000');
+				$$("_csvDownKbn").value = csv_down_kbn;
+				$$("_processType").value = "08";
+				$$("_Form").action = "HE030HenpinList.html";
+				$$("_Form").submit();
+			}
+
+			}
+
+			//pdfダウンロード
+			function pdfDownload(){
+				$$("_processType").value = "12";
+				$$("_Form").action = "HE030HenpinList.html";
+				$$("_Form").submit();
+			}
+
+			
+		</script>
+	</head>
+	<body>
+		<img src='../ecsdocs2/img/head_henpin.gif' alt='' align='middle' border='0'>
+		<div class="pt">返品予実照会・修正</div>
+		<br>
+		<b style="color:red"></b>
+		
+		<br>
+		<form action="HE030HenpinList.html" id="_Form" method="post">
+			<input type="hidden" name="secToken" id="secToken" value="588C4E965D9695A81FD9F24F2DA2A587"/>
+			<input type="hidden" name="searchKbn" id="_searchKbn" value="2">
+			<input type="hidden" name="userNo" id="_userNo" value="42"/>
+			<input type="hidden" name="processType" id="_processType" value="1">
+			<input type="hidden" name="strFromPageId" value="HE030">
+			<input type="hidden" name="hentaiFlg" id="_hentaiFlg" value="1"/>
+			<input type="hidden" name="saiPrintFlg" id="_saiPrintFlg" value=""/>
+			<input type="hidden" name="intPageNo" id="_intPageNo" value="1"/>
+			<input type="hidden" name="intPageSize" id="_intPageSize" value="30"/>
+			<input type="hidden" name="intPageCount" id="_intPageCount" value="24"/>
+			<input type="hidden" name="intRecordCount" id="_intRecordCount" value="708"/>
+			<input type="hidden" name="csvDownKbn" id="_csvDownKbn">
+			<input type="hidden" name="orderNo" id="_orderNo" value=""/>
+			<input type="hidden" name="pdfFlg" id="_pdfFlg" value=""/>
+			<div ID='div1' style='display:block;'>
+				<table class="nb">
+					<tr>
+						<td>
+							<table class = "sf" style = "width:840px">
+								<colgroup>
+									<col width="100">
+									<col width="320">
+									<col width="100">
+									<col width="320">
+								</colgroup>
+								<tr bgcolor="white">
+									<th align="center">返品予定日</th>
+									<td nowrap>
+										<input type='text' name='searchHenYoteiYmdFrom' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_searchHenYoteiYmdFrom' onblur='_formateDate(this,"返品予定日は日付を入力して下さい。");' /><a href='#' id='_searchHenYoteiYmdFrom_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchHenYoteiYmdFrom',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchHenYoteiYmdFrom_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='searchHenYoteiYmdTo' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_searchHenYoteiYmdTo' onblur='_formateDate(this,"返品予定日は日付を入力して下さい。");' /><a href='#' id='_searchHenYoteiYmdTo_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchHenYoteiYmdTo',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchHenYoteiYmdTo_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+									<th align="center">返品確定日</th>
+									<td nowrap>
+										<input type='text' name='searchHenkakuteiYmdFrom' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_searchHenkakuteiYmdFrom' onblur='_formateDate(this,"返品確定日は日付を入力して下さい。");' /><a href='#' id='_searchHenkakuteiYmdFrom_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchHenkakuteiYmdFrom',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchHenkakuteiYmdFrom_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='searchHenkakuteiYmdTo' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_searchHenkakuteiYmdTo' onblur='_formateDate(this,"返品確定日は日付を入力して下さい。");' /><a href='#' id='_searchHenkakuteiYmdTo_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchHenkakuteiYmdTo',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchHenkakuteiYmdTo_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+								</tr>
+								<tr>
+									<th align="center">返品番号</th>
+									<td nowrap>
+										<input type='text' name='searchHenCd' id='_searchHenCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='20' style='width:182.00px;'> </input>
+										(前方一致)
+									</td>
+									<th align="center">返品状態</th>
+									<td nowrap>
+										<SELECT name='searchHenJyotai' id='_searchHenJyotai' style='width:300px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='0' >予定</OPTION><OPTION VALUE='1' >一部</OPTION><OPTION VALUE='2' >確定</OPTION> </SELECT>
+									</td>
+								</tr>
+								<tr>
+									<th align="center">返品区分</th>
+									<td nowrap>
+										<SELECT name='searchHenKbn' id='_searchHenKbn' style='width:300px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='1' >返品</OPTION><OPTION VALUE='2' >交換</OPTION><OPTION VALUE='3' >代品発送</OPTION> </SELECT>
+									</td>
+									<th align="center">返品受付日</th>
+									<td nowrap>
+										<input type='text' name='searchHenUkeYmdFrom' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_searchHenUkeYmdFrom' onblur='_formateDate(this,"返品受付日は日付を入力して下さい。");' /><a href='#' id='_searchHenUkeYmdFrom_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchHenUkeYmdFrom',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchHenUkeYmdFrom_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='searchHenUkeYmdTo' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_searchHenUkeYmdTo' onblur='_formateDate(this,"返品受付日は日付を入力して下さい。");' /><a href='#' id='_searchHenUkeYmdTo_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchHenUkeYmdTo',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchHenUkeYmdTo_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+								</tr>
+								<tr >
+									<th align="center">注文番号</th>
+									<td nowrap>
+										<input type='text' name='searchOrderCd' id='_searchOrderCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='14' style='width:182.00px;'> </input>
+										(前方一致)
+									</td>
+									<th align="center">注文日</th>
+									<td nowrap>
+										<input type='text' name='searchOrderYmdFrom' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_searchOrderYmdFrom' onblur='_formateDate(this,"注文日は日付を入力して下さい。");' /><a href='#' id='_searchOrderYmdFrom_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchOrderYmdFrom',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchOrderYmdFrom_calendar_link_id',singleClick : true,step:1});</script>～<input type='text' name='searchOrderYmdTo' style='width:82px;'  maxlength=10 value='' class='ymd' onkeypress='_chkInp();' id='_searchOrderYmdTo' onblur='_formateDate(this,"注文日は日付を入力して下さい。");' /><a href='#' id='_searchOrderYmdTo_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'_searchOrderYmdTo',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: '_searchOrderYmdTo_calendar_link_id',singleClick : true,step:1});</script>
+									</td>
+								</tr>
+								<tr>
+									<th align="center">注文者名</th>
+									<td nowrap>
+										<input type='text' name='searchKokyakuNm' id='_searchKokyakuNm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='80' style='width:182.00px;'> </input>
+									(部分一致)
+									</td>
+									<th align="center">注文者電話</th>
+									<td>
+										<input type='text' name='searchKokyakuTel' id='_searchKokyakuTel' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='tel' maxlength='14' style='width:148.64px;'> </input>
+										(前方一致)
+									</td>
+								</tr>
+								<tr>
+									<th align="center">サイト名</th>
+									<td nowrap>
+										<SELECT name='searchSiteCd' id='_searchSiteCd' style='width:300px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='1001' >アクアペットサービス 楽天市場店</OPTION><OPTION VALUE='1004' >ペットプラザ</OPTION><OPTION VALUE='1002' >アクアペットサービス ヤフー店</OPTION><OPTION VALUE='1003' >アクアペットサービス Amazon店</OPTION><OPTION VALUE='1' >アクアペットサービス</OPTION><OPTION VALUE='8888' >楽天ペイテスト</OPTION> </SELECT>
+									</td>
+									<th align="center">外部注文番号</th>
+									<td nowrap>
+										<input type='text' name='searchGaibuOrderCd' id='_searchGaibuOrderCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='100' style='width:148.64px;'> </input>
+										(前方一致)
+									</td>
+								</tr>
+								<tr>
+									<th align="center">届先名</th>
+									<td nowrap>
+										<input type='text' name='searchTdkNm' id='_searchTdkNm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='80' style='width:182.00px;'> </input>
+										(部分一致)
+									</td>
+									<th align="center">決済方法</th>
+									<td nowrap>
+										<SELECT name='searchKessaiCd' id='js_searchKessaiCd' style='width:300px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='2' >代引</OPTION><OPTION VALUE='4' >銀行振込（前払）</OPTION><OPTION VALUE='101' >楽天クレジットカード決済</OPTION><OPTION VALUE='102' >楽天代金引換</OPTION><OPTION VALUE='103' >楽天バンク決済</OPTION><OPTION VALUE='104' >楽天銀行振込</OPTION><OPTION VALUE='108' >楽天セブンイレブン決済（前払）</OPTION><OPTION VALUE='109' >楽天セブンイレブン決済（後払）</OPTION><OPTION VALUE='110' >楽天ローソン決済（前払）</OPTION><OPTION VALUE='115' >楽天ペイジー</OPTION><OPTION VALUE='116' >楽天楽天Edy決済</OPTION><OPTION VALUE='201' >Yahoo!クレジットカード決済</OPTION><OPTION VALUE='202' >Yahoo!商品代引</OPTION><OPTION VALUE='120' >楽天ペイ</OPTION><OPTION VALUE='203' >Yahoo!コンビニ（セブン-イレブン）</OPTION><OPTION VALUE='204' >Yahoo!コンビニ（その他）</OPTION><OPTION VALUE='208' >Yahoo!ソフトバンクまとめて支払い</OPTION><OPTION VALUE='209' >Yahoo!銀行振込（ペイジー）</OPTION><OPTION VALUE='210' >ジャパンネットバンク</OPTION><OPTION VALUE='211' >巣鴨信用金庫</OPTION><OPTION VALUE='212' >埼玉縣信用金庫</OPTION><OPTION VALUE='213' >Yahoo!銀行振込（前払い）</OPTION><OPTION VALUE='216' >Yahoo!ゆうちょ銀行（振替/前払い）</OPTION><OPTION VALUE='225' >Yahoo!ポイント全額払い</OPTION><OPTION VALUE='226' >Yahoo!マネー/預金払い</OPTION><OPTION VALUE='301' >元払い</OPTION><OPTION VALUE='302' >代引</OPTION><OPTION VALUE='0' >なし</OPTION> </SELECT>
+									</td>
+								</tr>
+								<tr>
+									<th align="center">商品名</th>
+									<td>
+										<input type='text' name='searchItemNm' id='_searchItemNm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='multi' maxlength='100' style='width:182.00px;'> </input>
+										(部分一致)
+									</td>
+									<th align="center">倉庫名</th>
+									<td nowrap>
+									
+										<SELECT name='searchWhCd' id='js_WhCd' style='width:300px;' tabindex=null > <OPTION VALUE='' SELECTED></OPTION><OPTION VALUE='036410501' >アクアペット倉庫</OPTION><OPTION VALUE='039010000' >新越谷ソリューションセンター</OPTION> </SELECT>
+									
+									</td>
+								</tr>
+								<tr>
+									<th>返金対象</th>
+									<td colspan="3" nowrap>
+										<input  TabIndex="31" type="button"  onClick="search('1');" value="返金対象" />
+										<input type="checkbox" name="printFlg" id="_printFlg"  TabIndex="25" onClick="clicked();"  >再印刷
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td Valign="bottom">
+							
+							<input  TabIndex="31" type="button" onClick="search('0');" value="検索" />
+						</td>
+					</tr>
+				</table>
+			<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=750px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=750px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+			</form>
+		
+		
+			
+			
+				<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>708件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1<OPTION   VALUE='2'>2<OPTION   VALUE='3'>3<OPTION   VALUE='4'>4<OPTION   VALUE='5'>5<OPTION   VALUE='6'>6<OPTION   VALUE='7'>7<OPTION   VALUE='8'>8<OPTION   VALUE='9'>9<OPTION   VALUE='10'>10<OPTION   VALUE='11'>11<OPTION   VALUE='12'>12<OPTION   VALUE='13'>13<OPTION   VALUE='14'>14<OPTION   VALUE='15'>15<OPTION   VALUE='16'>16<OPTION   VALUE='17'>17<OPTION   VALUE='18'>18<OPTION   VALUE='19'>19<OPTION   VALUE='20'>20<OPTION   VALUE='21'>21<OPTION   VALUE='22'>22<OPTION   VALUE='23'>23<OPTION   VALUE='24'>24</SELECT>/24</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(2)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(24)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='HE030HenpinList.html' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="24"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="708"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value="2"><input type='hidden' name='searchKbn' value="2"><input type='hidden' name='searchHenYoteiYmdFrom' value=""><input type='hidden' name='searchHenYoteiYmdTo' value=""><input type='hidden' name='searchHenkakuteiYmdFrom' value=""><input type='hidden' name='searchHenkakuteiYmdTo' value=""><input type='hidden' name='searchHenCd' value=""><input type='hidden' name='searchHenJyotai' value=""><input type='hidden' name='searchHenKbn' value=""><input type='hidden' name='searchHenUkeYmdFrom' value=""><input type='hidden' name='searchHenUkeYmdTo' value=""><input type='hidden' name='searchOrderCd' value=""><input type='hidden' name='searchOrderYmdFrom' value=""><input type='hidden' name='searchOrderYmdTo' value=""><input type='hidden' name='searchKokyakuNm' value=""><input type='hidden' name='searchKokyakuTel' value=""><input type='hidden' name='searchSiteCd' value=""><input type='hidden' name='searchGaibuOrderCd' value=""><input type='hidden' name='searchTdkNm' value=""><input type='hidden' name='searchKessaiCd' value=""><input type='hidden' name='searchItemNm' value=""><input type='hidden' name='searchWhCd' value=""><input type='hidden' name='saiPrintFlg' value=""><input type='hidden' name='userNo' value="42"><input type='hidden' name='coNo' value="2535"><input type='hidden' name='userWhCd' value=""></form>
+				<table width="700">
+					<tr>
+						<td align="center" width="250" bgcolor="#ffff66">
+							<input type="button" onClick="downLoad('78');" value="CSV出力" TabIndex="33"
+							
+							id="_btnDownload1"/>
+
+						</td>
+						<td align="center" width="250" bgcolor="#CCFF66">
+							<input type="button"  onClick="downLoad('79');" value="返金依頼CSV出力" TabIndex="35"
+							
+							id="_btnDownload2"/>
+						</td>
+						<td align="center" width="200" bgcolor="#66CCFF">
+							<input type="button"  onClick="print('79');" value="返金依頼書" TabIndex="37"
+							
+							id="_btnDownload3"/>
+						</td>
+					</tr>
+				</table>
+				<table class="lt" width="1650">
+					<colgroup>
+	 					<col width="30">
+	 					<col width="80">
+	 					<col width="80">
+	 					<col width="110">
+	 					<col width="60">
+	 					<col width="60">
+	 					<col width="60">
+	 					<col width="80">
+	 					<col width="110">
+	 					<col width="80">
+	 					<col width="80">
+	 					<col width="100">
+	 					<col width="80">
+	 					<col width="150">
+	 					<col width="100">
+	 					<col width="60">
+	 					<col width="60">
+	 					<col width="130">
+	 					<col width="100">
+ 					</colgroup>
+					<tr class="head">
+						<th>No</th>
+						<th>返品予定日</th>
+						<th>返品確定日</th>
+						<th>返品番号</th>
+						<th>返品状態</th>
+						<th>返品区分</th>
+						<th>返品都合</th>
+						<th>返品受付日</th>
+						<th>注文番号</th>
+						<th>注文日</th>
+						<th>注文者名</th>
+						<th>注文者電話</th>
+						<th>サイト名</th>
+						<th>外部注文番号</th>
+						<th>届先名</th>
+						<th>決済方法</th>
+						<th>返金方法</th>
+						<th>返品金額</th>
+						<th>倉庫名</th>
+					</tr>
+					
+						
+ 						<tr>
+ 							
+ 							<td align="center">1</td>
+							
+							<td align="center" title="2019/01/11" nowrap>2019/01/11</td>
+							
+							<td align="center" title="" nowrap></td>
+							
+ 							<td align="center" title="HP19011100713" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP19011100713","196116")'>HP19011100713</a>
+							
+							</td>
+							
+ 							<td align="left" title="予定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP19011100713")'>予定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="顧客都合" nowrap>顧客都合</td>
+							
+							<td align="center" title="2019/01/11" nowrap>2019/01/11</td>
+							
+ 							<td align="center" title="OD19010887038" nowrap>OD19010887038</td>
+							
+ 							<td align="center" title="2019/01/08" nowrap>2019/01/08</td>
+							
+ 							<td align="left" nowrap title="尾崎ﾔｽｼﾞ" >尾崎ﾔｽｼﾞ</td>
+							
+ 							<td align="left" nowrap title="042-458-9999" >042-458-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス" >アクアペットサービス</td>
+							
+ 							<td align="left" title="" nowrap></td>
+							
+ 							<td align="left" title="尾崎ﾔｽｼﾞ" nowrap>尾崎ﾔｽｼﾞ</td>
+							
+ 							<td align="left" nowrap title="代引" >代引</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="972" nowrap>972</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">2</td>
+							
+							<td align="center" title="2018/10/26" nowrap>2018/10/26</td>
+							
+							<td align="center" title="2018/10/26" nowrap>2018/10/26</td>
+							
+ 							<td align="center" title="HP18102600712" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18102600712","196003")'>HP18102600712</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18102600712")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/10/26" nowrap>2018/10/26</td>
+							
+ 							<td align="center" title="OD18091386834" nowrap>OD18091386834</td>
+							
+ 							<td align="center" title="2018/09/13" nowrap>2018/09/13</td>
+							
+ 							<td align="left" nowrap title="高崎太郎" >高崎太郎</td>
+							
+ 							<td align="left" nowrap title="0479-44-9999" >0479-44-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180913-00552805" nowrap>tcc-227483-20180913-00552805</td>
+							
+ 							<td align="left" title="高崎太郎" nowrap>高崎太郎</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="現金書留" nowrap>現金書留</td>
+							
+ 							<td align="right" title="1300" nowrap>1,300</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">3</td>
+							
+							<td align="center" title="2018/10/05" nowrap>2018/10/05</td>
+							
+							<td align="center" title="" nowrap></td>
+							
+ 							<td align="center" title="HP18100500711" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18100500711","193970")'>HP18100500711</a>
+							
+							</td>
+							
+ 							<td align="left" title="予定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18100500711")'>予定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="交換" nowrap>交換</td>
+							
+ 							<td align="left" title="" nowrap></td>
+							
+							<td align="center" title="2018/10/05" nowrap>2018/10/05</td>
+							
+ 							<td align="center" title="OD18083184790" nowrap>OD18083184790</td>
+							
+ 							<td align="center" title="2018/08/31" nowrap>2018/08/31</td>
+							
+ 							<td align="left" nowrap title="柳原広佳" >柳原広佳</td>
+							
+ 							<td align="left" nowrap title="080-5361-9999" >080-5361-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180831-00286828" nowrap>tcc-227483-20180831-00286828</td>
+							
+ 							<td align="left" title="柳原広佳" nowrap>柳原広佳</td>
+							
+ 							<td align="left" nowrap title="楽天代金引換" >楽天代金引換</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="0" nowrap>0</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">4</td>
+							
+							<td align="center" title="2018/10/05" nowrap>2018/10/05</td>
+							
+							<td align="center" title="" nowrap></td>
+							
+ 							<td align="center" title="HP18100500709" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18100500709","196003")'>HP18100500709</a>
+							
+							</td>
+							
+ 							<td align="left" title="予定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18100500709")'>予定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="交換" nowrap>交換</td>
+							
+ 							<td align="left" title="" nowrap></td>
+							
+							<td align="center" title="2018/10/05" nowrap>2018/10/05</td>
+							
+ 							<td align="center" title="OD18091386834" nowrap>OD18091386834</td>
+							
+ 							<td align="center" title="2018/09/13" nowrap>2018/09/13</td>
+							
+ 							<td align="left" nowrap title="高崎太郎" >高崎太郎</td>
+							
+ 							<td align="left" nowrap title="0479-44-9999" >0479-44-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180913-00552805" nowrap>tcc-227483-20180913-00552805</td>
+							
+ 							<td align="left" title="高崎太郎" nowrap>高崎太郎</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="0" nowrap>0</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">5</td>
+							
+							<td align="center" title="2018/10/05" nowrap>2018/10/05</td>
+							
+							<td align="center" title="2018/10/05" nowrap>2018/10/05</td>
+							
+ 							<td align="center" title="HP18100500710" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18100500710","193972")'>HP18100500710</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18100500710")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="交換" nowrap>交換</td>
+							
+ 							<td align="left" title="" nowrap></td>
+							
+							<td align="center" title="2018/10/05" nowrap>2018/10/05</td>
+							
+ 							<td align="center" title="OD18083184794" nowrap>OD18083184794</td>
+							
+ 							<td align="center" title="2018/08/31" nowrap>2018/08/31</td>
+							
+ 							<td align="left" nowrap title="佐久間拓也" >佐久間拓也</td>
+							
+ 							<td align="left" nowrap title="080-6454-9999" >080-6454-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180831-00314825" nowrap>tcc-227483-20180831-00314825</td>
+							
+ 							<td align="left" title="佐久間拓也" nowrap>佐久間拓也</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="0" nowrap>0</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">6</td>
+							
+							<td align="center" title="2018/10/04" nowrap>2018/10/04</td>
+							
+							<td align="center" title="" nowrap></td>
+							
+ 							<td align="center" title="HP18100400708" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18100400708","193970")'>HP18100400708</a>
+							
+							</td>
+							
+ 							<td align="left" title="予定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18100400708")'>予定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="交換" nowrap>交換</td>
+							
+ 							<td align="left" title="" nowrap></td>
+							
+							<td align="center" title="2018/10/04" nowrap>2018/10/04</td>
+							
+ 							<td align="center" title="OD18083184790" nowrap>OD18083184790</td>
+							
+ 							<td align="center" title="2018/08/31" nowrap>2018/08/31</td>
+							
+ 							<td align="left" nowrap title="柳原広佳" >柳原広佳</td>
+							
+ 							<td align="left" nowrap title="080-5361-9999" >080-5361-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180831-00286828" nowrap>tcc-227483-20180831-00286828</td>
+							
+ 							<td align="left" title="柳原広佳" nowrap>柳原広佳</td>
+							
+ 							<td align="left" nowrap title="楽天代金引換" >楽天代金引換</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="0" nowrap>0</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">7</td>
+							
+							<td align="center" title="2018/09/13" nowrap>2018/09/13</td>
+							
+							<td align="center" title="2018/09/13" nowrap>2018/09/13</td>
+							
+ 							<td align="center" title="HP18091300707" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18091300707","195560")'>HP18091300707</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18091300707")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/09/13" nowrap>2018/09/13</td>
+							
+ 							<td align="center" title="OD18090986283" nowrap>OD18090986283</td>
+							
+ 							<td align="center" title="2018/09/09" nowrap>2018/09/09</td>
+							
+ 							<td align="left" nowrap title="平山真也" >平山真也</td>
+							
+ 							<td align="left" nowrap title="072-424-9999" >072-424-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス ヤフー店" >アクアペットサービス ヤフー店</td>
+							
+ 							<td align="left" title="tcc-aquapet-10026724" nowrap>tcc-aquapet-10026724</td>
+							
+ 							<td align="left" title="平山真也" nowrap>平山真也</td>
+							
+ 							<td align="left" nowrap title="Yahoo!クレジットカード決済" >Yahoo!クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="460" nowrap>460</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">8</td>
+							
+							<td align="center" title="2018/09/12" nowrap>2018/09/12</td>
+							
+							<td align="center" title="2018/09/12" nowrap>2018/09/12</td>
+							
+ 							<td align="center" title="HP18091200706" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18091200706","195278")'>HP18091200706</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18091200706")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/09/12" nowrap>2018/09/12</td>
+							
+ 							<td align="center" title="OD18090886017" nowrap>OD18090886017</td>
+							
+ 							<td align="center" title="2018/09/08" nowrap>2018/09/08</td>
+							
+ 							<td align="left" nowrap title="渡部佳世" >渡部佳世</td>
+							
+ 							<td align="left" nowrap title="072-888-9999" >072-888-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180908-00489822" nowrap>tcc-227483-20180908-00489822</td>
+							
+ 							<td align="left" title="渡部佳世" nowrap>渡部佳世</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="6000" nowrap>6,000</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">9</td>
+							
+							<td align="center" title="2018/09/10" nowrap>2018/09/10</td>
+							
+							<td align="center" title="2018/09/10" nowrap>2018/09/10</td>
+							
+ 							<td align="center" title="HP18091000705" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18091000705","194082")'>HP18091000705</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18091000705")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/09/10" nowrap>2018/09/10</td>
+							
+ 							<td align="center" title="OD18083184884" nowrap>OD18083184884</td>
+							
+ 							<td align="center" title="2018/08/31" nowrap>2018/08/31</td>
+							
+ 							<td align="left" nowrap title="青井ゆう" >青井ゆう</td>
+							
+ 							<td align="left" nowrap title="080-4332-9999" >080-4332-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180831-00512805" nowrap>tcc-227483-20180831-00512805</td>
+							
+ 							<td align="left" title="青井ゆう" nowrap>青井ゆう</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="5999" nowrap>5,999</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">10</td>
+							
+							<td align="center" title="2018/09/04" nowrap>2018/09/04</td>
+							
+							<td align="center" title="2018/09/04" nowrap>2018/09/04</td>
+							
+ 							<td align="center" title="HP18090400704" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18090400704","194199")'>HP18090400704</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18090400704")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/09/04" nowrap>2018/09/04</td>
+							
+ 							<td align="center" title="OD18083184899" nowrap>OD18083184899</td>
+							
+ 							<td align="center" title="2018/08/31" nowrap>2018/08/31</td>
+							
+ 							<td align="left" nowrap title="高橋優羽" >高橋優羽</td>
+							
+ 							<td align="left" nowrap title="090-4639-9999" >090-4639-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180831-00472817" nowrap>tcc-227483-20180831-00472817</td>
+							
+ 							<td align="left" title="高橋優羽" nowrap>高橋優羽</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="1940" nowrap>1,940</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">11</td>
+							
+							<td align="center" title="2018/09/01" nowrap>2018/09/01</td>
+							
+							<td align="center" title="2018/09/01" nowrap>2018/09/01</td>
+							
+ 							<td align="center" title="HP18090100703" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18090100703","193976")'>HP18090100703</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18090100703")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/09/01" nowrap>2018/09/01</td>
+							
+ 							<td align="center" title="OD18083184801" nowrap>OD18083184801</td>
+							
+ 							<td align="center" title="2018/08/31" nowrap>2018/08/31</td>
+							
+ 							<td align="left" nowrap title="長谷川幹根" >長谷川幹根</td>
+							
+ 							<td align="left" nowrap title="0586-43-9999" >0586-43-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180831-00464822" nowrap>tcc-227483-20180831-00464822</td>
+							
+ 							<td align="left" title="長谷川幹根" nowrap>長谷川幹根</td>
+							
+ 							<td align="left" nowrap title="楽天代金引換" >楽天代金引換</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="7124" nowrap>7,124</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">12</td>
+							
+							<td align="center" title="2018/08/22" nowrap>2018/08/22</td>
+							
+							<td align="center" title="2018/08/22" nowrap>2018/08/22</td>
+							
+ 							<td align="center" title="HP18082200702" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18082200702","191537")'>HP18082200702</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18082200702")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/08/22" nowrap>2018/08/22</td>
+							
+ 							<td align="center" title="OD18081082353" nowrap>OD18081082353</td>
+							
+ 							<td align="center" title="2018/08/10" nowrap>2018/08/10</td>
+							
+ 							<td align="left" nowrap title="小河章男" >小河章男</td>
+							
+ 							<td align="left" nowrap title="078-581-9999" >078-581-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180810-00251831" nowrap>tcc-227483-20180810-00251831</td>
+							
+ 							<td align="left" title="小河章男" nowrap>小河章男</td>
+							
+ 							<td align="left" nowrap title="楽天代金引換" >楽天代金引換</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="2666" nowrap>2,666</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">13</td>
+							
+							<td align="center" title="2018/08/20" nowrap>2018/08/20</td>
+							
+							<td align="center" title="2018/08/20" nowrap>2018/08/20</td>
+							
+ 							<td align="center" title="HP18082000701" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18082000701","191741")'>HP18082000701</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18082000701")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="顧客都合" nowrap>顧客都合</td>
+							
+							<td align="center" title="2018/08/20" nowrap>2018/08/20</td>
+							
+ 							<td align="center" title="OD18081382538" nowrap>OD18081382538</td>
+							
+ 							<td align="center" title="2018/08/13" nowrap>2018/08/13</td>
+							
+ 							<td align="left" nowrap title="戸川洋三郎" >戸川洋三郎</td>
+							
+ 							<td align="left" nowrap title="0532-41-9999" >0532-41-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180813-00471812" nowrap>tcc-227483-20180813-00471812</td>
+							
+ 							<td align="left" title="戸川洋三郎" nowrap>戸川洋三郎</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="980" nowrap>980</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">14</td>
+							
+							<td align="center" title="2018/08/20" nowrap>2018/08/20</td>
+							
+							<td align="center" title="2018/08/20" nowrap>2018/08/20</td>
+							
+ 							<td align="center" title="HP18082000700" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18082000700","191871")'>HP18082000700</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18082000700")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="顧客都合" nowrap>顧客都合</td>
+							
+							<td align="center" title="2018/08/20" nowrap>2018/08/20</td>
+							
+ 							<td align="center" title="OD18081482586" nowrap>OD18081482586</td>
+							
+ 							<td align="center" title="2018/08/14" nowrap>2018/08/14</td>
+							
+ 							<td align="left" nowrap title="稲岡康治" >稲岡康治</td>
+							
+ 							<td align="left" nowrap title="086-526-9999" >086-526-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180814-00256831" nowrap>tcc-227483-20180814-00256831</td>
+							
+ 							<td align="left" title="稲岡康治" nowrap>稲岡康治</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="783" nowrap>783</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">15</td>
+							
+							<td align="center" title="2018/08/18" nowrap>2018/08/18</td>
+							
+							<td align="center" title="2018/08/18" nowrap>2018/08/18</td>
+							
+ 							<td align="center" title="HP18081800699" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18081800699","190577")'>HP18081800699</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18081800699")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/08/18" nowrap>2018/08/18</td>
+							
+ 							<td align="center" title="OD18080581478" nowrap>OD18080581478</td>
+							
+ 							<td align="center" title="2018/08/05" nowrap>2018/08/05</td>
+							
+ 							<td align="left" nowrap title="赤池江里奈" >赤池江里奈</td>
+							
+ 							<td align="left" nowrap title="090-1473-9999" >090-1473-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180805-00425813" nowrap>tcc-227483-20180805-00425813</td>
+							
+ 							<td align="left" title="赤池江里奈" nowrap>赤池江里奈</td>
+							
+ 							<td align="left" nowrap title="楽天代金引換" >楽天代金引換</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="3680" nowrap>3,680</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">16</td>
+							
+							<td align="center" title="2018/08/06" nowrap>2018/08/06</td>
+							
+							<td align="center" title="2018/08/06" nowrap>2018/08/06</td>
+							
+ 							<td align="center" title="HP18080600698" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18080600698","190442")'>HP18080600698</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18080600698")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/08/06" nowrap>2018/08/06</td>
+							
+ 							<td align="center" title="OD18080281228" nowrap>OD18080281228</td>
+							
+ 							<td align="center" title="2018/08/02" nowrap>2018/08/02</td>
+							
+ 							<td align="left" nowrap title="河村佳晃" >河村佳晃</td>
+							
+ 							<td align="left" nowrap title="080-5265-9999" >080-5265-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180802-00120727" nowrap>tcc-227483-20180802-00120727</td>
+							
+ 							<td align="left" title="河村佳晃" nowrap>河村佳晃</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="550" nowrap>550</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">17</td>
+							
+							<td align="center" title="2018/08/04" nowrap>2018/08/04</td>
+							
+							<td align="center" title="2018/08/04" nowrap>2018/08/04</td>
+							
+ 							<td align="center" title="HP18080400697" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18080400697","190256")'>HP18080400697</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18080400697")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/08/04" nowrap>2018/08/04</td>
+							
+ 							<td align="center" title="OD18072580184" nowrap>OD18072580184</td>
+							
+ 							<td align="center" title="2018/07/25" nowrap>2018/07/25</td>
+							
+ 							<td align="left" nowrap title="福田恵司" >福田恵司</td>
+							
+ 							<td align="left" nowrap title="044-533-9999" >044-533-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180725-00387804" nowrap>tcc-227483-20180725-00387804</td>
+							
+ 							<td align="left" title="福田恵司" nowrap>福田恵司</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="1212" nowrap>1,212</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">18</td>
+							
+							<td align="center" title="2018/08/03" nowrap>2018/08/03</td>
+							
+							<td align="center" title="2018/08/03" nowrap>2018/08/03</td>
+							
+ 							<td align="center" title="HP18080300696" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18080300696","188583")'>HP18080300696</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18080300696")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="顧客都合" nowrap>顧客都合</td>
+							
+							<td align="center" title="2018/08/03" nowrap>2018/08/03</td>
+							
+ 							<td align="center" title="OD18071979616" nowrap>OD18071979616</td>
+							
+ 							<td align="center" title="2018/07/19" nowrap>2018/07/19</td>
+							
+ 							<td align="left" nowrap title="迫田孝之" >迫田孝之</td>
+							
+ 							<td align="left" nowrap title="090-3516-9999" >090-3516-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180719-00109732" nowrap>tcc-227483-20180719-00109732</td>
+							
+ 							<td align="left" title="迫田孝之" nowrap>迫田孝之</td>
+							
+ 							<td align="left" nowrap title="楽天代金引換" >楽天代金引換</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="3980" nowrap>3,980</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">19</td>
+							
+							<td align="center" title="2018/08/02" nowrap>2018/08/02</td>
+							
+							<td align="center" title="2018/08/02" nowrap>2018/08/02</td>
+							
+ 							<td align="center" title="HP18080200695" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18080200695","187571")'>HP18080200695</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18080200695")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/08/02" nowrap>2018/08/02</td>
+							
+ 							<td align="center" title="OD18071178498" nowrap>OD18071178498</td>
+							
+ 							<td align="center" title="2018/07/11" nowrap>2018/07/11</td>
+							
+ 							<td align="left" nowrap title="五嶋保" >五嶋保</td>
+							
+ 							<td align="left" nowrap title="080-6089-9999" >080-6089-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180711-00431816" nowrap>tcc-227483-20180711-00431816</td>
+							
+ 							<td align="left" title="五嶋淳美" nowrap>五嶋淳美</td>
+							
+ 							<td align="left" nowrap title="楽天代金引換" >楽天代金引換</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="3915" nowrap>3,915</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">20</td>
+							
+							<td align="center" title="2018/08/02" nowrap>2018/08/02</td>
+							
+							<td align="center" title="2018/08/02" nowrap>2018/08/02</td>
+							
+ 							<td align="center" title="HP18080200694" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18080200694","187904")'>HP18080200694</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18080200694")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="顧客都合" nowrap>顧客都合</td>
+							
+							<td align="center" title="2018/08/02" nowrap>2018/08/02</td>
+							
+ 							<td align="center" title="OD18071278589" nowrap>OD18071278589</td>
+							
+ 							<td align="center" title="2018/07/12" nowrap>2018/07/12</td>
+							
+ 							<td align="left" nowrap title="藤本麻衣" >藤本麻衣</td>
+							
+ 							<td align="left" nowrap title="084-941-9999" >084-941-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180712-00080701" nowrap>tcc-227483-20180712-00080701</td>
+							
+ 							<td align="left" title="藤本麻衣" nowrap>藤本麻衣</td>
+							
+ 							<td align="left" nowrap title="楽天セブンイレブン決済（前払）" >楽天セブンイレブン決済（前払）</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="2990" nowrap>2,990</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">21</td>
+							
+							<td align="center" title="2018/08/01" nowrap>2018/08/01</td>
+							
+							<td align="center" title="2018/08/01" nowrap>2018/08/01</td>
+							
+ 							<td align="center" title="HP18080100693" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18080100693","189533")'>HP18080100693</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18080100693")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="顧客都合" nowrap>顧客都合</td>
+							
+							<td align="center" title="2018/08/01" nowrap>2018/08/01</td>
+							
+ 							<td align="center" title="OD18072780463" nowrap>OD18072780463</td>
+							
+ 							<td align="center" title="2018/07/27" nowrap>2018/07/27</td>
+							
+ 							<td align="left" nowrap title="上原弘幹" >上原弘幹</td>
+							
+ 							<td align="left" nowrap title="0877-23-9999" >0877-23-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180727-00101721" nowrap>tcc-227483-20180727-00101721</td>
+							
+ 							<td align="left" title="香川県立丸亀城西高校自然科学同好会" nowrap>香川県立丸亀城西高校自然科学同好会</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="1192" nowrap>1,192</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">22</td>
+							
+							<td align="center" title="2018/07/26" nowrap>2018/07/26</td>
+							
+							<td align="center" title="2018/07/26" nowrap>2018/07/26</td>
+							
+ 							<td align="center" title="HP18072600692" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18072600692","188762")'>HP18072600692</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18072600692")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/07/26" nowrap>2018/07/26</td>
+							
+ 							<td align="center" title="OD18072179749" nowrap>OD18072179749</td>
+							
+ 							<td align="center" title="2018/07/21" nowrap>2018/07/21</td>
+							
+ 							<td align="left" nowrap title="佐藤香" >佐藤香</td>
+							
+ 							<td align="left" nowrap title="0473819999" >0473819999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス ヤフー店" >アクアペットサービス ヤフー店</td>
+							
+ 							<td align="left" title="tcc-aquapet-10025272" nowrap>tcc-aquapet-10025272</td>
+							
+ 							<td align="left" title="佐藤香" nowrap>佐藤香</td>
+							
+ 							<td align="left" nowrap title="Yahoo!商品代引" >Yahoo!商品代引</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="4953" nowrap>4,953</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">23</td>
+							
+							<td align="center" title="2018/07/23" nowrap>2018/07/23</td>
+							
+							<td align="center" title="2018/07/23" nowrap>2018/07/23</td>
+							
+ 							<td align="center" title="HP18072300691" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18072300691","188167")'>HP18072300691</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18072300691")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="顧客都合" nowrap>顧客都合</td>
+							
+							<td align="center" title="2018/07/23" nowrap>2018/07/23</td>
+							
+ 							<td align="center" title="OD18071478831" nowrap>OD18071478831</td>
+							
+ 							<td align="center" title="2018/07/14" nowrap>2018/07/14</td>
+							
+ 							<td align="left" nowrap title="田中郁子" >田中郁子</td>
+							
+ 							<td align="left" nowrap title="089-982-9999" >089-982-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180714-00076703" nowrap>tcc-227483-20180714-00076703</td>
+							
+ 							<td align="left" title="田中郁子" nowrap>田中郁子</td>
+							
+ 							<td align="left" nowrap title="楽天代金引換" >楽天代金引換</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="4848" nowrap>4,848</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">24</td>
+							
+							<td align="center" title="2018/07/23" nowrap>2018/07/23</td>
+							
+							<td align="center" title="2018/07/23" nowrap>2018/07/23</td>
+							
+ 							<td align="center" title="HP18072300690" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18072300690","186636")'>HP18072300690</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18072300690")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/07/23" nowrap>2018/07/23</td>
+							
+ 							<td align="center" title="OD18070577725" nowrap>OD18070577725</td>
+							
+ 							<td align="center" title="2018/07/05" nowrap>2018/07/05</td>
+							
+ 							<td align="left" nowrap title="谷川美香" >谷川美香</td>
+							
+ 							<td align="left" nowrap title="090-5016-9999" >090-5016-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180705-00208826" nowrap>tcc-227483-20180705-00208826</td>
+							
+ 							<td align="left" title="谷川美香" nowrap>谷川美香</td>
+							
+ 							<td align="left" nowrap title="なし" >なし</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="0" nowrap>0</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">25</td>
+							
+							<td align="center" title="2018/07/21" nowrap>2018/07/21</td>
+							
+							<td align="center" title="2018/07/21" nowrap>2018/07/21</td>
+							
+ 							<td align="center" title="HP18072100689" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18072100689","188457")'>HP18072100689</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18072100689")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/07/21" nowrap>2018/07/21</td>
+							
+ 							<td align="center" title="OD18071879458" nowrap>OD18071879458</td>
+							
+ 							<td align="center" title="2018/07/18" nowrap>2018/07/18</td>
+							
+ 							<td align="left" nowrap title="山口敦子" >山口敦子</td>
+							
+ 							<td align="left" nowrap title="080-1447-9999" >080-1447-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180718-00097703" nowrap>tcc-227483-20180718-00097703</td>
+							
+ 							<td align="left" title="山口敦子" nowrap>山口敦子</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="698" nowrap>698</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">26</td>
+							
+							<td align="center" title="2018/07/20" nowrap>2018/07/20</td>
+							
+							<td align="center" title="2018/07/20" nowrap>2018/07/20</td>
+							
+ 							<td align="center" title="HP18072000688" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18072000688","187671")'>HP18072000688</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18072000688")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/07/20" nowrap>2018/07/20</td>
+							
+ 							<td align="center" title="OD18071478757" nowrap>OD18071478757</td>
+							
+ 							<td align="center" title="2018/07/14" nowrap>2018/07/14</td>
+							
+ 							<td align="left" nowrap title="西幹男" >西幹男</td>
+							
+ 							<td align="left" nowrap title="090-3346-9999" >090-3346-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180714-00079725" nowrap>tcc-227483-20180714-00079725</td>
+							
+ 							<td align="left" title="西幹男" nowrap>西幹男</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="18000" nowrap>18,000</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">27</td>
+							
+							<td align="center" title="2018/07/20" nowrap>2018/07/20</td>
+							
+							<td align="center" title="2018/07/20" nowrap>2018/07/20</td>
+							
+ 							<td align="center" title="HP18072000687" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18072000687","188093")'>HP18072000687</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18072000687")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/07/20" nowrap>2018/07/20</td>
+							
+ 							<td align="center" title="OD18071779281" nowrap>OD18071779281</td>
+							
+ 							<td align="center" title="2018/07/17" nowrap>2018/07/17</td>
+							
+ 							<td align="left" nowrap title="真船奈緒子" >真船奈緒子</td>
+							
+ 							<td align="left" nowrap title="080-6546-9999" >080-6546-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180717-00099701" nowrap>tcc-227483-20180717-00099701</td>
+							
+ 							<td align="left" title="真船奈緒子" nowrap>真船奈緒子</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="4450" nowrap>4,450</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">28</td>
+							
+							<td align="center" title="2018/07/16" nowrap>2018/07/16</td>
+							
+							<td align="center" title="2018/07/16" nowrap>2018/07/16</td>
+							
+ 							<td align="center" title="HP18071600686" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18071600686","187125")'>HP18071600686</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18071600686")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="顧客都合" nowrap>顧客都合</td>
+							
+							<td align="center" title="2018/07/16" nowrap>2018/07/16</td>
+							
+ 							<td align="center" title="OD18071078298" nowrap>OD18071078298</td>
+							
+ 							<td align="center" title="2018/07/09" nowrap>2018/07/09</td>
+							
+ 							<td align="left" nowrap title="高橋　新一郎" >高橋　新一郎</td>
+							
+ 							<td align="left" nowrap title="011-681-9999" >011-681-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス Amazon店" >アクアペットサービス Amazon店</td>
+							
+ 							<td align="left" title="tcc-250-3300975-3640623" nowrap>tcc-250-3300975-3640623</td>
+							
+ 							<td align="left" title="高橋　新一郎" nowrap>高橋　新一郎</td>
+							
+ 							<td align="left" nowrap title="元払い" >元払い</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="2280" nowrap>2,280</td>
+ 							
+ 							<td align="left" title="新越谷ソリューションセンター" nowrap>新越谷ソリューションセンター</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">29</td>
+							
+							<td align="center" title="2018/07/13" nowrap>2018/07/13</td>
+							
+							<td align="center" title="2018/07/13" nowrap>2018/07/13</td>
+							
+ 							<td align="center" title="HP18071300685" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18071300685","185980")'>HP18071300685</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18071300685")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="顧客都合" nowrap>顧客都合</td>
+							
+							<td align="center" title="2018/07/13" nowrap>2018/07/13</td>
+							
+ 							<td align="center" title="OD18063077062" nowrap>OD18063077062</td>
+							
+ 							<td align="center" title="2018/06/30" nowrap>2018/06/30</td>
+							
+ 							<td align="left" nowrap title="比留間かおる" >比留間かおる</td>
+							
+ 							<td align="left" nowrap title="090-5547-9999" >090-5547-9999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス 楽天市場店" >アクアペットサービス 楽天市場店</td>
+							
+ 							<td align="left" title="tcc-227483-20180630-00451807" nowrap>tcc-227483-20180630-00451807</td>
+							
+ 							<td align="left" title="比留間かおる" nowrap>比留間かおる</td>
+							
+ 							<td align="left" nowrap title="楽天クレジットカード決済" >楽天クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="5121" nowrap>5,121</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+						
+ 						<tr>
+ 							
+ 							<td align="center">30</td>
+							
+							<td align="center" title="2018/07/11" nowrap>2018/07/11</td>
+							
+							<td align="center" title="2018/07/11" nowrap>2018/07/11</td>
+							
+ 							<td align="center" title="HP18071100684" nowrap>
+ 							
+								<a href='javascript:henpinCdLink("HP18071100684","186899")'>HP18071100684</a>
+							
+							</td>
+							
+ 							<td align="left" title="確定" nowrap>
+ 							
+	 							
+									<a href='javascript:joutaiLink("HP18071100684")'>確定</a>
+								
+							
+							</td>
+							
+ 							<td align="left" title="返品" nowrap>返品</td>
+							
+ 							<td align="left" title="当社都合" nowrap>当社都合</td>
+							
+							<td align="center" title="2018/07/11" nowrap>2018/07/11</td>
+							
+ 							<td align="center" title="OD18070878056" nowrap>OD18070878056</td>
+							
+ 							<td align="center" title="2018/07/08" nowrap>2018/07/08</td>
+							
+ 							<td align="left" nowrap title="島津龍照" >島津龍照</td>
+							
+ 							<td align="left" nowrap title="09024569999" >09024569999</td>
+							
+ 							<td align="left" nowrap title="アクアペットサービス ヤフー店" >アクアペットサービス ヤフー店</td>
+							
+ 							<td align="left" title="tcc-aquapet-10024938" nowrap>tcc-aquapet-10024938</td>
+							
+ 							<td align="left" title="島津龍照" nowrap>島津龍照</td>
+							
+ 							<td align="left" nowrap title="Yahoo!クレジットカード決済" >Yahoo!クレジットカード決済</td>
+							
+ 							<td align="left" title="返金不要" nowrap>返金不要</td>
+							
+ 							<td align="right" title="2226" nowrap>2,226</td>
+ 							
+ 							<td align="left" title="アクアペット倉庫" nowrap>アクアペット倉庫</td>
+ 						</tr>
+ 					
+ 				</table>
+			
+			
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>

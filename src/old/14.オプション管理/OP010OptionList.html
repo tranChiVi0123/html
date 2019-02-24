@@ -1,0 +1,654 @@
+
+
+
+
+
+
+<script type="text/javascript" src="../ecsdocs2/js/jquery-1.2.6.pack.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/jquery.cookie.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar_init_jp.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/calendar/calendar-setup.js" charset="Shift_JIS"></script>
+
+<script type="text/javascript" src="../ecsdocs2/js/Tool_Func.js" charset="Shift_JIS"></script>
+<script type="text/javascript" src="../ecsdocs2/js/ecs.js?Eje6d1TMFS" charset="UTF-8"></script>
+
+<link href="../ecsdocs2/css/default.css" REL="stylesheet" TYPE="text/css" MEDIA="all">
+
+<link rel="stylesheet" href="../ecsdocs2/js/calendar/calendar.css">
+<script type="text/javascript" charset="Shift_JIS">
+	function _gotoLogin(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/login";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/login";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSky(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSky";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSky";
+			}
+		}catch(e){}
+	}
+
+	function _gotoLoginSystem(){
+		try{
+			if(top.opener != null){
+				try{
+					var parentWindow = null;
+					parentWindow = getOpenParentWin(top);
+					parentWindow.location = "/easpro2/e_asproLogin/loginSystem";
+				}catch(e){
+					top.close();
+				}
+
+			}else{
+				top.location = "/easpro2/e_asproLogin/loginSystem";
+			}
+		}catch(e){}
+	}
+
+	function getOpenParentWin(parentWindow) {
+		var tempTopWin = null;
+
+		if(parentWindow.opener != null){
+			tempTopWin = getOpenParentWin(parentWindow.opener.top);
+			parentWindow.close();
+			return tempTopWin;
+		}
+		return parentWindow.top;
+	}
+
+</script>
+
+
+
+
+
+
+
+
+<html>
+	<head>
+	    <meta http-equiv = "Pragma" content="no-cache">
+		<meta http-equiv = "Cache-control" content="no-cache">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-31j" />
+		<title>
+			オプションマスタ
+		</title>
+		<script type="text/javascript">
+			//検索実行
+			function search() {
+				$$("_form1").action="/easpro2/e_asproOption/OP010OptionList";
+				$$("_form1").processType.value = "2";
+				$$("_form1").submit();
+				btnDisabled();
+			}
+			function controlCheckbox(){
+				if (navigator.userAgent.indexOf("Chrome") >= 0) {
+					$('#col_1').attr("style","width:100px");
+					$('#col_2').attr("style","width:290px");
+					$('#col_3').attr("style","width:100px");
+					$('#col_4').attr("style","width:290px");
+				}
+			}
+			// オプションマスタ入力の遷移
+			function tittleLink(co_no) {
+				$$("_form1").action="/easpro2/e_asproOption/OP011OptionEntry?processKbn=1&coNo="+co_no;
+				$$("_form1").processType.value="";
+				$$("_form1").submit();
+				btnDisabled();
+			}
+
+			jQuery(document).ready(function(){
+				controlCheckbox();
+			});
+		</script>
+	</head>
+
+	<body bgcolor="#FFFFFF">
+	<img src='../ecsdocs2/img/head_master.gif' alt='' align='middle' border='0'>
+	<b>オプションマスタ</b>
+	<br>
+		<b style="color:red"></b>
+	<br>
+		<form name="form1" id="_form1" method="post">
+		<input TYPE="hidden" name="processType" id="_processType">
+		<div ID='div1' style='display:block;'>
+			<table border="0" cellspacing="0" cellpadding="1">
+				<tr>
+					<td>
+						<table class="sf" style="width:640px" cellspacing="0" id="displayTBL">
+							<col width="130px" id="col_1"/>
+							<col width="260px" id="col_2"/>
+							<col width="130px" id="col_3"/>
+							<col width="260px" id="col_4"/>
+							<tr>
+								<th align = "center">荷主コード</th>
+								<td nowrap>
+									<input type='text' name='compCd' id='compCd' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='code' maxlength='50' style='width:148.64px;text-align: left;'> </input>
+									(前方一致)
+								</td>
+								<th align = "center">荷主名</th>
+								<td nowrap>
+									<input type='text' name='compNm' id='compNm' value='' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='multi' maxlength='250' style='width:148.64px;'> </input>
+									(部分一致)
+								</td>
+							</tr>
+							<tr>
+								<th align="center" rowspan= "3">利用システム</th>
+							</tr>
+							<tr>
+								<td nowrap style="border-bottom-width:0px;word-break:keep-all;" colspan="3">
+									<div style="white-space:nowrap;">
+									
+									<input type="checkbox" name="btocRiyouFlg" id ="_btocRiyouFlg" value="1"  />
+									<label for="_btocRiyouFlg">BtoC受注クラウド</label>&nbsp;&nbsp;
+
+									
+									<input type="checkbox" name="btobRiyouFlg" id ="_btobRiyouFlg" value="1" />
+									<label for="_btobRiyouFlg">BtoB受注クラウド</label>&nbsp;&nbsp;
+
+									
+									<input type="checkbox" name="wmsFlg" id ="_wmsFlg" value="1" />
+									<label for="_wmsFlg">日本郵便WMS</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td nowrap style="border-bottom-width:0px;word-break:keep-all;" colspan="3">
+									<div style="white-space:nowrap;">
+									
+									<input type="checkbox" name="btocEcRiyouFlg" id ="_btocEcRiyouFlg" value="1" />
+									<label for="_btocEcRiyouFlg">BtoC ECサイト</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+									
+									<input type="checkbox" name="btobEcRiyouFlg" id ="_btobEcRiyouFlg" value="1" />
+									<label for="_btobEcRiyouFlg">BtoB ECサイト</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+									
+									<input type="checkbox" name="syukkaRiyouFlg" id="_syukkaRiyouFlg" value="1" />
+									<label for="_syukkaRiyouFlg">出荷クラウド(受注連携)</label>
+									<input type="checkbox" name="skyKbn" id="_skyFlg1" value="1" />
+									<label for="_skyFlg1">ゆうパックプリントSky</label>
+									<input type="checkbox" name="unitKbn" id="_skyFlg2" value="1" />
+									<label for="_skyFlg2">出荷単体</label>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td valign="bottom">
+						
+						<input  type="button" onClick="search();" value="検索"
+							
+						/>
+					</td>
+				</tr>
+			</table>
+		<script type='text/javascript'>function _SetDivStatus(){}function _ClearDivStatus(){}</script><A HREF='javaScript:hyde1(2);_SetDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_minus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=815px BORDER=0></NOBR></A></div><DIV ID='div2' style='display:none'><A HREF='javaScript:hyde1(1);_ClearDivStatus();' tabindex=-1 ><NOBR><IMG SRC='../ecsdocs2/img/img_J/line_plus.gif'  HEIGHT=14 WIDTH=50 BORDER=0><IMG SRC='../ecsdocs2/img/img_J/line.gif' HEIGHT=14 WIDTH=815px BORDER=0></NOBR></A></div><div style='margin-top:8'></div>
+		</form>
+		<br>
+		<!-- 一覧結果 -->
+		
+			
+			
+				<script type="text/javascript" src="../ecsdocs2/js/PageFeed.js"></script><style type="text/css">#win1{[position:absolute;left=2;width:310px;height:20px;border:1px solid #666666;}.title{background:#000;height:18px;color:#fff;cursor:move;background-image: url('../ecsdocs2/img/pagefeed_bg.gif');} </style><div id="win1" style="border:1px solid #AAAAAA; width:310px;"><div id="myDrag" style="width:310px; background:#000;height:18px;color:#fff;cursor:move; background-image: url('../ecsdocs2/img/pagefeed_bg.gif');" onMousedown="StartDrag(this)" onMouseup="StopDrag(this)" onMousemove="Drag(this)" ><font class="PAGEFEED" style="cursor:text">総件数：<B>88件</B></font></div><TABLE width='310' cellSpacing=0 cellPadding=0 border='0px'><TR><TD align='left'><TABLE  BORDER='0' CELLSPACING='0' CELLPADDING='0' WIDTH='300'><TR><TD><SELECT NAME='intPageSize' size='1' style='font-size:13px' onChange='popJump(this)'><OPTION  VALUE='10'>10行<OPTION  VALUE='15'>15行<OPTION  selected  VALUE='30'>30行<OPTION  VALUE='45'>45行<OPTION  VALUE='50'>50行<OPTION  VALUE='100'>100行<OPTION  VALUE='200'>200行<OPTION  VALUE='500'>500行</SELECT></TD><TD NOWRAP><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarleft_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(1)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnLeft_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='center'><font class='PAGEFEED'><SELECT NAME='go_page_pull' ID='go_page_pull' size='1' style='font-size:13px' onChange='goto_p_pull()'><OPTION  selected  VALUE='1'>1<OPTION   VALUE='2'>2<OPTION   VALUE='3'>3</SELECT>/3</font></TD><TD NOWRAP ALIGN='RIGHT'><A onclick='page_submit(2)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnRight_b.gif' BORDER='0' ALIGN='MIDDLE'></A><A onclick='page_submit(3)' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnBarright_b.gif' BORDER='0' ALIGN='MIDDLE'></A></TD><TD NOWRAP ALIGN='RIGHT'><INPUT TYPE='text' MAXLENGTH='6' class='num' style='width:21px;text-align:right;font-size:11px;ime-mode: disabled;' ID='go_page'><A onclick='goto_p()' onmouseover="style.cursor='hand'"><IMG SRC='../ecsdocs2/img/btnGo_b.gif' WIDTH='29' HEIGHT='17' ALIGN='absmiddle' BORDER='0'></A></TD></TR></TABLE></TD></TR></TABLE></DIV><span id='space1' style='height:50px;'></span><form name='formx' action='/easpro2/e_asproOption/OP010OptionList' method='post'><input type='hidden' name='backUrlKey' value=""><input type='hidden' name='intPageNo' value="1"><input type='hidden' name='intPageCount' value="3"><input type='hidden' name='intPageSize' value="30"><input type='hidden' name='intRecordCount' value="88"><input type='hidden' name='strToolbarX' value=""><input type='hidden' name='strToolbarY' value=""><input type='hidden' name='strSpaceHeight' value="50px"><input type='hidden' name='processType' value="2"><input type='hidden' name='searchKbn' value="2"><input type='hidden' name='coNo' value="0"><input type='hidden' name='compCd' value=""><input type='hidden' name='compNm' value=""><input type='hidden' name='btocRiyouFlg' value=""><input type='hidden' name='btocEcRiyouFlg' value=""><input type='hidden' name='btobRiyouFlg' value=""><input type='hidden' name='btobEcRiyouFlg' value=""><input type='hidden' name='wmsFlg' value=""><input type='hidden' name='syukkaRiyouFlg' value=""><input type='hidden' name='skyKbn' value=""><input type='hidden' name='unitKbn' value=""></form>
+				<table class="lt" width="560" style="border-width: 2px 2px 0px 2px;">
+					<col width="30"/>
+					<col width="180"/>
+					<col width="350"/>
+					<tr class="head">
+						<th>No</th>
+						<th>荷主コード</th>
+						<th>荷主名</th>
+					</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="1" >
+								1
+							</td>
+							<td nowrap="nowrap" align="left" title="test110">
+								<a href='javascript:tittleLink("3071")'>
+								test110</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="テスト荷主マスタ">
+								<nobr>テスト荷主マスタ</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="2" >
+								2
+							</td>
+							<td nowrap="nowrap" align="left" title="JP">
+								<a href='javascript:tittleLink("0")'>
+								JP</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:JP事務局">
+								<nobr>検証:JP事務局</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="3" >
+								3
+							</td>
+							<td nowrap="nowrap" align="left" title="aflacsgl">
+								<a href='javascript:tittleLink("3052")'>
+								aflacsgl</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:SGシステム株式会社">
+								<nobr>検証:SGシステム株式会社</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="4" >
+								4
+							</td>
+							<td nowrap="nowrap" align="left" title="1001328234000001">
+								<a href='javascript:tittleLink("3039")'>
+								1001328234000001</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:TAAS株式会社">
+								<nobr>検証:TAAS株式会社</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="5" >
+								5
+							</td>
+							<td nowrap="nowrap" align="left" title="mizuirob">
+								<a href='javascript:tittleLink("3068")'>
+								mizuirob</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:mizuiro株式会社（BtoB）">
+								<nobr>検証:mizuiro株式会社（BtoB）</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="6" >
+								6
+							</td>
+							<td nowrap="nowrap" align="left" title="mizuiroc">
+								<a href='javascript:tittleLink("3069")'>
+								mizuiroc</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:mizuiro株式会社（BtoC）">
+								<nobr>検証:mizuiro株式会社（BtoC）</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="7" >
+								7
+							</td>
+							<td nowrap="nowrap" align="left" title="exceeds">
+								<a href='javascript:tittleLink("15")'>
+								exceeds</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:toB+Cデモサイト">
+								<nobr>検証:toB+Cデモサイト</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="8" >
+								8
+							</td>
+							<td nowrap="nowrap" align="left" title="1001315972000001">
+								<a href='javascript:tittleLink("3019")'>
+								1001315972000001</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:アイシー製薬株式会社">
+								<nobr>検証:アイシー製薬株式会社</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="9" >
+								9
+							</td>
+							<td nowrap="nowrap" align="left" title="aqua">
+								<a href='javascript:tittleLink("2535")'>
+								aqua</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:アクアペットサービス">
+								<nobr>検証:アクアペットサービス</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="10" >
+								10
+							</td>
+							<td nowrap="nowrap" align="left" title="2001138537000001">
+								<a href='javascript:tittleLink("3038")'>
+								2001138537000001</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:カワムラフードサービス">
+								<nobr>検証:カワムラフードサービス</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="11" >
+								11
+							</td>
+							<td nowrap="nowrap" align="left" title="sonique">
+								<a href='javascript:tittleLink("21")'>
+								sonique</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:ソニック株式会社">
+								<nobr>検証:ソニック株式会社</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="12" >
+								12
+							</td>
+							<td nowrap="nowrap" align="left" title="demo">
+								<a href='javascript:tittleLink("10")'>
+								demo</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:デモサイト">
+								<nobr>検証:デモサイト</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="13" >
+								13
+							</td>
+							<td nowrap="nowrap" align="left" title="1001250616000001">
+								<a href='javascript:tittleLink("3016")'>
+								1001250616000001</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:ネクストオーダー株式会社">
+								<nobr>検証:ネクストオーダー株式会社</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="14" >
+								14
+							</td>
+							<td nowrap="nowrap" align="left" title="baci">
+								<a href='javascript:tittleLink("13")'>
+								baci</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:バーチ株式会社">
+								<nobr>検証:バーチ株式会社</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="15" >
+								15
+							</td>
+							<td nowrap="nowrap" align="left" title="1001277494000001">
+								<a href='javascript:tittleLink("27")'>
+								1001277494000001</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:ピンネ農業協同組合">
+								<nobr>検証:ピンネ農業協同組合</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="16" >
+								16
+							</td>
+							<td nowrap="nowrap" align="left" title="2001087383000002">
+								<a href='javascript:tittleLink("3056")'>
+								2001087383000002</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:稲津印刷　稲津敬史">
+								<nobr>検証:稲津印刷　稲津敬史</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="17" >
+								17
+							</td>
+							<td nowrap="nowrap" align="left" title="1001199542000002">
+								<a href='javascript:tittleLink("3026")'>
+								1001199542000002</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社4C’s（フォーシーズ）">
+								<nobr>検証:株式会社4C’s（フォーシーズ）</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="18" >
+								18
+							</td>
+							<td nowrap="nowrap" align="left" title="1001239650000003">
+								<a href='javascript:tittleLink("32")'>
+								1001239650000003</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社BKK">
+								<nobr>検証:株式会社BKK</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="19" >
+								19
+							</td>
+							<td nowrap="nowrap" align="left" title="1001309366000003">
+								<a href='javascript:tittleLink("3033")'>
+								1001309366000003</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社sugar">
+								<nobr>検証:株式会社sugar</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="20" >
+								20
+							</td>
+							<td nowrap="nowrap" align="left" title="1001309366000001">
+								<a href='javascript:tittleLink("3032")'>
+								1001309366000001</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社sugar">
+								<nobr>検証:株式会社sugar</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="21" >
+								21
+							</td>
+							<td nowrap="nowrap" align="left" title="1001118048000001">
+								<a href='javascript:tittleLink("33")'>
+								1001118048000001</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社　M.H.A">
+								<nobr>検証:株式会社　M.H.A</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="22" >
+								22
+							</td>
+							<td nowrap="nowrap" align="left" title="1000032469000002">
+								<a href='javascript:tittleLink("3018")'>
+								1000032469000002</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社　シューマート　通販部">
+								<nobr>検証:株式会社　シューマート　通販部</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="23" >
+								23
+							</td>
+							<td nowrap="nowrap" align="left" title="1001281111000001">
+								<a href='javascript:tittleLink("18")'>
+								1001281111000001</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社　デロリアンズ">
+								<nobr>検証:株式会社　デロリアンズ</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="24" >
+								24
+							</td>
+							<td nowrap="nowrap" align="left" title="1001191984000001">
+								<a href='javascript:tittleLink("35")'>
+								1001191984000001</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社　トリビュート">
+								<nobr>検証:株式会社　トリビュート</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="25" >
+								25
+							</td>
+							<td nowrap="nowrap" align="left" title="1000110592000013">
+								<a href='javascript:tittleLink("3048")'>
+								1000110592000013</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社　ハリカ">
+								<nobr>検証:株式会社　ハリカ</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="26" >
+								26
+							</td>
+							<td nowrap="nowrap" align="left" title="roa2">
+								<a href='javascript:tittleLink("3008")'>
+								roa2</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社　大麦工房ロア（宇都宮東局用）">
+								<nobr>検証:株式会社　大麦工房ロア（宇都宮東局用）</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="27" >
+								27
+							</td>
+							<td nowrap="nowrap" align="left" title="roa3">
+								<a href='javascript:tittleLink("3009")'>
+								roa3</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社　大麦工房ロア（高崎局用）">
+								<nobr>検証:株式会社　大麦工房ロア（高崎局用）</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="28" >
+								28
+							</td>
+							<td nowrap="nowrap" align="left" title="coconutcures">
+								<a href='javascript:tittleLink("12")'>
+								coconutcures</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社ＤＥＭＯ">
+								<nobr>検証:株式会社ＤＥＭＯ</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="29" >
+								29
+							</td>
+							<td nowrap="nowrap" align="left" title="1001285906000001">
+								<a href='javascript:tittleLink("3029")'>
+								1001285906000001</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社ＮｏｒｔｈＳｏｕｔｈ">
+								<nobr>検証:株式会社ＮｏｒｔｈＳｏｕｔｈ</nobr>
+							</td>
+						</tr>
+					
+						
+						<tr>
+							<td nowrap align="center" title="30" >
+								30
+							</td>
+							<td nowrap="nowrap" align="left" title="1900538073000112">
+								<a href='javascript:tittleLink("3007")'>
+								1900538073000112</a>
+							</td>
+							<td nowrap="nowrap"  align="left" title="検証:株式会社アイジ―">
+								<nobr>検証:株式会社アイジ―</nobr>
+							</td>
+						</tr>
+					
+				</table>
+			
+			
+		
+		<script type='text/javascript'>$(document).ready(function(){_PageInit('1','1','1','1','1','1');})</script>
+	</body>
+</html>
