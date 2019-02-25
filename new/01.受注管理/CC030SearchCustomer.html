@@ -8,110 +8,206 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 	<!-- <link rel="stylesheet" href="style.css"> -->
+	<style>
+		/* .control-label{
+			padding-top: 0.5 em;
+			padding-bottom: 0.5 em;
+		} */
+		.row {
+			padding-top: 0.5 em;
+			padding-bottom: 0.5 em;
+		}
+
+		td {
+			height: 100;
+		}
+
+		th {
+			font-weight: 400;
+		}
+	</style>
 	<title>会員選択</title>
 </head>
 
 <body>
 	<div class="container">
-		<div class="col-12">
-			<table class="table table-bordered">
+		<div class="col-12 pt-md-2 pt-sm-1">
+			<table class="table table-sm table-bordered">
 
 				<tr>
-					<th class="table-dark">お客様番号</th>
+					<th class="table-dark align-midde">お客様番号</th>
 					<td>
-						<input type="text" value="0" maxlength="10"> (前方一致)
+						<div class="row">
+							<div class="col-9 pr-1">
+								<input class="form-control" type="text" value="0" maxlength="10">
+							</div>
+							<label class="control-label col-3 pt-1 pl-0">(前方一致)
+							</label>
+						</div>
+
 					</td>
-					<th class="table-dark">注文者名</th>
+					<th class="table-dark align-midde">注文者名</th>
 					<td>
-						<input type="text" maxlength="20"> (部分一致)
+						<div class="row">
+							<div class="col-9 pr-1">
+								<input class="form-control" type="text" maxlength="20">
+							</div>
+							<label class="control-label col-3 pt-1 pl-0">(部分一致)</label>
+
+						</div>
+
 					</td>
 				</tr>
 				<tr>
-					<th class="table-dark">注文者住所</th>
+					<th class="table-dark align-midde">注文者住所</th>
 					<td>
-						<input type="text" maxlength="40"> (前方一致)
+						<div class="row">
+							<div class="col-9 pr-1">
+								<input class="form-control" type="text" maxlength="40">
+							</div>
+							<label class="control-label col-3 pt-1 pl-0">
+								(前方一致)
+							</label>
+						</div>
+
 					</td>
-					<th class="table-dark">電話番号</th>
+					<th class="table-dark align-midde">電話番号</th>
 					<td>
-						<input type="text" maxlength="15"> (前方一致)
+						<div class="row">
+							<div class="col-9 pr-1">
+								<input class="form-control p-0" type="text" maxlength="15">
+							</div>
+							<label class="control-label col-3 pt-1 pl-0">
+								(前方一致)
+							</label>
+						</div>
+
 					</td>
 				</tr>
 
 			</table>
 		</div>
-		<div class="col-6">
-			<table class="table table-responsive">
+		<div class="col-8">
+			<table class="table table-sm table-bordered">
 				<tbody>
 					<tr>
 						<td class="table-dark" colspan="6">総件数：<B>421件</B></td>
 					</tr>
 					<tr>
 						<td>
-							<select>
-								<OPTION VALUE='10'>10行
-								<OPTION VALUE='15'>15行
-								<OPTION selected VALUE='30'>30行
-								<OPTION VALUE='45'>45行
-								<OPTION VALUE='50'>50行
-								<OPTION VALUE='100'>100行
-								<OPTION VALUE='200'>200行
-								<OPTION VALUE='500'>500行
-							</select>
+							<div class="row">
+								<div class="col-3">
+
+									<select class="form-control">
+										<OPTION VALUE='10'>10行
+										<OPTION VALUE='15'>15行
+										<OPTION selected VALUE='30'>30行
+										<OPTION VALUE='45'>45行
+										<OPTION VALUE='50'>50行
+										<OPTION VALUE='100'>100行
+										<OPTION VALUE='200'>200行
+										<OPTION VALUE='500'>500行
+									</select>
+
+								</div>
+
+								<div class="col-1">
+
+									<div class="row">
+										<button type="button col-6" class="btn btn-light col-6">
+
+											<i class="fas fa-chevron-left fa-1px"></i>
+
+										</button>
+										<!-- <img src="../ecsdocs2/img/btnBarleft_b.gif"></a> -->
+
+										<button type="button col-6" class="btn btn-light col-6">
+
+											<i class="fas fa-angle-double-left fa-1px"></i>
+
+											<!-- <img src="../ecsdocs2/img/btnLeft_b.gif"> -->
+										</button>
+									</div>
+
+								</div>
+
+								<div class="col-3">
+
+									<select class="form-control">
+										<OPTION selected VALUE='1'>1
+										<OPTION VALUE='2'>2
+										<OPTION VALUE='3'>3
+										<OPTION VALUE='4'>4
+										<OPTION VALUE='5'>5
+										<OPTION VALUE='6'>6
+										<OPTION VALUE='7'>7
+										<OPTION VALUE='8'>8
+										<OPTION VALUE='9'>9
+										<OPTION VALUE='10'>10
+										<OPTION VALUE='11'>11
+										<OPTION VALUE='12'>12
+										<OPTION VALUE='13'>13
+										<OPTION VALUE='14'>14
+										<OPTION VALUE='15'>15
+									</select>
+
+								</div>
+
+								<div class="col-1">
+
+									<div class="row">
+										<button type="button col-6" class="btn btn-light col-6">
+
+											<i class="fas fa-chevron-right fa-1px"></i>
+
+										</button>
+										<!-- <img src="../ecsdocs2/img/btnBarleft_b.gif"></a> -->
+
+										<button type="button col-6" class="btn btn-light col-6">
+
+											<i class="fas fa-angle-double-right fa-1px"></i>
+
+											<!-- <img src="../ecsdocs2/img/btnLeft_b.gif"> -->
+										</button>
+									</div>
+
+								</div>
+
+								<div class="col-3 pr-2">
+
+									<input class="form-control" type="text" maxlength="6">
+
+								</div>
+
+								<div class="col-1 pl-0">
+
+									<button class="btn btn-light">
+										<i class="fas fa-tasks fa-1px"></i>
+									</button>
+
+								</div>
+
+							</div>
 						</td>
-						<td style="display:inline">
-							<a>
-								<img src="../ecsdocs2/img/btnBarleft_b.gif"></a>
-							<a>
-								<img src="../ecsdocs2/img/btnLeft_b.gif">
-							</a>
-						</td>
-						<td>
-							<select>
-								<OPTION selected VALUE='1'>1
-								<OPTION VALUE='2'>2
-								<OPTION VALUE='3'>3
-								<OPTION VALUE='4'>4
-								<OPTION VALUE='5'>5
-								<OPTION VALUE='6'>6
-								<OPTION VALUE='7'>7
-								<OPTION VALUE='8'>8
-								<OPTION VALUE='9'>9
-								<OPTION VALUE='10'>10
-								<OPTION VALUE='11'>11
-								<OPTION VALUE='12'>12
-								<OPTION VALUE='13'>13
-								<OPTION VALUE='14'>14
-								<OPTION VALUE='15'>15
-							</select>
-						</td>
-						<td style="display:inline">
-							<a>
-								<img src="../ecsdocs2/img/btnRight_b.gif"></a>
-							<a>
-								<img src="../ecsdocs2/img/btnBarright_b.gif">
-							</a>
-						</td>
-						<td>
-							<input type="text" maxlength="6">
-						</td>
-						<td>
-							<a>
-								<img src="../ecsdocs2/img/btnGo_b.gif">
-							</a>
-						</td>
+
+
+
+
+
+
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="col-md-12">
-			<table class="table table-bordered table-striped">
+			<table class="table table-hover table-sm table-bordered table-striped">
 				<tbody>
 					<tr>
-						<th class="table-dark">お客様番号</th>
-						<th class="table-dark">注文者名</th>
-						<th class="table-dark">注文者住所</th>
-						<th class="table-dark">電話番号１</th>
-						<th class="table-dark">電話番号２</th>
+						<th class="table-dark align-midde">お客様番号</th>
+						<th class="table-dark align-midde">注文者名</th>
+						<th class="table-dark align-midde">注文者住所</th>
+						<th class="table-dark align-midde">電話番号１</th>
+						<th class="table-dark align-midde">電話番号２</th>
 					</tr>
 					<tr>
 						<!--お客様番号-->
@@ -1849,6 +1945,16 @@
 						<!--電話番号2-->
 						<td align="left" title="">
 							<nobr></nobr>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							<div class="d-flex justify-content-center">
+								<a>
+									<input class="form-control" type="button" class="btn" value="閉じる">
+								</a>
+							</div>
+
 						</td>
 					</tr>
 				</tbody>
