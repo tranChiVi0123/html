@@ -1,0 +1,8 @@
+@charset "UTF-8";
+/**
+Viết global scss ở đây
+*/
+/**Các page thì import vào bên dưới.*/
+#CC030SearchCustomer {
+  display: block;
+}

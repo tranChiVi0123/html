@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+	<link rel="stylesheet" href="../css/global.css">
+	<style>
+		/* .control-label{
+			padding-top: 0.5 em;
+			padding-bottom: 0.5 em;
+		} */
+		.row {
+			padding-top: 0.5 em;
+			padding-bottom: 0.5 em;
+		}
+
+		td {
+			height: 100;
+		}
+
+		th {
+			font-weight: 400;
+		}
+	</style>
+	<title>会員選択</title>
+</head>
+
+<body>
+	<script id="__bs_script__">//<![CDATA[
+			document.write("<script async src='http://localhost:3000/browser-sync/browser-sync-client.js?v=2.26.3'><\/script>".replace("HOST", location.hostname));
+	//]]></script>
+	<div class="container">
+		<div class="col-12 pt-md-2 pt-sm-1">
+			<table class="table table-sm table-bordered">
+
+				<tr>
+					<th class="table-dark align-midde">お客様番号</th>
+					<td>
+						<div class="row">
+							<div class="col-9 pr-1">
+								<input class="form-control" type="text" value="0" maxlength="10">
+							</div>
+							<label class="control-label col-3 pt-1 pl-0">(前方一致)
+							</label>
+						</div>
+
+					</td>
+					<th class="table-dark align-midde">注文者名</th>
+					<td>
+						<div class="row">
+							<div class="col-9 pr-1">
+								<input class="form-control" type="text" maxlength="20">
+							</div>
+							<label class="control-label col-3 pt-1 pl-0">(部分一致)</label>
+
+						</div>
+
+					</td>
+				</tr>
+				<tr>
+					<th class="table-dark align-midde">注文者住所</th>
+					<td>
+						<div class="row">
+							<div class="col-9 pr-1">
+								<input class="form-control" type="text" maxlength="40">
+							</div>
+							<label class="control-label col-3 pt-1 pl-0">
+								(前方一致)
+							</label>
+						</div>
+
+					</td>
+					<th class="table-dark align-midde">電話番号</th>
+					<td>
+						<div class="row">
+							<div class="col-9 pr-1">
+								<input class="form-control p-0" type="text" maxlength="15">
+							</div>
+							<label class="control-label col-3 pt-1 pl-0">
+								(前方一致)
+							</label>
+						</div>
+
+					</td>
+				</tr>
+
+			</table>
+		</div>
+		<div class="col-8">
+			<table class="table table-sm table-bordered">
+				<tbody>
+					<tr>
+						<td class="table-dark" colspan="6">総件数：<B>421件</B></td>
+					</tr>
+					<tr>
+						<td>
+							<div class="row">
+								<div class="col-md-3 col-sm-12">
+
+									<select class="form-control">
+										<OPTION VALUE='10'>10行
+										<OPTION VALUE='15'>15行
+										<OPTION selected VALUE='30'>30行
+										<OPTION VALUE='45'>45行
+										<OPTION VALUE='50'>50行
+										<OPTION VALUE='100'>100行
+										<OPTION VALUE='200'>200行
+										<OPTION VALUE='500'>500行
+									</select>
+
+								</div>
+
+								<div class="col-md-1 col-sm-3 d-flex justify-content-center">
+
+									<div class="row">
+										<button type="button col-6" class="btn btn-light col-6">
+
+											<i class="fas fa-chevron-left fa-1px"></i>
+
+										</button>
+										<!-- <img src="../ecsdocs2/img/btnBarleft_b.gif"></a> -->
+
+										<button type="button col-6" class="btn btn-light col-6">
+
+											<i class="fas fa-angle-double-left fa-1px"></i>
+
+											<!-- <img src="../ecsdocs2/img/btnLeft_b.gif"> -->
+										</button>
+									</div>
+
+								</div>
+
+								<div class="col-md-3 col-sm-6">
+
+									<select class="form-control">
+										<OPTION selected VALUE='1'>1
+										<OPTION VALUE='2'>2
+										<OPTION VALUE='3'>3
+										<OPTION VALUE='4'>4
+										<OPTION VALUE='5'>5
+										<OPTION VALUE='6'>6
+										<OPTION VALUE='7'>7
+										<OPTION VALUE='8'>8
+										<OPTION VALUE='9'>9
+										<OPTION VALUE='10'>10
+										<OPTION VALUE='11'>11
+										<OPTION VALUE='12'>12
+										<OPTION VALUE='13'>13
+										<OPTION VALUE='14'>14
+										<OPTION VALUE='15'>15
+									</select>
+
+								</div>
+
+								<div class="col-md-1 col-sm-3 d-flex justify-content-center">
+
+									<div class="row">
+										<button type="button col-6" class="btn btn-light col-6">
+
+											<i class="fas fa-angle-double-right fa-1px"></i>
+
+											<!-- <img src="../ecsdocs2/img/btnLeft_b.gif"> -->
+										</button>
+										<button type="button col-6" class="btn btn-light col-6">
+
+											<i class="fas fa-chevron-right fa-1px"></i>
+
+										</button>
+										<!-- <img src="../ecsdocs2/img/btnBarleft_b.gif"></a> -->
+
+
+									</div>
+
+								</div>
+
+								<div class="col-md-3 col-sm-10 pr-2">
+
+									<input class="form-control" type="text" maxlength="6">
+
+								</div>
+
+								<div class="col-md-1 col-sm-2 pl-0 d-flex justify-content-center">
+
+									<button class="btn btn-light">
+										<i class="fas fa-tasks fa-1px"></i>
+									</button>
+
+								</div>
+
+							</div>
+						</td>
+
+
+
+
+
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-12">
+			<table class="table table-hover table-sm table-bordered table-striped">
+				<tbody>
+					<tr>
+						<th class="table-dark align-midde">お客様番号</th>
+						<th class="table-dark align-midde">注文者名</th>
+						<th class="table-dark align-midde">注文者住所</th>
+						<th class="table-dark align-midde">電話番号１</th>
+						<th class="table-dark align-midde">電話番号２</th>
+					</tr>
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000001">
+							<a href="javascript:SetValue('1',
+																		'0000000001',
+																		'',
+																		'木野',
+																		'雅子',
+																		'キノ',
+																		'マサコ',
+																		'227-0067',
+																		'26',
+																		'神奈川県横浜市青葉区松風台9-9',
+																		'',
+																		'',
+																		'045-983-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000001</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="木野雅子">
+							<nobr>木野雅子</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="神奈川県横浜市青葉区松風台9-9">
+							<nobr>神奈川県横浜市青葉区松風台9-9</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="045-983-9999">
+							<nobr>045-983-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000002">
+							<a href="javascript:SetValue('2',
+																		'0000000002',
+																		'',
+																		'有限会社三浦重機',
+																		'',
+																		'',
+																		'',
+																		'238-0101',
+																		'26',
+																		'神奈川県三浦市南下浦町上宮田9999-9',
+																		'',
+																		'',
+																		'046-888-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/01/30',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000002</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="有限会社三浦重機">
+							<nobr>有限会社三浦重機</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="神奈川県三浦市南下浦町上宮田9999-9">
+							<nobr>神奈川県三浦市南下浦町上宮田9999-9</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="046-888-9999">
+							<nobr>046-888-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000003">
+							<a href="javascript:SetValue('3',
+																		'0000000003',
+																		'',
+																		'藤井',
+																		'美惠子',
+																		'フジイ',
+																		'ミエコ',
+																		'703-8242',
+																		'64',
+																		'岡山県岡山市中区高島',
+																		'9-9-9　D999-9',
+																		'',
+																		'086-275-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/01/31',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'2',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000003</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="藤井美惠子">
+							<nobr>藤井美惠子</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="岡山県岡山市中区高島9-9-9　D999-9">
+							<nobr>岡山県岡山市中区高島9-9-9　D999-9</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="086-275-9999">
+							<nobr>086-275-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000004">
+							<a href="javascript:SetValue('4',
+																		'0000000004',
+																		'',
+																		'尾崎',
+																		'ﾔｽｼﾞ',
+																		'オザキ',
+																		'',
+																		'188-0013',
+																		'25',
+																		'東京都西東京市向台町9-99-99',
+																		'',
+																		'',
+																		'042-458-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/02',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'1',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000004</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="尾崎ﾔｽｼﾞ">
+							<nobr>尾崎ﾔｽｼﾞ</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="東京都西東京市向台町9-99-99">
+							<nobr>東京都西東京市向台町9-99-99</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="042-458-9999">
+							<nobr>042-458-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000005">
+							<a href="javascript:SetValue('5',
+																		'0000000005',
+																		'',
+																		'増田',
+																		'尚美',
+																		'マスダ',
+																		'',
+																		'649-3503',
+																		'61',
+																		'和歌山県東牟婁郡串本町串本9999',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/01/30',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'2',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000005</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="増田尚美">
+							<nobr>増田尚美</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="和歌山県東牟婁郡串本町串本9999">
+							<nobr>和歌山県東牟婁郡串本町串本9999</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000006">
+							<a href="javascript:SetValue('6',
+																		'0000000006',
+																		'',
+																		'高橋',
+																		'まなぶ',
+																		'タカハシ',
+																		'マナブ',
+																		'332-0004',
+																		'23',
+																		'埼玉県川口市領家9-9-9',
+																		'',
+																		'',
+																		'048-223-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/03',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'1',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000006</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="高橋まなぶ">
+							<nobr>高橋まなぶ</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="埼玉県川口市領家9-9-9">
+							<nobr>埼玉県川口市領家9-9-9</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="048-223-9999">
+							<nobr>048-223-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000007">
+							<a href="javascript:SetValue('7',
+																		'0000000007',
+																		'',
+																		'たかはし',
+																		'かずあき',
+																		'タカハシ',
+																		'',
+																		'214-0021',
+																		'26',
+																		'神奈川県川崎市多摩区宿河原9-99-9',
+																		'プレインハウス999',
+																		'',
+																		'044-911-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/03',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'1',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000007</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="たかはしかずあき">
+							<nobr>たかはしかずあき</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="神奈川県川崎市多摩区宿河原9-99-9プレインハウス999">
+							<nobr>神奈川県川崎市多摩区宿河原9-99-9プレインハウス999</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="044-911-9999">
+							<nobr>044-911-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000008">
+							<a href="javascript:SetValue('8',
+																		'0000000008',
+																		'',
+																		'青山',
+																		'涼日',
+																		'アオヤマ',
+																		'ｽｽﾞｶ',
+																		'510-0948',
+																		'44',
+																		'三重県四日市市室山町99-9',
+																		'',
+																		'',
+																		'080-5236-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/03',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'2',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000008</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="青山涼日">
+							<nobr>青山涼日</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="三重県四日市市室山町99-9">
+							<nobr>三重県四日市市室山町99-9</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="080-5236-9999">
+							<nobr>080-5236-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000009">
+							<a href="javascript:SetValue('9',
+																		'0000000009',
+																		'',
+																		'飯沼　',
+																		'寿充',
+																		'イイヌマ',
+																		'ヒサミツ',
+																		'879-2461',
+																		'90',
+																		'大分県津久見市上青江9999-9',
+																		'',
+																		'',
+																		'0972-82-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/04',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000009</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="飯沼　寿充">
+							<nobr>飯沼　寿充</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="大分県津久見市上青江9999-9">
+							<nobr>大分県津久見市上青江9999-9</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="0972-82-9999">
+							<nobr>0972-82-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000010">
+							<a href="javascript:SetValue('10',
+																		'0000000010',
+																		'',
+																		'渡辺',
+																		'剛樹',
+																		'ワタナベ',
+																		'ゴウキ',
+																		'249-0003',
+																		'26',
+																		'神奈川県逗子市池子9-9-9',
+																		'',
+																		'',
+																		'046-8736-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000010</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="渡辺剛樹">
+							<nobr>渡辺剛樹</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="神奈川県逗子市池子9-9-9">
+							<nobr>神奈川県逗子市池子9-9-9</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="046-8736-9999">
+							<nobr>046-8736-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000011">
+							<a href="javascript:SetValue('11',
+																		'0000000011',
+																		'',
+																		'杉崎',
+																		'仁樹',
+																		'',
+																		'',
+																		'273-0048',
+																		'24',
+																		'千葉県船橋市丸山9-9-9',
+																		'',
+																		'',
+																		'08011939999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/05',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000011</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="杉崎仁樹">
+							<nobr>杉崎仁樹</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="千葉県船橋市丸山9-9-9">
+							<nobr>千葉県船橋市丸山9-9-9</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="08011939999">
+							<nobr>08011939999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000012">
+							<a href="javascript:SetValue('12',
+																		'0000000012',
+																		'',
+																		'伊佐',
+																		'公',
+																		'',
+																		'',
+																		'915-0015',
+																		'33',
+																		'福井県越前市大手町9-9-9',
+																		'仁愛大学　Ｇ館事務室',
+																		'',
+																		'0778-27-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/05',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000012</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="伊佐公">
+							<nobr>伊佐公</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="福井県越前市大手町9-9-9仁愛大学　Ｇ館事務室">
+							<nobr>福井県越前市大手町9-9-9仁愛大学　Ｇ館事務室</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="0778-27-9999">
+							<nobr>0778-27-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000013">
+							<a href="javascript:SetValue('13',
+																		'0000000013',
+																		'',
+																		'内田',
+																		'恵美',
+																		'ウチダ',
+																		'エミ',
+																		'112-0002',
+																		'25',
+																		'東京都文京区小石川9-99-9',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/06',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000013</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="内田恵美">
+							<nobr>内田恵美</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="東京都文京区小石川9-99-9">
+							<nobr>東京都文京区小石川9-99-9</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000014">
+							<a href="javascript:SetValue('14',
+																		'0000000014',
+																		'',
+																		'今',
+																		'由佳',
+																		'コン',
+																		'',
+																		'038-0004',
+																		'02',
+																		'青森県青森市富田9-9-99',
+																		'',
+																		'',
+																		'090-7331-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/06',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000014</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="今由佳">
+							<nobr>今由佳</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="青森県青森市富田9-9-99">
+							<nobr>青森県青森市富田9-9-99</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="090-7331-9999">
+							<nobr>090-7331-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000015">
+							<a href="javascript:SetValue('15',
+																		'0000000015',
+																		'',
+																		'丸田',
+																		'伸夫',
+																		'マルタ',
+																		'ノブオ',
+																		'284-0044',
+																		'24',
+																		'千葉県四街道市和良比999-99',
+																		'',
+																		'',
+																		'09034339999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/06',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000015</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="丸田伸夫">
+							<nobr>丸田伸夫</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="千葉県四街道市和良比999-99">
+							<nobr>千葉県四街道市和良比999-99</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="09034339999">
+							<nobr>09034339999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000016">
+							<a href="javascript:SetValue('16',
+																		'0000000016',
+																		'',
+																		'大野',
+																		'さと子',
+																		'オオノ',
+																		'サトコ',
+																		'350-0463',
+																		'23',
+																		'埼玉県入間郡毛呂山町前久保南',
+																		'9-99-99',
+																		'',
+																		'',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000016</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="大野さと子">
+							<nobr>大野さと子</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="埼玉県入間郡毛呂山町前久保南9-99-99">
+							<nobr>埼玉県入間郡毛呂山町前久保南9-99-99</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000017">
+							<a href="javascript:SetValue('17',
+																		'0000000017',
+																		'',
+																		'大野',
+																		'さと美',
+																		'オオノ',
+																		'サトミ',
+																		'350-0463',
+																		'23',
+																		'埼玉県入間郡毛呂山町前久保北',
+																		'9-99-99',
+																		'',
+																		'',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000017</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="大野さと美">
+							<nobr>大野さと美</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="埼玉県入間郡毛呂山町前久保北9-99-99">
+							<nobr>埼玉県入間郡毛呂山町前久保北9-99-99</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000018">
+							<a href="javascript:SetValue('18',
+																		'0000000018',
+																		'',
+																		'大野',
+																		'さと子',
+																		'オオノ',
+																		'サトコ',
+																		'350-0463',
+																		'23',
+																		'埼玉県入間郡毛呂山町前久保南',
+																		'9-99-99',
+																		'',
+																		'',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000018</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="大野さと子">
+							<nobr>大野さと子</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="埼玉県入間郡毛呂山町前久保南9-99-99">
+							<nobr>埼玉県入間郡毛呂山町前久保南9-99-99</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000019">
+							<a href="javascript:SetValue('19',
+																		'0000000019',
+																		'',
+																		'大野',
+																		'さと子',
+																		'オオノ',
+																		'サトコ',
+																		'350-0463',
+																		'23',
+																		'埼玉県入間郡毛呂山町前久保南',
+																		'9-99-99',
+																		'',
+																		'',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/07',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000019</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="大野さと子">
+							<nobr>大野さと子</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="埼玉県入間郡毛呂山町前久保南9-99-99">
+							<nobr>埼玉県入間郡毛呂山町前久保南9-99-99</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000020">
+							<a href="javascript:SetValue('20',
+																		'0000000020',
+																		'',
+																		'大河原',
+																		'さとみ',
+																		'オオガワラ',
+																		'サトミ',
+																		'197-0004',
+																		'25',
+																		'東京都福生市南田園9-9',
+																		'福生団地99-999',
+																		'',
+																		'',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/09',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000020</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="大河原さとみ">
+							<nobr>大河原さとみ</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="東京都福生市南田園9-9福生団地99-999">
+							<nobr>東京都福生市南田園9-9福生団地99-999</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000021">
+							<a href="javascript:SetValue('21',
+																		'0000000021',
+																		'',
+																		'田中',
+																		'満信',
+																		'',
+																		'',
+																		'812-0062',
+																		'81',
+																		'福岡県福岡市東区松島９丁目99-99',
+																		'株式会社 長山フーズファクトリー',
+																		'',
+																		'092-612-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/09',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000021</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="田中満信">
+							<nobr>田中満信</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="福岡県福岡市東区松島９丁目99-99株式会社 長山フーズファクトリー">
+							<nobr>福岡県福岡市東区松島９丁目99-99株式会社 長山フーズファクトリー</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="092-612-9999">
+							<nobr>092-612-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000022">
+							<a href="javascript:SetValue('22',
+																		'0000000022',
+																		'',
+																		'若月',
+																		'昭紀',
+																		'ワカツキ',
+																		'',
+																		'737-0908',
+																		'70',
+																		'広島県呉市焼山宮ケ迫一丁目99番99号',
+																		'',
+																		'',
+																		'09068479999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/12',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000022</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="若月昭紀">
+							<nobr>若月昭紀</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="広島県呉市焼山宮ケ迫一丁目99番99号">
+							<nobr>広島県呉市焼山宮ケ迫一丁目99番99号</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="09068479999">
+							<nobr>09068479999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000023">
+							<a href="javascript:SetValue('23',
+																		'0000000023',
+																		'',
+																		'増田',
+																		'尚美',
+																		'',
+																		'ナオミ',
+																		'649-3503',
+																		'61',
+																		'和歌山県東牟婁郡串本町串本9999',
+																		'',
+																		'',
+																		'0735-62-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/12',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'2',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000023</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="増田尚美">
+							<nobr>増田尚美</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="和歌山県東牟婁郡串本町串本9999">
+							<nobr>和歌山県東牟婁郡串本町串本9999</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="0735-62-9999">
+							<nobr>0735-62-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000024">
+							<a href="javascript:SetValue('24',
+																		'0000000024',
+																		'',
+																		'宇田川',
+																		'久美',
+																		'ウダアガワウダカ',
+																		'',
+																		'947-0054',
+																		'30',
+																		'新潟県小千谷市若葉9-999-9',
+																		'サンコーポラス若葉9-999',
+																		'',
+																		'0258-83-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/12',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000024</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="宇田川久美">
+							<nobr>宇田川久美</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="新潟県小千谷市若葉9-999-9サンコーポラス若葉9-999">
+							<nobr>新潟県小千谷市若葉9-999-9サンコーポラス若葉9-999</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="0258-83-9999">
+							<nobr>0258-83-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000025">
+							<a href="javascript:SetValue('25',
+																		'0000000025',
+																		'',
+																		'大石',
+																		'美和',
+																		'オオイシ',
+																		'',
+																		'989-2436',
+																		'04',
+																		'宮城県岩沼市吹上9-99-99',
+																		'',
+																		'',
+																		'090-3983-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/13',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000025</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="大石美和">
+							<nobr>大石美和</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="宮城県岩沼市吹上9-99-99">
+							<nobr>宮城県岩沼市吹上9-99-99</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="090-3983-9999">
+							<nobr>090-3983-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000026">
+							<a href="javascript:SetValue('26',
+																		'0000000026',
+																		'',
+																		'豊岡',
+																		'信子',
+																		'トヨオカ',
+																		'ノブコ',
+																		'944-0017',
+																		'30',
+																		'新潟県妙高市中央町9-99',
+																		'',
+																		'',
+																		'0255-72-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/16',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000026</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="豊岡信子">
+							<nobr>豊岡信子</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="新潟県妙高市中央町9-99">
+							<nobr>新潟県妙高市中央町9-99</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="0255-72-9999">
+							<nobr>0255-72-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000027">
+							<a href="javascript:SetValue('27',
+																		'0000000027',
+																		'',
+																		'ムラセ　',
+																		'マコト',
+																		'ムラセ　',
+																		'マコト',
+																		'176-0021',
+																		'25',
+																		'東京都練馬区貫井9-99-99',
+																		'富士見台第二ファミリーマンション999号室',
+																		'',
+																		'090-2434-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/18',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000027</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="ムラセ　マコト">
+							<nobr>ムラセ　マコト</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="東京都練馬区貫井9-99-99富士見台第二ファミリーマンション999号室">
+							<nobr>東京都練馬区貫井9-99-99富士見台第二ファミリーマンション999号室</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="090-2434-9999">
+							<nobr>090-2434-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000028">
+							<a href="javascript:SetValue('28',
+																		'0000000028',
+																		'',
+																		'ミツイ',
+																		'ソウ',
+																		'ミツイ',
+																		'ソウ',
+																		'386-0012',
+																		'40',
+																		'長野県上田市中央9-99-99',
+																		'',
+																		'',
+																		'080-4332-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/21',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000028</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="ミツイソウ">
+							<nobr>ミツイソウ</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="長野県上田市中央9-99-99">
+							<nobr>長野県上田市中央9-99-99</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="080-4332-9999">
+							<nobr>080-4332-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000029">
+							<a href="javascript:SetValue('29',
+																		'0000000029',
+																		'',
+																		'飛田',
+																		'',
+																		'トビタ',
+																		'',
+																		'247-0012',
+																		'26',
+																		'神奈川県横浜市栄区若竹町99-9',
+																		'',
+																		'',
+																		'045-892-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/24',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000029</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="飛田">
+							<nobr>飛田</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="神奈川県横浜市栄区若竹町99-9">
+							<nobr>神奈川県横浜市栄区若竹町99-9</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="045-892-9999">
+							<nobr>045-892-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+
+
+					<tr>
+						<!--お客様番号-->
+						<td align="left" title="0000000030">
+							<a href="javascript:SetValue('30',
+																		'0000000030',
+																		'',
+																		'東',
+																		'ﾘｮｳｲﾁ',
+																		'アヅマ',
+																		'',
+																		'661-0967',
+																		'59',
+																		'兵庫県尼崎市浜9-9-99',
+																		'',
+																		'',
+																		'06-4965-9999',
+																		'',
+																		'',
+																		
+																		'',
+																		'',
+																		'',
+																		'2015/02/24',
+																		'9',
+																		'1',
+																		'', 
+																		'',
+																		'',
+																		'',
+																		'',
+																		'',
+																		'9',
+																		'',
+																		'kokyaku')">
+
+								<nobr>0000000030</nobr>
+							</a>
+						</td>
+
+						<!--注文者名-->
+						<td align="left" title="東ﾘｮｳｲﾁ">
+							<nobr>東ﾘｮｳｲﾁ</nobr>
+						</td>
+						<!--注文者住所-->
+						<td align="left" title="兵庫県尼崎市浜9-9-99">
+							<nobr>兵庫県尼崎市浜9-9-99</nobr>
+						</td>
+						<!--電話番号1-->
+						<td align="left" title="06-4965-9999">
+							<nobr>06-4965-9999</nobr>
+						</td>
+						<!--電話番号2-->
+						<td align="left" title="">
+							<nobr></nobr>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							<div class="d-flex justify-content-center">
+								<a>
+									<input class="form-control" type="button" class="btn" value="閉じる">
+								</a>
+							</div>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
