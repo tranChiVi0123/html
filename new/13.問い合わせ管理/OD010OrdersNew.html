@@ -22,10 +22,10 @@
         <p style="color: red;font-weight:bold;" id="errmsg">
 
         </p>
-        <div class="col-6">
+        <div class="col-xl">
             <div class="row">
                 <font size="2" color="#ff9900">■</font>
-                <font size="2">受注基本情報　</font>
+                <font size="2">受注基本情報</font>
                 <br />
                 <table class="table table-bordered table-sm table-hover ">
                     <tbody>
@@ -33,7 +33,7 @@
                             <th bgcolor="#A9A9A9">注文区分</th>
                             <td style="">
 
-                                <select class="form-control">
+                                <select class="form-control" >
 
                                     <option value="01">電話</option>
 
@@ -74,9 +74,10 @@
                             </td>
                             <th bgcolor="#A9A9A9">届先件数</th>
                             <td>
-                                <input type='text' name='tdkCnt' id='tdkCnt' value='1' onpaste='_chkInp();'
-                                    ondrop='_chkInp();' onkeypress='_chkInp();' class='disp' readonly
-                                    style='tabindex : 1'> </input>件
+                                <div class="d-flex">
+                                    <input class="form-control col-md"> </input>
+                                    <label> 件 </label>
+                                </div>
 
 
                             </td>
@@ -91,26 +92,27 @@
                 <font size="2">注文者情報<br /></font>
                 <table class="table table-bordered table-sm table-hover ">
                     <tbody>
-                        <tr>
-                            <th bgcolor="#A9A9A9">お客様番号</th>
-                            <td colspan="3">
-                                <input type="hidden" name="kokyakuCd" id="kokyakuCd" value="-1" /><input type="hidden"
-                                    name="kokyakuNo" id="kokyakuNo" value="-1" />
-                                <span id="kokyakuCdDisp">【新規】</span>
+                        <div class="row">
+                            <tr>
+                                <th bgcolor="#A9A9A9">お客様番号</th>
+                                <td colspan="3">
+                                    <input type="hidden" name="kokyakuCd" id="kokyakuCd" value="-1" /><input
+                                        type="hidden" name="kokyakuNo" id="kokyakuNo" value="-1" />
+                                    <span id="kokyakuCdDisp">【新規】</span>
 
-                                <a href="javascript:void(0)" onclick="showCC030('kokyaku');">
-                                    <img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="middle"
-                                        border="0" /></a>
-                                <button type="button" class="btn btn-sm btn-secondary">
-                                    ブラック顧客へ追加
-                                </button>
-                            </td>
-                        </tr>
+                                    <a href="javascript:void(0)" onclick="showCC030('kokyaku');">
+                                        <img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17"
+                                            align="middle" border="0" /></a>
+                                    <button type="button" class="btn btn-sm btn-primary">
+                                        ブラック顧客へ追加
+                                    </button>
+                                </td>
+                            </tr>
+                        </div>
                         <tr>
                             <th bgcolor="#A9A9A9">外部コード</th>
                             <td colspan="3">
-                                <input type="text" name="gaibuCd" id="gaibuCd" size="20" value="" maxlength="15"
-                                    class="code" onkeypress="_chkInp();" style="" />
+                                <input maxlength="15" class="form-control col-md-6 col-sm-4 " />
 
                             </td>
                         </tr>
@@ -128,7 +130,7 @@
                                         <label class="control-label">2:</label>
                                         <input type='text' name='kokyakuNm2' id='kokyakuNm2' value=''
                                             onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();'
-                                            class='multi' maxlength='25' > </input>
+                                            class='multi' maxlength='25'> </input>
                                     </div>
                                 </div>
 
@@ -142,7 +144,7 @@
                                         <label class="control-label">1:</label>
                                         <input type='text' name='kokyakuNm1' id='kokyakuNm1' value=''
                                             onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();'
-                                            class='multi' maxlength='25' > </input>
+                                            class='multi' maxlength='25'> </input>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label class="control-label">2:</label>
@@ -184,8 +186,7 @@
                                             <td>
                                                 <input type="hidden" name="kokyakuKenCd" id="kokyakuKenCd" value="" />
                                                 <input type="text" name="kokyakuAddr1" id="kokyakuAddr1" size="50"
-                                                    value="" maxlength="50" class="multi chgInfo"
-                                                    />
+                                                    value="" maxlength="50" class="multi chgInfo" />
 
                                             </td>
                                         </tr>
@@ -236,12 +237,12 @@
                             <td colspan="3">
 
                                 1：<input type='text' name='kokyakuMail1' id='kokyakuMail1' value='' onpaste='_chkInp();'
-                                    ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='mail' maxlength='85'
-                                    > </input>
+                                    ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='mail' maxlength='85'>
+                                </input>
                                 <br />
                                 2：<input type='text' name='kokyakuMail2' id='kokyakuMail2' value='' onpaste='_chkInp();'
-                                    ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='mail' maxlength='85'
-                                    > </input>
+                                    ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='mail' maxlength='85'>
+                                </input>
                             </td>
                         </tr>
                         <tr>
@@ -255,8 +256,8 @@
                             </td>
                             <th bgcolor="#A9A9A9">生年月日</th>
                             <td>
-                                <input type='text' name='kokyakuBirth'  maxlength=10 value=''
-                                    onkeypress='_chkInp();' id='kokyakuBirth'
+                                <input type='text' name='kokyakuBirth' maxlength=10 value='' onkeypress='_chkInp();'
+                                    id='kokyakuBirth'
                                     onchange='calcAge("#kokyakuBirth","#kokyakuAge",null,null,null,true);'
                                     onblur='_formateDate(this,"生年月日は日付を入力して下さい。");calcAge("#kokyakuBirth","#kokyakuAge",null,null,null,true);'
                                     class='ymd' /><a href='#' id='kokyakuBirth_calendar_link_id' tabindex=-1>
