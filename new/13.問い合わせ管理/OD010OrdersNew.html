@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
+</head>
+
+<body>
+    <div class="container">
+        <img src='../ecsdocs2/img/head_jutyuu.gif' alt='' align='middle' border='0'>
+        <div class="pt">受注入力
+        </div>
+        <br>
+        <br>
+        <a name="errMsg"></a>
+        <p style="color: red;font-weight:bold;" id="errmsg">
+
+        </p>
+        <div class="col-6">
+            <div class="row">
+                <font size="2" color="#ff9900">■</font>
+                <font size="2">受注基本情報　</font>
+                <br />
+                <table class="table table-bordered table-sm table-hover ">
+                    <tbody>
+                        <tr>
+                            <th bgcolor="#A9A9A9">注文区分</th>
+                            <td style="">
+
+                                <select class="form-control">
+
+                                    <option value="01">電話</option>
+
+                                    <option value="02">ＦＡＸ</option>
+
+                                    <option value="03">ハガキ</option>
+
+                                    <option value="07">PCサイト</option>
+
+                                    <option value="08">スマホサイト</option>
+
+                                    <option value="10">外部モール</option>
+
+                                </select>
+
+
+                            </td>
+                            <th bgcolor="#A9A9A9">媒体名</th>
+                            <td>
+
+                                <select class="form-control">
+
+                                    <option value=""></option>
+
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#A9A9A9">ギフト</th>
+                            <td>
+                                <SELECT class="form-control">
+                                    <OPTION VALUE='0' SELECTED></OPTION>
+                                    <OPTION VALUE='1'>ギフト</OPTION>
+                                    <OPTION VALUE='2'>お中元</OPTION>
+                                    <OPTION VALUE='3'>お歳暮</OPTION>
+                                </SELECT>
+                            </td>
+                            <th bgcolor="#A9A9A9">届先件数</th>
+                            <td>
+                                <input type='text' name='tdkCnt' id='tdkCnt' value='1' onpaste='_chkInp();'
+                                    ondrop='_chkInp();' onkeypress='_chkInp();' class='disp' readonly
+                                    style='tabindex : 1'> </input>件
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+            <div class="row">
+                <font size="2" color="#ff9900">■</font>
+                <font size="2">注文者情報<br /></font>
+                <table class="table table-bordered table-sm table-hover ">
+                    <tbody>
+                        <tr>
+                            <th bgcolor="#A9A9A9">お客様番号</th>
+                            <td colspan="3">
+                                <input type="hidden" name="kokyakuCd" id="kokyakuCd" value="-1" /><input type="hidden"
+                                    name="kokyakuNo" id="kokyakuNo" value="-1" />
+                                <span id="kokyakuCdDisp">【新規】</span>
+
+                                <a href="javascript:void(0)" onclick="showCC030('kokyaku');">
+                                    <img src="../ecsdocs2/img/hatena2.gif" alt="" width="17" height="17" align="middle"
+                                        border="0" /></a>
+                                <button type="button" class="btn btn-sm btn-secondary">
+                                    ブラック顧客へ追加
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#A9A9A9">外部コード</th>
+                            <td colspan="3">
+                                <input type="text" name="gaibuCd" id="gaibuCd" size="20" value="" maxlength="15"
+                                    class="code" onkeypress="_chkInp();" style="" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="must" bgcolor="#A9A9A9" style="color:#cc3300">注文者名</th>
+                            <td colspan="3">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label class="control-label">1:</label>
+                                        <input type='text' name='kokyakuNm1' id='kokyakuNm1' value=''
+                                            onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();'
+                                            class='multi' maxlength='25' style='width:126.40px;'> </input>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label class="control-label">2:</label>
+                                        <input type='text' name='kokyakuNm2' id='kokyakuNm2' value=''
+                                            onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();'
+                                            class='multi' maxlength='25' > </input>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#A9A9A9">注文者カナ</th>
+                            <td colspan="3">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label class="control-label">1:</label>
+                                        <input type='text' name='kokyakuNm1' id='kokyakuNm1' value=''
+                                            onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();'
+                                            class='multi' maxlength='25' > </input>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label class="control-label">2:</label>
+                                        <input type='text' name='kokyakuNm2' id='kokyakuNm2' value=''
+                                            onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();'
+                                            class='multi' maxlength='25' style='width:126.40px;'> </input>
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    //カナ自動入力
+                                    var auto_kana_1 = new AutoKana('kokyakuNm1', 'kokyakuKana1', { katakana: true, toggle: false });
+                                    var auto_kana_2 = new AutoKana('kokyakuNm2', 'kokyakuKana2', { katakana: true, toggle: false });
+                                </script>
+
+                            </td>
+                        </tr>
+                        <tr style="min-height:60px;">
+                            <th class="must" bgcolor="#A9A9A9" style="color:#cc3300">注文者住所</th>
+                            <td colspan="3">〒
+                                <input type="text" name="kokyakuZip1" id="kokyakuZip1" size="7" maxlength="3" value=""
+                                    class="zip1 chgInfo" onkeypress="_chkInp();" />
+
+                                -
+                                <input type="text" name="kokyakuZip2" id="kokyakuZip2" size="8" maxlength="4" value=""
+                                    class="zip2 chgInfo" onkeypress="_chkInp();" />
+
+
+                                <button type="button" class="btn btn-sm btn-secondary">
+                                    住所反映
+                                </button>
+                                <button type="button" class="btn btn-sm btn-secondary">
+                                    検索
+                                </button>
+
+                                <table class="tblInner" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                        <tr>
+                                            <td>住所1：</td>
+                                            <td>
+                                                <input type="hidden" name="kokyakuKenCd" id="kokyakuKenCd" value="" />
+                                                <input type="text" name="kokyakuAddr1" id="kokyakuAddr1" size="50"
+                                                    value="" maxlength="50" class="multi chgInfo"
+                                                    />
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>住所2：</td>
+                                            <td>
+                                                <input type="text" name="kokyakuAddr2" id="kokyakuAddr2" size="50"
+                                                    value="" maxlength="50" class="multi chgInfo"
+                                                    onkeypress="_chkInp();" />
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>住所3：</td>
+                                            <td>
+                                                <input type="text" name="kokyakuAddr3" id="kokyakuAddr3" size="50"
+                                                    value="" maxlength="50" class="multi chgInfo"
+                                                    onkeypress="_chkInp();" />
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#A9A9A9">電話番号</th>
+                            <td colspan="3">
+                                <div class="row">
+                                    <label class="col-1">1：</label>
+                                    <input maxlength='15' class="form-control col-11"> </input>
+                                    <label class="col-1">2:</label>
+                                    <input maxlength='15' class="form-control col-11"> </input>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#A9A9A9">FAX</th>
+                            <td colspan="3">
+                                1：<input type="text" name="kokyakuFax" size="20" id="kokyakuFax" value="" maxlength="15"
+                                    class="tel" onkeypress="_chkInp();" style="" />
+
+                            </td>
+                        </tr>
+                        <tr style="height:48px;">
+                            <th bgcolor="#A9A9A9">メール</th>
+
+                            <td colspan="3">
+
+                                1：<input type='text' name='kokyakuMail1' id='kokyakuMail1' value='' onpaste='_chkInp();'
+                                    ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='mail' maxlength='85'
+                                    > </input>
+                                <br />
+                                2：<input type='text' name='kokyakuMail2' id='kokyakuMail2' value='' onpaste='_chkInp();'
+                                    ondrop='_chkInp();' onkeypress='_chkInp();_chkInp();' class='mail' maxlength='85'
+                                    > </input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="must" bgcolor="#A9A9A9" style="color:#cc3300">性別</th>
+                            <td>
+
+                                <input type="radio" name="kokyakuSexKbn" id="kokyakuSexKbn0" value="1" />男
+                                <input type="radio" name="kokyakuSexKbn" id="kokyakuSexKbn1" value="2" />女
+                                <input type="radio" name="kokyakuSexKbn" id="kokyakuSexKbn9" value="9" checked />不明
+
+                            </td>
+                            <th bgcolor="#A9A9A9">生年月日</th>
+                            <td>
+                                <input type='text' name='kokyakuBirth'  maxlength=10 value=''
+                                    onkeypress='_chkInp();' id='kokyakuBirth'
+                                    onchange='calcAge("#kokyakuBirth","#kokyakuAge",null,null,null,true);'
+                                    onblur='_formateDate(this,"生年月日は日付を入力して下さい。");calcAge("#kokyakuBirth","#kokyakuAge",null,null,null,true);'
+                                    class='ymd' /><a href='#' id='kokyakuBirth_calendar_link_id' tabindex=-1>
+                                    <font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17'
+                                            border='0' /></font>
+                                </a>
+                                <script
+                                    type='text/javascript'>$(document).ready(function () { Calendar.setup({ inputField: 'kokyakuBirth', ifFormat: '%Y/%m/%d', showsTime: false, weekNumbers: false, button: 'kokyakuBirth_calendar_link_id', singleClick: true, step: 1 }); });</script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#A9A9A9">職業</th>
+                            <td>
+
+                                <select name="kokyakuJobKbn" id="kokyakuJobKbn" size="1">
+
+                                    <option value=""></option>
+
+                                    <option value="1">会社員</option>
+
+                                    <option value="2">教職</option>
+
+                                    <option value="3">公務員</option>
+
+                                    <option value="4">専門業・技術職</option>
+
+                                    <option value="5">サービス業</option>
+
+                                    <option value="6">自営業</option>
+
+                                    <option value="7">学生</option>
+
+                                    <option value="8">主婦</option>
+
+                                    <option value="9" selected>その他</option>
+
+                                </select>
+
+                            </td>
+                            <th bgcolor="#A9A9A9">年齢</th>
+                            <td>
+                                <span id="kokyakuAge">&nbsp;</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#A9A9A9">会員ランク</th>
+                            <td>
+
+                                <select name="kokyakuRankKbn" id="kokyakuRankKbn" size="1">
+
+                                    <option value="C">BtoC</option>
+
+                                    <option value="B">BtoB</option>
+
+                                </select>
+
+                            </td>
+                            <th bgcolor="#A9A9A9">初回購買日</th>
+                            <td>
+                                <span id="kokyakuFirstBuyDateDisp">&nbsp;</span>
+                                <input type="hidden" name="firstBuyDate" value="" />
+                            </td>
+                        </tr>
+                        <tr style="height:25px">
+                            <th bgcolor="#A9A9A9">購入履歴</th>
+                            <td>
+                                <span id="kokyakuBuyCountDisp">0</span>回
+                                <a id="btnKokyakuBuyCountDisp" href="javascript:void(0)" onclick="showCC060();"
+                                    style="display:none">
+                                    <img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17"
+                                        align="middle" border="0" />
+                                </a>
+                                <input type="hidden" id="buyCount" name="buyCount" value="0" />
+                            </td>
+                            <th bgcolor="#A9A9A9">累計購入<br />金額</th>
+                            <td>
+                                <span id="kokyakuBuySumKinDisp">0</span>円
+                                <input type="hidden" name="buySumKin" value="0" />
+                            </td>
+                        </tr>
+                        <tr style="height:25px">
+                            <th bgcolor="#A9A9A9">キャンペーン履歴</th>
+                            <td>
+                                <span id="kokyakuCampaignRirekiNumDisp">0</span>回
+                                <a id="btnKokyakuCampaignRirekiNumDisp" href="javascript:void(0)" onclick="showCC063();"
+                                    style="display:none">
+                                    <img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17"
+                                        align="middle" border="0" />
+                                </a>
+                                <input type="hidden" name="campaignRirekiNum" id="campaignRirekiNum" value="0" />
+                            </td>
+                            <th bgcolor="#A9A9A9">DM履歴</th>
+                            <td>
+                                <span id="kokyakuDmNumDisp">0</span>回
+                                <a id="btnKokyakuDmNumDisp" href="javascript:void(0)" onclick="showCC065();"
+                                    style="display:none">
+                                    <img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17"
+                                        align="middle" border="0" />
+                                </a>
+                                <input type="hidden" name="dmNum" id="dmNum" value="0" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#A9A9A9">ポイント履歴</th>
+                            <td>
+                                <span id="kokyakuPointDisp">0</span>回
+                                <a id="btnKokyakuPointNumDisp" href="javascript:void(0)" onclick="showCC064();"
+                                    style="display:none">
+                                    <img src="../ecsdocs2/img/window_new.gif" alt="" width="17" height="17"
+                                        align="middle" border="0" />
+                                </a>
+                                <input type="hidden" name="pointRirekiNum" id="pointRirekiNum" value="0" />
+                            </td>
+                            <th bgcolor="#A9A9A9">利用可能<br />ポイント</th>
+                            <td>
+                                <span id="kokyakuKanouPointDisp">0</span>P
+                                <input type="hidden" name="pointNum" id="pointNum" value="0" />
+                            </td>
+                        </tr>
+                        <tr style="height:40px;">
+                            <th bgcolor="#A9A9A9">会員メモ</th>
+                            <td colspan="3">
+                                <textarea name="remarks" id="remarks" rows="2" cols="45" style=""></textarea>
+
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

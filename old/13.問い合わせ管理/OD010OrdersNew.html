@@ -1330,52 +1330,8 @@
 											<col width="75"/>
 											<col width="130"/>
 										</colgroup>
-										<tr>
-											<th class="must">注文番号</th>
-											<td><input type="hidden" name="orderFinishReturnUrl" value="/easpro2/e_asproOrder/OD010OrdersNew" /></td>
-											<th class="must">代表番号</th>
-											<td>
-												<input type="hidden" id="uketukeCd" name="uketukeCd" value="" />
-												<input type="hidden" id="orderCdTypical" name="orderCdTypical" value="" />
-												<input type="hidden" id="orderNoTypical" name="orderNoTypical" value="" />
-												&nbsp;</td>
-										</tr>
-										<tr style="height:25px;">
-											<th><small>外部注文番号</small></th>
-											<td colspan="3">
-												<input type="hidden" id="gaibuOrderCd" name="gaibuOrderCd" value="" />
-												&nbsp;
-											</td>
-										</tr>
-										<tr style="height:25px;">
-											<th class="must">注文日時</th>
-											<td style="">
-											<input type='text' name='orderYmd' style='width:82px;'  maxlength=10 value='2019/01/13' class='ymd' onkeypress='_chkInp();' id='orderYmd' onblur='_formateDate(this,"注文日は日付を入力して下さい。");' /><a href='#' id='orderYmd_calendar_link_id' tabindex=-1 ><font size='2'><img src='../ecsdocs2/img/calendar.gif' width='17' height='17' border='0' /></font></a><script type='text/javascript'>Calendar.setup({inputField:'orderYmd',ifFormat:'%Y/%m/%d',showsTime:false,weekNumbers:false,button: 'orderYmd_calendar_link_id',singleClick : true,step:1});</script>
-												<br/>
-												<input type='text' name='orderHh' id='orderHh' value='18' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='numcode chgInfo' maxlength='2' style='width:31.88px;' onchange=lpad2(this);> </input>：
-												<input type='text' name='orderMi' id='orderMi' value='28' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='numcode chgInfo' maxlength='2' style='width:31.88px;' onchange=lpad2(this);> </input>：
-												<input type='text' name='orderSs' id='orderSs' value='26' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='numcode chgInfo' maxlength='2' style='width:31.88px;' onchange=lpad2(this);> </input>
-											</td>
-											<th class="must">サイト名</th>
-											<td style="">
-												
-													<select name="siteCd" id="siteCd" size="1" style="width:120px;">
-													
-														<option value="100"  >
-															BtoC受注
-														</option>
-													
-														<option value="101"  >
-															BtoB受注
-														</option>
-													
-													</select>
-												
-												<input type="hidden" name="siteNm" value="" />
-												<input type="hidden" id="siteKbn" name="siteKbn" value="1" />
-												<input type="hidden" name="siteKbnType" value="" />
-											</td>
-										</tr>
+										
+										
 										<tr style="height:25px;">
 											<th>注文区分</th>
 											<td style="">
@@ -1396,6 +1352,7 @@
 														
 													</select>
 												
+
 											</td>
 											<th>媒体名</th>
 											<td style="">
@@ -1416,6 +1373,7 @@
 											<th>届先件数</th>
 											<td>
 												<input type='text' name='tdkCnt' id='tdkCnt' value='1' onpaste='_chkInp();' ondrop='_chkInp();' onkeypress='_chkInp();' class='disp' readonly  style='width:54.12px;border: 0px; tabindex=-1;'> </input>件
+						
 											</td>
 										</tr>
 									</table>
